@@ -11,7 +11,11 @@ config.close()
 
 def main():
     global root
-    root = ttk.Window(themename=settings["theme"])
+    if not(settings["theme"] == "pride"):
+        root = ttk.Window(themename=settings["theme"])
+    else:
+        root = ttk.Window(themename="cosmo")
+        root.iconbitmap("../images/pride.ico")
     root.title("Configurator")
     root.geometry("400x500")
     style = ttk.Style()
@@ -30,13 +34,17 @@ def main():
     error_button.pack(pady=10)
     # --------------------------------------- #
     themes = style.theme_names()
+    themes.append("pride")
     theme_label = ttk.Label(root, text="主题：", font=("Arial", 15))
     theme_label.pack(side=LEFT)
     theme_combo = ttk.Combobox(root, values=themes, font=("Arial", 15))
+    theme_combo.set(settings["theme"])
     theme_combo.pack(padx=10, side=LEFT)
-    theme_combo.current(themes.index(style.theme.name))
     def change_theme(event):
         theme_cbo_value = theme_combo.get()
+        if theme_cbo_value == "pride":
+            root.iconbitmap("../images/pride.ico")
+            theme_cbo_value = "cosmo"
         style.theme_use(theme_cbo_value)
         theme_combo.selection_clear()
     theme_combo.bind('<<ComboboxSelected>>', change_theme)

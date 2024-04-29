@@ -6,6 +6,7 @@ import ttkbootstrap
 os.chdir(os.path.dirname(__file__))
 
 themes = ttkbootstrap.Style().theme_names()
+themes.append("pride")
 
 def main():
     if len(sys.argv) <= 2:

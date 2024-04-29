@@ -233,11 +233,11 @@ class Launcher():
         def calculatorLauncher():
             subprocess.Popen("calc")
         def md5CheckerLauncher():
-            msgbox.showinfo(title="Windows 实用工具", message="MD5校验器在\"src\\cmdtools\md5.py\"，请根据提示使用")
+            msgbox.showinfo(title="Windows 实用工具", message="MD5校验器在\"src\\cmdtools\\md5.py\"，请根据提示使用")
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.9.5 zh-cn
+        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.9.6 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：/main.py
@@ -265,7 +265,10 @@ def main():
     root.title("Windows 实用工具")
     root.geometry("500x550")
     root.resizable(False, False)
-    root.iconbitmap("./images/icon.ico")
+    if settings["theme"] == "pride":
+        root.iconbitmap("./images/pride.ico")
+    else :
+        root.iconbitmap("./images/icon.ico")
     # 窗口
     # ===================================== #
     title = ttk.Label(root, text="Windows 实用工具", font=("等线 Light",22,"normal"))
