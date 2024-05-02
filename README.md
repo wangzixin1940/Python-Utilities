@@ -2,7 +2,7 @@
 
 ---
 
-![Logo](images/logo.tiff)
+![Logo](images/logo.png)
 
 ## 开发者工具使用指南
 
