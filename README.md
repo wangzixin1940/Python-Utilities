@@ -2,7 +2,7 @@
 
 ---
 
-![Logo](C:\Users\shuqi\编程\Python\Windows 实用工具\images\logo.tiff)
+![Logo](images/logo.tiff)
 
 ## 开发者工具使用指南
 
