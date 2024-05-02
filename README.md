@@ -309,3 +309,6 @@ Verify the MD5 value of the file and use the "open (rb)" method for large files
 **由GitHub用户@wangzixin1940编写**
 
 **Written by GitHub user @wangzixin1940**# Windows-Utilities
+
+*希望给一个Star~* <br />
+*Give me a star, please~*
