@@ -259,7 +259,6 @@ def main():
     with open("./data/theme.json", "r", encoding="utf-8") as settings:
         settings = settings.read()
         settings = json.loads(settings)
-        style = ttk.Style(settings["theme"])
     logger.info("STARTING APP")
     style.configure("TButton", font=("等线 Light",18,"normal"), width=20, height=3)
     root.title("Windows 实用工具")
@@ -267,8 +266,10 @@ def main():
     root.resizable(False, False)
     if settings["theme"] == "pride":
         root.iconbitmap("./images/pride.ico")
+        style = ttk.Style("cosmo")
     else :
         root.iconbitmap("./images/icon.ico")
+        style = ttk.Style(settings["theme"])
     # 窗口
     # ===================================== #
     title = ttk.Label(root, text="Windows 实用工具", font=("等线 Light",22,"normal"))
