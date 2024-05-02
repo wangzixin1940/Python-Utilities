@@ -2,7 +2,7 @@
 
 ---
 
-![Logo](https://github.com/wangzixin1940/Windows-Utilities/images/logo.tiff)
+![Logo](images/logo.tiff)
 
 ## 开发者工具使用指南
 
