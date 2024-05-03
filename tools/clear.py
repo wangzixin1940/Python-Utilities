@@ -45,7 +45,7 @@ def main():
     root.title("Clear")
     root.geometry("350x300")
     root.resizable(False, False)
-    title_label = ttk.Label(root, text="Log&Cache Clear", font=("Arial", 20, "bold"))
+    title_label = ttk.Label(root, text="Clear", font=("Arial", 20, "bold"))
     clear_log = ttk.Button(root, text="删除运行时产生的log文件", command=clear_logs, bootstyle="primary-outline")
     clear_cache = ttk.Button(root, text="删除缓存文件", command=clear_caches, bootstyle="primary-outline")
     clear_profile = ttk.Button(root, text="擦除配置文件（高级）", command=clear_profiles, bootstyle="danger-outline")
