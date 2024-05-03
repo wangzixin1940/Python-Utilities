@@ -308,6 +308,20 @@ Verify the MD5 value of the file and use the "open (rb)" method for large files
 
 
 
+## 如何安装需要的Python包
+
+``` cmd
+pip install -r requirements.txt
+```
+
+## How to install the required Python package
+
+``` cmd
+pip install -r requirements.txt
+```
+
+
+
 **由GitHub用户@wangzixin1940编写**
 
 **Written by GitHub user @wangzixin1940**

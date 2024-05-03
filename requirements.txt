@@ -1,0 +1,5 @@
+tkinter
+ttkbootstrap
+logging
+pillow
+apeedtest
