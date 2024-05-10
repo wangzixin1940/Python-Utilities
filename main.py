@@ -40,12 +40,15 @@ logger = logging.getLogger("ROOT")
 
 
 
-# 第一个功能：检测网站和网络情况
 class DevTools():
     def __init__(self):
         msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
         logger.error("INVOCATION ERROR")
-    def webConnectTest(url):
+    def webConnectTest(url:str):
+        """
+        测试网站是否可以访问
+        url: 网站URL
+        """
         try :
             result = str(requests.get(url).status_code)
         except requests.exceptions.MissingSchema as err:
@@ -63,7 +66,15 @@ class DevTools():
             logger.error(f"STATUS CODE:{result} NOT FOUND")
             return f"网站返回了一个未知的HTTP状态码：{result}"
         # 如果HTTP状态码已知，则返回结果；否则提示用户返回未知状态码
-    def translator(text, appid, secretKey, originalLanguage, targetLanguage):
+    def translator(text:str, appid:str, secretKey:str, originalLanguage:str, targetLanguage:str):
+        """
+        text: 需要翻译的文本
+        appid: 百度翻译API的appid
+        secretKey: 百度翻译API的密钥
+        originalLanguage: 原文语言
+        targetLanguage: 译文语言
+        return：翻译结果
+        """
         salt = random.randint(32768, 65536)
         sign = hashlib.md5((str(appid)+text+str(salt)+secretKey).encode()).hexdigest()
         targetURL = "http://api.fanyi.baidu.com/api/trans/vip/translate"+"?appid="+str(appid)+"&q="+urllib.parse.quote(text)+"&from="+originalLanguage+"&to="+targetLanguage+"&salt="+str(salt)+"&sign="+sign
@@ -94,6 +105,9 @@ class DrawingTools():
         msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
         logger.error("INVOCATION ERROR")
     def charPicture(filename):
+        """
+        filename: 图片文件名
+        """
         color = "MNHQ$OC?7>!:-;."  # 字符
         def to_html(func):
             html_head = '''
@@ -234,6 +248,8 @@ class Launcher():
             subprocess.Popen("calc")
         def md5CheckerLauncher():
             msgbox.showinfo(title="Windows 实用工具", message="MD5校验器在\"src\\cmdtools\\md5.py\"，请根据提示使用")
+        def passwordCreatorLauncher():
+            subprocess.Popen("python \"src\\passwordCreator\\main.py\"") # python "src\passwordCreator\main.py"
 
 class System():
     def about():
@@ -292,8 +308,8 @@ def main():
     # ===================================== #
     externalsLabel = ttk.Label(root, text="其他工具 🧰", font=("等线 Light",18,"normal"))
     externalsLabel.pack() # 其他工具标签
-    clockButton = ttk.Button(root, text="时钟",command=Launcher.ExternalLauncher.clockLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
-    clockButton.pack() #时钟按钮
+    passwordCreatorButton = ttk.Button(root, text="密码生成器", command=Launcher.ExternalLauncher.passwordCreatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    passwordCreatorButton.pack() # 密码生成器按钮
     # ===================================== #
     menu = ttk.Menu(root)
     fileMenu = ttk.Menu(menu)
@@ -307,6 +323,7 @@ def main():
     fileMenu.add_command(label="退出", command=System.quitApp)
     otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
     otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
+    otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
     settingsMenu.add_command(label="颜色主题", command=System.switchTheme)
     root.config(menu=menu)
     # 工具栏

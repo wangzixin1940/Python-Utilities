@@ -10,7 +10,7 @@ logging.basicConfig(
                 format="%(asctime)s - %(levelname)s - %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
 )
-logger = logging.getLogger("USER-COMMAND")
+logger = logging.getLogger("SPEEDTEST")
 
 def webSpeedTest():
         logger.info("PREPARE FOR THE TEST")
@@ -39,7 +39,7 @@ txt.pack() # 文本框的标题
 
 txt.insert(tkinter.INSERT, "网速测试程序（独立版）\n基于SpeedTest.net的SpeedTest库构建\n版本 1.1\n")
 result = webSpeedTest()
-txt.insert(tkinter.INSERT, f"上传：{result[0]} MBits/s；下载：{result[1]} MBits/s")
+txt.insert(tkinter.INSERT, f"上传：{result[0]} MBits/s; 下载：{result[1]} MBits/s")
 txt.config(state = tkinter.DISABLED)
 
 root.mainloop()
