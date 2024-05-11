@@ -13,6 +13,7 @@ import datetime
 import random
 import ttkbootstrap as ttk
 from tkinter import messagebox as msgbox
+import pyperclip as cb
 
 
 logging.basicConfig(
@@ -56,6 +57,13 @@ def passwordCreator(length:int, includeSymbols:bool=False, includeNumbers:bool=T
 
 
 def main():
+    def copyToClipboard():
+        if password.get("1.0", "end") == "":
+            msgbox.showerror("Error", "No password to copy!")
+            return 1
+        cb.copy(str(password.get("1.0", "end")))
+        msgbox.showinfo("Copied", "Password copied to clipboard!")
+        return 0
     def changeValue():
         password.config(state="normal")
         password.delete("1.0", "end")
@@ -63,7 +71,7 @@ def main():
         password.config(state="disabled")
 
     root = ttk.Window("Password Creator", "cosmo")
-    root.geometry("400x400")
+    root.geometry("400x500")
     root.resizable(False, False)
     root.iconbitmap("./assets/icon.ico")
     root.title("Password Creator")
@@ -85,6 +93,8 @@ def main():
     password = ttk.Text(root, width=30, height=5)
     password.config(state="disabled")
     password.pack(pady=10)
+    copybtn = ttk.Button(root, text="Copy", command=lambda:copyToClipboard(), bootstyle="outline-primary")
+    copybtn.pack(pady=5)
     root.mainloop()
 
 
