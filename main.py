@@ -174,11 +174,14 @@ class Launcher():
             msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
             logger.error("INVOCATION ERROR")
         def webConnectTestLauncher():
-            with open("logs/records.log", "r") as r:
-                try :
-                    record = r.readlines()[len(r.readlines()) - 1]
-                except IndexError:
-                    record = ""
+            try :
+                with open("logs/records.log", "r") as r:
+                    try :
+                        record = r.readlines()[len(r.readlines()) - 1]
+                    except IndexError:
+                        record = ""
+            except FileNotFoundError:
+                record = ""
             url = easygui.enterbox(msg="输入URL（带“http://”）", title="Windows 实用工具", default=record)
             logger.info(f"USER INPUT:{url}")
             if (url != None):
