@@ -27,13 +27,24 @@ import json
 import subprocess
 import threading
 
+with open("data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # 读取设置文件
 
-logging.basicConfig(
-                filename=f"./logs/{datetime.date.today()}.log",
-                level=logging.INFO,
-                format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-                datefmt="%Y-%m-%d %H:%M:%S",
-)
+if not(settings["no-log-file"]):
+    logging.basicConfig(
+                    filename=f"./logs/{datetime.date.today()}.log",
+                    level=logging.INFO,
+                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                    datefmt="%Y-%m-%d %H:%M:%S",
+    )
+else :
+    logging.basicConfig(
+                    level=logging.INFO,
+                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s - NO-LOG-FILE",
+                    datefmt="%Y-%m-%d %H:%M:%S",
+    )
 logger = logging.getLogger("ROOT")
 # print(logger.__dict__)
 # 配置日志信息
