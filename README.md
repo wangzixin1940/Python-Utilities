@@ -36,6 +36,16 @@
 
 *在 V 1.3.1 加入*
 
+### Password Creator
+
+一个帮助您生成强密码的工具，可选择插入符号、数字或者大写字母。生成后，可一键复制到剪贴板！
+
+> [!NOTE]
+>
+> 文件位置：./src/passwordCreator/main.py
+
+
+
 ## 绘画工具使用指南
 
 ### 字符画
@@ -189,6 +199,20 @@ You can change your AppID and secret key in "logs/appid. json", or view the para
 
 *Added in V 1.3.1*
 
+### Password Creator
+
+A tool that helps you generate strong passwords, with the option to insert symbols, numbers, or uppercase letters. After generation, it can be copied to the clipboard with just one click!
+
+> [!NOTE]
+>
+> File location: ./src/passwordCreator/main.py
+>
+
+
+
+
+
+
 ## Drawing Tools User Guide
 
 ### Character drawing
@@ -224,6 +248,7 @@ Every time the program is loaded, the JSON file (data\theme. json) will be loade
 >
 > File location: ./data/theme.json
 >
+
 *Added in V 1.7.3*
 
 ### Theme Switcher GUI Program
