@@ -207,11 +207,14 @@ class Launcher():
                 result = msgbox.askokcancel(message="百度翻译需要您的AppID和秘钥才能使用。是否输入？\n翻译器承诺绝对不会把您的隐私泄露。", title="翻译器", icon="warning")
                 if result == True:
                     datas = easygui.multpasswordbox("输入AppID和秘钥。", title="翻译器", fields=["AppID", "秘钥"])
-                    id = datas[0]
-                    key = datas[1]
-                    entered = True
-                    with open("data/translator.appid.json", "w") as appid:
-                        appid.write(json.dumps({"id":id, "key":key}))
+                    if datas != None:
+                        id = datas[0]
+                        key = datas[1]
+                        entered = True
+                        with open("data/translator.appid.json", "w") as appid:
+                            appid.write(json.dumps({"id":id, "key":key}))
+                    else :
+                        entered = False
                 else :
                     entered = False
             if (entered == True):
@@ -272,7 +275,7 @@ class System():
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：/main.py
 发行日期：2024-4-6
-VERSION 1.9 RELEASE
+VERSION 1.10 RELEASE
 """)
     def languageSettings():
         msgbox.showerror(title="Windows 实用工具", message="EN-US版本未推出，等待您的翻译！\nThe EN-US version is not yet available. Waiting for your translation!")

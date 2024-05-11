@@ -78,6 +78,7 @@ def main():
     title = ttk.Label(root, text="Password Creator", font=("Arial", 20))
     title.pack(pady=10)
     length = ttk.Spinbox(root, from_=4, to=32, width=10)
+    length.set(10)
     length.pack(pady=5)
     includeSymbols = ttk.BooleanVar(value=True)
     includeNumbers = ttk.BooleanVar(value=True)
