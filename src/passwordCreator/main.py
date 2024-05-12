@@ -14,14 +14,24 @@ import random
 import ttkbootstrap as ttk
 from tkinter import messagebox as msgbox
 import pyperclip as cb
+import json
 
+with open("../../data/settings.json", "r", encoding="utf-8") as f:
+    settings = json.load(f)
 
-logging.basicConfig(
-                filename=f"../../logs/{datetime.date.today()}.log",
-                level=logging.INFO,
-                format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-                datefmt="%Y-%m-%d %H:%M:%S",
-)
+if not(settings["no-log-file"]):
+    logging.basicConfig(
+                    filename=f"../../logs/{datetime.date.today()}.log",
+                    level=logging.INFO,
+                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                    datefmt="%Y-%m-%d %H:%M:%S",
+    )
+else:
+    logging.basicConfig(
+                    level=logging.INFO,
+                    format="%(asctime)s - %(name)s - %(levelname)s - NO-LOG-FILE - %(message)s",
+                    datefmt="%Y-%m-%d %H:%M:%S",
+    )
 logger = logging.getLogger("PWDCTR")
 
 

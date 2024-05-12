@@ -42,7 +42,7 @@ if not(settings["no-log-file"]):
 else :
     logging.basicConfig(
                     level=logging.INFO,
-                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s - NO-LOG-FILE",
+                    format="%(asctime)s - %(name)s - %(levelname)s - NO-LOG-FILE - %(message)s",
                     datefmt="%Y-%m-%d %H:%M:%S",
     )
 logger = logging.getLogger("ROOT")
@@ -318,11 +318,6 @@ def main():
     speedTestButton = ttk.Button(root, text="测网速",command=Launcher.ExternalLauncher.webSpeedTsetLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     speedTestButton.pack() # 测速按钮
     # ===================================== #
-    DrawingToolsLabel = ttk.Label(root, text="绘画工具🎨", font=("等线 Light",18,"normal"))
-    DrawingToolsLabel.pack() # 绘画工具标签
-    charPictureButton = ttk.Button(root, text="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
-    charPictureButton.pack() # 字符画按钮
-    # ===================================== #
     externalsLabel = ttk.Label(root, text="其他工具 🧰", font=("等线 Light",18,"normal"))
     externalsLabel.pack() # 其他工具标签
     passwordCreatorButton = ttk.Button(root, text="密码生成器", command=Launcher.ExternalLauncher.passwordCreatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
@@ -340,7 +335,9 @@ def main():
     fileMenu.add_command(label="退出", command=System.quitApp)
     otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
     otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
+    otherMenu.add_separator()
     otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
+    otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
     settingsMenu.add_command(label="颜色主题", command=System.switchTheme)
     root.config(menu=menu)
     # 工具栏
