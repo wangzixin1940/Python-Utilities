@@ -17,3 +17,6 @@ V 1.9.5 2024/4/27
 
 V 1.10.1 2024/5/11
 增加Password Creator，路径在"src/passwordCreator/main.py"
+
+V 1.10.2 2024/5/12
+bug修复，删除"pacman.py"
