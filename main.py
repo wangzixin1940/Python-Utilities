@@ -285,19 +285,32 @@ VERSION 1.10 RELEASE
         if msgbox.askokcancel(title="Windows 实用工具", message="是否切换主题？\n切换后需要重新启动程序才能生效。打开后本程序会自动关闭。", icon="warning"):
             subprocess.Popen("python \"tools\\configurator.py\"") # python "tools\configurator.py"
             root.destroy()
+    def importSettings():
+        path = easygui.fileopenbox(title="打开文件", filetypes=[["*.json", "JSON files"]], default="*.json")
+        global settings
+        if (path != None):
+            if (msgbox.askokcancel(title="Windows 实用工具", message="是否导入设置？\n现有的配置文件将会被覆盖。\n损坏的配置文件可能会导致程序运行错误。", icon="warning")):
+                with open(path, "r+", encoding="utf-8") as new_settings:
+                    new_settings = new_settings.read()
+                    new_settings = json.loads(new_settings)
+                    logger.info(f"SETTINGS: {new_settings}")
+                    with open("data/settings.json", "w+", encoding="utf-8") as settings:
+                        settings.write(json.dumps(new_settings, ensure_ascii=False, indent=4))
+                        msgbox.showinfo(title="Windows 实用工具", message="设置已导入。")
+                        logger.info("SETTINGS IMPORTED")
 
 def main():
     global root
     global style
     root = ttk.Window()
-    with open("./data/theme.json", "r", encoding="utf-8") as settings:
-        settings = settings.read()
-        settings = json.loads(settings)
+    with open("./data/theme.json", "r", encoding="utf-8") as theme:
+        theme = theme.read()
+        theme = json.loads(theme)
     logger.info("STARTING APP")
     root.title("Windows 实用工具")
     root.geometry("500x550")
     root.resizable(settings["resizable"][0], settings["resizable"][1])
-    if settings["theme"] == "pride":
+    if theme["theme"] == "pride":
         root.iconbitmap("./images/pride.ico")
         style = ttk.Style("cosmo")
     else :
@@ -332,6 +345,7 @@ def main():
     if not(settings["no-settings-menu"]):
         menu.add_cascade(label="设置", menu=settingsMenu)
     menu.add_command(label="关于", command=System.about)
+    fileMenu.add_command(label="导入设置", command=System.importSettings)
     fileMenu.add_command(label="退出", command=System.quitApp)
     otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
     otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)

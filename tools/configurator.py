@@ -45,6 +45,8 @@ def main():
         if theme_cbo_value == "pride":
             root.iconbitmap("../images/pride.ico")
             theme_cbo_value = "cosmo"
+        else :
+            root.iconbitmap("../images/icon.ico")
         style.theme_use(theme_cbo_value)
         theme_combo.selection_clear()
     theme_combo.bind('<<ComboboxSelected>>', change_theme)
