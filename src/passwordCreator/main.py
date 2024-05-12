@@ -102,7 +102,7 @@ def main():
     numbers.pack(pady=5)
     uppercase.pack(pady=5)
     lowercase.pack(pady=5)
-    generate = ttk.Button(root, text="生成", command=lambda:changeValue())
+    generate = ttk.Button(root, text="生成", command=lambda:changeValue(), bootstyle="success-outline")
     generate.pack(pady=10)
     password = ttk.Text(root, width=30, height=5)
     password.config(state="disabled")

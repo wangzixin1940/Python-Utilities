@@ -187,8 +187,9 @@ class Launcher():
             logger.info(f"USER INPUT:{url}")
             if (url != None):
                 record = url
-                with open("logs/records.log", "a") as record_log:
-                    record_log.write(f"\n{record}")
+                if not(settings["no-log-file"]):
+                    with open("logs/records.log", "a") as record_log:
+                        record_log.write(f"\n{record}")
             if (url != None):
                 global DevTools
                 result = DevTools.webConnectTest(url)
