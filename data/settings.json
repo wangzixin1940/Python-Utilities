@@ -1,3 +1,5 @@
 {
-    "no-log-file": false
+    "no-log-file": false,
+    "no-settings-menu": false,
+    "resizable": [false, false]
 }

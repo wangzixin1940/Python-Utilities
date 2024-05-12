@@ -296,7 +296,7 @@ def main():
     logger.info("STARTING APP")
     root.title("Windows 实用工具")
     root.geometry("500x550")
-    root.resizable(False, False)
+    root.resizable(settings["resizable"][0], settings["resizable"][1])
     if settings["theme"] == "pride":
         root.iconbitmap("./images/pride.ico")
         style = ttk.Style("cosmo")
@@ -329,16 +329,18 @@ def main():
     settingsMenu = ttk.Menu(menu)
     menu.add_cascade(label="文件", menu=fileMenu)
     menu.add_cascade(label="其他", menu=otherMenu)
-    menu.add_cascade(label="设置", menu=settingsMenu)
+    if not(settings["no-settings-menu"]):
+        menu.add_cascade(label="设置", menu=settingsMenu)
     menu.add_command(label="关于", command=System.about)
-    fileMenu.add_command(label="语言设置", command=System.languageSettings)
     fileMenu.add_command(label="退出", command=System.quitApp)
     otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
     otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
     otherMenu.add_separator()
     otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
     otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
-    settingsMenu.add_command(label="颜色主题", command=System.switchTheme)
+    if not(settings["no-settings-menu"]):
+        settingsMenu.add_command(label="颜色主题", command=System.switchTheme)
+        settingsMenu.add_command(label="语言设置", command=System.languageSettings)
     root.config(menu=menu)
     # 工具栏
     # ===================================== #
