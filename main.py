@@ -1,6 +1,13 @@
+import json
+
+with open("data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # 读取设置文件
+
 import io
 import sys
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding='utf8')
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding=settings["encoding"])
 # 更换编码
 
 import os
@@ -23,14 +30,8 @@ import http.client
 import hashlib
 import urllib
 import random
-import json
 import subprocess
 import threading
-
-with open("data/settings.json", "r") as settings:
-    settings = settings.read()
-    settings = json.loads(settings)
-    # 读取设置文件
 
 if not(settings["no-log-file"]):
     logging.basicConfig(
@@ -308,14 +309,23 @@ def main():
         theme = json.loads(theme)
     logger.info("STARTING APP")
     root.title("Windows 实用工具")
-    root.geometry("500x550")
+    root.geometry("{}x{}".format(settings["geometry"][0], settings["geometry"][1]))
     root.resizable(settings["resizable"][0], settings["resizable"][1])
-    if theme["theme"] == "pride":
-        root.iconbitmap("./images/pride.ico")
-        style = ttk.Style("cosmo")
+    if settings["icon-file-path"] == "@default":
+        if theme["theme"] == "pride":
+            root.iconbitmap("./images/pride.ico")
+            style = ttk.Style("cosmo")
+        else :
+            root.iconbitmap("./images/icon.ico")
+            style = ttk.Style(theme["theme"])
     else :
-        root.iconbitmap("./images/icon.ico")
-        style = ttk.Style(settings["theme"])
+        if os.path.exists(settings["icon-file-path"]):
+            root.iconbitmap(settings["icon-file-path"])
+            style = ttk.Style("cosmo")
+        else :
+            root.iconbitmap("./images/icon.ico")
+            style = ttk.Style("cosmo")
+            logger.warning("ICON FILE NOT FOUND. PROGRAM WILL USE DEFAULT ICON AND COSMO THEME.")
     style.configure("TButton", font=("等线 Light",18,"normal"), width=20, height=3)
     # 窗口
     # ===================================== #
@@ -336,26 +346,27 @@ def main():
     passwordCreatorButton = ttk.Button(root, text="密码生成器", command=Launcher.ExternalLauncher.passwordCreatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     passwordCreatorButton.pack() # 密码生成器按钮
     # ===================================== #
-    menu = ttk.Menu(root)
-    fileMenu = ttk.Menu(menu)
-    otherMenu = ttk.Menu(menu)
-    settingsMenu = ttk.Menu(menu)
-    menu.add_cascade(label="文件", menu=fileMenu)
-    menu.add_cascade(label="其他", menu=otherMenu)
-    if not(settings["no-settings-menu"]):
-        menu.add_cascade(label="设置", menu=settingsMenu)
-    menu.add_command(label="关于", command=System.about)
-    fileMenu.add_command(label="导入设置", command=System.importSettings)
-    fileMenu.add_command(label="退出", command=System.quitApp)
-    otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
-    otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
-    otherMenu.add_separator()
-    otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
-    otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
-    if not(settings["no-settings-menu"]):
-        settingsMenu.add_command(label="颜色主题", command=System.switchTheme)
-        settingsMenu.add_command(label="语言设置", command=System.languageSettings)
-    root.config(menu=menu)
+    if not(settings["no-menu"]):
+        menu = ttk.Menu(root)
+        fileMenu = ttk.Menu(menu)
+        otherMenu = ttk.Menu(menu)
+        settingsMenu = ttk.Menu(menu)
+        menu.add_cascade(label="文件", menu=fileMenu)
+        menu.add_cascade(label="其他", menu=otherMenu)
+        if not(settings["no-settings-menu"]):
+            menu.add_cascade(label="设置", menu=settingsMenu)
+        menu.add_command(label="关于", command=System.about)
+        fileMenu.add_command(label="导入设置", command=System.importSettings)
+        fileMenu.add_command(label="退出", command=System.quitApp)
+        otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
+        otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
+        otherMenu.add_separator()
+        otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
+        otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
+        if not(settings["no-settings-menu"]):
+            settingsMenu.add_command(label="颜色主题", command=System.switchTheme)
+            settingsMenu.add_command(label="语言设置", command=System.languageSettings)
+        root.config(menu=menu)
     # 工具栏
     # ===================================== #
     root.mainloop()
