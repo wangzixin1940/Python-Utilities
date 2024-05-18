@@ -49,14 +49,13 @@ def main():
             root.iconbitmap("../images/icon.ico")
         style.theme_use(theme_cbo_value)
         theme_combo.selection_clear()
+        save_changes()
     theme_combo.bind('<<ComboboxSelected>>', change_theme)
     def save_changes():
         settings["theme"] = theme_combo.get()
-        with open("data/theme.json", "w") as f:
+        with open("../data/theme.json", "w") as f:
             json.dump(settings, f)
-        msgbox.showinfo("保存成功！", "保存主题")
-    save_button = ttk.Button(root, text="保存", command=save_changes, bootstyle=(PRIMARY, OUTLINE))
-    save_button.pack(pady=10)
+        print("[INFO] 主题已保存。")
     root.mainloop()
 
 if __name__ == "__main__":
