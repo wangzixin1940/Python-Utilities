@@ -1,6 +1,5 @@
 # Windows 实用工具使用指南（Simplified Chinese）
 
----
 
 ![Logo](images/logo.png)
 
@@ -43,6 +42,20 @@
 > [!NOTE]
 >
 > 文件位置：./src/passwordCreator/main.py
+
+### JSON 和 XML 工具
+
+> [!IMPORTANT]
+>
+> 此工具集成在主界面的一个菜单按钮里！
+
+#### JSON转XML
+
+在main.py内置的程序，可帮助您从JSON文件轻松转到XML文件！
+
+#### XML转JSON
+
+在main.py内置的程序，可帮助您从XML文件轻松转到JSON文件！
 
 
 
@@ -208,7 +221,19 @@ A tool that helps you generate strong passwords, with the option to insert symbo
 > File location: ./src/passwordCreator/main.py
 >
 
+### JSON and XML tools
 
+> [!IMPORTANT]
+>
+> This tool is integrated into a menu button on the main interface!
+
+#### JSON to XML conversion
+
+The built-in program in main.py can help you easily transfer from JSON files to XML files!
+
+#### XML to JSON conversion
+
+The built-in program in main.py can help you easily transfer from XML files to JSON files!
 
 
 

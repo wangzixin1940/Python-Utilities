@@ -2,4 +2,7 @@ tkinter
 ttkbootstrap
 logging
 pillow
-apeedtest
+speedtest
+pyperclip
+xmltodict
+dicttoxml

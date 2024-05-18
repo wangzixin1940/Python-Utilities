@@ -32,6 +32,8 @@ import urllib
 import random
 import subprocess
 import threading
+import xmltodict
+import dicttoxml
 
 if not(settings["no-log-file"]):
     logging.basicConfig(
@@ -111,6 +113,55 @@ class DevTools():
                 httpClient.close()
                 return trans_result
         return None
+    def JSONtoXML(json_file_path:str, xml_file_path:str):
+        """
+        json_file_path: JSON文件路径
+        xml_file_path: 保存的XML文件路径
+        return :
+            0 => 成功
+            1 => JSON文件不存在
+            2 => JSON文件读取失败
+        """
+        try :
+            with open(json_file_path, "r", encoding="utf-8") as json_file:
+                json_data = json.load(json_file)
+                xml_data = str(dicttoxml.dicttoxml(json_data))
+                with open(xml_file_path, "w", encoding="utf-8") as xml_file:
+                    xml_file.write(xml_data)
+                    return 0
+        except FileNotFoundError:
+            logger.error("JSON FILE NOT FOUND: {}".format(json_file_path))
+            msgbox.showerror(message="JSON文件不存在！", title="JSON to XML")
+            return 1
+        except Exception as err:
+            logger.error(err)
+            msgbox.showerror(message="JSON文件读取失败！", title="JSON to XML")
+            return 2
+    def XMLtoJSON(xml_file_path:str, json_file_path:str):
+        """
+        xml_file_path: XML文件路径
+        json_file_path: 保存的JSON文件路径
+        return :
+            0 => 成功
+            1 => XML文件不存在
+            2 => XML文件读取失败
+        """
+        try :
+            with open(xml_file_path, "r", encoding="utf-8") as xml_file:
+                xml_data = xml_file.read()
+                json_data = json.dumps(xmltodict.parse(xml_data), ensure_ascii=False)
+                with open(json_file_path, "w", encoding="utf-8") as json_file:
+                    json_file.write(json_data)
+                    return 0
+        except FileNotFoundError:
+            logger.error("XML FILE NOT FOUND: {}".format(xml_file_path))
+            msgbox.showerror(message="XML文件不存在！", title="XML to JSON")
+            return 1
+        except Exception as err:
+            logger.error(err)
+            msgbox.showerror(message="XML文件读取失败！", title="XML to JSON")
+            return 2
+
 
 class DrawingTools():
     def __init__(self):
@@ -237,6 +288,30 @@ class Launcher():
                     else :
                         msgbox.showerror(message="缺少参数！", title="翻译器")
                         logger.error("MISSING ARGUMENTS")
+        def JSONtoXMLLauncher():
+            json = easygui.fileopenbox(title="打开文件", filetypes=[["*.json", "JSON files"]], default="*.json")
+            xml = easygui.filesavebox(title="保存文件", filetypes=[["*.xml", "XML files"]], default="*.xml")
+            if (json != None):
+                if (os.path.splitext(json)[-1] == ".json"):
+                    global DevTools
+                    logger.info(f"INPUT JSON:{json}")
+                    DevTools.JSONtoXML(json, xml)
+                    logger.info(f"OUTPUT FINISH")
+                else :
+                    msgbox.showerror(title="错误", message="文件拓展名不是\".json\"！")
+                    logger.error("FILE EXTENSION IS INCORRECT")
+        def XMLtoJSONLauncher():
+            xml = easygui.fileopenbox(title="打开文件", filetypes=[["*.xml", "XML files"]], default="*.xml")
+            json = easygui.filesavebox(title="保存文件", filetypes=[["*.json", "JSON files"]], default="*.json")
+            if (xml != None):
+                if (os.path.splitext(xml)[-1] == ".xml"):
+                    global DevTools
+                    logger.info(f"INPUT XML:{xml}")
+                    DevTools.XMLtoJSON(xml, json)
+                    logger.info(f"OUTPUT FINISH")
+                else :
+                    msgbox.showerror(title="错误", message="文件拓展名不是\".xml\"！")
+                    logger.error("FILE EXTENSION IS INCORRECT")
     class DrawingToolsLauncher():
         def __init__(self):
             msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
@@ -272,12 +347,12 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.10.2 zh-cn
+        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.11.1 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：/main.py
 发行日期：2024-4-6
-VERSION 1.10 RELEASE
+VERSION 1.11 RELEASE
 """)
     def languageSettings():
         msgbox.showerror(title="Windows 实用工具", message="EN-US版本未推出，等待您的翻译！\nThe EN-US version is not yet available. Waiting for your translation!")
@@ -328,19 +403,30 @@ def main():
             style = ttk.Style("cosmo")
             logger.warning("ICON FILE NOT FOUND. PROGRAM WILL USE DEFAULT ICON AND COSMO THEME.")
     style.configure("TButton", font=("等线 Light",18,"normal"), width=20, height=3)
+    style.configure("TMenubutton", font=("等线 Light",18,"normal"), width=19, height=3)
     # 窗口
     # ===================================== #
     title = ttk.Label(root, text="Windows 实用工具", font=("等线 Light",22,"normal"))
     title.pack() # 工具的标题
     # ===================================== #
-    DevToolsLabel = ttk.Label(root, text="开发者工具🛠️", font=("等线 Light",18,"normal"))
+    utilitiesLabel = ttk.Label(root, text="实用工具 🛠", font=("等线 Light",18,"normal"))
+    utilitiesLabel.pack() # 实用工具标签
+    translateButton = ttk.Button(root, text="翻译器", command=Launcher.DevToolsLauncher.translatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    translateButton.pack() # 翻译器按钮
+    # ===================================== #
+    DevToolsLabel = ttk.Label(root, text="开发者工具 </>", font=("等线 Light",18,"normal"))
     DevToolsLabel.pack() # 开发者工具标签
     connectButton = ttk.Button(root, text="检测网站状态码", command=Launcher.DevToolsLauncher.webConnectTestLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     connectButton.pack() # 检测网络连接
-    translateButton = ttk.Button(root, text="翻译器", command=Launcher.DevToolsLauncher.translatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
-    translateButton.pack() # 翻译器按钮
     speedTestButton = ttk.Button(root, text="测网速",command=Launcher.ExternalLauncher.webSpeedTsetLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     speedTestButton.pack() # 测速按钮
+    JSONandXMLtool = ttk.Menubutton(root, text="JSON和XML工具", bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    jaxtoolMenu = ttk.Menu(JSONandXMLtool)
+    jaxtoolMenu.add_command(label="JSON转XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
+    jaxtoolMenu.add_command(label="XML转JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+    JSONandXMLtool.config(menu=jaxtoolMenu)
+    JSONandXMLtool.pack()
+    # JSON和XML工具按钮
     # ===================================== #
     externalsLabel = ttk.Label(root, text="其他工具 🧰", font=("等线 Light",18,"normal"))
     externalsLabel.pack() # 其他工具标签
