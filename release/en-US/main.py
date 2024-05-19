@@ -3,18 +3,18 @@ import json
 with open("data/settings.json", "r") as settings:
     settings = settings.read()
     settings = json.loads(settings)
-    # 读取设置文件
+    # Read settings.json
 
 import io
 import sys
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding=settings["encoding"])
-# 更换编码
+# Change encoding to settings["encoding"]
 
 import os
 os.chdir(os.path.dirname(__file__))
-# 更换工作目录
+# Change current directory to the script's directory
 
-# 保留模块
+# Reserved modules
 from tkinter import messagebox as msgbox
 from ttkbootstrap.constants import *
 import ttkbootstrap as ttk
@@ -22,7 +22,7 @@ import easygui
 import logging
 import datetime
 
-# 工具所需模块
+# Modules required for the tool
 import requests
 from PIL import Image
 import os
@@ -50,64 +50,61 @@ else :
     )
 logger = logging.getLogger("ROOT")
 # print(logger.__dict__)
-# 配置日志信息
+# Configure log information
 
 
 
 class DevTools():
     def __init__(self):
-        msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
+        msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
         logger.error("INVOCATION ERROR")
     def webConnectTest(url:str):
         """
-        测试网站是否可以访问
-        url: 网站URL
+        Test if the website is accessible
+        url: website URL
         """
         try :
             result = str(requests.get(url).status_code)
         except requests.exceptions.MissingSchema as err:
             logger.critical("MISSING SCHEMA ERROR")
-            return f"协议不存在，您是否忘记在网站开头加上“http://”？\n{err}"
-        # 返回HTTP状态码
+            return 1
+        # Return http status code
         # print(result)
         with open("./data/connect.test.codes.json", "r") as statusCodes:
             statusCodes = statusCodes.read()
             statusCodes = json.loads(statusCodes)
-        # 常见的HTTP状态码列表
+        # A list of common http status codes
         try :
             return str(result) + "：" + statusCodes[result]
         except KeyError:
             logger.error(f"STATUS CODE:{result} NOT FOUND")
-            return f"网站返回了一个未知的HTTP状态码：{result}"
-        # 如果HTTP状态码已知，则返回结果；否则提示用户返回未知状态码
+            return 2
+        # If the http status code is known, the result is returned. Otherwise the user is prompted to return an unknown status code
     def translator(text:str, appid:str, secretKey:str, originalLanguage:str, targetLanguage:str):
         """
-        text: 需要翻译的文本
-        appid: 百度翻译API的appid
-        secretKey: 百度翻译API的密钥
-        originalLanguage: 原文语言
-        targetLanguage: 译文语言
-        return：翻译结果
+        text: Texts that need to be translated
+        appid: Baidu Translate API's appid (Get it from https://api.fanyi.baidu.com/api/trans/product/index)
+        secretKey: Baidu Translate API's secretKey (Get it from https://api.fanyi.baidu.com/api/trans/product/index)
+        originalLanguage: Original language
+        targetLanguage: Target language
+        return：Translated text
         """
         salt = random.randint(32768, 65536)
         sign = hashlib.md5((str(appid)+text+str(salt)+secretKey).encode()).hexdigest()
         targetURL = "http://api.fanyi.baidu.com/api/trans/vip/translate"+"?appid="+str(appid)+"&q="+urllib.parse.quote(text)+"&from="+originalLanguage+"&to="+targetLanguage+"&salt="+str(salt)+"&sign="+sign
-        # print(targetURL)
         httpClient = None
-        # 建立会话，返回结果
+        # Establish a session and return results
         try:
             httpClient = http.client.HTTPConnection("api.fanyi.baidu.com")
             httpClient.request("GET", targetURL)
-            # response是HTTPResponse对象
+            # response is HTTPResponse object
             response = httpClient.getresponse()
             result_all = response.read().decode("utf-8")
             result = json.loads(result_all)
-            # print(result, flush=True)
             trans_result = result["trans_result"][0]["dst"]
-            # print(trans_result, flush=True)
         except Exception as err:
             logger.critical(err)
-            msgbox.showerror(message=f"服务器发生错误，无法进行翻译，请到此日的log中查看详细报错信息（在“/logs/{datetime.date.today()}.log”）。", title="翻译器")
+            msgbox.showerror(message=f"An error occurred on the server. Translation is not possible.\nFor details about the error message go to the log of this day. (in \"/logs/{datetime.date.today()}.log\")", title="Translator")
         finally:
             if httpClient:
                 httpClient.close()
@@ -115,12 +112,12 @@ class DevTools():
         return None
     def JSONtoXML(json_file_path:str, xml_file_path:str):
         """
-        json_file_path: JSON文件路径
-        xml_file_path: 保存的XML文件路径
+        json_file_path: JSON file path
+        xml_file_path: XML file path
         return :
-            0 => 成功
-            1 => JSON文件不存在
-            2 => JSON文件读取失败
+            0 => Success
+            1 => JSON file not found
+            2 => JSON file read failure
         """
         try :
             with open(json_file_path, "r", encoding="utf-8") as json_file:
@@ -131,20 +128,20 @@ class DevTools():
                     return 0
         except FileNotFoundError:
             logger.error("JSON FILE NOT FOUND: {}".format(json_file_path))
-            msgbox.showerror(message="JSON文件不存在！", title="JSON to XML")
+            msgbox.showerror(message="JSON file not found!", title="JSON to XML")
             return 1
         except Exception as err:
             logger.error(err)
-            msgbox.showerror(message="JSON文件读取失败！", title="JSON to XML")
+            msgbox.showerror(message="JSON file read failure!", title="JSON to XML")
             return 2
     def XMLtoJSON(xml_file_path:str, json_file_path:str):
         """
-        xml_file_path: XML文件路径
-        json_file_path: 保存的JSON文件路径
+        xml_file_path: XML file path
+        json_file_path: JSON file path
         return :
-            0 => 成功
-            1 => XML文件不存在
-            2 => XML文件读取失败
+            0 => Success
+            1 => XML file not found
+            2 => XML file read failure
         """
         try :
             with open(xml_file_path, "r", encoding="utf-8") as xml_file:
@@ -155,23 +152,23 @@ class DevTools():
                     return 0
         except FileNotFoundError:
             logger.error("XML FILE NOT FOUND: {}".format(xml_file_path))
-            msgbox.showerror(message="XML文件不存在！", title="XML to JSON")
+            msgbox.showerror(message="XML file not found!", title="XML to JSON")
             return 1
         except Exception as err:
             logger.error(err)
-            msgbox.showerror(message="XML文件读取失败！", title="XML to JSON")
+            msgbox.showerror(message="XML file read failure!", title="XML to JSON")
             return 2
 
 
 class DrawingTools():
     def __init__(self):
-        msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
+        msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
         logger.error("INVOCATION ERROR")
     def charPicture(filename):
         """
-        filename: 图片文件名
+        filename: Picture file path
         """
-        color = "MNHQ$OC?7>!:-;."  # 字符
+        color = "MNHQ$OC?7>!:-;."  # Characters
         def to_html(func):
             html_head = '''
                     <html>
@@ -182,13 +179,13 @@ class DrawingTools():
                         </head>
                     <body> '''
             html_tail = "</body></html>"
-            # 定义 HTML
+            # Define HTML
             def wrapper(img):
                 pic_str = func(img)
                 pic_str = "".join(l + " <br/>" for l in pic_str.splitlines())
                 return html_head + pic_str + html_tail
             return wrapper
-        # 绘制字符画
+        # Draw character picture
         @to_html
         def make_char_img(img):
             pix = img.load()
@@ -216,14 +213,15 @@ class DrawingTools():
         pic_str = make_char_img(img)
         save_to_file(f"{filename}-char.html", pic_str)
         logger.info(f"OUTPUT FILE:{filename}-char.html")
-        msgbox.showinfo(title="输出成功", message="文件已经输出在和图片同一级目录下！")
+        msgbox.showinfo(title="Output Success", message="The file has been exported to the same level directory as the image!")
+
 class Launcher():
     def __init__(self):
-        msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
+        msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
         logger.error("INVOCATION ERROR")
     class DevToolsLauncher():
         def __init__(self):
-            msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
+            msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
             logger.error("INVOCATION ERROR")
         def webConnectTestLauncher():
             try :
@@ -234,7 +232,7 @@ class Launcher():
                         record = ""
             except FileNotFoundError:
                 record = ""
-            url = easygui.enterbox(msg="输入URL（带“http://”）", title="Windows 实用工具", default=record)
+            url = easygui.enterbox(msg="Input URL (bring \"http://\" on)", title="Windows Utilties", default=record)
             logger.info(f"USER INPUT:{url}")
             if (url != None):
                 record = url
@@ -244,9 +242,12 @@ class Launcher():
             if (url != None):
                 global DevTools
                 result = DevTools.webConnectTest(url)
-                msgbox.showinfo(title="Windows 实用工具",message=result)
-                if not("协议不存在，您是否忘记在网站开头加上“http://”？" in result):
+                error_list = {1:"Missing protocol", 2:"Server error"}
+                if not(1 == result or 2 == result):
                     logger.info(f"WEB ADDRESS CONNECT INFO: {url} => {result}")
+                    msgbox.showinfo(title="Windows Utilties", message=result)
+                else :
+                    msgbox.showinfo(title="Windows Utilties", message=error_list[result-1])
         def translatorLauncher():
             try:
                 with open("data/translator.appid.json", "r") as appid:
@@ -257,9 +258,9 @@ class Launcher():
                 entered = True
             except (FileNotFoundError, KeyError) as err:
                 logger.error(err)
-                result = msgbox.askokcancel(message="百度翻译需要您的AppID和秘钥才能使用。是否输入？\n翻译器承诺绝对不会把您的隐私泄露。", title="翻译器", icon="warning")
+                result = msgbox.askokcancel(message="Baidu translate requires your APPID and SecretKey to use. OK to input?\nTranslator promises never to compromise your privacy.", title="Translator", icon="warning")
                 if result == True:
-                    datas = easygui.multpasswordbox("输入AppID和秘钥。", title="翻译器", fields=["AppID", "秘钥"])
+                    datas = easygui.multpasswordbox("Input AppID and SecretKey.", title="Translator", fields=["AppID", "SecretKey"])
                     if datas != None:
                         id = datas[0]
                         key = datas[1]
@@ -275,22 +276,22 @@ class Launcher():
                     languages = languages.read()
                     languages = json.loads(languages)
                 global DevTools
-                text = easygui.enterbox("输入文本", title="翻译器")
+                text = easygui.enterbox("Input text to translate.", title="Translator", default="None")
                 if text:
                     fromLang = "auto"
-                    toLang = easygui.choicebox("想输出的语言？", choices=list(languages.keys()), title="翻译器")
+                    toLang = easygui.choicebox("What language do you want to output?", choices=list(languages.keys()), title="Translator")
                     # print(languages.keys())
                     logger.info(f"USER INPUT:[{text}, {fromLang}, {languages[toLang]}]")
                     if (text != None)and(fromLang != None)and(toLang != None):
                         result = DevTools.translator(text, id, key, fromLang, languages[toLang])
-                        msgbox.showinfo(message=f"翻译完成！\n原文：{text}\n翻译后：{result}\n翻译语言：{toLang}\n（如果结果内有“None”您却没有输入“None”，大概是翻译失败）", title="翻译器")
+                        msgbox.showinfo(message=f"Translation complete\nOriginal: {text}\nResult: {result}\nLanguage: {toLang}\n", title="Translator")
                         logger.info(f"RESULT:{result}")
                     else :
-                        msgbox.showerror(message="缺少参数！", title="翻译器")
+                        msgbox.showerror(message="Parameters are missing!", title="Translator")
                         logger.error("MISSING ARGUMENTS")
         def JSONtoXMLLauncher():
-            json = easygui.fileopenbox(title="打开文件", filetypes=[["*.json", "JSON files"]], default="*.json")
-            xml = easygui.filesavebox(title="保存文件", filetypes=[["*.xml", "XML files"]], default="*.xml")
+            json = easygui.fileopenbox(title="Open...", filetypes=[["*.json", "JSON files"]], default="*.json")
+            xml = easygui.filesavebox(title="Save As...", filetypes=[["*.xml", "XML files"]], default="*.xml")
             if (json != None):
                 if (os.path.splitext(json)[-1] == ".json"):
                     global DevTools
@@ -298,11 +299,11 @@ class Launcher():
                     DevTools.JSONtoXML(json, xml)
                     logger.info(f"OUTPUT FINISH")
                 else :
-                    msgbox.showerror(title="错误", message="文件拓展名不是\".json\"！")
+                    msgbox.showerror(title="ERROR", message="the file extension is not \".json\"!")
                     logger.error("FILE EXTENSION IS INCORRECT")
         def XMLtoJSONLauncher():
-            xml = easygui.fileopenbox(title="打开文件", filetypes=[["*.xml", "XML files"]], default="*.xml")
-            json = easygui.filesavebox(title="保存文件", filetypes=[["*.json", "JSON files"]], default="*.json")
+            xml = easygui.fileopenbox(title="Open...", filetypes=[["*.xml", "XML files"]], default="*.xml")
+            json = easygui.filesavebox(title="Save As...", filetypes=[["*.json", "JSON files"]], default="*.json")
             if (xml != None):
                 if (os.path.splitext(xml)[-1] == ".xml"):
                     global DevTools
@@ -310,30 +311,30 @@ class Launcher():
                     DevTools.XMLtoJSON(xml, json)
                     logger.info(f"OUTPUT FINISH")
                 else :
-                    msgbox.showerror(title="错误", message="文件拓展名不是\".xml\"！")
+                    msgbox.showerror(title="Error", message="The file extension is not \".xml\"!")
                     logger.error("FILE EXTENSION IS INCORRECT")
     class DrawingToolsLauncher():
         def __init__(self):
-            msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
+            msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
             logger.error("INVOCATION ERROR")
         def charPictureLauncher():
-            path = easygui.fileopenbox(title="打开文件", filetypes=[["*.jpg", "*.jpeg" , "JPG files"], ["*.bmp", "BMP files"], ["*.gif", "GIF files"]], default="*.png")
+            path = easygui.fileopenbox(title="Open...", filetypes=[["*.jpg", "*.jpeg" , "JPG files"], ["*.bmp", "BMP files"], ["*.gif", "GIF files"]], default="*.png")
             if (path != None):
                 if (os.path.splitext(path)[-1] == ".png")or(os.path.splitext(path)[-1] == ".jpg")or(os.path.splitext(path)[-1] == ".bmp")or(os.path.splitext(path)[-1] == ".gif")or(os.path.splitext(path)[-1] == ".jpeg"):
                     global DrawingTools
                     logger.info(f"INPUT PICTURE:{path}")
                     DrawingTools.charPicture(path)
                 else :
-                    msgbox.showerror(title="错误", message="文件拓展名错误！")
+                    msgbox.showerror(title="Error", message="The file extension is incorrect!")
                     logger.error("FILE EXTENSION IS INCORRECT")
     class ExternalLauncher():
         def __init__(self):
-            msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
+            msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
             logger.error("INVOCATION ERROR")
         def webSpeedTsetLauncher():
             def run():
                 subprocess.Popen("python ./src/webspeedtest/main.py")
-            msgbox.showwarning(title="警告", message="本程序等待时间极长，大约2分钟，将在后台进行测速操作。\n等待期间仍可以正常使用此程序。")
+            msgbox.showwarning(title="Warning", message="The waiting time of this program is extremely long about 2 minutes and the speed test operation will be performed in the background.\nYou can still use this program normally while waiting")
             thread = threading.Thread(target=run)
             thread.start()
         def clockLauncher():
@@ -341,41 +342,41 @@ class Launcher():
         def calculatorLauncher():
             subprocess.Popen("calc")
         def md5CheckerLauncher():
-            msgbox.showinfo(title="Windows 实用工具", message="MD5校验器在\"src\\cmdtools\\md5.py\"，请根据提示使用")
+            msgbox.showinfo(title="Windows Utilities", message="MD5 Checker in \"src\\cmdtools\\md5.py\". Follow the prompts to use, please.")
         def passwordCreatorLauncher():
             subprocess.Popen("python \"src\\passwordCreator\\main.py\"") # python "src\passwordCreator\main.py"
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.11.1 zh-cn
-作者：@wangzixin1940
-编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
-当前运行的Python文件：main.py
-发行日期：2024-5-19
-自述文件：README.md (en-US and zh-CN)
+        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v1.11.1 en-US
+Author: @wangzixin1940
+Editor: Microsoft Visual Studio Code
+Current File: main.py
+Release Date: 2024-5-19
+README File：README.md (en-US and zh-CN)
 MIT License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
 VERSION 1.11 RELEASE
 """)
     def languageSettings():
-        msgbox.showerror(title="Windows Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
+        msgbox.showinfo(title="Windows 实用工具", message="前往\"../../main.py\"运行中文版本！")
     def quitApp():
         root.destroy()
     def switchTheme():
-        if msgbox.askokcancel(title="Windows 实用工具", message="是否切换主题？\n切换后需要重新启动程序才能生效。打开后本程序会自动关闭。", icon="warning"):
+        if msgbox.askokcancel(title="Windows Utilities", message="OK to change theme?\nYou need to restart the program after the switch to take effect. The program will close automatically when opened.", icon="warning"):
             subprocess.Popen("python \"tools\\configurator.py\"") # python "tools\configurator.py"
             root.destroy()
     def importSettings():
-        path = easygui.fileopenbox(title="打开文件", filetypes=[["*.json", "JSON files"]], default="*.json")
+        path = easygui.fileopenbox(title="Open...", filetypes=[["*.json", "JSON files"]], default="*.json")
         global settings
         if (path != None):
-            if (msgbox.askokcancel(title="Windows 实用工具", message="是否导入设置？\n现有的配置文件将会被覆盖。\n损坏的配置文件可能会导致程序运行错误。", icon="warning")):
+            if (msgbox.askokcancel(title="Windows Utilities", message="OK to import?\nThe existing configuration file will be overwritten.\nA corrupted configuration file may cause the program to run incorrectly.", icon="warning")):
                 with open(path, "r+", encoding="utf-8") as new_settings:
                     new_settings = new_settings.read()
                     new_settings = json.loads(new_settings)
                     logger.info(f"SETTINGS: {new_settings}")
                     with open("data/settings.json", "w+", encoding="utf-8") as settings:
                         settings.write(json.dumps(new_settings, ensure_ascii=False, indent=4))
-                        msgbox.showinfo(title="Windows 实用工具", message="设置已导入。")
+                        msgbox.showinfo(title="Windows Utilities", message="Settings imported successfully!")
                         logger.info("SETTINGS IMPORTED")
 
 def main():
@@ -386,7 +387,7 @@ def main():
         theme = theme.read()
         theme = json.loads(theme)
     logger.info("STARTING APP")
-    root.title("Windows 实用工具")
+    root.title("Windows Utilities")
     root.geometry("{}x{}".format(settings["geometry"][0], settings["geometry"][1]))
     root.resizable(settings["resizable"][0], settings["resizable"][1])
     if settings["icon-file-path"] == "@default":
@@ -404,59 +405,59 @@ def main():
             root.iconbitmap("./images/icon.ico")
             style = ttk.Style("cosmo")
             logger.warning("ICON FILE NOT FOUND. PROGRAM WILL USE DEFAULT ICON AND COSMO THEME.")
-    style.configure("TButton", font=("等线 Light",18,"normal"), width=20, height=3)
-    style.configure("TMenubutton", font=("等线 Light",18,"normal"), width=19, height=3)
-    # 窗口
+    style.configure("TButton", font=("Times New Roman",14,"normal"), width=30, height=3)
+    style.configure("TMenubutton", font=("Times New Roman",14,"normal"), width=28, height=3)
+    # Window
     # ===================================== #
-    title = ttk.Label(root, text="Windows 实用工具", font=("等线 Light",22,"normal"))
-    title.pack() # 工具的标题
+    title = ttk.Label(root, text="Windows Utilities", font=("Airal",20,"bold"))
+    title.pack() # Title
     # ===================================== #
-    utilitiesLabel = ttk.Label(root, text="实用工具 🛠", font=("等线 Light",18,"normal"))
-    utilitiesLabel.pack() # 实用工具标签
-    translateButton = ttk.Button(root, text="翻译器", command=Launcher.DevToolsLauncher.translatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
-    translateButton.pack() # 翻译器按钮
+    utilitiesLabel = ttk.Label(root, text="Utilities 🛠", font=("Airal",18,"normal"))
+    utilitiesLabel.pack() # Utilities tab
+    translateButton = ttk.Button(root, text="Translator", command=Launcher.DevToolsLauncher.translatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    translateButton.pack() # Translator button
     # ===================================== #
-    DevToolsLabel = ttk.Label(root, text="开发者工具 </>", font=("等线 Light",18,"normal"))
-    DevToolsLabel.pack() # 开发者工具标签
-    connectButton = ttk.Button(root, text="检测网站状态码", command=Launcher.DevToolsLauncher.webConnectTestLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
-    connectButton.pack() # 检测网络连接
-    speedTestButton = ttk.Button(root, text="测网速",command=Launcher.ExternalLauncher.webSpeedTsetLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
-    speedTestButton.pack() # 测速按钮
-    JSONandXMLtool = ttk.Menubutton(root, text="JSON和XML工具", bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    DevToolsLabel = ttk.Label(root, text="DevTools </>", font=("Airal",18,"normal"))
+    DevToolsLabel.pack() # DevTools tab
+    connectButton = ttk.Button(root, text="Detect website status code", command=Launcher.DevToolsLauncher.webConnectTestLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    connectButton.pack() # Check website status code button
+    speedTestButton = ttk.Button(root, text="Web Speed Test",command=Launcher.ExternalLauncher.webSpeedTsetLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    speedTestButton.pack() # SpeedTest button
+    JSONandXMLtool = ttk.Menubutton(root, text="JSON and XML tools", bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     jaxtoolMenu = ttk.Menu(JSONandXMLtool)
-    jaxtoolMenu.add_command(label="JSON转XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
-    jaxtoolMenu.add_command(label="XML转JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+    jaxtoolMenu.add_command(label="JSON to XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
+    jaxtoolMenu.add_command(label="XML to JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
     JSONandXMLtool.config(menu=jaxtoolMenu)
     JSONandXMLtool.pack()
-    # JSON和XML工具按钮
+    # JSON and XML tools
     # ===================================== #
-    externalsLabel = ttk.Label(root, text="其他工具 🧰", font=("等线 Light",18,"normal"))
-    externalsLabel.pack() # 其他工具标签
-    passwordCreatorButton = ttk.Button(root, text="密码生成器", command=Launcher.ExternalLauncher.passwordCreatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
-    passwordCreatorButton.pack() # 密码生成器按钮
+    externalsLabel = ttk.Label(root, text="Other Tools 🧰", font=("Airal",18,"normal"))
+    externalsLabel.pack() # Other tools tab
+    passwordCreatorButton = ttk.Button(root, text="Password Creator", command=Launcher.ExternalLauncher.passwordCreatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    passwordCreatorButton.pack() # Password creator button
     # ===================================== #
     if not(settings["no-menu"]):
         menu = ttk.Menu(root)
         fileMenu = ttk.Menu(menu)
         otherMenu = ttk.Menu(menu)
         settingsMenu = ttk.Menu(menu)
-        menu.add_cascade(label="文件", menu=fileMenu)
-        menu.add_cascade(label="其他", menu=otherMenu)
+        menu.add_cascade(label="File", menu=fileMenu)
+        menu.add_cascade(label="Other", menu=otherMenu)
         if not(settings["no-settings-menu"]):
-            menu.add_cascade(label="设置", menu=settingsMenu)
-        menu.add_command(label="关于", command=System.about)
-        fileMenu.add_command(label="导入设置", command=System.importSettings)
-        fileMenu.add_command(label="退出", command=System.quitApp)
-        otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
-        otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
+            menu.add_cascade(label="Settings", menu=settingsMenu)
+        menu.add_command(label="About", command=System.about)
+        fileMenu.add_command(label="Import settings...", command=System.importSettings)
+        fileMenu.add_command(label="Exit", command=System.quitApp)
+        otherMenu.add_command(label="Calculator", command=Launcher.ExternalLauncher.calculatorLauncher)
+        otherMenu.add_command(label="Check md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
         otherMenu.add_separator()
-        otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
-        otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
+        otherMenu.add_command(label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
+        otherMenu.add_command(label="Character picture", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
         if not(settings["no-settings-menu"]):
-            settingsMenu.add_command(label="颜色主题", command=System.switchTheme)
-            settingsMenu.add_command(label="语言设置", command=System.languageSettings)
+            settingsMenu.add_command(label="Themes...", command=System.switchTheme)
+            settingsMenu.add_command(label="Language settings...", command=System.languageSettings)
         root.config(menu=menu)
-    # 工具栏
+    # Tools tab
     # ===================================== #
     root.mainloop()
 
