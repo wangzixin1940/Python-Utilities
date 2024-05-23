@@ -345,6 +345,8 @@ class Launcher():
             msgbox.showinfo(title="Windows Utilities", message="MD5 Checker in \"src\\cmdtools\\md5.py\". Follow the prompts to use, please.")
         def passwordCreatorLauncher():
             subprocess.Popen("python \"src\\passwordCreator\\main.py\"") # python "src\passwordCreator\main.py"
+        def licenceCreatorLauncher():
+            subprocess.Popen("python src/licenceCreator/main.py")
 
 class System():
     def about():
@@ -450,6 +452,7 @@ def main():
         fileMenu.add_command(label="Exit", command=System.quitApp)
         otherMenu.add_command(label="Calculator", command=Launcher.ExternalLauncher.calculatorLauncher)
         otherMenu.add_command(label="Check md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
+        otherMenu.add_command(label="Licence Creator", command=Launcher.ExternalLauncher.licenceCreatorLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(label="Character picture", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
