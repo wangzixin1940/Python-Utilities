@@ -57,6 +57,10 @@
 
 在main.py内置的程序，可帮助您从XML文件轻松转到JSON文件！
 
+### Licence 创造器
+
+能够帮您创造GitHub许可证的工具，只需填入一些信息，即可创造您的LICENCE文件！
+
 
 
 ## 绘画工具使用指南
@@ -181,8 +185,6 @@ Windows 自带程序 “calc.exe”。请不要在macOS上运行。
 
 # Windows Utilities（English）
 
----
-
 ## Developer Tools User Guide
 
 ### Detecting network connection status
@@ -234,6 +236,10 @@ The built-in program in main.py can help you easily transfer from JSON files to 
 #### XML to JSON conversion
 
 The built-in program in main.py can help you easily transfer from XML files to JSON files!
+
+### Licence Creator
+
+A tool that can help you create GitHub licenses, just fill in some information and create your License file!
 
 
 
@@ -358,13 +364,7 @@ Verify the MD5 value of the file and use the "open (rb)" method for large files
 
 
 
-## 如何安装需要的Python包
-
-``` cmd
-pip install -r requirements.txt
-```
-
-## How to install the required Python package
+# 如何安装需要的Python包 / How to install the required Python package
 
 ``` cmd
 pip install -r requirements.txt

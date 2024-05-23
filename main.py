@@ -344,17 +344,19 @@ class Launcher():
             msgbox.showinfo(title="Windows 实用工具", message="MD5校验器在\"src\\cmdtools\\md5.py\"，请根据提示使用")
         def passwordCreatorLauncher():
             subprocess.Popen("python \"src\\passwordCreator\\main.py\"") # python "src\passwordCreator\main.py"
+        def licenceCreatorLauncher():
+            subprocess.Popen("python src/licenceCreator/main.py")
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.11.1 zh-cn
+        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.12.1 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
 发行日期：2024-5-19
 自述文件：README.md (en-US and zh-CN)
 MIT License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 1.11 RELEASE
+VERSION 1.12 RELEASE
 """)
     def languageSettings():
         msgbox.showerror(title="Windows Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
@@ -449,6 +451,7 @@ def main():
         fileMenu.add_command(label="退出", command=System.quitApp)
         otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
         otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
+        otherMenu.add_command(label="Licence 创造器", command=Launcher.ExternalLauncher.licenceCreatorLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
