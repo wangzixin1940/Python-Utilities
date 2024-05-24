@@ -1,3 +1,5 @@
+完整更改记录：https://github.com/wangzixin1940/Windows-Utilities/commits
+
 V 1.7.1 2024/4/14
 UI大更新，采用ttkbootstrap的cosmo主题创建窗口
 其他功能不变
@@ -20,3 +22,9 @@ V 1.10.1 2024/5/11
 
 V 1.10.2 2024/5/12
 bug修复，删除"pacman.py"
+
+V 1.11.1 2024/5/23
+增加Licence Creator
+
+V 1.11.5 2024/5/24
+增加IP工具

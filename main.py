@@ -34,6 +34,7 @@ import subprocess
 import threading
 import xmltodict
 import dicttoxml
+import socket
 
 if not(settings["no-log-file"]):
     logging.basicConfig(
@@ -161,6 +162,27 @@ class DevTools():
             logger.error(err)
             msgbox.showerror(message="XML文件读取失败！", title="XML to JSON")
             return 2
+    def getIP(domain=socket.gethostname()):
+        """
+        domain: 域名
+        return :
+            IP地址
+        """
+        try :
+            return socket.gethostbyname(domain)
+        except socket.error as err:
+            return err
+    def resolveDomain(ip):
+        """
+        ip: IP地址
+        return :
+            域名
+        """
+        try:
+            domain = socket.gethostbyaddr(ip)
+            return domain[0]
+        except socket.error as err:
+            return err
 
 
 class DrawingTools():
@@ -312,6 +334,28 @@ class Launcher():
                 else :
                     msgbox.showerror(title="错误", message="文件拓展名不是\".xml\"！")
                     logger.error("FILE EXTENSION IS INCORRECT")
+        def getIPLauncher():
+            ip = easygui.enterbox("输入域名\n或者输入“@default”使用本地域名", title="IP地址获取器")
+            if (ip != None):
+                if (ip != "@default"):
+                    global DevTools
+                    logger.info(f"INPUT IP:{ip}")
+                    result = DevTools.getIP(ip)
+                    msgbox.showinfo(message=f"IP地址：{result}", title="IP地址获取器")
+                    logger.info(f"RESULT:{result}")
+                else :
+                    logger.info(f"INPUT IP:{ip}")
+                    result = DevTools.getIP()
+                    msgbox.showinfo(message=f"IP地址：{result}", title="IP地址获取器")
+                    logger.info(f"RESULT:{result}")
+        def resolveDomainLauncher():
+            domain = easygui.enterbox("输入IP地址", title="域名解析器")
+            if (domain != None):
+                global DevTools
+                logger.info(f"INPUT DOMAIN:{domain}")
+                result = DevTools.resolveDomain(domain)
+                msgbox.showinfo(message=f"解析结果：{result}", title="域名解析器")
+                logger.info(f"RESULT:{result}")
     class DrawingToolsLauncher():
         def __init__(self):
             msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
@@ -452,6 +496,10 @@ def main():
         otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
         otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
         otherMenu.add_command(label="Licence 创造器", command=Launcher.ExternalLauncher.licenceCreatorLauncher)
+        ipToolsMenu = ttk.Menu(otherMenu)
+        otherMenu.add_cascade(label="IP工具", menu=ipToolsMenu)
+        ipToolsMenu.add_command(label="IP地址查询", command=Launcher.DevToolsLauncher.getIPLauncher)
+        ipToolsMenu.add_command(label="解析IP地址", command=Launcher.DevToolsLauncher.resolveDomainLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)

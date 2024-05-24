@@ -34,6 +34,7 @@ import subprocess
 import threading
 import xmltodict
 import dicttoxml
+import socket
 
 if not(settings["no-log-file"]):
     logging.basicConfig(
@@ -158,6 +159,27 @@ class DevTools():
             logger.error(err)
             msgbox.showerror(message="XML file read failure!", title="XML to JSON")
             return 2
+    def getIP(domain=socket.gethostname()):
+        """
+        domain: Domain name
+        return :
+            IP address
+        """
+        try :
+            return socket.gethostbyname(domain)
+        except socket.error as err:
+            return err
+    def resolveDomain(ip):
+        """
+        ip: IP address
+        return :
+            Domain name
+        """
+        try:
+            domain = socket.gethostbyaddr(ip)
+            return domain[0]
+        except socket.error as err:
+            return err
 
 
 class DrawingTools():
@@ -313,6 +335,29 @@ class Launcher():
                 else :
                     msgbox.showerror(title="Error", message="The file extension is not \".xml\"!")
                     logger.error("FILE EXTENSION IS INCORRECT")
+        def getIPLauncher():
+            ip = easygui.enterbox("Enter the domain name or enter '@default' to use local domain name", title="IP address getter")
+            if (ip != None):
+                if (ip != "@default"):
+                    global DevTools
+                    logger.info(f"INPUT IP:{ip}")
+                    result = DevTools.getIP(ip)
+                    msgbox.showinfo(message=f"IP address: {result}", title="IP address getter")
+                    logger.info(f"RESULT:{result}")
+                else :
+                    logger.info(f"INPUT IP:{ip}")
+                    result = DevTools.getIP()
+                    msgbox.showinfo(message=f"IP address: {result}", title="IP address getter")
+                    logger.info(f"RESULT:{result}")
+        def resolveDomainLauncher():
+            domain = easygui.enterbox("Enter the IP address", title="DNS resolver")
+            if (domain != None):
+                global DevTools
+                logger.info(f"INPUT DOMAIN:{domain}")
+                result = DevTools.resolveDomain(domain)
+                msgbox.showinfo(message=f"Resolution result: {result}", title="DNS resolver")
+                logger.info(f"RESULT:{result}")
+
     class DrawingToolsLauncher():
         def __init__(self):
             msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
@@ -350,7 +395,7 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v1.11.1 en-US
+        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v1.11.5 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
@@ -453,6 +498,10 @@ def main():
         otherMenu.add_command(label="Calculator", command=Launcher.ExternalLauncher.calculatorLauncher)
         otherMenu.add_command(label="Check md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
         otherMenu.add_command(label="Licence Creator", command=Launcher.ExternalLauncher.licenceCreatorLauncher)
+        ipToolsMenu = ttk.Menu(otherMenu)
+        otherMenu.add_cascade(label="IP tools", menu=ipToolsMenu)
+        ipToolsMenu.add_command(label="IP address lookup", command=Launcher.DevToolsLauncher.getIPLauncher)
+        ipToolsMenu.add_command(label="Reverse IP lookup", command=Launcher.DevToolsLauncher.resolveDomainLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(label="Character picture", command=Launcher.DrawingToolsLauncher.charPictureLauncher)

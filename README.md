@@ -61,6 +61,16 @@
 
 能够帮您创造GitHub许可证的工具，只需填入一些信息，即可创造您的LICENCE文件！
 
+### IP工具
+
+#### 获取IP地址
+
+输入主机名或者输入“@default”获取IP地址
+
+#### 解析IP地址
+
+输入IP地址来获得主机名
+
 
 
 ## 绘画工具使用指南
@@ -240,6 +250,16 @@ The built-in program in main.py can help you easily transfer from XML files to J
 ### Licence Creator
 
 A tool that can help you create GitHub licenses, just fill in some information and create your License file!
+
+### IP Tools
+
+#### Get IP Address
+
+Input domain name or input "@default" to get IP address.
+
+#### Resolve Domain
+
+Input IP address to get domain name.
 
 
 
