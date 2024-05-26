@@ -21,6 +21,7 @@ import ttkbootstrap as ttk
 import easygui
 import logging
 import datetime
+import platform
 
 # Modules required for the tool
 import requests
@@ -53,7 +54,15 @@ logger = logging.getLogger("ROOT")
 # print(logger.__dict__)
 # Configure log information
 
-
+sysinfo = {
+    "system" : platform.system(),
+    "version" : platform.version(),
+    "python": {
+        "version": platform.python_version().split("."),
+        "implementation": platform.python_implementation(),
+    }
+}
+for i in range(len(sysinfo["python"]["version"])): sysinfo["python"]["version"][i] = int(sysinfo["python"]["version"][i])
 
 class DevTools():
     def __init__(self):
@@ -515,5 +524,15 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    logger.info("Platform: {system} {version}".format(system=sysinfo["system"], version=sysinfo["version"]))
+    logger.info("Python: {version} {implementation}".format(version=sysinfo["python"]["version"], implementation=sysinfo["python"]["implementation"]))
+    # Output system info
+    if sysinfo["python"]["version"][0] >= 3:
+        if sysinfo["python"]["version"][1] >= 8:
+            main(); exit(0)
+        else:
+            logger.warning("Python Version too old: {}".format(sysinfo["python"]["version"]))
+    else:
+        logger.warning("Python Version too old: {}".format(sysinfo["python"]["version"]))
+    main(); exit(1)
 
