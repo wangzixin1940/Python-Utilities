@@ -479,13 +479,6 @@ def main():
     connectButton.pack() # Check website status code button
     speedTestButton = ttk.Button(root, text="Web Speed Test",command=Launcher.ExternalLauncher.webSpeedTsetLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     speedTestButton.pack() # SpeedTest button
-    JSONandXMLtool = ttk.Menubutton(root, text="JSON and XML tools", bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
-    jaxtoolMenu = ttk.Menu(JSONandXMLtool)
-    jaxtoolMenu.add_command(label="JSON to XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
-    jaxtoolMenu.add_command(label="XML to JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
-    JSONandXMLtool.config(menu=jaxtoolMenu)
-    JSONandXMLtool.pack()
-    # JSON and XML tools
     # ===================================== #
     externalsLabel = ttk.Label(root, text="Other Tools 🧰", font=("Airal",18,"normal"))
     externalsLabel.pack() # Other tools tab
@@ -511,6 +504,10 @@ def main():
         otherMenu.add_cascade(label="IP tools", menu=ipToolsMenu)
         ipToolsMenu.add_command(label="IP address lookup", command=Launcher.DevToolsLauncher.getIPLauncher)
         ipToolsMenu.add_command(label="Reverse IP lookup", command=Launcher.DevToolsLauncher.resolveDomainLauncher)
+        fileToolsMenu = ttk.Menu(otherMenu)
+        otherMenu.add_cascade(label="File tools", menu=fileToolsMenu)
+        fileToolsMenu.add_command(label="JSON to XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
+        fileToolsMenu.add_command(label="XML to JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(label="Character picture", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
