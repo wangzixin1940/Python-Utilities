@@ -477,13 +477,6 @@ def main():
     connectButton.pack() # 检测网络连接
     speedTestButton = ttk.Button(root, text="测网速",command=Launcher.ExternalLauncher.webSpeedTsetLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     speedTestButton.pack() # 测速按钮
-    JSONandXMLtool = ttk.Menubutton(root, text="JSON和XML工具", bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
-    jaxtoolMenu = ttk.Menu(JSONandXMLtool)
-    jaxtoolMenu.add_command(label="JSON转XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
-    jaxtoolMenu.add_command(label="XML转JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
-    JSONandXMLtool.config(menu=jaxtoolMenu)
-    JSONandXMLtool.pack()
-    # JSON和XML工具按钮
     # ===================================== #
     externalsLabel = ttk.Label(root, text="其他工具 🧰", font=("等线 Light",18,"normal"))
     externalsLabel.pack() # 其他工具标签
@@ -509,6 +502,12 @@ def main():
         otherMenu.add_cascade(label="IP工具", menu=ipToolsMenu)
         ipToolsMenu.add_command(label="IP地址查询", command=Launcher.DevToolsLauncher.getIPLauncher)
         ipToolsMenu.add_command(label="解析IP地址", command=Launcher.DevToolsLauncher.resolveDomainLauncher)
+        fileToolsMenu = ttk.Menu(otherMenu)
+        otherMenu.add_cascade(label="文件工具", menu=fileToolsMenu)
+        fileToolsMenu.add_command(label="JSON转XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
+        fileToolsMenu.add_command(label="XML转JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+        fileToolsMenu.add_command(label="JSON转CSV", command=Launcher.DevToolsLauncher.JSONtoCSVLauncher)
+        fileToolsMenu.add_command(label="CSV转JSON", command=Launcher.DevToolsLauncher.CSVtoJSONLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
