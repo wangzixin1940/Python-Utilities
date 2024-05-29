@@ -506,8 +506,6 @@ def main():
         otherMenu.add_cascade(label="文件工具", menu=fileToolsMenu)
         fileToolsMenu.add_command(label="JSON转XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(label="XML转JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
-        fileToolsMenu.add_command(label="JSON转CSV", command=Launcher.DevToolsLauncher.JSONtoCSVLauncher)
-        fileToolsMenu.add_command(label="CSV转JSON", command=Launcher.DevToolsLauncher.CSVtoJSONLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
