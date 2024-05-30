@@ -77,7 +77,7 @@ class DevTools():
             result = str(requests.get(url).status_code)
         except requests.exceptions.MissingSchema as err:
             logger.critical("MISSING SCHEMA ERROR")
-            return f"协议不存在，您是否忘记在网站开头加上“http://”？\n{err}"
+            return f"协议不存在，您是否忘记在网站开头加上“http://”？\n{repr(err)}"
         # 返回HTTP状态码
         # print(result)
         with open("./data/connect.test.codes.json", "r") as statusCodes:
@@ -116,7 +116,7 @@ class DevTools():
             trans_result = result["trans_result"][0]["dst"]
             # print(trans_result, flush=True)
         except Exception as err:
-            logger.critical(err)
+            logger.critical(repr(err))
             msgbox.showerror(message=f"服务器发生错误，无法进行翻译，请到此日的log中查看详细报错信息（在“/logs/{datetime.date.today()}.log”）。", title="翻译器")
         finally:
             if httpClient:
@@ -144,7 +144,7 @@ class DevTools():
             msgbox.showerror(message="JSON文件不存在！", title="JSON to XML")
             return 1
         except Exception as err:
-            logger.error(err)
+            logger.error(repr(err))
             msgbox.showerror(message="JSON文件读取失败！", title="JSON to XML")
             return 2
     def XMLtoJSON(xml_file_path:str, json_file_path:str):
@@ -168,7 +168,7 @@ class DevTools():
             msgbox.showerror(message="XML文件不存在！", title="XML to JSON")
             return 1
         except Exception as err:
-            logger.error(err)
+            logger.error(repr(err))
             msgbox.showerror(message="XML文件读取失败！", title="XML to JSON")
             return 2
     def getIP(domain=socket.gethostname()):
@@ -180,7 +180,7 @@ class DevTools():
         try :
             return socket.gethostbyname(domain)
         except socket.error as err:
-            return err
+            return repr(err)
     def resolveDomain(ip):
         """
         ip: IP地址
@@ -191,7 +191,7 @@ class DevTools():
             domain = socket.gethostbyaddr(ip)
             return domain[0]
         except socket.error as err:
-            return err
+            return repr(err)
 
 
 class DrawingTools():
@@ -287,7 +287,7 @@ class Launcher():
                     key = appid["key"]
                 entered = True
             except (FileNotFoundError, KeyError) as err:
-                logger.error(err)
+                logger.error(repr(err))
                 result = msgbox.askokcancel(message="百度翻译需要您的AppID和秘钥才能使用。是否输入？\n翻译器承诺绝对不会把您的隐私泄露。", title="翻译器", icon="warning")
                 if result == True:
                     datas = easygui.multpasswordbox("输入AppID和秘钥。", title="翻译器", fields=["AppID", "秘钥"])

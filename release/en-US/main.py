@@ -113,7 +113,7 @@ class DevTools():
             result = json.loads(result_all)
             trans_result = result["trans_result"][0]["dst"]
         except Exception as err:
-            logger.critical(err)
+            logger.critical(repr(err))
             msgbox.showerror(message=f"An error occurred on the server. Translation is not possible.\nFor details about the error message go to the log of this day. (in \"/logs/{datetime.date.today()}.log\")", title="Translator")
         finally:
             if httpClient:
@@ -141,7 +141,7 @@ class DevTools():
             msgbox.showerror(message="JSON file not found!", title="JSON to XML")
             return 1
         except Exception as err:
-            logger.error(err)
+            logger.error(repr(err))
             msgbox.showerror(message="JSON file read failure!", title="JSON to XML")
             return 2
     def XMLtoJSON(xml_file_path:str, json_file_path:str):
@@ -165,7 +165,7 @@ class DevTools():
             msgbox.showerror(message="XML file not found!", title="XML to JSON")
             return 1
         except Exception as err:
-            logger.error(err)
+            logger.error(repr(err))
             msgbox.showerror(message="XML file read failure!", title="XML to JSON")
             return 2
     def getIP(domain=socket.gethostname()):
@@ -177,7 +177,7 @@ class DevTools():
         try :
             return socket.gethostbyname(domain)
         except socket.error as err:
-            return err
+            return repr(err)
     def resolveDomain(ip):
         """
         ip: IP address
@@ -188,7 +188,7 @@ class DevTools():
             domain = socket.gethostbyaddr(ip)
             return domain[0]
         except socket.error as err:
-            return err
+            return repr(err)
 
 
 class DrawingTools():
@@ -288,7 +288,7 @@ class Launcher():
                     key = appid["key"]
                 entered = True
             except (FileNotFoundError, KeyError) as err:
-                logger.error(err)
+                logger.error(repr(err))
                 result = msgbox.askokcancel(message="Baidu translate requires your APPID and SecretKey to use. OK to input?\nTranslator promises never to compromise your privacy.", title="Translator", icon="warning")
                 if result == True:
                     datas = easygui.multpasswordbox("Input AppID and SecretKey.", title="Translator", fields=["AppID", "SecretKey"])
