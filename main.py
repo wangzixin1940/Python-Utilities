@@ -393,8 +393,8 @@ class Launcher():
             subprocess.Popen("python \"src\\clock\\main.py\"") # python "src\clock\main.py"
         def calculatorLauncher():
             subprocess.Popen("calc")
-        def md5CheckerLauncher():
-            msgbox.showinfo(title="Windows 实用工具", message="MD5校验器在\"src\\cmdtools\\md5.py\"，请根据提示使用")
+        def hashCheckerLauncher():
+            msgbox.showinfo(title="Windows 实用工具", message="HASH校验器在\"src\\tools\\hash.py\"，请根据提示使用")
         def passwordCreatorLauncher():
             subprocess.Popen("python \"src\\passwordCreator\\main.py\"") # python "src\passwordCreator\main.py"
         def licenceCreatorLauncher():
@@ -402,7 +402,7 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.12.1 zh-cn
+        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.12.5 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
@@ -496,7 +496,7 @@ def main():
         fileMenu.add_command(label="导入设置", command=System.importSettings)
         fileMenu.add_command(label="退出", command=System.quitApp)
         otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
-        otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
+        otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.hashCheckerLauncher)
         otherMenu.add_command(label="Licence 创造器", command=Launcher.ExternalLauncher.licenceCreatorLauncher)
         ipToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="IP工具", menu=ipToolsMenu)
