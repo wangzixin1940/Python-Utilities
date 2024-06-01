@@ -398,3 +398,7 @@ pip install -r requirements.txt
 
 *希望给一个Star~* <br />
 *Give me a star, please~*
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=wangzixin1940/Windows-Utilities&type=Date)](https://star-history.com/#wangzixin1940/Windows-Utilities&Date)
