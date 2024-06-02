@@ -6,3 +6,4 @@ speedtest
 pyperclip
 xmltodict
 dicttoxml
+qrcode
