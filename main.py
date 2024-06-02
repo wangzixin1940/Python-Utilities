@@ -36,6 +36,7 @@ import threading
 import xmltodict
 import dicttoxml
 import socket
+from tkinter.filedialog import asksaveasfilename
 
 if not(settings["no-log-file"]):
     logging.basicConfig(
@@ -51,7 +52,6 @@ else :
                     datefmt="%Y-%m-%d %H:%M:%S",
     )
 logger = logging.getLogger("ROOT")
-# print(logger.__dict__)
 # 配置日志信息
 
 sysinfo = {
@@ -79,7 +79,6 @@ class DevTools():
             logger.critical("MISSING SCHEMA ERROR")
             return f"协议不存在，您是否忘记在网站开头加上“http://”？\n{repr(err)}"
         # 返回HTTP状态码
-        # print(result)
         with open("./data/connect.test.codes.json", "r") as statusCodes:
             statusCodes = statusCodes.read()
             statusCodes = json.loads(statusCodes)
@@ -102,7 +101,6 @@ class DevTools():
         salt = random.randint(32768, 65536)
         sign = hashlib.md5((str(appid)+text+str(salt)+secretKey).encode()).hexdigest()
         targetURL = "http://api.fanyi.baidu.com/api/trans/vip/translate"+"?appid="+str(appid)+"&q="+urllib.parse.quote(text)+"&from="+originalLanguage+"&to="+targetLanguage+"&salt="+str(salt)+"&sign="+sign
-        # print(targetURL)
         httpClient = None
         # 建立会话，返回结果
         try:
@@ -112,9 +110,7 @@ class DevTools():
             response = httpClient.getresponse()
             result_all = response.read().decode("utf-8")
             result = json.loads(result_all)
-            # print(result, flush=True)
             trans_result = result["trans_result"][0]["dst"]
-            # print(trans_result, flush=True)
         except Exception as err:
             logger.critical(repr(err))
             msgbox.showerror(message=f"服务器发生错误，无法进行翻译，请到此日的log中查看详细报错信息（在“/logs/{datetime.date.today()}.log”）。", title="翻译器")
@@ -248,6 +244,51 @@ class DrawingTools():
         save_to_file(f"{filename}-char.html", pic_str)
         logger.info(f"OUTPUT FILE:{filename}-char.html")
         msgbox.showinfo(title="输出成功", message="文件已经输出在和图片同一级目录下！")
+    def bingPicture(fname:str, idx:str="0", mkt:str="zh-cn"):
+        """
+        获取Bing每日一图
+        fname: 保存的文件名称
+        idx: 时间：
+            0: 今天
+            -1: 明天（预准备的）
+            1: 昨天
+            2: 前天
+            3~7 类推
+        mkt: 地区，使用微软地区码，例如：zh-cn: 中国大陆、en-us: 美国
+        return: 退出码
+        """
+        try:
+            NUMBER = 1
+            IDX = idx
+            MKT = mkt
+            FORMAT = "js"
+            USER_AGENT = {
+                'Content-Type':'application/json; charset=utf-8',
+                'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
+            }
+            requestURL = "https://cn.bing.com/HPImageArchive.aspx?" + f"format={FORMAT}&idx={IDX}&n={NUMBER}&mkt={MKT}"
+            response = requests.get(requestURL, headers=USER_AGENT)
+            if (response.status_code == 200):
+                try:
+                    if NUMBER == 1:
+                        data = response.json()
+                        data = "https://cn.bing.com"+data["images"][0]["url"]
+                        with open(fname, 'wb') as f:
+                            f.write(requests.get(data).content)
+                            return 0
+                    else:
+                        logger.error("ERROR: Number of images must be 1")
+                        return 1
+                except Exception as err:
+                    logger.error(f"ERROR: {repr(err)}")
+                    raise err
+            else:
+                logger.error(f"Network Error: {response.status_code}")
+                return 1
+        except Exception as err:
+            logger.error(f"ERROR: {repr(err)}")
+            return -1
+
 class Launcher():
     def __init__(self):
         msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
@@ -310,7 +351,6 @@ class Launcher():
                 if text:
                     fromLang = "auto"
                     toLang = easygui.choicebox("想输出的语言？", choices=list(languages.keys()), title="翻译器")
-                    # print(languages.keys())
                     logger.info(f"USER INPUT:[{text}, {fromLang}, {languages[toLang]}]")
                     if (text != None)and(fromLang != None)and(toLang != None):
                         result = DevTools.translator(text, id, key, fromLang, languages[toLang])
@@ -379,6 +419,27 @@ class Launcher():
                 else :
                     msgbox.showerror(title="错误", message="文件拓展名错误！")
                     logger.error("FILE EXTENSION IS INCORRECT")
+        def bingPictureLauncher():
+            fname = asksaveasfilename(title="保存文件", filetypes=[["JPG Files", "*.jpg"]], defaultextension="*.jpg")
+            if (fname != None):
+                logger.info(f"Input path: {fname}")
+                if (os.path.splitext(fname)[-1] == ".jpg"):
+                    params = easygui.multenterbox(title="必应每日一图", msg="请输入信息。", fields=["索引", "地区码"])
+                    if (params != None != ["","",""]):
+                        if (params[0].isdigit())or(params[0] == "-1"):
+                            params.insert(0, fname)
+                            logger.info(f"Input params:{params}")
+                            global DrawingTools
+                            DrawingTools.bingPicture(params[0], params[1], params[2])
+                            logger.info("Done.")
+                            msgbox.showinfo(title="提示", message="图片已保存至指定路径。")
+                        else :
+                            msgbox.showerror(title="错误", message="索引必须为数字！")
+                            return
+                else :
+                    logger.error("FILE EXTENSION IS INCORRECT")
+                    msgbox.showerror(title="错误", message="文件拓展名错误！")
+                    return
     class ExternalLauncher():
         def __init__(self):
             msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
@@ -402,14 +463,14 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.12.5 zh-cn
+        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.13.1 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
 发行日期：2024-5-19
 自述文件：README.md (en-US and zh-CN)
 MIT License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 1.12 RELEASE
+VERSION 1.13 RELEASE
 """)
     def languageSettings():
         msgbox.showerror(title="Windows Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
@@ -507,8 +568,10 @@ def main():
         fileToolsMenu.add_command(label="JSON转XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(label="XML转JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
         otherMenu.add_separator()
-        otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
+        otherMenu.add_command(label="Bing每日一图", command=Launcher.DrawingToolsLauncher.bingPictureLauncher)
+        otherMenu.add_separator()
+        otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
         if not(settings["no-settings-menu"]):
             settingsMenu.add_command(label="颜色主题", command=System.switchTheme)
             settingsMenu.add_command(label="语言设置", command=System.languageSettings)

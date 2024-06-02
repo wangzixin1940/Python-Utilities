@@ -87,6 +87,12 @@
 
 *在 V 1.2.1 加入*
 
+### Bing每日一图
+
+从Bing上获取每日一图，然后保存到您的计算机上！
+
+*在 V 1.13.1 加入*
+
 ## 其他工具使用指南
 
 ### 计算器
@@ -276,6 +282,12 @@ If the file meets the formatting standards, an HTML file will be generated in th
 *As a side note, this character drawing consists of characters "M", "N", "H", "Q", "$", "O", "C", "?", "7", ">", "!", ":", "-", ";", and ".".*
 
 *Added in V 1.2.1*
+
+### Bing Picture
+
+Get a daily chart from Bing and save it to your computer!
+
+*Added in V 1.12.1*
 
 ## Guidelines for using other tools
 

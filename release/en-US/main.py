@@ -36,6 +36,7 @@ import threading
 import xmltodict
 import dicttoxml
 import socket
+from tkinter.filedialog import asksaveasfilename
 
 if not(settings["no-log-file"]):
     logging.basicConfig(
@@ -51,7 +52,6 @@ else :
                     datefmt="%Y-%m-%d %H:%M:%S",
     )
 logger = logging.getLogger("ROOT")
-# print(logger.__dict__)
 # Configure log information
 
 sysinfo = {
@@ -79,7 +79,6 @@ class DevTools():
             logger.critical("MISSING SCHEMA ERROR")
             return 1
         # Return http status code
-        # print(result)
         with open("./data/connect.test.codes.json", "r") as statusCodes:
             statusCodes = statusCodes.read()
             statusCodes = json.loads(statusCodes)
@@ -245,6 +244,50 @@ class DrawingTools():
         save_to_file(f"{filename}-char.html", pic_str)
         logger.info(f"OUTPUT FILE:{filename}-char.html")
         msgbox.showinfo(title="Output Success", message="The file has been exported to the same level directory as the image!")
+    def bingPicture(fname:str, idx:str="0", mkt:str="zh-cn"):
+        """
+        Get Bing's daily graph
+        fname: The name of the saved file
+        idx: Time:
+            0: today
+            -1: tommorow
+            1: yesterday
+            2: the day before yesterday
+            3~7 analogy
+        mkt: Region. Use the Microsoft region code. eg. zh-cn: Chinese mainland, en-us: America, etc.
+        return: Exit code
+        """
+        try:
+            NUMBER = 1
+            IDX = idx
+            MKT = mkt
+            FORMAT = "js"
+            USER_AGENT = {
+                'Content-Type':'application/json; charset=utf-8',
+                'user-agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
+            }
+            requestURL = "https://cn.bing.com/HPImageArchive.aspx?" + f"format={FORMAT}&idx={IDX}&n={NUMBER}&mkt={MKT}"
+            response = requests.get(requestURL, headers=USER_AGENT)
+            if (response.status_code == 200):
+                try:
+                    if NUMBER == 1:
+                        data = response.json()
+                        data = "https://cn.bing.com"+data["images"][0]["url"]
+                        with open(fname, 'wb') as f:
+                            f.write(requests.get(data).content)
+                            return 0
+                    else:
+                        logger.error("ERROR: Number of images must be 1")
+                        return 1
+                except Exception as err:
+                    logger.error(f"ERROR: {repr(err)}")
+                    raise err
+            else:
+                logger.error(f"Network Error: {response.status_code}")
+                return 1
+        except Exception as err:
+            logger.error(f"ERROR: {repr(err)}")
+            return -1
 
 class Launcher():
     def __init__(self):
@@ -311,7 +354,6 @@ class Launcher():
                 if text:
                     fromLang = "auto"
                     toLang = easygui.choicebox("What language do you want to output?", choices=list(languages.keys()), title="Translator")
-                    # print(languages.keys())
                     logger.info(f"USER INPUT:[{text}, {fromLang}, {languages[toLang]}]")
                     if (text != None)and(fromLang != None)and(toLang != None):
                         result = DevTools.translator(text, id, key, fromLang, languages[toLang])
@@ -381,6 +423,27 @@ class Launcher():
                 else :
                     msgbox.showerror(title="Error", message="The file extension is incorrect!")
                     logger.error("FILE EXTENSION IS INCORRECT")
+        def bingPictureLauncher():
+            fname = asksaveasfilename(title="Save as...", filetypes=[["JPG Files", "*.jpg"]], defaultextension="*.jpg")
+            if (fname != None):
+                logger.info(f"Input path: {fname}")
+                if (os.path.splitext(fname)[-1] == ".jpg"):
+                    params = easygui.multenterbox(title="Bing Picture", msg="Please enter the infomations", fields=["Index", "Region Code"])
+                    if (params != None != ["","",""]):
+                        if (params[0].isdigit())or(params[0] == "-1"):
+                            params.insert(0, fname)
+                            logger.info(f"Input params:{params}")
+                            global DrawingTools
+                            DrawingTools.bingPicture(params[0], params[1], params[2])
+                            logger.info("Done.")
+                            msgbox.showinfo(title="Infomation", message="The image has been saved to the specified path.")
+                        else :
+                            msgbox.showerror(title="Error", message="The index must be a number!")
+                            return
+                else :
+                    logger.error("FILE EXTENSION IS INCORRECT")
+                    msgbox.showerror(title="Error", message="File extension is incorrect!")
+                    return
     class ExternalLauncher():
         def __init__(self):
             msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
@@ -404,14 +467,14 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v1.11.5 en-US
+        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v1.13.1 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
 Release Date: 2024-5-19
 README File：README.md (en-US and zh-CN)
 MIT License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 1.11 RELEASE
+VERSION 1.13 RELEASE
 """)
     def languageSettings():
         msgbox.showinfo(title="Windows 实用工具", message="前往\"../../main.py\"运行中文版本！")
@@ -509,8 +572,10 @@ def main():
         fileToolsMenu.add_command(label="JSON to XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(label="XML to JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
         otherMenu.add_separator()
-        otherMenu.add_command(label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(label="Character picture", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
+        otherMenu.add_command(label="Bing Picture", command=Launcher.DrawingToolsLauncher.bingPictureLauncher)
+        otherMenu.add_separator()
+        otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
         if not(settings["no-settings-menu"]):
             settingsMenu.add_command(label="Themes...", command=System.switchTheme)
             settingsMenu.add_command(label="Language settings...", command=System.languageSettings)
