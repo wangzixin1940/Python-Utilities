@@ -460,17 +460,21 @@ class Launcher():
             subprocess.Popen("python \"src\\passwordCreator\\main.py\"") # python "src\passwordCreator\main.py"
         def licenceCreatorLauncher():
             subprocess.Popen("python src/licenceCreator/main.py")
+        def qrcodeGeneratorLauncher():
+            subprocess.Popen("python src/qrcode/main.py 0")
+        def qrcodeParserLauncher():
+            subprocess.Popen("python src/qrcode/main.py 1")
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.13.1 zh-cn
+        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.14.1 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
 发行日期：2024-5-19
 自述文件：README.md (en-US and zh-CN)
 MIT License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 1.13 RELEASE
+VERSION 1.14 RELEASE
 """)
     def languageSettings():
         msgbox.showerror(title="Windows Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
@@ -567,6 +571,10 @@ def main():
         otherMenu.add_cascade(label="文件工具", menu=fileToolsMenu)
         fileToolsMenu.add_command(label="JSON转XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(label="XML转JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+        qrcodeToolsMenu = ttk.Menu(otherMenu)
+        otherMenu.add_cascade(label="二维码工具", menu=qrcodeToolsMenu)
+        qrcodeToolsMenu.add_command(label="生成二维码", command=Launcher.ExternalLauncher.qrcodeGeneratorLauncher)
+        qrcodeToolsMenu.add_command(label="解析二维码", command=Launcher.ExternalLauncher.qrcodeParserLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
         otherMenu.add_command(label="Bing每日一图", command=Launcher.DrawingToolsLauncher.bingPictureLauncher)

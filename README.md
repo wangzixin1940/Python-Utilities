@@ -101,6 +101,20 @@ Windows 自带程序 “calc.exe”。请不要在macOS上运行。
 
 *在 V 1.7.2 中添加*
 
+### 二维码工具
+
+#### 生成二维码
+
+一个可以帮助您生成二维码的工具。
+
+#### 解析二维码
+
+一个可以帮助您解析二维码的工具。
+
+*在 V 1.14.1 中添加*
+
+
+
 ## 系统工具
 
 ### Theme Switcher
@@ -296,6 +310,18 @@ Get a daily chart from Bing and save it to your computer!
 Windows built-in program "calc. exe".Please do not run this program on macOS.
 
 *Added in V 1.7.2*
+
+### QR Code Tools
+
+#### QR Code Generator
+
+A tool that can help you generate QR codes.
+
+#### QR Code Parser
+
+A tool that can help you parse QR codes.
+
+*Added in V 1.14.1*
 
 ## System Tools
 ### Theme Switcher
