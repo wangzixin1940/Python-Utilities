@@ -464,17 +464,21 @@ class Launcher():
             subprocess.Popen("python \"src\\passwordCreator\\main.py\"") # python "src\passwordCreator\main.py"
         def licenceCreatorLauncher():
             subprocess.Popen("python src/licenceCreator/main.py")
+        def qrcodeGeneratorLauncher():
+            subprocess.Popen("python src/qrcode/main.py 0")
+        def qrcodeParserLauncher():
+            subprocess.Popen("python src/qrcode/main.py 1")
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v1.13.1 en-US
+        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v1.14.1 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
 Release Date: 2024-5-19
 README File：README.md (en-US and zh-CN)
 MIT License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 1.13 RELEASE
+VERSION 1.14 RELEASE
 """)
     def languageSettings():
         msgbox.showinfo(title="Windows 实用工具", message="前往\"../../main.py\"运行中文版本！")
@@ -571,11 +575,15 @@ def main():
         otherMenu.add_cascade(label="File tools", menu=fileToolsMenu)
         fileToolsMenu.add_command(label="JSON to XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(label="XML to JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+        qrcodeToolsMenu = ttk.Menu(otherMenu)
+        otherMenu.add_cascade(label="QR Code tools", menu=qrcodeToolsMenu)
+        qrcodeToolsMenu.add_command(label="Generate QR Code", command=Launcher.ExternalLauncher.qrcodeGeneratorLauncher)
+        qrcodeToolsMenu.add_command(label="Decode QR Code", command=Launcher.ExternalLauncher.qrcodeParserLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(label="Character picture", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
         otherMenu.add_command(label="Bing Picture", command=Launcher.DrawingToolsLauncher.bingPictureLauncher)
         otherMenu.add_separator()
-        otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
+        otherMenu.add_command(label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
         if not(settings["no-settings-menu"]):
             settingsMenu.add_command(label="Themes...", command=System.switchTheme)
             settingsMenu.add_command(label="Language settings...", command=System.languageSettings)
