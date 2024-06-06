@@ -36,7 +36,8 @@ import threading
 import xmltodict
 import dicttoxml
 import socket
-from tkinter.filedialog import asksaveasfilename
+from tkinter.filedialog import asksaveasfilename, askopenfilename
+from difflib import HtmlDiff
 
 if not(settings["no-log-file"]):
     logging.basicConfig(
@@ -188,6 +189,44 @@ class DevTools():
             return domain[0]
         except socket.error as err:
             return repr(err)
+    class FileDiffTools():
+        def __init__(self):
+            text1 = self.readFromFile(askopenfilename(title="Choose file1", filetypes=(("Plain Text", "*.txt"), ("All Files", "*.*"))))
+            text2 = self.readFromFile(askopenfilename(title="Choose file2", filetypes=(("Plain Text", "*.txt"), ("All Files", "*.*"))))
+            result = self.diffTexts(text1, text2, asksaveasfilename(title="Save as...", filetypes=(("HTML Files", "*.html"), ("All Files", "*.*"))))
+            logger.info("Save file successfully!")
+            if result == 0:
+                msgbox.showinfo(title="Infomation", message="Save file successfully!")
+            else:
+                msgbox.showerror(title="Error", message="Save file does not successfully!\nExit code: {}".format(result))
+        def readFromFile(self, fpath):
+            """
+            Read text from a file
+            fpath: File path
+            return: File content
+            """
+            with open(fpath, "r", encoding="utf-8") as f:
+                return f.read().splitlines()
+        def diffTexts(self, text1:str, text2:str, fpath:str):
+            """
+            Compare two pieces of text and save the result to an HTML file.
+            text1: Text 1
+            text2: Text 2
+            fpath: The path to the saved html file
+            return: Exit code
+                0: Success
+                1: Params error
+                2: File read failure
+            """
+            try:
+                html_diff = HtmlDiff()
+                diff = html_diff.make_file(text1, text2)
+                with open(fpath, "w", encoding="utf-8") as f:
+                    f.write(diff)
+                    return 0
+            except Exception as err:
+                logger.error(repr(err))
+                return 2
 
 
 class DrawingTools():
@@ -471,7 +510,7 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v1.14.1 en-US
+        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v1.14.5 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
@@ -575,6 +614,7 @@ def main():
         otherMenu.add_cascade(label="File tools", menu=fileToolsMenu)
         fileToolsMenu.add_command(label="JSON to XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(label="XML to JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+        fileToolsMenu.add_command(label="File diff", command=DevTools.FileDiffTools)
         qrcodeToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="QR Code tools", menu=qrcodeToolsMenu)
         qrcodeToolsMenu.add_command(label="Generate QR Code", command=Launcher.ExternalLauncher.qrcodeGeneratorLauncher)

@@ -36,7 +36,8 @@ import threading
 import xmltodict
 import dicttoxml
 import socket
-from tkinter.filedialog import asksaveasfilename
+from tkinter.filedialog import asksaveasfilename, askopenfilename
+from difflib import HtmlDiff
 
 if not(settings["no-log-file"]):
     logging.basicConfig(
@@ -188,6 +189,44 @@ class DevTools():
             return domain[0]
         except socket.error as err:
             return repr(err)
+    class FileDiffTools():
+        def __init__(self):
+            text1 = self.readFromFile(askopenfilename(title="选择文件1", filetypes=(("纯文本文件", "*.txt"), ("所有文件", "*.*"))))
+            text2 = self.readFromFile(askopenfilename(title="选择文件2", filetypes=(("纯文本文件", "*.txt"), ("所有文件", "*.*"))))
+            result = self.diffTexts(text1, text2, asksaveasfilename(title="保存文件", filetypes=(("HTML文件", "*.html"), ("所有文件", "*.*"))))
+            logger.info("Save file successfully!")
+            if result == 0:
+                msgbox.showinfo(title="提示", message="保存文件成功！")
+            else:
+                msgbox.showerror(title="错误", message="保存文件失败！\n退出代码: {}".format(result))
+        def readFromFile(self, fpath):
+            """
+            从文件读取文本
+            fpath: 文件路径
+            return: 文本内容
+            """
+            with open(fpath, "r", encoding="utf-8") as f:
+                return f.read().splitlines()
+        def diffTexts(self, text1:str, text2:str, fpath:str):
+            """
+            对比两段文本并且将结果保存到HTML文件中
+            text1: 文本1
+            text2: 文本2
+            fpath: 保存的HTML文件路径
+            return: 错误码
+                0: 成功
+                1: 参数有问题
+                2: 文件读取失败
+            """
+            try:
+                html_diff = HtmlDiff()
+                diff = html_diff.make_file(text1, text2)
+                with open(fpath, "w", encoding="utf-8") as f:
+                    f.write(diff)
+                    return 0
+            except Exception as err:
+                logger.error(repr(err))
+                return 2
 
 
 class DrawingTools():
@@ -467,7 +506,7 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.14.1 zh-cn
+        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.14.4 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
@@ -571,6 +610,7 @@ def main():
         otherMenu.add_cascade(label="文件工具", menu=fileToolsMenu)
         fileToolsMenu.add_command(label="JSON转XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(label="XML转JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+        fileToolsMenu.add_command(label="文件对比", command=DevTools.FileDiffTools)
         qrcodeToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="二维码工具", menu=qrcodeToolsMenu)
         qrcodeToolsMenu.add_command(label="生成二维码", command=Launcher.ExternalLauncher.qrcodeGeneratorLauncher)

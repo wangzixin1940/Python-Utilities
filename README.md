@@ -43,7 +43,7 @@
 >
 > 文件位置：./src/passwordCreator/main.py
 
-### JSON 和 XML 工具
+### 文件工具
 
 > [!IMPORTANT]
 >
@@ -56,6 +56,10 @@
 #### XML转JSON
 
 在main.py内置的程序，可帮助您从XML文件轻松转到JSON文件！
+
+#### 文件差异对比
+
+比较两个文件，并将差异保存到HTML文件。
 
 ### Licence 创造器
 
@@ -253,7 +257,7 @@ A tool that helps you generate strong passwords, with the option to insert symbo
 > File location: ./src/passwordCreator/main.py
 >
 
-### JSON and XML tools
+### File tools
 
 > [!IMPORTANT]
 >
@@ -266,6 +270,12 @@ The built-in program in main.py can help you easily transfer from JSON files to 
 #### XML to JSON conversion
 
 The built-in program in main.py can help you easily transfer from XML files to JSON files!
+
+#### Comparison of file differences
+
+Compare two files and save the differences to an HTML file.
+
+
 
 ### Licence Creator
 
