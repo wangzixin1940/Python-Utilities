@@ -1,6 +1,4 @@
-tkinter
 ttkbootstrap
-logging
 pillow
 speedtest
 pyperclip

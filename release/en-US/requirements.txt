@@ -1,8 +1,0 @@
-tkinter
-ttkbootstrap
-logging
-pillow
-speedtest
-pyperclip
-xmltodict
-dicttoxml
