@@ -68,7 +68,7 @@ for i in range(len(sysinfo["python"]["version"])): sysinfo["python"]["version"][
 class DevTools():
     def __init__(self):
         msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
-        logger.error("INVOCATION ERROR")
+        logger.error("Invocation error")
     def webConnectTest(url:str):
         """
         Test if the website is accessible
@@ -77,7 +77,7 @@ class DevTools():
         try :
             result = str(requests.get(url).status_code)
         except requests.exceptions.MissingSchema as err:
-            logger.critical("MISSING SCHEMA ERROR")
+            logger.critical("Missing schema error")
             return 1
         # Return http status code
         with open("./data/connect.test.codes.json", "r") as statusCodes:
@@ -87,7 +87,7 @@ class DevTools():
         try :
             return str(result) + "：" + statusCodes[result]
         except KeyError:
-            logger.error(f"STATUS CODE:{result} NOT FOUND")
+            logger.error(f"Status code: {result} not found")
             return 2
         # If the http status code is known, the result is returned. Otherwise the user is prompted to return an unknown status code
     def translator(text:str, appid:str, secretKey:str, originalLanguage:str, targetLanguage:str):
@@ -137,7 +137,7 @@ class DevTools():
                     xml_file.write(xml_data)
                     return 0
         except FileNotFoundError:
-            logger.error("JSON FILE NOT FOUND: {}".format(json_file_path))
+            logger.error("JSON file not found: {}".format(json_file_path))
             msgbox.showerror(message="JSON file not found!", title="JSON to XML")
             return 1
         except Exception as err:
@@ -161,7 +161,7 @@ class DevTools():
                     json_file.write(json_data)
                     return 0
         except FileNotFoundError:
-            logger.error("XML FILE NOT FOUND: {}".format(xml_file_path))
+            logger.error("XML file not found: {}".format(xml_file_path))
             msgbox.showerror(message="XML file not found!", title="XML to JSON")
             return 1
         except Exception as err:
@@ -232,7 +232,7 @@ class DevTools():
 class DrawingTools():
     def __init__(self):
         msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
-        logger.error("INVOCATION ERROR")
+        logger.error("Invocation error")
     def charPicture(filename):
         """
         filename: Picture file path
@@ -276,12 +276,12 @@ class DrawingTools():
             return img
         def save_to_file(filename, pic_str):
             with open(filename, 'w') as outfile:
-                logger.debug("FILE WAS SUCCESSFULLY SAVED")
+                logger.debug("File was successfully saved")
                 outfile.write(pic_str)
         img = preprocess(filename)
         pic_str = make_char_img(img)
         save_to_file(f"{filename}-char.html", pic_str)
-        logger.info(f"OUTPUT FILE:{filename}-char.html")
+        logger.info(f"Output file: {filename}-char.html")
         msgbox.showinfo(title="Output Success", message="The file has been exported to the same level directory as the image!")
     def bingPicture(fname:str, idx:str="0", mkt:str="zh-cn"):
         """
@@ -316,26 +316,26 @@ class DrawingTools():
                             f.write(requests.get(data).content)
                             return 0
                     else:
-                        logger.error("ERROR: Number of images must be 1")
+                        logger.error("Number of images must be 1")
                         return 1
                 except Exception as err:
-                    logger.error(f"ERROR: {repr(err)}")
+                    logger.error(f"{repr(err)}")
                     raise err
             else:
                 logger.error(f"Network Error: {response.status_code}")
                 return 1
         except Exception as err:
-            logger.error(f"ERROR: {repr(err)}")
+            logger.error(f"{repr(err)}")
             return -1
 
 class Launcher():
     def __init__(self):
         msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
-        logger.error("INVOCATION ERROR")
+        logger.error("Invocation error")
     class DevToolsLauncher():
         def __init__(self):
             msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
-            logger.error("INVOCATION ERROR")
+            logger.error("Invocation error")
         def webConnectTestLauncher():
             try :
                 with open("logs/records.log", "r") as r:
@@ -346,7 +346,7 @@ class Launcher():
             except FileNotFoundError:
                 record = ""
             url = easygui.enterbox(msg="Input URL (bring \"http://\" on)", title="Windows Utilties", default=record)
-            logger.info(f"USER INPUT:{url}")
+            logger.info(f"User input: {url}")
             if (url != None):
                 record = url
                 if not(settings["no-log-file"]):
@@ -357,7 +357,7 @@ class Launcher():
                 result = DevTools.webConnectTest(url)
                 error_list = {1:"Missing protocol", 2:"Server error"}
                 if not(1 == result or 2 == result):
-                    logger.info(f"WEB ADDRESS CONNECT INFO: {url} => {result}")
+                    logger.info(f"Web address connect info: {url} => {result}")
                     msgbox.showinfo(title="Windows Utilties", message=result)
                 else :
                     msgbox.showinfo(title="Windows Utilties", message=error_list[result-1])
@@ -393,75 +393,75 @@ class Launcher():
                 if text:
                     fromLang = "auto"
                     toLang = easygui.choicebox("What language do you want to output?", choices=list(languages.keys()), title="Translator")
-                    logger.info(f"USER INPUT:[{text}, {fromLang}, {languages[toLang]}]")
+                    logger.info(f"User input: [{text}, {fromLang}, {languages[toLang]}]")
                     if (text != None)and(fromLang != None)and(toLang != None):
                         result = DevTools.translator(text, id, key, fromLang, languages[toLang])
                         msgbox.showinfo(message=f"Translation complete\nOriginal: {text}\nResult: {result}\nLanguage: {toLang}\n", title="Translator")
-                        logger.info(f"RESULT:{result}")
+                        logger.info(f"Result: {result}")
                     else :
                         msgbox.showerror(message="Parameters are missing!", title="Translator")
-                        logger.error("MISSING ARGUMENTS")
+                        logger.error("Missing arguments")
         def JSONtoXMLLauncher():
             json = easygui.fileopenbox(title="Open...", filetypes=[["*.json", "JSON files"]], default="*.json")
             xml = easygui.filesavebox(title="Save As...", filetypes=[["*.xml", "XML files"]], default="*.xml")
             if (json != None):
                 if (os.path.splitext(json)[-1] == ".json"):
                     global DevTools
-                    logger.info(f"INPUT JSON:{json}")
+                    logger.info(f"Input JSON: {json}")
                     DevTools.JSONtoXML(json, xml)
-                    logger.info(f"OUTPUT FINISH")
+                    logger.info(f"Output finish")
                 else :
                     msgbox.showerror(title="ERROR", message="the file extension is not \".json\"!")
-                    logger.error("FILE EXTENSION IS INCORRECT")
+                    logger.error("File extension is incorrect")
         def XMLtoJSONLauncher():
             xml = easygui.fileopenbox(title="Open...", filetypes=[["*.xml", "XML files"]], default="*.xml")
             json = easygui.filesavebox(title="Save As...", filetypes=[["*.json", "JSON files"]], default="*.json")
             if (xml != None):
                 if (os.path.splitext(xml)[-1] == ".xml"):
                     global DevTools
-                    logger.info(f"INPUT XML:{xml}")
+                    logger.info(f"Input XML:{xml}")
                     DevTools.XMLtoJSON(xml, json)
-                    logger.info(f"OUTPUT FINISH")
+                    logger.info(f"Output finish")
                 else :
                     msgbox.showerror(title="Error", message="The file extension is not \".xml\"!")
-                    logger.error("FILE EXTENSION IS INCORRECT")
+                    logger.error("File extension is incorrect")
         def getIPLauncher():
             ip = easygui.enterbox("Enter the domain name or enter '@default' to use local domain name", title="IP address getter")
             if (ip != None):
                 if (ip != "@default"):
                     global DevTools
-                    logger.info(f"INPUT IP:{ip}")
+                    logger.info(f"Input IP:{ip}")
                     result = DevTools.getIP(ip)
                     msgbox.showinfo(message=f"IP address: {result}", title="IP address getter")
-                    logger.info(f"RESULT:{result}")
+                    logger.info(f"Result: {result}")
                 else :
-                    logger.info(f"INPUT IP:{ip}")
+                    logger.info(f"Input IP:{ip}")
                     result = DevTools.getIP()
                     msgbox.showinfo(message=f"IP address: {result}", title="IP address getter")
-                    logger.info(f"RESULT:{result}")
+                    logger.info(f"Result: {result}")
         def resolveDomainLauncher():
             domain = easygui.enterbox("Enter the IP address", title="DNS resolver")
             if (domain != None):
                 global DevTools
-                logger.info(f"INPUT DOMAIN:{domain}")
+                logger.info(f"Input Domain:{domain}")
                 result = DevTools.resolveDomain(domain)
                 msgbox.showinfo(message=f"Resolution result: {result}", title="DNS resolver")
-                logger.info(f"RESULT:{result}")
+                logger.info(f"Result:{result}")
 
     class DrawingToolsLauncher():
         def __init__(self):
             msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
-            logger.error("INVOCATION ERROR")
+            logger.error("Invocation error")
         def charPictureLauncher():
             path = easygui.fileopenbox(title="Open...", filetypes=[["*.jpg", "*.jpeg" , "JPG files"], ["*.bmp", "BMP files"], ["*.gif", "GIF files"]], default="*.png")
             if (path != None):
                 if (os.path.splitext(path)[-1] == ".png")or(os.path.splitext(path)[-1] == ".jpg")or(os.path.splitext(path)[-1] == ".bmp")or(os.path.splitext(path)[-1] == ".gif")or(os.path.splitext(path)[-1] == ".jpeg"):
                     global DrawingTools
-                    logger.info(f"INPUT PICTURE:{path}")
+                    logger.info(f"Input picture:{path}")
                     DrawingTools.charPicture(path)
                 else :
                     msgbox.showerror(title="Error", message="The file extension is incorrect!")
-                    logger.error("FILE EXTENSION IS INCORRECT")
+                    logger.error("File extension is incorrect")
         def bingPictureLauncher():
             fname = asksaveasfilename(title="Save as...", filetypes=[["JPG Files", "*.jpg"]], defaultextension="*.jpg")
             if (fname != None):
@@ -480,13 +480,13 @@ class Launcher():
                             msgbox.showerror(title="Error", message="The index must be a number!")
                             return
                 else :
-                    logger.error("FILE EXTENSION IS INCORRECT")
+                    logger.error("File extension is incorrect")
                     msgbox.showerror(title="Error", message="File extension is incorrect!")
                     return
     class ExternalLauncher():
         def __init__(self):
             msgbox.showerror(title="Error", message="Call error! Please call the children of this class.")
-            logger.error("INVOCATION ERROR")
+            logger.error("Invocation error")
         def webSpeedTsetLauncher():
             def run():
                 subprocess.Popen("python ./src/webspeedtest/main.py")
@@ -510,14 +510,14 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v1.14.5 en-US
+        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v2.1.5 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
 Release Date: 2024-5-19
 README File：README.md (en-US and zh-CN)
 MIT License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 1.14 RELEASE
+VERSION 2.1 RELEASE
 """)
     def languageSettings():
         msgbox.showinfo(title="Windows 实用工具", message="前往\"../../main.py\"运行中文版本！")
@@ -535,11 +535,11 @@ VERSION 1.14 RELEASE
                 with open(path, "r+", encoding="utf-8") as new_settings:
                     new_settings = new_settings.read()
                     new_settings = json.loads(new_settings)
-                    logger.info(f"SETTINGS: {new_settings}")
+                    logger.info(f"Settings: {new_settings}")
                     with open("data/settings.json", "w+", encoding="utf-8") as settings:
                         settings.write(json.dumps(new_settings, ensure_ascii=False, indent=4))
                         msgbox.showinfo(title="Windows Utilities", message="Settings imported successfully!")
-                        logger.info("SETTINGS IMPORTED")
+                        logger.info("Settings imported")
 
 def main():
     global root
@@ -548,7 +548,7 @@ def main():
     with open("./data/theme.json", "r", encoding="utf-8") as theme:
         theme = theme.read()
         theme = json.loads(theme)
-    logger.info("STARTING APP")
+    logger.info("Starting APP")
     root.title("Windows Utilities")
     root.geometry("{}x{}".format(settings["geometry"][0], settings["geometry"][1]))
     root.resizable(settings["resizable"][0], settings["resizable"][1])
@@ -566,9 +566,9 @@ def main():
         else :
             root.iconbitmap("./images/icon.ico")
             style = ttk.Style("cosmo")
-            logger.warning("ICON FILE NOT FOUND. PROGRAM WILL USE DEFAULT ICON AND COSMO THEME.")
-    style.configure("TButton", font=("Times New Roman",14,"normal"), width=30, height=3)
-    style.configure("TMenubutton", font=("Times New Roman",14,"normal"), width=28, height=3)
+            logger.warning("Ccon file not found. Program will use default icon and cosmo theme.")
+    style.configure("TButton", font=("Times New Roman", 14, "normal"), width=30, height=3)
+    style.configure("TMenubutton", font=("Times New Roman", 14, "normal"), width=28, height=3)
     # Window
     # ===================================== #
     title = ttk.Label(root, text="Windows Utilities", font=("Airal",20,"bold"))

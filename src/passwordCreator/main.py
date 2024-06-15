@@ -59,10 +59,10 @@ def passwordCreator(length:int, includeSymbols:bool=False, includeNumbers:bool=T
                 password += char
             return password
         except KeyError as err:
-            logger.error(f"KEY ERROR: {err}")
+            logger.error(f"Key Error: {err}")
             return 1
         except Exception as err:
-            logger.error(f"ERROR: {err}")
+            logger.error(f"Error: {err}")
             raise err
 
 

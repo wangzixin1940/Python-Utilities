@@ -68,7 +68,7 @@ for i in range(len(sysinfo["python"]["version"])): sysinfo["python"]["version"][
 class DevTools():
     def __init__(self):
         msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
-        logger.error("INVOCATION ERROR")
+        logger.error("Invocation error")
     def webConnectTest(url:str):
         """
         测试网站是否可以访问
@@ -77,7 +77,7 @@ class DevTools():
         try :
             result = str(requests.get(url).status_code)
         except requests.exceptions.MissingSchema as err:
-            logger.critical("MISSING SCHEMA ERROR")
+            logger.critical("Missing schema error")
             return f"协议不存在，您是否忘记在网站开头加上“http://”？\n{repr(err)}"
         # 返回HTTP状态码
         with open("./data/connect.test.codes.json", "r") as statusCodes:
@@ -87,7 +87,7 @@ class DevTools():
         try :
             return str(result) + "：" + statusCodes[result]
         except KeyError:
-            logger.error(f"STATUS CODE:{result} NOT FOUND")
+            logger.error(f"Status code: {result} not found")
             return f"网站返回了一个未知的HTTP状态码：{result}"
         # 如果HTTP状态码已知，则返回结果；否则提示用户返回未知状态码
     def translator(text:str, appid:str, secretKey:str, originalLanguage:str, targetLanguage:str):
@@ -137,7 +137,7 @@ class DevTools():
                     xml_file.write(xml_data)
                     return 0
         except FileNotFoundError:
-            logger.error("JSON FILE NOT FOUND: {}".format(json_file_path))
+            logger.error("JSON file not found: {}".format(json_file_path))
             msgbox.showerror(message="JSON文件不存在！", title="JSON to XML")
             return 1
         except Exception as err:
@@ -161,7 +161,7 @@ class DevTools():
                     json_file.write(json_data)
                     return 0
         except FileNotFoundError:
-            logger.error("XML FILE NOT FOUND: {}".format(xml_file_path))
+            logger.error("XML file not found: {}".format(xml_file_path))
             msgbox.showerror(message="XML文件不存在！", title="XML to JSON")
             return 1
         except Exception as err:
@@ -232,7 +232,7 @@ class DevTools():
 class DrawingTools():
     def __init__(self):
         msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
-        logger.error("INVOCATION ERROR")
+        logger.error("Invocation error")
     def charPicture(filename):
         """
         filename: 图片文件名
@@ -276,12 +276,12 @@ class DrawingTools():
             return img
         def save_to_file(filename, pic_str):
             with open(filename, 'w') as outfile:
-                logger.debug("FILE WAS SUCCESSFULLY SAVED")
+                logger.debug("File was successfully saved")
                 outfile.write(pic_str)
         img = preprocess(filename)
         pic_str = make_char_img(img)
         save_to_file(f"{filename}-char.html", pic_str)
-        logger.info(f"OUTPUT FILE:{filename}-char.html")
+        logger.info(f"Output file:{filename}-char.html")
         msgbox.showinfo(title="输出成功", message="文件已经输出在和图片同一级目录下！")
     def bingPicture(fname:str, idx:str="0", mkt:str="zh-cn"):
         """
@@ -316,26 +316,26 @@ class DrawingTools():
                             f.write(requests.get(data).content)
                             return 0
                     else:
-                        logger.error("ERROR: Number of images must be 1")
+                        logger.error("Number of images must be 1")
                         return 1
                 except Exception as err:
-                    logger.error(f"ERROR: {repr(err)}")
+                    logger.error(f"{repr(err)}")
                     raise err
             else:
                 logger.error(f"Network Error: {response.status_code}")
                 return 1
         except Exception as err:
-            logger.error(f"ERROR: {repr(err)}")
+            logger.error(f"{repr(err)}")
             return -1
 
 class Launcher():
     def __init__(self):
         msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
-        logger.error("INVOCATION ERROR")
+        logger.error("Invocation error")
     class DevToolsLauncher():
         def __init__(self):
             msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
-            logger.error("INVOCATION ERROR")
+            logger.error("Invocation error")
         def webConnectTestLauncher():
             try :
                 with open("logs/records.log", "r") as r:
@@ -346,7 +346,7 @@ class Launcher():
             except FileNotFoundError:
                 record = ""
             url = easygui.enterbox(msg="输入URL（带“http://”）", title="Windows 实用工具", default=record)
-            logger.info(f"USER INPUT:{url}")
+            logger.info(f"User input: {url}")
             if (url != None):
                 record = url
                 if not(settings["no-log-file"]):
@@ -357,7 +357,7 @@ class Launcher():
                 result = DevTools.webConnectTest(url)
                 msgbox.showinfo(title="Windows 实用工具",message=result)
                 if not("协议不存在，您是否忘记在网站开头加上“http://”？" in result):
-                    logger.info(f"WEB ADDRESS CONNECT INFO: {url} => {result}")
+                    logger.info(f"Web address connect info: {url} => {result}")
         def translatorLauncher():
             try:
                 with open("data/translator.appid.json", "r") as appid:
@@ -390,74 +390,74 @@ class Launcher():
                 if text:
                     fromLang = "auto"
                     toLang = easygui.choicebox("想输出的语言？", choices=list(languages.keys()), title="翻译器")
-                    logger.info(f"USER INPUT:[{text}, {fromLang}, {languages[toLang]}]")
+                    logger.info(f"User input:[{text}, {fromLang}, {languages[toLang]}]")
                     if (text != None)and(fromLang != None)and(toLang != None):
                         result = DevTools.translator(text, id, key, fromLang, languages[toLang])
                         msgbox.showinfo(message=f"翻译完成！\n原文：{text}\n翻译后：{result}\n翻译语言：{toLang}\n（如果结果内有“None”您却没有输入“None”，大概是翻译失败）", title="翻译器")
-                        logger.info(f"RESULT:{result}")
+                        logger.info(f"Result: {result}")
                     else :
                         msgbox.showerror(message="缺少参数！", title="翻译器")
-                        logger.error("MISSING ARGUMENTS")
+                        logger.error("Missing arguments")
         def JSONtoXMLLauncher():
             json = easygui.fileopenbox(title="打开文件", filetypes=[["*.json", "JSON files"]], default="*.json")
             xml = easygui.filesavebox(title="保存文件", filetypes=[["*.xml", "XML files"]], default="*.xml")
             if (json != None):
                 if (os.path.splitext(json)[-1] == ".json"):
                     global DevTools
-                    logger.info(f"INPUT JSON:{json}")
+                    logger.info(f"Input JSON:{json}")
                     DevTools.JSONtoXML(json, xml)
-                    logger.info(f"OUTPUT FINISH")
+                    logger.info(f"Output finish")
                 else :
                     msgbox.showerror(title="错误", message="文件拓展名不是\".json\"！")
-                    logger.error("FILE EXTENSION IS INCORRECT")
+                    logger.error("File extension is incorrect")
         def XMLtoJSONLauncher():
             xml = easygui.fileopenbox(title="打开文件", filetypes=[["*.xml", "XML files"]], default="*.xml")
             json = easygui.filesavebox(title="保存文件", filetypes=[["*.json", "JSON files"]], default="*.json")
             if (xml != None):
                 if (os.path.splitext(xml)[-1] == ".xml"):
                     global DevTools
-                    logger.info(f"INPUT XML:{xml}")
+                    logger.info(f"Input XML:{xml}")
                     DevTools.XMLtoJSON(xml, json)
-                    logger.info(f"OUTPUT FINISH")
+                    logger.info(f"Output finish")
                 else :
                     msgbox.showerror(title="错误", message="文件拓展名不是\".xml\"！")
-                    logger.error("FILE EXTENSION IS INCORRECT")
+                    logger.error("File extension is incorrect")
         def getIPLauncher():
             ip = easygui.enterbox("输入域名\n或者输入“@default”使用本地域名", title="IP地址获取器")
             if (ip != None):
                 if (ip != "@default"):
                     global DevTools
-                    logger.info(f"INPUT IP:{ip}")
+                    logger.info(f"Input IP:{ip}")
                     result = DevTools.getIP(ip)
                     msgbox.showinfo(message=f"IP地址：{result}", title="IP地址获取器")
-                    logger.info(f"RESULT:{result}")
+                    logger.info(f"Result: {result}")
                 else :
-                    logger.info(f"INPUT IP:{ip}")
+                    logger.info(f"Input IP:{ip}")
                     result = DevTools.getIP()
                     msgbox.showinfo(message=f"IP地址：{result}", title="IP地址获取器")
-                    logger.info(f"RESULT:{result}")
+                    logger.info(f"Result: {result}")
         def resolveDomainLauncher():
             domain = easygui.enterbox("输入IP地址", title="域名解析器")
             if (domain != None):
                 global DevTools
-                logger.info(f"INPUT DOMAIN:{domain}")
+                logger.info(f"Input Domain: {domain}")
                 result = DevTools.resolveDomain(domain)
                 msgbox.showinfo(message=f"解析结果：{result}", title="域名解析器")
-                logger.info(f"RESULT:{result}")
+                logger.info(f"Result: {result}")
     class DrawingToolsLauncher():
         def __init__(self):
             msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
-            logger.error("INVOCATION ERROR")
+            logger.error("Invocation error")
         def charPictureLauncher():
             path = easygui.fileopenbox(title="打开文件", filetypes=[["*.jpg", "*.jpeg" , "JPG files"], ["*.bmp", "BMP files"], ["*.gif", "GIF files"]], default="*.png")
             if (path != None):
                 if (os.path.splitext(path)[-1] == ".png")or(os.path.splitext(path)[-1] == ".jpg")or(os.path.splitext(path)[-1] == ".bmp")or(os.path.splitext(path)[-1] == ".gif")or(os.path.splitext(path)[-1] == ".jpeg"):
                     global DrawingTools
-                    logger.info(f"INPUT PICTURE:{path}")
+                    logger.info(f"Input picture:{path}")
                     DrawingTools.charPicture(path)
                 else :
                     msgbox.showerror(title="错误", message="文件拓展名错误！")
-                    logger.error("FILE EXTENSION IS INCORRECT")
+                    logger.error("File extension is incorrect")
         def bingPictureLauncher():
             fname = asksaveasfilename(title="保存文件", filetypes=[["JPG Files", "*.jpg"]], defaultextension="*.jpg")
             if (fname != None):
@@ -476,13 +476,13 @@ class Launcher():
                             msgbox.showerror(title="错误", message="索引必须为数字！")
                             return
                 else :
-                    logger.error("FILE EXTENSION IS INCORRECT")
+                    logger.error("File extension is incorrect")
                     msgbox.showerror(title="错误", message="文件拓展名错误！")
                     return
     class ExternalLauncher():
         def __init__(self):
             msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
-            logger.error("INVOCATION ERROR")
+            logger.error("Invocation error")
         def webSpeedTsetLauncher():
             def run():
                 subprocess.Popen("python ./src/webspeedtest/main.py")
@@ -506,14 +506,14 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v1.14.4 zh-cn
+        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v2.1.5 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
 发行日期：2024-5-19
 自述文件：README.md (en-US and zh-CN)
 MIT License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 1.14 RELEASE
+VERSION 2.1 RELEASE
 """)
     def languageSettings():
         msgbox.showerror(title="Windows Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
@@ -531,11 +531,11 @@ VERSION 1.14 RELEASE
                 with open(path, "r+", encoding="utf-8") as new_settings:
                     new_settings = new_settings.read()
                     new_settings = json.loads(new_settings)
-                    logger.info(f"SETTINGS: {new_settings}")
+                    logger.info(f"Settings: {new_settings}")
                     with open("data/settings.json", "w+", encoding="utf-8") as settings:
                         settings.write(json.dumps(new_settings, ensure_ascii=False, indent=4))
                         msgbox.showinfo(title="Windows 实用工具", message="设置已导入。")
-                        logger.info("SETTINGS IMPORTED")
+                        logger.info("Settings imported")
 
 def main():
     global root
@@ -544,7 +544,7 @@ def main():
     with open("./data/theme.json", "r", encoding="utf-8") as theme:
         theme = theme.read()
         theme = json.loads(theme)
-    logger.info("STARTING APP")
+    logger.info("Starting APP")
     root.title("Windows 实用工具")
     root.geometry("{}x{}".format(settings["geometry"][0], settings["geometry"][1]))
     root.resizable(settings["resizable"][0], settings["resizable"][1])
@@ -562,9 +562,9 @@ def main():
         else :
             root.iconbitmap("./images/icon.ico")
             style = ttk.Style("cosmo")
-            logger.warning("ICON FILE NOT FOUND. PROGRAM WILL USE DEFAULT ICON AND COSMO THEME.")
-    style.configure("TButton", font=("等线 Light",18,"normal"), width=20, height=3)
-    style.configure("TMenubutton", font=("等线 Light",18,"normal"), width=19, height=3)
+            logger.warning("Icon file not found. Program will use default icon and cosmo theme.")
+    style.configure("TButton", font=("等线 Light", 18, "normal"), width=20, height=3)
+    style.configure("TMenubutton", font=("等线 Light", 18, "normal"), width=19, height=3)
     # 窗口
     # ===================================== #
     title = ttk.Label(root, text="Windows 实用工具", font=("等线 Light",22,"normal"))

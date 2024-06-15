@@ -37,16 +37,16 @@ else :
 logger = logging.getLogger("SPEEDTEST")
 
 def webSpeedTest():
-        logger.info("PREPARE FOR THE TEST")
+        logger.info("Prepare for the test")
         tester = speedtest.Speedtest()
         tester.get_servers()
         # theBest = tester.get_best_server()
-        logger.info("START TESTING")
+        logger.info("Start testing")
         # 下载速度
         download_speed = int(tester.download() / 1024 / 1024)
         # 上传速度
         upload_speed = int(tester.upload() / 1024 / 1024)
-        logger.info(f"DS:{download_speed} MB; US:{upload_speed} MB")
+        logger.info(f"Download Speed:{download_speed} MB; Upload Speed:{upload_speed} MB")
         return (download_speed, upload_speed)
 
 # print(webSpeedTest())

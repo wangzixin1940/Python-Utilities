@@ -5,3 +5,4 @@ pyperclip
 xmltodict
 dicttoxml
 qrcode
+easyocr
