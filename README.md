@@ -117,13 +117,25 @@ Windows 自带程序 “calc.exe”。请不要在macOS上运行。
 
 *在 V 1.14.1 中添加*
 
+### 文字识别
+
+传入一个图片，即可帮您识别上面的文字！
+
+> [!NOTE]
+>
+> 识别过程非常慢，请耐心等待！
+>
+> 另外程序会在用户文件夹（"C:\\Users\\John"（"C:"替换为你的系统盘，"John"替换为你的用户名）或者"/usr/john"（"john"替换为你的用户名））生成一个名为".EasyOCR"的文件夹，系easyocr库的缓存文件，可以删除，不影响使用。
+
+*在 V 2.1.5 中添加*
+
 
 
 ## 系统工具
 
 ### Theme Switcher
 
-每次加载程序都会优先加载这个json文件（data/theme.json），读取里面的内容（theme键），使用theme键下的值当做主题。
+每次加载程序都会优先加载这个json文件（data/settings.json），读取里面的内容（theme键），使用theme键下的值当做主题。
 
 **只能是ttkbootstrap主题！不能把此文件或者此键值删除！**
 
@@ -133,7 +145,7 @@ Windows 自带程序 “calc.exe”。请不要在macOS上运行。
 
 > [!NOTE]
 >
-> 文件位置：./data/theme.json
+> 文件位置：./data/settings.json
 
 *在 V 1.7.3 添加*
 
@@ -333,6 +345,18 @@ A tool that can help you parse QR codes.
 
 *Added in V 1.14.1*
 
+### Text recognition
+
+Pass in an image to help you recognize the text on it!
+
+> [!NOTE]
+>
+> The recognition process is very slow, please be patient!
+>
+> In addition, the program will generate a folder called ". EasyOCR" in the user folder ("C:\\Users \\John" (replace "C:" with your system disk, "John" with your username) or "/usr/john" (replace "john" with your username), which is a cache file of the easyocr library that can be deleted without affecting usage.
+
+*Add in V 2.1.5*
+
 ## System Tools
 ### Theme Switcher
 
@@ -450,3 +474,7 @@ pip install -r requirements.txt
 # Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=wangzixin1940/Windows-Utilities&type=Date)](https://star-history.com/#wangzixin1940/Windows-Utilities&Date)
+
+**庆祝Windows Utilities v2发布！**
+
+**Celebrate the release of Windows Utilities v2!**
