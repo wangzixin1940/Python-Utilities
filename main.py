@@ -485,18 +485,18 @@ class Launcher():
             logger.error("Invocation error")
         def webSpeedTsetLauncher():
             def run():
-                subprocess.Popen("python ./src/webspeedtest/main.py")
+                subprocess.Popen("python /src/webspeedtest/main.py")
             msgbox.showwarning(title="警告", message="本程序等待时间极长，大约2分钟，将在后台进行测速操作。\n等待期间仍可以正常使用此程序。")
             thread = threading.Thread(target=run)
             thread.start()
         def clockLauncher():
-            subprocess.Popen("python \"src\\clock\\main.py\"") # python "src\clock\main.py"
+            subprocess.Popen("python src/clock/main.py") # python src/clock/main.py
         def calculatorLauncher():
             subprocess.Popen("calc")
         def hashCheckerLauncher():
-            msgbox.showinfo(title="Windows 实用工具", message="HASH校验器在\"src\\tools\\hash.py\"，请根据提示使用")
+            msgbox.showinfo(title="Windows 实用工具", message="HASH校验器在src/tools/hash.py，请根据提示使用")
         def passwordCreatorLauncher():
-            subprocess.Popen("python \"src\\passwordCreator\\main.py\"") # python "src\passwordCreator\main.py"
+            subprocess.Popen("python src/passwordCreator/main.py") # python "src\passwordCreator\main.py"
         def licenceCreatorLauncher():
             subprocess.Popen("python src/licenceCreator/main.py")
         def qrcodeGeneratorLauncher():
@@ -521,7 +521,7 @@ VERSION 2.1 RELEASE
         root.destroy()
     def switchTheme():
         if msgbox.askokcancel(title="Windows 实用工具", message="是否切换主题？\n切换后需要重新启动程序才能生效。打开后本程序会自动关闭。", icon="warning"):
-            subprocess.Popen("python \"tools\\configurator.py\"") # python "tools\configurator.py"
+            subprocess.Popen("python tools/configurator.py") # python "tools\configurator.py"
             root.destroy()
     def importSettings():
         path = easygui.fileopenbox(title="打开文件", filetypes=[["*.json", "JSON files"]], default="*.json")

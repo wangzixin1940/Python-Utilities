@@ -489,18 +489,18 @@ class Launcher():
             logger.error("Invocation error")
         def webSpeedTsetLauncher():
             def run():
-                subprocess.Popen("python ./src/webspeedtest/main.py")
+                subprocess.Popen("python src/webspeedtest/main.py")
             msgbox.showwarning(title="Warning", message="The waiting time of this program is extremely long about 2 minutes and the speed test operation will be performed in the background.\nYou can still use this program normally while waiting")
             thread = threading.Thread(target=run)
             thread.start()
         def clockLauncher():
-            subprocess.Popen("python \"src\\clock\\main.py\"") # python "src\clock\main.py"
+            subprocess.Popen("python src/clock/main.py") # python "src\clock\main.py"
         def calculatorLauncher():
             subprocess.Popen("calc")
         def md5CheckerLauncher():
             msgbox.showinfo(title="Windows Utilities", message="MD5 Checker in \"src\\cmdtools\\md5.py\". Follow the prompts to use, please.")
         def passwordCreatorLauncher():
-            subprocess.Popen("python \"src\\passwordCreator\\main.py\"") # python "src\passwordCreator\main.py"
+            subprocess.Popen("python src/passwordCreator/main.py") # python "src\passwordCreator\main.py"
         def licenceCreatorLauncher():
             subprocess.Popen("python src/licenceCreator/main.py")
         def qrcodeGeneratorLauncher():
@@ -525,7 +525,7 @@ VERSION 2.1 RELEASE
         root.destroy()
     def switchTheme():
         if msgbox.askokcancel(title="Windows Utilities", message="OK to change theme?\nYou need to restart the program after the switch to take effect. The program will close automatically when opened.", icon="warning"):
-            subprocess.Popen("python \"tools\\configurator.py\"") # python "tools\configurator.py"
+            subprocess.Popen("python tools/configurator.py") # python "tools\configurator.py"
             root.destroy()
     def importSettings():
         path = easygui.fileopenbox(title="Open...", filetypes=[["*.json", "JSON files"]], default="*.json")
