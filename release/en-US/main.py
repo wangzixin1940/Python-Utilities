@@ -510,13 +510,13 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v2.1.5 en-US
+        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v2.1.7 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
-Release Date: 2024-5-19
+Release Date: 2024-7-3
 README File：README.md (en-US and zh-CN)
-MIT License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
+GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
 VERSION 2.1 RELEASE
 """)
     def languageSettings():
