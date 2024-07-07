@@ -1,11 +1,11 @@
 """
-特别说明：
-本程序的数据均来自WWIS(World Weather Information Service，https://worldweather.wmo.int/)。
+Special note:
+The data for this program comes from WWIS (World Weather Information Service, https://worldweather.wmo.int/).
 """
 
 import os
 os.chdir(os.path.dirname(__file__))
-# 更换工作目录
+# Change working directory to the directory of this file
 
 import logging, datetime
 
@@ -16,7 +16,7 @@ logging.basicConfig(
                     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger("WEATHER_APP")
-# 设置logger
+# Set up logger
 
 import csv
 import ttkbootstrap as ttk
@@ -27,33 +27,33 @@ import json
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
-        self.title("天气查询")
+        self.title("Weather Queries")
         self.geometry("400x300")
         self.resizable(False, False)
         self.iconbitmap("assets/favicon.ico")
         self.styleset = ttk.Style()
         self.styleset.theme_use("cosmo")
-        self.styleset.configure("TButton", font=("微软雅黑", 12), width=15)
-        # 创建控件
-        self.maintitle = ttk.Label(self, text="天气查询", font=("微软雅黑", 20))
-        self.country = ttk.Label(self, text="请输入国家名称：", font=("微软雅黑", 12))
+        self.styleset.configure("TButton", font=("Airal", 12), width=15)
+        # Create widgets
+        self.maintitle = ttk.Label(self, text="Weather Queries", font=("Airal", 20))
+        self.country = ttk.Label(self, text="Name of Country:", font=("Airal", 12))
         self.entry = ttk.Entry(self, width=40)
-        self.city = ttk.Label(self, text="请输入城市名称：", font=("微软雅黑", 12))
+        self.city = ttk.Label(self, text="Name of City:", font=("Airal", 12))
         self.entry2 = ttk.Entry(self, width=40)
-        self.search = ttk.Button(self, text="查询", command=self.search_weather)
-        # 布局控件
+        self.search = ttk.Button(self, text="INQUIRE", command=self.search_weather)
+        # Layout widgets
         self.maintitle.pack(pady=10)
         self.country.pack(anchor="w")
         self.entry.pack(anchor="w")
         self.city.pack(anchor="w")
         self.entry2.pack(anchor="w")
         self.search.pack(pady=10)
-        # 主循环
+        # Main loop
         self.mainloop()
 
     def search_id(self) -> int:
         """
-        查找城市ID
+        Find the city ID
         """
         country = self.entry.get()
         city = self.entry2.get()
@@ -66,33 +66,33 @@ class App(ttk.Window):
         
     def search_weather(self):
         """
-        查询天气并且显示
+        Search for weather
         """
         id = self.search_id()
         if id == -1:
-            msgbox.showerror("错误", "未收录此城市，请检查输入。\n或者查看data/full_city_list.csv文件查找您的城市ID（第三列）。")
+            msgbox.showerror("Error", "This city is not included. Please check the input.\nOr check data/full_city_list.csv to find your city ID (Third column).")
             return
         try:
             content = requests.get(f"https://worldweather.wmo.int/en/json/{id}_en.json")
             json_data = content.content.decode("utf-8")
             data = json.loads(json_data)
             logger.info(data)
-            text = f"""查询成功！
-{self.entry2.get()}的天气：
-今天：{data["city"]["forecast"]["forecastDay"][0]["weather"]}
-明天预测：{data["city"]["forecast"]["forecastDay"][1]["weather"]}
-后天预测：{data["city"]["forecast"]["forecastDay"][2]["weather"]}
-{data["city"]["forecast"]["forecastDay"][3]["forecastDate"]}预测：{data["city"]["forecast"]["forecastDay"][3]["weather"]}
-{data["city"]["forecast"]["forecastDay"][4]["forecastDate"]}预测：{data["city"]["forecast"]["forecastDay"][4]["weather"]}
-{data["city"]["forecast"]["forecastDay"][5]["forecastDate"]}预测：{data["city"]["forecast"]["forecastDay"][5]["weather"]}
+            text = f"""Query successful!
+{self.entry2.get()}'s weather：
+Today: {data["city"]["forecast"]["forecastDay"][0]["weather"]}
+Forecast for tomorrow: {data["city"]["forecast"]["forecastDay"][1]["weather"]}
+Forecast for day after tomorrow: {data["city"]["forecast"]["forecastDay"][2]["weather"]}
+Forecast for {data["city"]["forecast"]["forecastDay"][3]["forecastDate"]}: {data["city"]["forecast"]["forecastDay"][3]["weather"]}
+Forecast for {data["city"]["forecast"]["forecastDay"][4]["forecastDate"]}: {data["city"]["forecast"]["forecastDay"][4]["weather"]}
+Forecast for {data["city"]["forecast"]["forecastDay"][5]["forecastDate"]}: {data["city"]["forecast"]["forecastDay"][5]["weather"]}
 """
-            msgbox.showinfo("查询成功", text)
+            msgbox.showinfo("Query successful", text)
         except requests.exceptions.ConnectionError as err:
-            msgbox.showerror("错误", "网络连接错误，请检查网络连接。")
+            msgbox.showerror("Error", "Network connection error, please check your network connection.")
             logger.error(repr(err))
             return
         except Exception as err:
-            msgbox.showerror("错误", "未知错误。")
+            msgbox.showerror("Error", "Unknown error.")
             logger.error(repr(err))
             return
 
@@ -104,9 +104,9 @@ if __name__ == "__main__":
             reader = csv.reader(f)
             city_list = list(reader)
     except FileNotFoundError:
-        msgbox.showerror("错误", "未找到城市列表文件，请检查文件路径。")
+        msgbox.showerror("Error", "The city list file was not found. Please check the file path.")
         exit(1)
     except OSError:
-        msgbox.showerror("错误", "读取城市列表文件时发生错误。")
+        msgbox.showerror("Error", "An error occurred while reading the city list file")
         exit(2)
     App()
