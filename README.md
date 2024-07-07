@@ -75,6 +75,10 @@
 
 输入IP地址来获得主机名
 
+### 查天气
+
+使用这个工具，就可以查看世界上3000+个国家和地区的天气！
+
 
 
 ## 绘画工具使用指南
@@ -302,6 +306,10 @@ Input domain name or input "@default" to get IP address.
 #### Resolve Domain
 
 Input IP address to get domain name.
+
+### Check the weather
+
+With this tool, you can view the weather in over 3000 countries and regions around the world!
 
 
 

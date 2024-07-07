@@ -503,17 +503,19 @@ class Launcher():
             subprocess.Popen("python src/qrcode/main.py 0")
         def qrcodeParserLauncher():
             subprocess.Popen("python src/qrcode/main.py 1")
+        def weatherLauncher():
+            subprocess.Popen("python src/weather/main.py")
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v2.1.7 zh-cn
+        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v2.2.0 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
 发行日期：2024-7-3
 自述文件：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 2.1 RELEASE
+VERSION 2.2 RELEASE
 """)
     def languageSettings():
         msgbox.showerror(title="Windows Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
@@ -574,6 +576,8 @@ def main():
     utilitiesLabel.pack() # 实用工具标签
     translateButton = ttk.Button(root, text="翻译器", command=Launcher.DevToolsLauncher.translatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     translateButton.pack() # 翻译器按钮
+    weatherButton = ttk.Button(root, text="天气预报", command=Launcher.ExternalLauncher.weatherLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    weatherButton.pack() # 天气预报按钮
     # ===================================== #
     DevToolsLabel = ttk.Label(root, text="开发者工具 </>", font=("等线 Light",18,"normal"))
     DevToolsLabel.pack() # 开发者工具标签
