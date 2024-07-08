@@ -89,7 +89,7 @@ class App(ttk.Window):
         self.geometry("400x300")
         self.resizable(False, False)
         self.styleset = ttk.Style("cosmo")
-        # self.iconbitmap("assets/favicon.ico")
+        self.iconbitmap("assets/favicon.ico")
         self.styleset.configure("TButton", font=("Airal", 16, "normal"), width=15, height=3)
         # Create widgets
         self.maintitle = ttk.Label(self, text="Speech to text converter", font=("Airal", 20, "bold"))

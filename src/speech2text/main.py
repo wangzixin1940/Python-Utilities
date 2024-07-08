@@ -89,7 +89,7 @@ class App(ttk.Window):
         self.geometry("400x300")
         self.resizable(False, False)
         self.styleset = ttk.Style("cosmo")
-        # self.iconbitmap("assets/favicon.ico")
+        self.iconbitmap("assets/favicon.ico")
         self.styleset.configure("TButton", font=("等线 Light", 16, "normal"), width=15, height=3)
         # 创建控件
         self.maintitle = ttk.Label(self, text="语音转文字", font=("等线 Light", 20, "bold"))
