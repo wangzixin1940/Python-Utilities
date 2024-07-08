@@ -509,17 +509,19 @@ class Launcher():
             subprocess.Popen("python src/qrcode/main.py 1")
         def weatherLauncher():
             subprocess.Popen("python src/weather/main.py")
+        def speech2textLauncher():
+            subprocess.Popen("python src/speech2text/main.py")
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v2.2.0 en-US
+        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v2.3.0 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
 Release Date: 2024-7-3
 README File：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 2.2 RELEASE
+VERSION 2.3 RELEASE
 """)
     def languageSettings():
         msgbox.showinfo(title="Windows 实用工具", message="前往\"../../main.py\"运行中文版本！")
@@ -580,8 +582,10 @@ def main():
     utilitiesLabel.pack() # Utilities tab
     translateButton = ttk.Button(root, text="Translator", command=Launcher.DevToolsLauncher.translatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     translateButton.pack() # Translator button
-    weatherButton = ttk.Button(root, text="天气预报", command=Launcher.ExternalLauncher.weatherLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
-    weatherButton.pack() # 天气预报按钮
+    weatherButton = ttk.Button(root, text="Weather forecast", command=Launcher.ExternalLauncher.weatherLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    weatherButton.pack() # Weather forecast button
+    speech2textButton = ttk.Button(root, text="Speech to text", command=Launcher.ExternalLauncher.speech2textLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    speech2textButton.pack() # Speech to text button
     # ===================================== #
     DevToolsLabel = ttk.Label(root, text="DevTools </>", font=("Airal",18,"normal"))
     DevToolsLabel.pack() # DevTools tab
