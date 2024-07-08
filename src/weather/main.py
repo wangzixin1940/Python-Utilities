@@ -79,9 +79,9 @@ class App(ttk.Window):
             logger.info(data)
             text = f"""查询成功！
 {self.entry2.get()}的天气：
-今天：{data["city"]["forecast"]["forecastDay"][0]["weather"]}
-明天预测：{data["city"]["forecast"]["forecastDay"][1]["weather"]}
-后天预测：{data["city"]["forecast"]["forecastDay"][2]["weather"]}
+明天预测：{data["city"]["forecast"]["forecastDay"][0]["weather"]}
+后天预测：{data["city"]["forecast"]["forecastDay"][1]["weather"]}
+{data["city"]["forecast"]["forecastDay"][2]["forecastDate"]}预测：{data["city"]["forecast"]["forecastDay"][2]["weather"]}
 {data["city"]["forecast"]["forecastDay"][3]["forecastDate"]}预测：{data["city"]["forecast"]["forecastDay"][3]["weather"]}
 {data["city"]["forecast"]["forecastDay"][4]["forecastDate"]}预测：{data["city"]["forecast"]["forecastDay"][4]["weather"]}
 {data["city"]["forecast"]["forecastDay"][5]["forecastDate"]}预测：{data["city"]["forecast"]["forecastDay"][5]["weather"]}

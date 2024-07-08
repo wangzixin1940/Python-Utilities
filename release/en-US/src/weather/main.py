@@ -79,9 +79,9 @@ class App(ttk.Window):
             logger.info(data)
             text = f"""Query successful!
 {self.entry2.get()}'s weather：
-Today: {data["city"]["forecast"]["forecastDay"][0]["weather"]}
-Forecast for tomorrow: {data["city"]["forecast"]["forecastDay"][1]["weather"]}
-Forecast for day after tomorrow: {data["city"]["forecast"]["forecastDay"][2]["weather"]}
+Forecast for tomorrow: {data["city"]["forecast"]["forecastDay"][0]["weather"]}
+Forecast for day after tomorrow: {data["city"]["forecast"]["forecastDay"][1]["weather"]}
+Forecast for {data["city"]["forecast"]["forecastDay"][2]["forecastDate"]}: {data["city"]["forecast"]["forecastDay"][2]["weather"]}
 Forecast for {data["city"]["forecast"]["forecastDay"][3]["forecastDate"]}: {data["city"]["forecast"]["forecastDay"][3]["weather"]}
 Forecast for {data["city"]["forecast"]["forecastDay"][4]["forecastDate"]}: {data["city"]["forecast"]["forecastDay"][4]["weather"]}
 Forecast for {data["city"]["forecast"]["forecastDay"][5]["forecastDate"]}: {data["city"]["forecast"]["forecastDay"][5]["weather"]}
