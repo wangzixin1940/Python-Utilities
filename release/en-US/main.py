@@ -16,7 +16,6 @@ os.chdir(os.path.dirname(__file__))
 
 # Reserved modules
 from tkinter import messagebox as msgbox
-from ttkbootstrap.constants import *
 import ttkbootstrap as ttk
 import easygui
 import logging
