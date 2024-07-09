@@ -476,13 +476,25 @@ pip install -r requirements.txt
 
 **Written by GitHub user @wangzixin1940**
 
-*希望给一个Star~* <br />
-*Give me a star, please~*
-
 # Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=wangzixin1940/Windows-Utilities&type=Date)](https://star-history.com/#wangzixin1940/Windows-Utilities&Date)
 
-**庆祝Python Utilities v2发布！**
+# 重大更新记录 / Major update records
 
-**Celebrate the release of Python Utilities v2!**
+## 2024
+
+**2024/7/9**
+本仓库重命名为"Python Utilities"
+This repository is renamed as "Python Utilities"
+
+# 新闻 / News
+
+## 2024
+
+**2024/6/15**
+庆祝Windows Utilities v2发布！
+Celebrate the release of Windows Utilities v2!
+
+*希望给一个Star~*
+*Give me a star, please~*
