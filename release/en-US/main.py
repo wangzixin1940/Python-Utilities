@@ -498,7 +498,7 @@ class Launcher():
         def calculatorLauncher():
             subprocess.Popen("calc")
         def md5CheckerLauncher():
-            msgbox.showinfo(title="Windows Utilities", message="MD5 Checker in \"src\\cmdtools\\md5.py\". Follow the prompts to use, please.")
+            msgbox.showinfo(title="Python Utilities", message="MD5 Checker in \"src\\cmdtools\\md5.py\". Follow the prompts to use, please.")
         def passwordCreatorLauncher():
             subprocess.Popen("python src/passwordCreator/main.py") # python "src\passwordCreator\main.py"
         def licenceCreatorLauncher():
@@ -514,7 +514,7 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows Utilities", message="""Windows Utilities v2.3.0 en-US
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.3.0 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
@@ -524,25 +524,25 @@ GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main
 VERSION 2.3 RELEASE
 """)
     def languageSettings():
-        msgbox.showinfo(title="Windows 实用工具", message="前往\"../../main.py\"运行中文版本！")
+        msgbox.showinfo(title="Python Utilities", message="前往\"../../main.py\"运行中文版本！")
     def quitApp():
         root.destroy()
     def switchTheme():
-        if msgbox.askokcancel(title="Windows Utilities", message="OK to change theme?\nYou need to restart the program after the switch to take effect. The program will close automatically when opened.", icon="warning"):
+        if msgbox.askokcancel(title="Python Utilities", message="OK to change theme?\nYou need to restart the program after the switch to take effect. The program will close automatically when opened.", icon="warning"):
             subprocess.Popen("python tools/configurator.py") # python "tools\configurator.py"
             root.destroy()
     def importSettings():
         path = easygui.fileopenbox(title="Open...", filetypes=[["*.json", "JSON files"]], default="*.json")
         global settings
         if (path != None):
-            if (msgbox.askokcancel(title="Windows Utilities", message="OK to import?\nThe existing configuration file will be overwritten.\nA corrupted configuration file may cause the program to run incorrectly.", icon="warning")):
+            if (msgbox.askokcancel(title="Python Utilities", message="OK to import?\nThe existing configuration file will be overwritten.\nA corrupted configuration file may cause the program to run incorrectly.", icon="warning")):
                 with open(path, "r+", encoding="utf-8") as new_settings:
                     new_settings = new_settings.read()
                     new_settings = json.loads(new_settings)
                     logger.info(f"Settings: {new_settings}")
                     with open("data/settings.json", "w+", encoding="utf-8") as settings:
                         settings.write(json.dumps(new_settings, ensure_ascii=False, indent=4))
-                        msgbox.showinfo(title="Windows Utilities", message="Settings imported successfully!")
+                        msgbox.showinfo(title="Python Utilities", message="Settings imported successfully!")
                         logger.info("Settings imported")
 
 def main():
@@ -553,7 +553,7 @@ def main():
         theme = theme.read()
         theme = json.loads(theme)
     logger.info("Starting APP")
-    root.title("Windows Utilities")
+    root.title("Python Utilities")
     root.geometry("{}x{}".format(settings["geometry"][0], settings["geometry"][1]))
     root.resizable(settings["resizable"][0], settings["resizable"][1])
     if settings["icon-file-path"] == "@default":
@@ -575,7 +575,7 @@ def main():
     style.configure("TMenubutton", font=("Times New Roman", 14, "normal"), width=28, height=3)
     # Window
     # ===================================== #
-    title = ttk.Label(root, text="Windows Utilities", font=("Airal",20,"bold"))
+    title = ttk.Label(root, text="Python Utilities", font=("Airal",20,"bold"))
     title.pack() # Title
     # ===================================== #
     utilitiesLabel = ttk.Label(root, text="Utilities 🛠", font=("Airal",18,"normal"))

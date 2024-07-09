@@ -1,4 +1,4 @@
-# Windows 实用工具使用指南（Simplified Chinese）
+# Python Utilities使用指南（Simplified Chinese）
 
 
 ![Logo](images/logo.png)
@@ -233,7 +233,7 @@ Windows 自带程序 “calc.exe”。请不要在macOS上运行。
 
 *在 V 1.9.5 添加*
 
-# Windows Utilities（English）
+# Python Utilities（English）
 
 ## Developer Tools User Guide
 
@@ -483,6 +483,6 @@ pip install -r requirements.txt
 
 [![Star History Chart](https://api.star-history.com/svg?repos=wangzixin1940/Windows-Utilities&type=Date)](https://star-history.com/#wangzixin1940/Windows-Utilities&Date)
 
-**庆祝Windows Utilities v2发布！**
+**庆祝Python Utilities v2发布！**
 
-**Celebrate the release of Windows Utilities v2!**
+**Celebrate the release of Python Utilities v2!**

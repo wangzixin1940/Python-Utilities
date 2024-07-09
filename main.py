@@ -345,7 +345,7 @@ class Launcher():
                         record = ""
             except FileNotFoundError:
                 record = ""
-            url = easygui.enterbox(msg="输入URL（带“http://”）", title="Windows 实用工具", default=record)
+            url = easygui.enterbox(msg="输入URL（带“http://”）", title="Python Utilities", default=record)
             logger.info(f"User input: {url}")
             if (url != None):
                 record = url
@@ -355,7 +355,7 @@ class Launcher():
             if (url != None):
                 global DevTools
                 result = DevTools.webConnectTest(url)
-                msgbox.showinfo(title="Windows 实用工具",message=result)
+                msgbox.showinfo(title="Python Utilities",message=result)
                 if not("协议不存在，您是否忘记在网站开头加上“http://”？" in result):
                     logger.info(f"Web address connect info: {url} => {result}")
         def translatorLauncher():
@@ -494,7 +494,7 @@ class Launcher():
         def calculatorLauncher():
             subprocess.Popen("calc")
         def hashCheckerLauncher():
-            msgbox.showinfo(title="Windows 实用工具", message="HASH校验器在src/tools/hash.py，请根据提示使用")
+            msgbox.showinfo(title="Python Utilities", message="HASH校验器在src/tools/hash.py，请根据提示使用")
         def passwordCreatorLauncher():
             subprocess.Popen("python src/passwordCreator/main.py") # python "src\passwordCreator\main.py"
         def licenceCreatorLauncher():
@@ -510,7 +510,7 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Windows 实用工具", message="""Windows 实用工具 v2.3.0 zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.3.0 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
@@ -520,25 +520,25 @@ GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main
 VERSION 2.3 RELEASE
 """)
     def languageSettings():
-        msgbox.showerror(title="Windows Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
+        msgbox.showerror(title="Python Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
     def quitApp():
         root.destroy()
     def switchTheme():
-        if msgbox.askokcancel(title="Windows 实用工具", message="是否切换主题？\n切换后需要重新启动程序才能生效。打开后本程序会自动关闭。", icon="warning"):
+        if msgbox.askokcancel(title="Python Utilities", message="是否切换主题？\n切换后需要重新启动程序才能生效。打开后本程序会自动关闭。", icon="warning"):
             subprocess.Popen("python tools/configurator.py") # python "tools\configurator.py"
             root.destroy()
     def importSettings():
         path = easygui.fileopenbox(title="打开文件", filetypes=[["*.json", "JSON files"]], default="*.json")
         global settings
         if (path != None):
-            if (msgbox.askokcancel(title="Windows 实用工具", message="是否导入设置？\n现有的配置文件将会被覆盖。\n损坏的配置文件可能会导致程序运行错误。", icon="warning")):
+            if (msgbox.askokcancel(title="Python Utilities", message="是否导入设置？\n现有的配置文件将会被覆盖。\n损坏的配置文件可能会导致程序运行错误。", icon="warning")):
                 with open(path, "r+", encoding="utf-8") as new_settings:
                     new_settings = new_settings.read()
                     new_settings = json.loads(new_settings)
                     logger.info(f"Settings: {new_settings}")
                     with open("data/settings.json", "w+", encoding="utf-8") as settings:
                         settings.write(json.dumps(new_settings, ensure_ascii=False, indent=4))
-                        msgbox.showinfo(title="Windows 实用工具", message="设置已导入。")
+                        msgbox.showinfo(title="Python Utilities", message="设置已导入。")
                         logger.info("Settings imported")
 
 def main():
@@ -549,7 +549,7 @@ def main():
         theme = theme.read()
         theme = json.loads(theme)
     logger.info("Starting APP")
-    root.title("Windows 实用工具")
+    root.title("Python Utilities")
     root.geometry("{}x{}".format(settings["geometry"][0], settings["geometry"][1]))
     root.resizable(settings["resizable"][0], settings["resizable"][1])
     if settings["icon-file-path"] == "@default":
@@ -571,7 +571,7 @@ def main():
     style.configure("TMenubutton", font=("等线 Light", 18, "normal"), width=19, height=3)
     # 窗口
     # ===================================== #
-    title = ttk.Label(root, text="Windows 实用工具", font=("等线 Light",22,"normal"))
+    title = ttk.Label(root, text="Python Utilities", font=("等线 Light",22,"normal"))
     title.pack() # 工具的标题
     # ===================================== #
     utilitiesLabel = ttk.Label(root, text="实用工具 🛠", font=("等线 Light",18,"normal"))
