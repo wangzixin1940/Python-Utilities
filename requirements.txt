@@ -7,3 +7,5 @@ dicttoxml
 qrcode
 easyocr
 requests
+wave
+vosk
