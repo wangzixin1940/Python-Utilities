@@ -506,10 +506,12 @@ class Launcher():
             subprocess.Popen("python src/weather/main.py")
         def speech2textLauncher():
             subprocess.Popen("python src/speech2text/main.py")
+        def pictureFormatConverterLauncher():
+            subprocess.Popen("python src/photo_format_converter/main.py")
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.3.0 zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.3.5 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
@@ -625,6 +627,7 @@ def main():
         otherMenu.add_separator()
         otherMenu.add_command(label="字符画", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
         otherMenu.add_command(label="Bing每日一图", command=Launcher.DrawingToolsLauncher.bingPictureLauncher)
+        otherMenu.add_command(label="照片格式转换", command=Launcher.ExternalLauncher.pictureFormatConverterLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
         if not(settings["no-settings-menu"]):

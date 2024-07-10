@@ -510,10 +510,12 @@ class Launcher():
             subprocess.Popen("python src/weather/main.py")
         def speech2textLauncher():
             subprocess.Popen("python src/speech2text/main.py")
+        def pictureFormatConverterLauncher():
+            subprocess.Popen("python src/photo_format_converter/main.py")
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.3.0 en-US
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.3.5 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
@@ -629,6 +631,7 @@ def main():
         otherMenu.add_separator()
         otherMenu.add_command(label="Character picture", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
         otherMenu.add_command(label="Bing Picture", command=Launcher.DrawingToolsLauncher.bingPictureLauncher)
+        otherMenu.add_command(label="Photo Format Converter", command=Launcher.ExternalLauncher.pictureFormatConverterLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
         if not(settings["no-settings-menu"]):
