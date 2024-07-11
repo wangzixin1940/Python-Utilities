@@ -63,8 +63,10 @@ sysinfo = {
     }
 }
 for i in range(len(sysinfo["python"]["version"])):
-    if not("b" in str(i)):
+    if not("b" in str(sysinfo["python"]["version"][i])):
         sysinfo["python"]["version"][i] = int(sysinfo["python"]["version"][i])
+    else:
+        sysinfo["python"]["version"][i] = sysinfo["python"]["version"][i].split("b")[0]
 
 class DevTools():
     def __init__(self):
