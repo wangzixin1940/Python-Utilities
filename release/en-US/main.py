@@ -62,7 +62,9 @@ sysinfo = {
         "implementation": platform.python_implementation(),
     }
 }
-for i in range(len(sysinfo["python"]["version"])): sysinfo["python"]["version"][i] = int(sysinfo["python"]["version"][i])
+for i in range(len(sysinfo["python"]["version"])):
+    if not("b" in i):
+        sysinfo["python"]["version"][i] = int(sysinfo["python"]["version"][i])
 
 class DevTools():
     def __init__(self):
