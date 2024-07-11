@@ -63,7 +63,7 @@ sysinfo = {
     }
 }
 for i in range(len(sysinfo["python"]["version"])):
-    if not("b" in i):
+    if not("b" in str(i)):
         sysinfo["python"]["version"][i] = int(sysinfo["python"]["version"][i])
 
 class DevTools():
