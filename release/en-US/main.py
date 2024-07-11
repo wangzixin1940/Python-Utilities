@@ -495,7 +495,7 @@ class Launcher():
         def clockLauncher():
             subprocess.Popen("python src/clock/main.py") # python "src\clock\main.py"
         def calculatorLauncher():
-            subprocess.Popen("calc")
+            subprocess.Popen("python src/calculator/main.py")
         def md5CheckerLauncher():
             msgbox.showinfo(title="Python Utilities", message="MD5 Checker in \"src\\cmdtools\\md5.py\". Follow the prompts to use, please.")
         def passwordCreatorLauncher():
@@ -515,14 +515,14 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.3.5 en-US
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.4.0 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
 Release Date: 2024-7-3
 README File：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 2.3 RELEASE
+VERSION 2.4 RELEASE
 """)
     def languageSettings():
         msgbox.showinfo(title="Python Utilities", message="前往\"../../main.py\"运行中文版本！")

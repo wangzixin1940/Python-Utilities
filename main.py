@@ -491,7 +491,7 @@ class Launcher():
         def clockLauncher():
             subprocess.Popen("python src/clock/main.py") # python src/clock/main.py
         def calculatorLauncher():
-            subprocess.Popen("calc")
+            subprocess.Popen("python src/calculator/main.py")
         def hashCheckerLauncher():
             msgbox.showinfo(title="Python Utilities", message="HASH校验器在src/tools/hash.py，请根据提示使用")
         def passwordCreatorLauncher():
@@ -511,14 +511,14 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.3.5 zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.4.0 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
 发行日期：2024-7-3
 自述文件：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 2.3 RELEASE
+VERSION 2.4 RELEASE
 """)
     def languageSettings():
         msgbox.showerror(title="Python Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")

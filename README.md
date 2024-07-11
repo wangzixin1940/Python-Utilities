@@ -105,9 +105,11 @@
 
 ### 计算器
 
-Windows 自带程序 “calc.exe”。请不要在macOS上运行。
+<del>Windows 自带程序 “calc.exe”。请不要在macOS上运行。</del>
 
-*在 V 1.7.2 中添加*
+**V 2.4.0 最新消息：计算器程序已经更改为Python TTk实现的基本功能计算器，所有平台通用！**
+
+*在 V 1.7.2 中添加 在 V 2.4.0 中更新*
 
 ### 二维码工具
 
@@ -337,9 +339,11 @@ Get a daily chart from Bing and save it to your computer!
 
 ### Calculator
 
-Windows built-in program "calc. exe".Please do not run this program on macOS.
+<del>Windows built-in program "calc. exe".Please do not run this program on macOS.</del>
 
-*Added in V 1.7.2*
+**V 2.4.0 Latest News: The calculator program has been changed to a basic function calculator implemented in Python TTk, which is universal on all platforms**!
+
+*Added in V 1.7.2, Updated in V 2.4.0*
 
 ### QR Code Tools
 
