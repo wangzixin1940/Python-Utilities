@@ -60,6 +60,12 @@ class Calculator(ttk.Window):
                     try:
                         self.data = [str(eval("".join(self.data)))]
                         self.result_value.set("".join(self.data))
+                    except ZeroDivisionError:
+                        msgbox.showerror("Error", "The divisor cannot be 0!")
+                        self.data = []
+                    except ValueError:
+                        msgbox.showerror("Error", "The expression overflow!(bigger than 10**4301-1)")
+                        self.data = []
                     except Exception as err:
                         msgbox.showerror("Error", "Expression error！\n{}".format(repr(err)))
             self.previous_type = "function"
@@ -72,7 +78,7 @@ class Calculator(ttk.Window):
                     self.data[-1] = str(float(self.data[-1])/100)
                     self.result_value.set("".join(self.data))
                 case "x^y":
-                    self.append("**")
+                    self.data.append("**")
                 case "2√x":
                     self.data[-1] = str(float(math.sqrt(float(self.data[-1]))))
                 case _:

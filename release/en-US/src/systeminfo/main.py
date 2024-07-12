@@ -35,6 +35,10 @@ ab. About\tx. Exit
 """)
 
     def match_choice_and_run(self, choice):
+        if (platform.system() == "Windows"):
+            os.system("cls")
+        else:
+            os.system("clear")
         match choice:
             case "1":
                 print(f"System architecture: {platform.architecture()}")
