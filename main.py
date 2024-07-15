@@ -512,10 +512,12 @@ class Launcher():
             subprocess.Popen("python src/speech2text/main.py")
         def pictureFormatConverterLauncher():
             subprocess.Popen("python src/photo_format_converter/main.py")
+        def sendMailFromJSONLauncher():
+            subprocess.Popen("python src/send_mail_from_json/main.py")
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.4.0 zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.4.5 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
@@ -615,6 +617,7 @@ def main():
         otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
         otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.hashCheckerLauncher)
         otherMenu.add_command(label="Licence 创造器", command=Launcher.ExternalLauncher.licenceCreatorLauncher)
+        otherMenu.add_command(label="用JSON批量发送文件", command=Launcher.ExternalLauncher.sendMailFromJSONLauncher)
         ipToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="IP工具", menu=ipToolsMenu)
         ipToolsMenu.add_command(label="IP地址查询", command=Launcher.DevToolsLauncher.getIPLauncher)
