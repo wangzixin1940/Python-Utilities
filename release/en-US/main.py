@@ -516,10 +516,12 @@ class Launcher():
             subprocess.Popen("python src/speech2text/main.py")
         def pictureFormatConverterLauncher():
             subprocess.Popen("python src/photo_format_converter/main.py")
+        def sendMailFromJSONLauncher():
+            subprocess.Popen("python src/send_mail_from_json/main.py")
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.4.0 en-US
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.4.5 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
@@ -619,6 +621,7 @@ def main():
         otherMenu.add_command(label="Calculator", command=Launcher.ExternalLauncher.calculatorLauncher)
         otherMenu.add_command(label="Check md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
         otherMenu.add_command(label="Licence Creator", command=Launcher.ExternalLauncher.licenceCreatorLauncher)
+        otherMenu.add_command(label="Send mail from JSON", command=Launcher.ExternalLauncher.sendMailFromJSONLauncher)
         ipToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="IP tools", menu=ipToolsMenu)
         ipToolsMenu.add_command(label="IP address lookup", command=Launcher.DevToolsLauncher.getIPLauncher)
