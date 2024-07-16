@@ -155,32 +155,35 @@
 
 *在 V 1.7.3 添加*
 
-### Theme Switcher GUI Program
 
-基于theme.json开发，可预览效果的程序。**并且实时提供预览，更加安全！**
 
-> [!NOTE]
+### ~~Theme Switcher GUI Program~~
+
+~~基于theme.json开发，可预览效果的程序。**并且实时提供预览，更加安全！**~~
+
+> ~~[!NOTE]~~
 >
-> 文件位置：./tools/configurator.py
+> ~~文件位置：./tools/configurator.py~~
 
-*在 V 1.8.1 添加*
+~~*在 V 1.8.1 添加*~~
 
-### Theme Switcher CUI Program
+### ~~Theme Switcher CUI Program~~
 
-一个命令行工具，和Theme Switcher GUI Program使用相同的核心代码
+~~一个命令行工具，和Theme Switcher GUI Program使用相同的核心代码~~
 
-> 用法:
+> ~~用法:~~
 >
-> python / py configurator.py /theme [theme_name]
+> ~~python / py configurator.py /theme [theme_name]~~
 >
-> theme_name: 主题名称，{themes}的任意一个，必须和/theme参数并用
+> ~~theme_name: 主题名称，{themes}的任意一个，必须和/theme参数并用~~
 
-> [!NOTE]
+> ~~[!NOTE]~~
 >
-> 文件位置：./tools/cmd/configurator.py
+> ~~文件位置：./tools/cmd/configurator.py~~
 
+~~*在 V 1.9.1 添加*~~
 
-*在 V 1.9.1 添加*
+**重要信息！在 V 2.5.0 主题设置已经集成到主界面内！**
 
 ### Clear CUI Program
 
@@ -386,32 +389,33 @@ Every time the program is loaded, the JSON file (data\theme. json) will be loade
 
 *Added in V 1.7.3*
 
-### Theme Switcher GUI Program
+### ~~Theme Switcher GUI Program~~
 
-A program developed based on "theme. json", that allows for preview effects. **And provide real-time preview, more secure!**
+~~A program developed based on "theme. json", that allows for preview effects. **And provide real-time preview, more secure!**~~
 
-> [!NOTE]
+> ~~[!NOTE]~~
 >
-> File location: ./tools/configurator.py
+> ~~File location: ./tools/configurator.py~~
 
-*Added in V 1.8.1*
+~~*Added in V 1.8.1*~~
 
-### Theme Switcher CUI Program
+### ~~Theme Switcher CUI Program~~
 
-A command-line tool that uses the same core code as the Theme Switcher GUI Program
+~~A command-line tool that uses the same core code as the Theme Switcher GUI Program~~
 
->Usage:
+>~~Usage:~~
 >
->python / py configurator. py /theme [theme name]
+>~~python / py configurator. py /theme [theme name]~~
 >
->Theme name: Any one of all ttkbootstrap themes, must be used in conjunction with the /theme parameter
+>~~Theme name: Any one of all ttkbootstrap themes, must be used in conjunction with the /theme parameter~~
 
-> [!NOTE]
+> ~~[!NOTE]~~
 >
-> File location: /tools/cmd/configurator.py
+> ~~File location: /tools/cmd/configurator.py~~
 
+~~*Added in V 1.9.1*~~
 
-*Added in V 1.9.1*
+**Important information! The theme settings in V 2.5.0 have been integrated into the main interface!**
 
 ### Clear CUI Program
 

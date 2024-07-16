@@ -517,23 +517,33 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.4.5 zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.5.0 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
 发行日期：2024-7-3
 自述文件：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 2.4 RELEASE
+VERSION 2.5 RELEASE
 """)
     def languageSettings():
         msgbox.showerror(title="Python Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
     def quitApp():
         root.destroy()
-    def switchTheme():
-        if msgbox.askokcancel(title="Python Utilities", message="是否切换主题？\n切换后需要重新启动程序才能生效。打开后本程序会自动关闭。", icon="warning"):
-            subprocess.Popen("python tools/configurator.py") # python "tools\configurator.py"
-            root.destroy()
+    def switchTheme(theme_name):
+        if (theme_name == "pride"):
+            root.iconbitmap("./images/pride.ico")
+            style.theme_use("cosmo")
+            style.configure("TButton", font=("等线 Light", 18, "normal"), width=20, height=3)
+            style.configure("TMenubutton", font=("等线 Light", 18, "normal"), width=19, height=3)
+        else:
+            root.iconbitmap("./images/icon.ico")
+            style.theme_use(theme_name)
+            style.configure("TButton", font=("等线 Light", 18, "normal"), width=20, height=3)
+            style.configure("TMenubutton", font=("等线 Light", 18, "normal"), width=19, height=3)
+        theme["theme"] = theme_name
+        with open("./data/theme.json", "w") as f:
+            json.dump(theme, f)
     def importSettings():
         path = easygui.fileopenbox(title="打开文件", filetypes=[["*.json", "JSON files"]], default="*.json")
         global settings
@@ -551,6 +561,7 @@ VERSION 2.4 RELEASE
 def main():
     global root
     global style
+    global theme
     root = ttk.Window()
     with open("./data/theme.json", "r", encoding="utf-8") as theme:
         theme = theme.read()
@@ -638,7 +649,12 @@ def main():
         otherMenu.add_separator()
         otherMenu.add_command(label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
         if not(settings["no-settings-menu"]):
-            settingsMenu.add_command(label="颜色主题", command=System.switchTheme)
+            themesMenu = ttk.Menu(settingsMenu)
+            settingsMenu.add_cascade(label="颜色主题", menu=themesMenu)
+            for i in style.theme_names():
+                themesMenu.add_radiobutton(label=i, command=lambda i=i: System.switchTheme(i))
+            themesMenu.add_separator()
+            themesMenu.add_command(label="pride", command=lambda: System.switchTheme("pride"))
             settingsMenu.add_command(label="语言设置", command=System.languageSettings)
         root.config(menu=menu)
     # 工具栏
