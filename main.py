@@ -517,14 +517,14 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.5.0 zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.5.5 rc1 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
 发行日期：2024-7-3
 自述文件：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 2.5 RELEASE
+VERSION 2.5 (RC) RELEASE
 """)
     def languageSettings():
         msgbox.showerror(title="Python Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
@@ -628,7 +628,7 @@ def main():
         otherMenu.add_command(label="计算器", command=Launcher.ExternalLauncher.calculatorLauncher)
         otherMenu.add_command(label="校验md5", command=Launcher.ExternalLauncher.hashCheckerLauncher)
         otherMenu.add_command(label="Licence 创造器", command=Launcher.ExternalLauncher.licenceCreatorLauncher)
-        otherMenu.add_command(label="用JSON批量发送文件", command=Launcher.ExternalLauncher.sendMailFromJSONLauncher)
+        otherMenu.add_command(label="用JSON批量发送邮件", command=Launcher.ExternalLauncher.sendMailFromJSONLauncher)
         ipToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="IP工具", menu=ipToolsMenu)
         ipToolsMenu.add_command(label="IP地址查询", command=Launcher.DevToolsLauncher.getIPLauncher)

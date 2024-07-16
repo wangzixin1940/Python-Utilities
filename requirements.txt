@@ -9,3 +9,6 @@ easyocr
 requests
 wave
 vosk
+textblob
+pycorrector
+wget
