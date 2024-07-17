@@ -14,27 +14,13 @@ logging.basicConfig(
 logger = logging.getLogger("TCZ")
 # 配置logger
 
-import platform
-import wget
-
-if (platform.system() == "Windows"):
-    if not(os.path.exists("%USERPROFILE%\\.pycorrector\\datasets\\zh_giga.no_cna_cmn.prune01244.klm")):
-        logger.info("Model not found, downloading...")
-        print("Model not found, downloading...")
-        wget.download("https://deepspeech.bj.bcebos.com/zh_lm/zh_giga.no_cna_cmn.prune01244.klm", "%USERPROFILE%\\.pycorrector\\datasets\\zh_giga.no_cna_cmn.prune01244.klm")
-else:
-    if not(os.path.exists(os.path.expanduser("~") + "/.pycorrector/datasets/zh_giga.no_cna_cmn.prune01244.klm")):
-        logger.info("Model not found, downloading...")
-        print("Model not found, downloading...")
-        wget.download("https://deepspeech.bj.bcebos.com/zh_lm/zh_giga.no_cna_cmn.prune01244.klm", os.path.expanduser("~") + "/.pycorrector/datasets/zh_giga.no_cna_cmn.prune01244.klm")
-
 from pycorrector import Corrector
 import ttkbootstrap as ttk
 
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
-        self.title("TextBlob")
+        self.title("文本改正")
         self.geometry("400x450")
         self.resizable(False, False)
         self.style_set = ttk.Style(theme="cosmo")
@@ -47,7 +33,7 @@ class App(ttk.Window):
         self.main_title.pack(pady=10)
         self.text_entry = ttk.ScrolledText(self, width=25, height=10)
         self.text_entry.pack(pady=10)
-        self.analyze_button = ttk.Button(self, text="Analyze", command=self.analyze_text)
+        self.analyze_button = ttk.Button(self, text="改正用法", command=self.analyze_text)
         self.analyze_button.pack(pady=10)
     
     def analyze_text(self):

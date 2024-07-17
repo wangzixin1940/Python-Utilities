@@ -521,14 +521,14 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.5.5 rc1 en-US
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.5.5 en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
 Release Date: 2024-7-3
 README File：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 2.5 (RC) RELEASE
+VERSION 2.5 RELEASE
 """)
     def languageSettings():
         msgbox.showinfo(title="Python Utilities", message="前往\"../../main.py\"运行中文版本！")

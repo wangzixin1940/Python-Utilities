@@ -11,4 +11,6 @@ wave
 vosk
 textblob
 pycorrector
-wget
+pyahocorasick
+torch # You can install it from pytorch.org (Pip/Conda install command)
+tf_keras
