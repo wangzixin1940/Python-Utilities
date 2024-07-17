@@ -1,0 +1,2 @@
+这个分支是Python Utilities的非稳定版本，可以从此分支来抢先体验Python Utilities的新增功能。
+This branch is an unstable version of Python Utilities, which allows you to experience the new features of Python Utilities in advance.
