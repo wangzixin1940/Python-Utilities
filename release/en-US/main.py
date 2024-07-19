@@ -521,7 +521,7 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.5.5 BETA en-US
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.5.6 BETA en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
@@ -531,7 +531,8 @@ GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main
 VERSION 2.5 (BETA) RELEASE
 """)
     def languageSettings():
-        msgbox.showinfo(title="Python Utilities", message="前往\"../../main.py\"运行中文版本！")
+        subprocess.Popen("python ../../main.py")
+        root.destroy()
     def quitApp():
         root.destroy()
     def switchTheme(theme_name):
@@ -654,12 +655,12 @@ def main():
         otherMenu.add_command(label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
         if not(settings["no-settings-menu"]):
             themesMenu = ttk.Menu(settingsMenu)
-            settingsMenu.add_cascade(label="颜色主题", menu=themesMenu)
+            settingsMenu.add_cascade(label="Themes...", menu=themesMenu)
             for i in style.theme_names():
                 themesMenu.add_radiobutton(label=i, command=lambda i=i: System.switchTheme(i))
             themesMenu.add_separator()
             themesMenu.add_command(label="pride", command=lambda: System.switchTheme("pride"))
-            settingsMenu.add_command(label="Language settings...", command=System.languageSettings)
+            settingsMenu.add_command(label="切换到简体中文...", command=System.languageSettings)
         root.config(menu=menu)
     # Tools tab
     # ===================================== #

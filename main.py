@@ -517,7 +517,7 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.5.5 BETA zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.5.6 BETA zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
@@ -527,7 +527,8 @@ GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main
 VERSION 2.5 (BETA) RELEASE
 """)
     def languageSettings():
-        msgbox.showerror(title="Python Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
+        subprocess.Popen("python release/en-US/main.py")
+        root.destroy()
     def quitApp():
         root.destroy()
     def switchTheme(theme_name):
@@ -655,7 +656,7 @@ def main():
                 themesMenu.add_radiobutton(label=i, command=lambda i=i: System.switchTheme(i))
             themesMenu.add_separator()
             themesMenu.add_command(label="pride", command=lambda: System.switchTheme("pride"))
-            settingsMenu.add_command(label="语言设置", command=System.languageSettings)
+            settingsMenu.add_command(label="Switch to English...", command=System.languageSettings)
         root.config(menu=menu)
     # 工具栏
     # ===================================== #
