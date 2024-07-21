@@ -35,7 +35,7 @@ import threading
 import xmltodict
 import dicttoxml
 import socket
-from tkinter.filedialog import asksaveasfilename, askopenfilename
+import tkinter.filedialog as fdg
 from difflib import HtmlDiff
 
 if not(settings["no-log-file"]):
@@ -171,6 +171,58 @@ class DevTools():
             logger.error(repr(err))
             msgbox.showerror(message="XML file read failure!", title="XML to JSON")
             return 2
+    def CSVtoJSON(csv_file_path:str, json_file_path:str):
+        """
+        csv_file_path: CSV file path
+        json_file_path: JSON file path
+        return :
+            0 => Success
+            1 => CSV file not found
+            2 => CSV file read failure
+        """
+        try :
+            with open(csv_file_path, "r", encoding="utf-8") as csv_file:
+                csv_data = csv_file.read().splitlines()
+                json_data = {}
+                for i in range(len(csv_data)):
+                    json_data[f"line-{str(i+1)}"] = csv_data[i].split(",")
+                with open(json_file_path, "w", encoding="utf-8") as json_file:
+                    json_file.write(json.dumps(json_data, ensure_ascii=False, indent=4))
+                    return 0
+        except FileNotFoundError:
+            logger.error("CSV file not found: {}".format(csv_file_path))
+            msgbox.showerror(message="CSV file not found!", title="CSV to JSON")
+            return 1
+        except Exception as err:
+            logger.error(repr(err))
+            msgbox.showerror(message="CSV file read failure!", title="CSV to JSON")
+            return 2
+    def JSONtoCSV(json_file_path:str, csv_file_path:str):
+        """
+        json_file_path: JSON file path
+        csv_file_path: CSV path
+        return :
+            0 => Success
+            1 => JSON file not found
+            2 => JSON file read failure
+        """
+        try :
+            with open(json_file_path, "r", encoding="utf-8") as json_file:
+                json_data = json.load(json_file) # type: dict
+                csv_data = []
+                for key in json_data.keys():
+                    csv_data.append(f"{key},{json_data[key]}\n")
+                with open(csv_file_path, "w", encoding="utf-8") as csv_file:
+                    csv_file.writelines(csv_data)
+                    return 0
+        except FileNotFoundError as err:
+            logger.error("JSON file not found: {}".format(json_file_path))
+            msgbox.showerror(message="JSON file not found!", title="JSON to CSV")
+            return 1
+        except Exception as err:
+            logger.error(repr(err))
+            msgbox.showerror(message="JSON read failure!", title="JSON to CSV")
+            return 2
     def getIP(domain=socket.gethostname()):
         """
         domain: Domain name
@@ -194,9 +246,9 @@ class DevTools():
             return repr(err)
     class FileDiffTools():
         def __init__(self):
-            text1 = self.readFromFile(askopenfilename(title="Choose file1", filetypes=(("Plain Text", "*.txt"), ("All Files", "*.*"))))
-            text2 = self.readFromFile(askopenfilename(title="Choose file2", filetypes=(("Plain Text", "*.txt"), ("All Files", "*.*"))))
-            result = self.diffTexts(text1, text2, asksaveasfilename(title="Save as...", filetypes=(("HTML Files", "*.html"), ("All Files", "*.*"))))
+            text1 = self.readFromFile(fdg.askopenfilename(title="Choose file1", filetypes=(("Plain Text", "*.txt"), ("All Files", "*.*"))))
+            text2 = self.readFromFile(fdg.askopenfilename(title="Choose file2", filetypes=(("Plain Text", "*.txt"), ("All Files", "*.*"))))
+            result = self.diffTexts(text1, text2, fdg.asksaveasfilename(title="Save as...", filetypes=(("HTML Files", "*.html"), ("All Files", "*.*"))))
             logger.info("Save file successfully!")
             if result == 0:
                 msgbox.showinfo(title="Infomation", message="Save file successfully!")
@@ -450,6 +502,30 @@ class Launcher():
                 result = DevTools.resolveDomain(domain)
                 msgbox.showinfo(message=f"Resolution result: {result}", title="DNS resolver")
                 logger.info(f"Result:{result}")
+        def JSONtoCSVLauncher():
+            json = easygui.fileopenbox(title="Open...", filetypes=[["*.json", "JSON files"]], default="*.json")
+            csv = easygui.filesavebox(title="Save as...", filetypes=[["*.csv", "CSV files"]], default="*.csv")
+            if (json != None):
+                if (os.path.splitext(json)[-1] == ".json"):
+                    global DevTools
+                    logger.info(f"Input JSON:{json}")
+                    DevTools.JSONtoCSV(json, csv)
+                    logger.info(f"Output finish")
+                else :
+                    msgbox.showerror(title="Error", message="File extension is not \".json\"!")
+                    logger.error("File extension is incorrect")
+        def CSVtoJSONLauncher():
+            csv = easygui.fileopenbox(title="Open...", filetypes=[["*.csv", "CSV files"]], default="*.csv")
+            json = easygui.filesavebox(title="Save as...", filetypes=[["*.json", "JSON files"]], default="*.json")
+            if (csv != None):
+                if (os.path.splitext(csv)[-1] == ".csv"):
+                    global DevTools
+                    logger.info(f"Input CSV:{csv}")
+                    DevTools.CSVtoJSON(csv, json)
+                    logger.info(f"Output finish")
+                else :
+                    msgbox.showerror(title="Error", message="File extension is not \".csv\"！")
+                    logger.error("File extension is incorrect")
 
     class DrawingToolsLauncher():
         def __init__(self):
@@ -466,7 +542,7 @@ class Launcher():
                     msgbox.showerror(title="Error", message="The file extension is incorrect!")
                     logger.error("File extension is incorrect")
         def bingPictureLauncher():
-            fname = asksaveasfilename(title="Save as...", filetypes=[["JPG Files", "*.jpg"]], defaultextension="*.jpg")
+            fname = fdg.asksaveasfilename(title="Save as...", filetypes=[["JPG Files", "*.jpg"]], defaultextension="*.jpg")
             if (fname != None):
                 logger.info(f"Input path: {fname}")
                 if (os.path.splitext(fname)[-1] == ".jpg"):
@@ -521,17 +597,18 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.5.5 en-US
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.6.0 BETA en-US
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
 Release Date: 2024-7-3
 README File：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 2.5 RELEASE
+VERSION 2.6 (BETA) RELEASE
 """)
     def languageSettings():
-        msgbox.showinfo(title="Python Utilities", message="前往\"../../main.py\"运行中文版本！")
+        subprocess.Popen("python ../../main.py")
+        root.destroy()
     def quitApp():
         root.destroy()
     def switchTheme(theme_name):
@@ -641,6 +718,8 @@ def main():
         otherMenu.add_cascade(label="File tools", menu=fileToolsMenu)
         fileToolsMenu.add_command(label="JSON to XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(label="XML to JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+        fileToolsMenu.add_command(label="JSON to CSV", command=Launcher.DevToolsLauncher.JSONtoCSVLauncher)
+        fileToolsMenu.add_command(label="CSV to JSON", command=Launcher.DevToolsLauncher.CSVtoJSONLauncher)
         fileToolsMenu.add_command(label="File diff", command=DevTools.FileDiffTools)
         qrcodeToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="QR Code tools", menu=qrcodeToolsMenu)
@@ -654,12 +733,12 @@ def main():
         otherMenu.add_command(label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
         if not(settings["no-settings-menu"]):
             themesMenu = ttk.Menu(settingsMenu)
-            settingsMenu.add_cascade(label="颜色主题", menu=themesMenu)
+            settingsMenu.add_cascade(label="Themes...", menu=themesMenu)
             for i in style.theme_names():
                 themesMenu.add_radiobutton(label=i, command=lambda i=i: System.switchTheme(i))
             themesMenu.add_separator()
             themesMenu.add_command(label="pride", command=lambda: System.switchTheme("pride"))
-            settingsMenu.add_command(label="Language settings...", command=System.languageSettings)
+            settingsMenu.add_command(label="切换到简体中文...", command=System.languageSettings)
         root.config(menu=menu)
     # Tools tab
     # ===================================== #

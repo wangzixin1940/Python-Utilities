@@ -35,7 +35,7 @@ import threading
 import xmltodict
 import dicttoxml
 import socket
-from tkinter.filedialog import asksaveasfilename, askopenfilename
+import tkinter.filedialog as fdg
 from difflib import HtmlDiff
 
 if not(settings["no-log-file"]):
@@ -171,6 +171,58 @@ class DevTools():
             logger.error(repr(err))
             msgbox.showerror(message="XML文件读取失败！", title="XML to JSON")
             return 2
+    def CSVtoJSON(csv_file_path:str, json_file_path:str):
+        """
+        csv_file_path: CSV文件路径
+        json_file_path: 保存的JSON文件路径
+        return :
+            0 => 成功
+            1 => CSV文件不存在
+            2 => CSV文件读取失败
+        """
+        try :
+            with open(csv_file_path, "r", encoding="utf-8") as csv_file:
+                csv_data = csv_file.read().splitlines()
+                json_data = {}
+                for i in range(len(csv_data)):
+                    json_data[f"line-{str(i+1)}"] = csv_data[i].split(",")
+                with open(json_file_path, "w", encoding="utf-8") as json_file:
+                    json_file.write(json.dumps(json_data, ensure_ascii=False, indent=4))
+                    return 0
+        except FileNotFoundError:
+            logger.error("CSV file not found: {}".format(csv_file_path))
+            msgbox.showerror(message="CSV文件不存在！", title="CSV to JSON")
+            return 1
+        except Exception as err:
+            logger.error(repr(err))
+            msgbox.showerror(message="CSV文件读取失败！", title="CSV to JSON")
+            return 2
+    def JSONtoCSV(json_file_path:str, csv_file_path:str):
+        """
+        json_file_path: JSON文件路径
+        csv_file_path: CSV文件路径
+        return :
+            0 => 成功
+            1 => JSON文件不存在
+            2 => JSON文件读取失败
+        """
+        try :
+            with open(json_file_path, "r", encoding="utf-8") as json_file:
+                json_data = json.load(json_file) # type: dict
+                csv_data = []
+                for key in json_data.keys():
+                    csv_data.append(f"{key},{json_data[key]}\n")
+                with open(csv_file_path, "w", encoding="utf-8") as csv_file:
+                    csv_file.writelines(csv_data)
+                    return 0
+        except FileNotFoundError as err:
+            logger.error("JSON file not found: {}".format(json_file_path))
+            msgbox.showerror(message="JSON文件不存在！", title="JSON to CSV")
+            return 1
+        except Exception as err:
+            logger.error(repr(err))
+            msgbox.showerror(message="JSON文件读取失败！", title="JSON to CSV")
+            return 2
     def getIP(domain=socket.gethostname()):
         """
         domain: 域名
@@ -194,9 +246,9 @@ class DevTools():
             return repr(err)
     class FileDiffTools():
         def __init__(self):
-            text1 = self.readFromFile(askopenfilename(title="选择文件1", filetypes=(("纯文本文件", "*.txt"), ("所有文件", "*.*"))))
-            text2 = self.readFromFile(askopenfilename(title="选择文件2", filetypes=(("纯文本文件", "*.txt"), ("所有文件", "*.*"))))
-            result = self.diffTexts(text1, text2, asksaveasfilename(title="保存文件", filetypes=(("HTML文件", "*.html"), ("所有文件", "*.*"))))
+            text1 = self.readFromFile(fdg.askopenfilename(title="选择文件1", filetypes=(("纯文本文件", "*.txt"), ("所有文件", "*.*"))))
+            text2 = self.readFromFile(fdg.askopenfilename(title="选择文件2", filetypes=(("纯文本文件", "*.txt"), ("所有文件", "*.*"))))
+            result = self.diffTexts(text1, text2, fdg.asksaveasfilename(title="保存文件", filetypes=(("HTML文件", "*.html"), ("所有文件", "*.*"))))
             logger.info("Save file successfully!")
             if result == 0:
                 msgbox.showinfo(title="提示", message="保存文件成功！")
@@ -447,6 +499,30 @@ class Launcher():
                 result = DevTools.resolveDomain(domain)
                 msgbox.showinfo(message=f"解析结果：{result}", title="域名解析器")
                 logger.info(f"Result: {result}")
+        def JSONtoCSVLauncher():
+            json = easygui.fileopenbox(title="打开文件", filetypes=[["*.json", "JSON files"]], default="*.json")
+            csv = easygui.filesavebox(title="保存文件", filetypes=[["*.csv", "CSV files"]], default="*.csv")
+            if (json != None):
+                if (os.path.splitext(json)[-1] == ".json"):
+                    global DevTools
+                    logger.info(f"Input JSON:{json}")
+                    DevTools.JSONtoCSV(json, csv)
+                    logger.info(f"Output finish")
+                else :
+                    msgbox.showerror(title="错误", message="文件拓展名不是\".json\"！")
+                    logger.error("File extension is incorrect")
+        def CSVtoJSONLauncher():
+            csv = easygui.fileopenbox(title="打开文件", filetypes=[["*.csv", "CSV files"]], default="*.csv")
+            json = easygui.filesavebox(title="保存文件", filetypes=[["*.json", "JSON files"]], default="*.json")
+            if (csv != None):
+                if (os.path.splitext(csv)[-1] == ".csv"):
+                    global DevTools
+                    logger.info(f"Input CSV:{csv}")
+                    DevTools.CSVtoJSON(csv, json)
+                    logger.info(f"Output finish")
+                else :
+                    msgbox.showerror(title="错误", message="文件拓展名不是\".csv\"！")
+                    logger.error("File extension is incorrect")
     class DrawingToolsLauncher():
         def __init__(self):
             msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
@@ -462,7 +538,7 @@ class Launcher():
                     msgbox.showerror(title="错误", message="文件拓展名错误！")
                     logger.error("File extension is incorrect")
         def bingPictureLauncher():
-            fname = asksaveasfilename(title="保存文件", filetypes=[["JPG Files", "*.jpg"]], defaultextension="*.jpg")
+            fname = fdg.asksaveasfilename(title="保存文件", filetypes=[["JPG Files", "*.jpg"]], defaultextension="*.jpg")
             if (fname != None):
                 logger.info(f"Input path: {fname}")
                 if (os.path.splitext(fname)[-1] == ".jpg"):
@@ -517,17 +593,18 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.5.5 zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.6.0 BETA zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
 发行日期：2024-7-3
 自述文件：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 2.5 RELEASE
+VERSION 2.6 (BETA) RELEASE
 """)
     def languageSettings():
-        msgbox.showerror(title="Python Utilities", message="Please run \"release/en-US/main.py\" to run the English version of this program")
+        subprocess.Popen("python release/en-US/main.py")
+        root.destroy()
     def quitApp():
         root.destroy()
     def switchTheme(theme_name):
@@ -637,6 +714,8 @@ def main():
         otherMenu.add_cascade(label="文件工具", menu=fileToolsMenu)
         fileToolsMenu.add_command(label="JSON转XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(label="XML转JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+        fileToolsMenu.add_command(label="JSON转CSV", command=Launcher.DevToolsLauncher.JSONtoCSVLauncher)
+        fileToolsMenu.add_command(label="CSV转JSON", command=Launcher.DevToolsLauncher.CSVtoJSONLauncher)
         fileToolsMenu.add_command(label="文件对比", command=DevTools.FileDiffTools)
         qrcodeToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="二维码工具", menu=qrcodeToolsMenu)
@@ -655,7 +734,7 @@ def main():
                 themesMenu.add_radiobutton(label=i, command=lambda i=i: System.switchTheme(i))
             themesMenu.add_separator()
             themesMenu.add_command(label="pride", command=lambda: System.switchTheme("pride"))
-            settingsMenu.add_command(label="语言设置", command=System.languageSettings)
+            settingsMenu.add_command(label="Switch to English...", command=System.languageSettings)
         root.config(menu=menu)
     # 工具栏
     # ===================================== #
