@@ -593,14 +593,14 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.6.0 BETA zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.6.0 zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
 发行日期：2024-7-3
 自述文件：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 2.6 (BETA) RELEASE
+VERSION 2.6 RELEASE
 """)
     def languageSettings():
         subprocess.Popen("python release/en-US/main.py")
