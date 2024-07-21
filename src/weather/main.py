@@ -3,26 +3,27 @@
 本程序的数据均来自WWIS(World Weather Information Service，https://worldweather.wmo.int/)。
 """
 
+import datetime
+import logging
+import json
+import requests
+from tkinter import messagebox as msgbox
+import ttkbootstrap as ttk
+import csv
 import os
 os.chdir(os.path.dirname(__file__))
 # 更换工作目录
 
-import logging, datetime
 
 logging.basicConfig(
-                    filename=f"../../logs/{datetime.date.today()}.log",
-                    level=logging.INFO,
-                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-                    datefmt="%Y-%m-%d %H:%M:%S",
+    filename=f"../../logs/{datetime.date.today()}.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger("WEATHER_APP")
 # 设置logger
 
-import csv
-import ttkbootstrap as ttk
-from tkinter import messagebox as msgbox
-import requests
-import json
 
 class App(ttk.Window):
     def __init__(self):
@@ -59,21 +60,23 @@ class App(ttk.Window):
         city = self.entry2.get()
         for i in city_list:
             if country == i[0] and city == i[1]:
-                if not(i[2].isdigit()):
+                if not (i[2].isdigit()):
                     return i[3]
                 return i[2]
         return -1
-        
+
     def search_weather(self):
         """
         查询天气并且显示
         """
         id = self.search_id()
         if id == -1:
-            msgbox.showerror("错误", "未收录此城市，请检查输入。\n或者查看data/full_city_list.csv文件查找您的城市ID（第三列）。")
+            msgbox.showerror(
+                "错误", "未收录此城市，请检查输入。\n或者查看data/full_city_list.csv文件查找您的城市ID（第三列）。")
             return
         try:
-            content = requests.get(f"https://worldweather.wmo.int/en/json/{id}_en.json")
+            content = requests.get(
+                f"https://worldweather.wmo.int/en/json/{id}_en.json")
             json_data = content.content.decode("utf-8")
             data = json.loads(json_data)
             logger.info(data)
@@ -95,7 +98,6 @@ class App(ttk.Window):
             msgbox.showerror("错误", "未知错误。")
             logger.error(repr(err))
             return
-
 
 
 if __name__ == "__main__":

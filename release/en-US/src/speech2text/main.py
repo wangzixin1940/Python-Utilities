@@ -81,6 +81,7 @@ MODELS = [
 # 查看更多，请前往 https://alphacephei.com/vosk/models
 # Visit https://alphacephei.com/vosk/models for more
 
+
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
@@ -90,22 +91,44 @@ class App(ttk.Window):
         self.resizable(False, False)
         self.styleset = ttk.Style("cosmo")
         self.iconbitmap("assets/favicon.ico")
-        self.styleset.configure("TButton", font=("Airal", 16, "normal"), width=15, height=3)
+        self.styleset.configure(
+            "TButton",
+            font=(
+                "Airal",
+                16,
+                "normal"),
+            width=15,
+            height=3)
         # Create widgets
-        self.maintitle = ttk.Label(self, text="Speech to text converter", font=("Airal", 20, "bold"))
+        self.maintitle = ttk.Label(
+            self, text="Speech to text converter", font=(
+                "Airal", 20, "bold"))
         self.file = ttk.StringVar(self, value="Choose audio file")
-        self.filechoose = ttk.Button(self, textvariable=self.file, bootstyle="primary-outline", command=self.choose_file)
-        self.modelchoose = ttk.Combobox(self, values=MODELS, width=15, font=("Airal", 16, "normal"))
-        self.convert = ttk.Button(self, text="Convert", bootstyle="success-outline", command=self.convert_file)
+        self.filechoose = ttk.Button(
+            self,
+            textvariable=self.file,
+            bootstyle="primary-outline",
+            command=self.choose_file)
+        self.modelchoose = ttk.Combobox(
+            self, values=MODELS, width=15, font=(
+                "Airal", 16, "normal"))
+        self.convert = ttk.Button(
+            self,
+            text="Convert",
+            bootstyle="success-outline",
+            command=self.convert_file)
         # Pack widgets
         self.maintitle.pack(pady=10)
         self.filechoose.pack(pady=10)
         self.modelchoose.pack(pady=10)
         self.convert.pack(pady=10)
-    
+
     def choose_file(self):
-        self.file.set(fdg.askopenfilename(filetypes=[("Wave audio files", "*.wav")]))
-    
+        self.file.set(
+            fdg.askopenfilename(
+                filetypes=[
+                    ("Wave audio files", "*.wav")]))
+
     def convert_file(self):
         if self.file.get() != "Choose audio file":
             convert.convert(self.file.get(), self.modelchoose.get())

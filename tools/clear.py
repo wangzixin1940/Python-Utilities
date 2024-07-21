@@ -7,6 +7,7 @@ from tkinter import messagebox as msgbox
 
 os.chdir(os.path.dirname(__file__))
 
+
 def clear_logs():
     log_path = "../logs/"
     files = os.listdir(log_path)
@@ -17,6 +18,7 @@ def clear_logs():
             print(f"Deleted {file_path}")
     print("All log files have been deleted.")
     msgbox.showinfo("提示", "所有log文件已删除。")
+
 
 def clear_caches():
     cache_path = pathlib.Path("../../")
@@ -29,16 +31,21 @@ def clear_caches():
         print("Cache files not found.")
     msgbox.showinfo("提示", "所有缓存文件已删除。")
 
+
 def clear_profiles():
     result = msgbox.askyesno("警告", "你确定要擦除配置文件吗？", icon="warning")
     if result:
         with open("../data/theme.json", "w", encoding="utf-8") as f:
             f.write("{\"theme\": \"cosmo\"}")
             print("Rewrited theme.json")
-        os.remove("../data/translator.appid.json"); print("Deleted translator.appid.json")
-        clear_logs(); print("Deleted all log files")
-        clear_caches(); print("Deleted all cache files")
+        os.remove("../data/translator.appid.json");
+        print("Deleted translator.appid.json")
+        clear_logs();
+        print("Deleted all log files")
+        clear_caches();
+        print("Deleted all cache files")
         msgbox.showinfo("提示", "配置文件已重置。")
+
 
 def main():
     root = ttk.Window(themename="cosmo")
@@ -54,6 +61,7 @@ def main():
     clear_cache.pack(pady=10)
     clear_profile.pack(pady=10)
     root.mainloop()
+
 
 if __name__ == "__main__":
     main()

@@ -7,13 +7,14 @@ os.chdir(os.path.dirname(__file__))
 # 更换工作目录
 
 logging.basicConfig(
-                    filename=f"../../logs/{datetime.date.today()}.log",
-                    level=logging.INFO,
-                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-                    datefmt="%Y-%m-%d %H:%M:%S",
+    filename=f"../../logs/{datetime.date.today()}.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger("SYSINFO")
 # 配置日志信息
+
 
 class Functions:
     def __init__(self):
@@ -83,12 +84,13 @@ ab. 关于\tx. 退出
                 print("无效的选项，请重新输入。")
         return 0
 
+
 def main():
     functions = Functions()
     while True:
         functions.show_choices()
         choice = input("输入选项  >>> ")
-        try :
+        try:
             result = functions.match_choice_and_run(choice)
             logger.info(f"User chose option {choice} .")
             if result == 1:
@@ -101,7 +103,6 @@ def main():
             print(f"发生错误：{repr(e)}")
             logger.error(f"Error occurred: {repr(e)}")
 
+
 if __name__ == "__main__":
     main()
-
-

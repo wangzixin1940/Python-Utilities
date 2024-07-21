@@ -9,11 +9,12 @@ from tkinter import messagebox as msgbox
 
 
 class App(ttk.Window):
-    def __init__(self, mode:int):
+    def __init__(self, mode: int):
         if mode == 0:
             self.generator()
         else:
             self.decoder()
+
     def generator(self):
         super().__init__()
         self.title("二维码生成器")
@@ -57,10 +58,12 @@ class App(ttk.Window):
         self.image = ttk.Entry(self)
         self.image.pack(pady=5)
         # 设置区域
-        self.button = ttk.Button(self, text="生成二维码", command=self.generate_qrcode)
+        self.button = ttk.Button(
+            self, text="生成二维码", command=self.generate_qrcode)
         self.button.pack(pady=10)
         # 创建显示二维码的标签
         self.mainloop()
+
     def generate_qrcode(self):
         # 获取输入的文本
         text = self.entry.get()
@@ -70,8 +73,19 @@ class App(ttk.Window):
         image = self.image.get()
         # 创建二维码
         qr = Encoder()
-        fname = filedialog.asksaveasfilename(title="保存图片", filetypes=(("PNG 文件", "*.png"), ("所有文件", "*.*")), defaultextension=".png")
-        qr.generateQRcode(text, fname, eval(drawer+"()"), eval(colormask+"()"), image)
+        fname = filedialog.asksaveasfilename(title="保存图片", filetypes=(
+            ("PNG 文件", "*.png"), ("所有文件", "*.*")), defaultextension=".png")
+        qr.generateQRcode(
+            text,
+            fname,
+            eval(
+                drawer +
+                "()"),
+            eval(
+                colormask +
+                "()"),
+            image)
+
     def decoder(self):
         super().__init__()
         self.title("二维码解码器")
@@ -96,6 +110,7 @@ class App(ttk.Window):
         self.content.pack(pady=10)
         # 运行
         self.mainloop()
+
     def decode_qrcode(self):
         # 获取输入的文本
         image = self.entry.get()
@@ -115,4 +130,3 @@ if __name__ == "__main__":
         App(int(argv[1]))
     except IndexError:
         msgbox.showerror("错误", "请输入模式 (1 或者 2)")
-
