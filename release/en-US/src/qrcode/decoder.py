@@ -19,19 +19,20 @@ with open("../../data/settings.json", "r") as settings:
     settings = json.loads(settings)
     # Read the settings file
 
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer,encoding=settings["encoding"])
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=settings["encoding"])
 # Change the output encoding to the encoding specified in the settings file
+
 
 class Decoder():
     def __init__(self):
-        if not(settings["no-log-file"]):
+        if not (settings["no-log-file"]):
             logging.basicConfig(
                 filename=f"../../logs/{datetime.date.today()}.log",
                 level=logging.INFO,
                 format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
                 datefmt="%Y-%m-%d %H:%M:%S",
             )
-        else :
+        else:
             logging.basicConfig(
                 level=logging.INFO,
                 format="%(asctime)s - %(name)s - %(levelname)s - NO-LOG-FILE - %(message)s",
@@ -40,14 +41,17 @@ class Decoder():
         self.logger = logging.getLogger("QRCODE-DECODER")
         # Configure the logger
         self.logger.info("The configuration is done.")
-    def decodeQRcode(self, image:str):
+
+    def decodeQRcode(self, image: str):
         """
         QR Code Decoder
         image: QR Code image path
         return: QR Code content
         """
-        qr = qrcode.QRCode() # Create a QR Code object
-        result = pyzbar.decode(Image.open(image), symbols=[pyzbar.ZBarSymbol.QRCODE]) # Decode the QR Code image
+        qr = qrcode.QRCode()  # Create a QR Code object
+        result = pyzbar.decode(
+            Image.open(image), symbols=[
+                pyzbar.ZBarSymbol.QRCODE])  # Decode the QR Code image
         """                          ↑↑↑
         The above code comes from: https://blog.csdn.net/smallfox233/article/details/119408399
         """

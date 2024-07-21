@@ -1,31 +1,34 @@
+import datetime
+import logging
+from tkinter import messagebox as msgbox
+import json
+import vosk
+import soundfile
+import wave
 import os
 os.chdir(os.path.dirname(__file__))
 # 更换工作目录
 
-import logging, datetime
 
 logging.basicConfig(
-                    filename=f"../../logs/{datetime.date.today()}.log",
-                    level=logging.INFO,
-                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-                    datefmt="%Y-%m-%d %H:%M:%S",
+    filename=f"../../logs/{datetime.date.today()}.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger("SPEECH2TEXT")
 
-import wave
-import soundfile
-import vosk
-import json
-from tkinter import messagebox as msgbox
 
 vosk.SetLogLevel(0)
+
 
 def convert(audio_path: wave.Wave_read, model_name: str):
     data, samplerate = soundfile.read(audio_path)
     soundfile.write(audio_path, data, samplerate)
     # 转为32位RIFF并且重新写入  |  Convert to 32-bit RIFF and rewrite
     audio = wave.open(audio_path, "rb")
-    if (audio.getnchannels() != 1)or(audio.getsampwidth() != 2)or(audio.getcomptype() != "NONE"):
+    if (audio.getnchannels() != 1) or (audio.getsampwidth()
+                                       != 2) or (audio.getcomptype() != "NONE"):
         logger.critical("Audio file must be WAV format mono PCM.")
         return
     str_ret = ""
@@ -48,6 +51,7 @@ def convert(audio_path: wave.Wave_read, model_name: str):
     if "text" in result:
         str_ret += result["text"]
     msgbox.showinfo("提示", "转换完成！\n结果：{}".format(str_ret))
+
 
 """
 注意：

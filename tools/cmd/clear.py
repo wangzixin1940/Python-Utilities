@@ -5,6 +5,7 @@ import shutil
 
 os.chdir(os.path.dirname(__file__))
 
+
 def clear_logs():
     log_path = "../../logs/"
     files = os.listdir(log_path)
@@ -14,6 +15,7 @@ def clear_logs():
             os.remove(file_path)
             print(f"Deleted {file_path}")
     print("All log files have been deleted.")
+
 
 def clear_caches():
     cache_path = pathlib.Path("../../")
@@ -25,13 +27,16 @@ def clear_caches():
     else:
         print("Cache files not found.")
 
+
 def clear_profiles():
     with open("../../data/theme.json", "w", encoding="utf-8") as f:
         f.write("{\"theme\": \"cosmo\"}")
         print("Rewrited theme.json")
-    os.remove("../../data/translator.appid.json"); print("Deleted translator.appid.json")
+    os.remove("../../data/translator.appid.json")
+    print("Deleted translator.appid.json")
     clear_logs()
     clear_caches()
+
 
 argvs = sys.argv
 

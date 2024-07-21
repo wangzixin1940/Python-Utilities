@@ -81,6 +81,7 @@ MODELS = [
 # 查看更多，请前往 https://alphacephei.com/vosk/models
 # Visit https://alphacephei.com/vosk/models for more
 
+
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
@@ -90,22 +91,41 @@ class App(ttk.Window):
         self.resizable(False, False)
         self.styleset = ttk.Style("cosmo")
         self.iconbitmap("assets/favicon.ico")
-        self.styleset.configure("TButton", font=("等线 Light", 16, "normal"), width=15, height=3)
+        self.styleset.configure(
+            "TButton",
+            font=(
+                "等线 Light",
+                16,
+                "normal"),
+            width=15,
+            height=3)
         # 创建控件
-        self.maintitle = ttk.Label(self, text="语音转文字", font=("等线 Light", 20, "bold"))
+        self.maintitle = ttk.Label(
+            self, text="语音转文字", font=(
+                "等线 Light", 20, "bold"))
         self.file = ttk.StringVar(self, value="请选择音频文件")
-        self.filechoose = ttk.Button(self, textvariable=self.file, bootstyle="primary-outline", command=self.choose_file)
-        self.modelchoose = ttk.Combobox(self, values=MODELS, width=15, font=("等线 Light", 16, "normal"))
-        self.convert = ttk.Button(self, text="转换", bootstyle="success-outline", command=self.convert_file)
+        self.filechoose = ttk.Button(
+            self,
+            textvariable=self.file,
+            bootstyle="primary-outline",
+            command=self.choose_file)
+        self.modelchoose = ttk.Combobox(
+            self, values=MODELS, width=15, font=(
+                "等线 Light", 16, "normal"))
+        self.convert = ttk.Button(
+            self,
+            text="转换",
+            bootstyle="success-outline",
+            command=self.convert_file)
         # 布局控件
         self.maintitle.pack(pady=10)
         self.filechoose.pack(pady=10)
         self.modelchoose.pack(pady=10)
         self.convert.pack(pady=10)
-    
+
     def choose_file(self):
         self.file.set(fdg.askopenfilename(filetypes=[("波形音频文件", "*.wav")]))
-    
+
     def convert_file(self):
         if self.file.get() != "请选择音频文件":
             convert.convert(self.file.get(), self.modelchoose.get())

@@ -5,45 +5,50 @@ import time
 
 os.chdir(os.path.dirname(__file__))
 
+
 def get_file_md5(fname):
-    m = hashlib.md5()   #创建md5对象
-    with open(fname,'rb') as fobj:
+    m = hashlib.md5()  # 创建md5对象
+    with open(fname, 'rb') as fobj:
         while True:
             data = fobj.read(4096)
             if not data:
                 break
-            m.update(data) #更新md5对象
-    return m.hexdigest() #返回md5对象
+            m.update(data)  # 更新md5对象
+    return m.hexdigest()  # 返回md5对象
+
 
 def get_file_sha256(fname):
-    m = hashlib.sha256()   #创建sha256对象
-    with open(fname,'rb') as fobj:
+    m = hashlib.sha256()  # 创建sha256对象
+    with open(fname, 'rb') as fobj:
         while True:
             data = fobj.read(4096)
             if not data:
                 break
-            m.update(data) #更新sha256对象
-    return m.hexdigest() #返回sha256对象
+            m.update(data)  # 更新sha256对象
+    return m.hexdigest()  # 返回sha256对象
+
 
 def get_file_sha1(fname):
-    m = hashlib.sha1()   #创建sha1对象
-    with open(fname,'rb') as fobj:
+    m = hashlib.sha1()  # 创建sha1对象
+    with open(fname, 'rb') as fobj:
         while True:
             data = fobj.read(4096)
             if not data:
                 break
-            m.update(data) #更新sha1对象
-    return m.hexdigest() #返回sha1对象
+            m.update(data)  # 更新sha1对象
+    return m.hexdigest()  # 返回sha1对象
+
 
 def get_file_sha224(fname):
-    m = hashlib.sha224()   #创建sha224对象
-    with open(fname,'rb') as fobj:
+    m = hashlib.sha224()  # 创建sha224对象
+    with open(fname, 'rb') as fobj:
         while True:
             data = fobj.read(4096)
             if not data:
                 break
-            m.update(data) #更新sha224对象
-    return m.hexdigest() #返回sha224对象
+            m.update(data)  # 更新sha224对象
+    return m.hexdigest()  # 返回sha224对象
+
 
 def main():
     argvs = sys.argv
@@ -73,37 +78,37 @@ filename : 文件名，比如"1.py"、"HelloWorld.java"等等
             value = argvs[4]
             if get_file_md5(filename) == value:
                 print("文件MD5值正确！")
-                print("文件MD5值：",get_file_md5(filename))
+                print("文件MD5值：", get_file_md5(filename))
             else:
                 print("文件MD5值错误！")
-                print("文件MD5值：",get_file_md5(filename))
+                print("文件MD5值：", get_file_md5(filename))
             return 0
         elif "-sha256" == argvs[3]:
             value = argvs[4]
             if get_file_sha256(filename) == value:
                 print("文件SHA256值正确！")
-                print("文件SHA256值：",get_file_sha256(filename))
+                print("文件SHA256值：", get_file_sha256(filename))
             else:
                 print("文件SHA256值错误！")
-                print("文件SHA256值：",get_file_sha256(filename))
+                print("文件SHA256值：", get_file_sha256(filename))
             return 0
         elif "-sha1" == argvs[3]:
             value = argvs[4]
             if get_file_sha1(filename) == value:
                 print("文件SHA1值正确！")
-                print("文件SHA1值：",get_file_sha1(filename))
+                print("文件SHA1值：", get_file_sha1(filename))
             else:
                 print("文件SHA1值错误！")
-                print("文件SHA1值：",get_file_sha1(filename))
+                print("文件SHA1值：", get_file_sha1(filename))
             return 0
         elif "-sha224" == argvs[3]:
             value = argvs[4]
             if get_file_sha224(filename) == value:
                 print("文件SHA224值正确！")
-                print("文件SHA224值：",get_file_sha224(filename))
+                print("文件SHA224值：", get_file_sha224(filename))
             else:
                 print("文件SHA224值错误！")
-                print("文件SHA224值：",get_file_sha224(filename))
+                print("文件SHA224值：", get_file_sha224(filename))
             return 0
         else:
             print("""使用:
@@ -121,7 +126,7 @@ filename : 文件名，比如"1.py"、"HelloWorld.java"等等
 错误：无效参数。
 
 """)
-    elif "--check" in argvs and len(argvs) in [3,4]:
+    elif "--check" in argvs and len(argvs) in [3, 4]:
         print("""使用:
 python / py md5.py [filename] [--check [-md5][-sha256][-sha1][-sha224][value]]
 
@@ -156,16 +161,21 @@ filename : 文件名，比如"1.py"、"HelloWorld.java"等等
 """)
         return 5
     elif len(argvs) == 2:
-        print("文件名：",filename)
-        print("文件大小：",os.path.getsize(filename),"字节")
-        print("文件类型：",os.path.splitext(filename)[1])
-        print("文件最后修改时间：",time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(os.path.getmtime(filename))))
-        print("文件MD5值：",get_file_md5(filename))
-        print("文件SHA256值：",get_file_sha256(filename))
-        print("文件SHA1值：",get_file_sha1(filename))
-        print("文件SHA224值：",get_file_sha224(filename))
+        print("文件名：", filename)
+        print("文件大小：", os.path.getsize(filename), "字节")
+        print("文件类型：", os.path.splitext(filename)[1])
+        print(
+            "文件最后修改时间：",
+            time.strftime(
+                "%Y-%m-%d %H:%M:%S",
+                time.localtime(
+                    os.path.getmtime(filename))))
+        print("文件MD5值：", get_file_md5(filename))
+        print("文件SHA256值：", get_file_sha256(filename))
+        print("文件SHA1值：", get_file_sha1(filename))
+        print("文件SHA224值：", get_file_sha224(filename))
         return 0
-    else :
+    else:
         print("""使用:
 python / py md5.py [filename] [--check [-md5][-sha256][-sha1][-sha224][value]]
 
@@ -182,6 +192,7 @@ filename : 文件名，比如"1.py"、"HelloWorld.java"等等
 
 """)
         return 4
+
 
 if __name__ == "__main__":
     sys.exit(main())
