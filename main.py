@@ -685,14 +685,14 @@ class Launcher():
 
 class System():
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.7.0 BETA zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.8.0 BETA zh-cn
 作者：@wangzixin1940
 编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
 发行日期：2024-7-3
 自述文件：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-VERSION 2.7 (BETA) RELEASE
+VERSION 2.8 (BETA) RELEASE
 """)
 
     def languageSettings():
