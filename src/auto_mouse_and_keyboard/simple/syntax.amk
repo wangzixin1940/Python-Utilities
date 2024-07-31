@@ -1,0 +1,33 @@
+#-- ENABLE --#
+# This line of comment indicates that the script is enabled, and if it is not, the script will not run. And this has to be at the forefront.
+#-- DISABLE --#
+# This line of comment indicates that the script is disabled, and this has to be at the forefront.
+
+# This is Auto Mouse and Keyboard (AMK) syntax file for simple macros.
+# Powered by Pynput
+# Copyright (C) 2024 Zixin Wang. All rights reserved.
+
+# The syntax file in AMK format is actually a lot like Python.
+
+# This is a comment.
+
+
+from pynput import keyboard
+from pynput import mouse
+# Import modules, it's a must.
+
+from time import sleep as delay # You can use this function to delay the script.
+
+mouse = mouse.Controller()
+keyboard = keyboard.Controller()
+# Create a mouse and keyboard controller (if you need to).
+
+print("Simple file") # Print something to the console.
+
+mouse.position = (300, 300) # Move the mouse to (300, 300)
+
+keyboard.press(keyboard.Key.space) # Press the space key (Don't let go)
+delay(0.2) # Delay 0.2 seconds, do nothing
+keyboard.release(keyboard.Key.space) # Release the space key
+
+# End of the script.
