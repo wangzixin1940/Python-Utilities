@@ -709,22 +709,14 @@ class Launcher():
 
 class System():
     def about():
-beta
         msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.8.0 BETA en-US
-
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.8.0 en-US
-main
 Author: @wangzixin1940
 Editor: Microsoft Visual Studio Code
 Current File: main.py
 Release Date: 2024-7-3
 README File：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
-beta
 VERSION 2.8 (BETA) RELEASE
-
-VERSION 2.8 RELEASE
-main
 """)
 
     def languageSettings():
