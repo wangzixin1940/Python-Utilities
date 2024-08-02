@@ -1,15 +1,9 @@
 #-- ENABLE --#
 
-from pynput import mouse
-from time import sleep as delay
-from random import randint as rand
-
-mouse = mouse.Controller()
-
 for i in range(25):
-    mouse.position = (rand(0, 1920), rand(0, 1080))
-    delay(0.1)
+    Controllers.mouse.position = (Functions.rand(0, 1920), Functions.rand(0, 1080))
+    Functions.delay(0.1)
 
-mouse.position = (100, 100)
+Functions.mouse.position = (100, 100)
 
-# End of script.
+# End of the script.

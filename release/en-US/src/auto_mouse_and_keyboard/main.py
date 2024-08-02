@@ -1,8 +1,47 @@
 import ttkbootstrap as ttk
 import tkinter.filedialog as fdg
 import tkinter.messagebox as msgbox
-import pynput
 import traceback
+import pynput
+from pynput import mouse
+from pynput import keyboard
+from time import sleep as delay
+from random import randint as rand
+
+class Controllers:
+    def __init(self, *args, **kwargs):
+        self.mouse = mouse.Controller()
+        self.keybrd = keyboard.Controller()
+
+
+class Functions:
+    def __init__(self, *args, **kwargs):
+        self.mouse = pynput.mouse
+        self.keybrd = pynput.keyboard
+
+    def delay(self, *args, **kwargs):
+        return delay(*args, **kwargs)
+
+    def rand(self, *args, **kwargs):
+        return rand(*args, **kwargs)
+
+Controllers = Controllers()
+Functions = Functions()
+
+# Available methods: mouse, keyboard, delay, rand
+
+# mouse, keybrd grammar see https://pynput.readthedocs.io/en/latest/index.html
+
+# delay grammar:
+# delay(sec: int)
+# Wait sec seconds
+
+# rand grammar:
+# rand(min: int, max: int)
+# Take a random number between min and max
+
+mouse = mouse.Controller()
+keyboard = keyboard.Controller()
 
 
 class App(ttk.Window):
@@ -14,7 +53,7 @@ class App(ttk.Window):
         self.main_title = ttk.Label(
             self, text="Auto Mouse and Keyboard", font=(
                 "Arial", 20))
-        self.file = ttk.StringVar(value="Open file")
+        self.file = ttk.StringVar(value="Open File")
         self.input_file = ttk.Button(
             self,
             textvariable=self.file,
@@ -23,7 +62,7 @@ class App(ttk.Window):
             bootstyle="primary-outline")
         self.do_work_btn = ttk.Button(
             self,
-            text="DO WORK",
+            text="RUN",
             command=self.do_work,
             width=15,
             bootstyle="success-outline")
@@ -39,7 +78,7 @@ class App(ttk.Window):
                     ("AMK Script", "*.amk"), ("Python Script", "*.py")]))
 
     def do_work(self):
-        if self.file.get() != "Open...":
+        if self.file.get() != "Open File":
             with open(self.file.get(), "r", encoding="utf-8") as f:
                 data = f.read()
                 if (data.startswith("#-- ENABLE --#")):
@@ -47,13 +86,12 @@ class App(ttk.Window):
                         exec(data)
                     except Exception as e:
                         msgbox.showerror(
-                            "Error", f"An error occurred while executing the script:\n{
+                            "Error", f"An error occurred while executing the script: \n{
                                 repr(e)}：\n{
                                 traceback.print_exc()}")
                 else:
                     msgbox.showerror(
-                        "Error",
-                        "Script is disabled!\nPlease add at the beginning of the script:\n#-- ENABLE --#\nOr replace #-- DISABLE --# with #-- ENABLE --#")
+                        "Error", "Script is disabled!\nPlease add at the beginning of the script: \n#-- ENABLE --#\n. Or replace #-- DISABLE --# with #-- ENABLE --#")
         else:
             msgbox.showerror("Error", "Please select the file first!")
 
