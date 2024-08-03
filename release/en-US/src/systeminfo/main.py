@@ -20,7 +20,8 @@ class Functions:
     def __init__(self):
         super().__init__()
 
-    def show_choices(self):
+    @staticmethod
+    def show_choices():
         print("""
 System Infomation Viewer V 1.0
 ========================================================
@@ -35,7 +36,8 @@ Software
 ab. About\tx. Exit
 """)
 
-    def match_choice_and_run(self, choice):
+    @staticmethod
+    def match_choice_and_run(choice):
         if (platform.system() == "Windows"):
             os.system("cls")
         else:

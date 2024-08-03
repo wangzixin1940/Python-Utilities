@@ -1,7 +1,5 @@
 import qrcode
 from qrcode.image.styledpil import StyledPilImage
-from qrcode.image.styles.moduledrawers import *
-from qrcode.image.styles.colormasks import *
 
 import json
 import logging
@@ -55,7 +53,7 @@ class Encoder():
         data: 二维码数据
         filename: 保存二维码的文件名
         """
-        qr = qrcode.QRCode(
+        qr = qrcode.main.QRCode(
             version=1,
             error_correction=qrcode.constants.ERROR_CORRECT_H,
         )

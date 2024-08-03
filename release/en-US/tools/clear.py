@@ -2,7 +2,6 @@ import os
 import shutil
 import pathlib
 import ttkbootstrap as ttk
-from ttkbootstrap.constants import *
 from tkinter import messagebox as msgbox
 
 os.chdir(os.path.dirname(__file__))

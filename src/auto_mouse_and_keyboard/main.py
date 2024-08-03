@@ -1,8 +1,51 @@
 import ttkbootstrap as ttk
 import tkinter.filedialog as fdg
 import tkinter.messagebox as msgbox
-import pynput
 import traceback
+import pynput
+from pynput import mouse
+from pynput import keyboard
+from time import sleep as delay
+from random import randint as rand
+
+
+class Controllers:
+    def __init(self):
+        self.mouse = mouse.Controller()
+        self.keybrd = keyboard.Controller()
+
+
+class Functions:
+    def __init__(self):
+        self.mouse = pynput.mouse
+        self.keybrd = pynput.keyboard
+
+    @staticmethod
+    def delay(*args, **kwargs):
+        return delay(*args, **kwargs)
+
+    @staticmethod
+    def rand(*args, **kwargs):
+        return rand(*args, **kwargs)
+
+
+Controllers = Controllers()
+Functions = Functions()
+
+# 可用的方法：mouse, keyboard, delay, rand
+
+# mouse, keybrd 语法见 https://pynput.readthedocs.io/en/latest/index.html
+
+# delay 语法：
+# delay(sec: int)
+# 等待 sec 秒
+
+# rand 语法：
+# rand(min: int, max: int)
+# 在 min 到 max 之间随机取一个数
+
+mouse = mouse.Controller()
+keyboard = keyboard.Controller()
 
 
 class App(ttk.Window):

@@ -1,7 +1,6 @@
 import ttkbootstrap as ttk
 from tkinter import filedialog as fdg
 from tkinter import messagebox as msgbox
-import threading
 import convert
 
 MODELS = [

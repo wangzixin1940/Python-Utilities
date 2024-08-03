@@ -1,7 +1,7 @@
 from tkinter import messagebox as msgbox
 from tkinter import filedialog as fdg
 import ttkbootstrap as ttk
-import PIL
+from PIL import Image
 import os
 os.chdir(os.path.dirname(__file__))
 # Change the working directory to the current file's directory
@@ -42,7 +42,7 @@ class App(ttk.Window):
         if self.image_path.get() == "Choose a file":
             msgbox.showwarning("Warning", "Please choose a file first!")
             return
-        image = PIL.Image.open(self.image_path.get())
+        image = Image.open(self.image_path.get())
         output = fdg.asksaveasfilename(
             defaultextension=".jpg", filetypes=[
                 ("JPEG", "*.jpg"), ("PNG", "*.png"), ("BMP", "*.bmp"), ("GIF", "*.gif")])

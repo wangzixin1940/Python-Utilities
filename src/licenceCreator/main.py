@@ -1,4 +1,3 @@
-import datetime
 from tkinter import messagebox as msgbox
 from tkinter.filedialog import asksaveasfile
 import ttkbootstrap as ttk

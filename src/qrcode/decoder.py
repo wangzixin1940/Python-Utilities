@@ -1,7 +1,5 @@
-import qrcode
 from PIL import Image
 import pyzbar.pyzbar as pyzbar
-from pyzbar.pyzbar import decode as pyzbar_decode
 
 import json
 import logging
@@ -48,7 +46,6 @@ class Decoder():
         image: 二维码图片路径
         return: 二维码内容
         """
-        qr = qrcode.QRCode()  # 创建一个QRCode对象
         result = pyzbar.decode(
             Image.open(image), symbols=[
                 pyzbar.ZBarSymbol.QRCODE])  # 解析二维码
