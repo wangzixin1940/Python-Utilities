@@ -7,12 +7,16 @@ import speedtest
 import os
 import io
 import sys
+import warnings
+
+
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
 # 更换编码
 
 os.chdir(os.path.dirname(__file__))
 # 更换工作目录
 
+warnings.warn("This feature has been deprecated because the speedtest library has been discontinued for maintenance.", DeprecationWarning)
 
 with open("../../data/settings.json", "r") as settings:
     settings = settings.read()

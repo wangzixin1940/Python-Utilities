@@ -1,7 +1,5 @@
-import qrcode
 from PIL import Image
 import pyzbar.pyzbar as pyzbar
-from pyzbar.pyzbar import decode as pyzbar_decode
 
 import json
 import logging
@@ -48,7 +46,6 @@ class Decoder():
         image: QR Code image path
         return: QR Code content
         """
-        qr = qrcode.QRCode()  # Create a QR Code object
         result = pyzbar.decode(
             Image.open(image), symbols=[
                 pyzbar.ZBarSymbol.QRCODE])  # Decode the QR Code image

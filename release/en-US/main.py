@@ -82,7 +82,7 @@ class DevTools():
         """
         try:
             result = str(requests.get(url).status_code)
-        except requests.exceptions.MissingSchema as err:
+        except requests.exceptions.MissingSchema:
             logger.critical("Missing schema error")
             return 1
         # Return http status code
@@ -95,9 +95,9 @@ class DevTools():
         except KeyError:
             logger.error(f"Status code: {result} not found")
             return 2
-        # If the http status code is known, the result is returned. Otherwise the user is prompted to return an unknown status code
+        # If the http status code is known, the result is returned. Otherwise, the user is prompted to return an unknown status code
 
-    def translator(text: str, appid: str, secretKey: str, originalLanguage: str, targetLanguage: str):
+    def translator(text: str, appid: str, secret_key: str, original_language: str, target_language: str):
         """
         text: Texts that need to be translated
         appid: Baidu Translate API's appid (Get it from https://api.fanyi.baidu.com/api/trans/product/index)
@@ -106,19 +106,26 @@ class DevTools():
         targetLanguage: Target language
         return：Translated text
         """
+        class fake_http_client_http_connection:
+            def __init__(self, *args, **kwargs):
+                pass
+
+            def close(self, *args, **kwargs):
+                pass
+        trans_result = None
         salt = random.randint(32768, 65536)
         sign = hashlib.md5(
-            (str(appid)+text+str(salt)+secretKey).encode()).hexdigest()
-        targetURL = "http://api.fanyi.baidu.com/api/trans/vip/translate"+"?appid=" + \
-            str(appid)+"&q="+urllib.parse.quote(text)+"&from="+originalLanguage + \
-            "&to="+targetLanguage+"&salt="+str(salt)+"&sign="+sign
-        httpClient = None
+            (str(appid)+text+str(salt)+secret_key).encode()).hexdigest()
+        targetURL = "https://api.fanyi.baidu.com/api/trans/vip/translate"+"?appid=" + \
+            str(appid)+"&q="+urllib.parse.quote(text)+"&from="+original_language + \
+            "&to="+target_language+"&salt="+str(salt)+"&sign="+sign
+        http_client = fake_http_client_http_connection()
         # Establish a session and return results
         try:
-            httpClient = http.client.HTTPConnection("api.fanyi.baidu.com")
-            httpClient.request("GET", targetURL)
+            http_client = http.client.HTTPConnection("api.fanyi.baidu.com")
+            http_client.request("GET", targetURL)
             # response is HTTPResponse object
-            response = httpClient.getresponse()
+            response = http_client.getresponse()
             result_all = response.read().decode("utf-8")
             result = json.loads(result_all)
             trans_result = result["trans_result"][0]["dst"]
@@ -127,8 +134,8 @@ class DevTools():
             msgbox.showerror(
                 message=f"An error occurred on the server. Translation is not possible.\nFor details about the error message go to the log of this day. (in \"/logs/{datetime.date.today()}.log\")", title="Translator")
         finally:
-            if httpClient:
-                httpClient.close()
+            if http_client:
+                http_client.close()
                 return trans_result
         return None
 
@@ -235,7 +242,7 @@ class DevTools():
                 with open(csv_file_path, "w", encoding="utf-8") as csv_file:
                     csv_file.writelines(csv_data)
                     return 0
-        except FileNotFoundError as err:
+        except FileNotFoundError:
             logger.error("JSON file not found: {}".format(json_file_path))
             msgbox.showerror(message="JSON file not found!",
                              title="JSON to CSV")
@@ -284,7 +291,8 @@ class DevTools():
                 msgbox.showerror(
                     title="Error", message="Save file does not successfully!\nExit code: {}".format(result))
 
-        def readFromFile(self, fpath):
+        @staticmethod
+        def readFromFile(fpath):
             """
             Read text from a file
             fpath: File path
@@ -293,7 +301,8 @@ class DevTools():
             with open(fpath, "r", encoding="utf-8") as f:
                 return f.read().splitlines()
 
-        def diffTexts(self, text1: str, text2: str, fpath: str):
+        @staticmethod
+        def diffTexts(text1: str, text2: str, fpath: str):
             """
             Compare two pieces of text and save the result to an HTML file.
             text1: Text 1
@@ -341,7 +350,7 @@ class DrawingTools():
 
             def wrapper(img):
                 pic_str = func(img)
-                pic_str = "".join(l + " <br/>" for l in pic_str.splitlines())
+                pic_str = "".join(line + " <br/>" for line in pic_str.splitlines())
                 return html_head + pic_str + html_tail
             return wrapper
         # Draw character picture
@@ -388,7 +397,7 @@ class DrawingTools():
             1: yesterday
             2: the day before yesterday
             3~7 analogy
-        mkt: Region. Use the Microsoft region code. eg. zh-cn: Chinese mainland, en-us: America, etc.
+        mkt: Region. Use the Microsoft region code. e.g. zh-cn: Chinese mainland, en-us: America, etc.
         return: Exit code
         """
         try:
@@ -437,6 +446,7 @@ class Launcher():
                 title="Error", message="Call error! Please call the children of this class.")
             logger.error("Invocation error")
 
+        @staticmethod
         def webConnectTestLauncher():
             try:
                 with open("logs/records.log", "r") as r:
@@ -447,7 +457,7 @@ class Launcher():
             except FileNotFoundError:
                 record = ""
             url = easygui.enterbox(
-                msg="Input URL (bring \"http://\" on)", title="Windows Utilties", default=record)
+                msg="Input URL (bring \"https://\" on)", title="Windows Utilties", default=record)
             logger.info(f"User input: {url}")
             if (url != None):
                 record = url
@@ -465,6 +475,7 @@ class Launcher():
                     msgbox.showinfo(title="Windows Utilties",
                                     message=error_list[result-1])
 
+        @staticmethod
         def translatorLauncher():
             try:
                 with open("data/translator.appid.json", "r") as appid:
@@ -477,7 +488,7 @@ class Launcher():
                 logger.error(repr(err))
                 result = msgbox.askokcancel(
                     message="Baidu translate requires your APPID and SecretKey to use. OK to input?\nTranslator promises never to compromise your privacy.", title="Translator", icon="warning")
-                if result == True:
+                if result:
                     datas = easygui.multpasswordbox(
                         "Input AppID and SecretKey.", title="Translator", fields=["AppID", "SecretKey"])
                     if datas != None:
@@ -514,6 +525,7 @@ class Launcher():
                             message="Parameters are missing!", title="Translator")
                         logger.error("Missing arguments")
 
+        @staticmethod
         def JSONtoXMLLauncher():
             json = easygui.fileopenbox(title="Open...", filetypes=[
                                        ["*.json", "JSON files"]], default="*.json")
@@ -530,6 +542,7 @@ class Launcher():
                         title="ERROR", message="the file extension is not \".json\"!")
                     logger.error("File extension is incorrect")
 
+        @staticmethod
         def XMLtoJSONLauncher():
             xml = easygui.fileopenbox(title="Open...", filetypes=[
                                       ["*.xml", "XML files"]], default="*.xml")
@@ -546,7 +559,9 @@ class Launcher():
                         title="Error", message="The file extension is not \".xml\"!")
                     logger.error("File extension is incorrect")
 
+        @staticmethod
         def getIPLauncher():
+            global DevTools
             ip = easygui.enterbox(
                 "Enter the domain name or enter '@default' to use local domain name", title="IP address getter")
             if (ip != None):
@@ -564,6 +579,7 @@ class Launcher():
                         message=f"IP address: {result}", title="IP address getter")
                     logger.info(f"Result: {result}")
 
+        @staticmethod
         def resolveDomainLauncher():
             domain = easygui.enterbox(
                 "Enter the IP address", title="DNS resolver")
@@ -575,6 +591,7 @@ class Launcher():
                     message=f"Resolution result: {result}", title="DNS resolver")
                 logger.info(f"Result:{result}")
 
+        @staticmethod
         def JSONtoCSVLauncher():
             json = easygui.fileopenbox(title="Open...", filetypes=[
                                        ["*.json", "JSON files"]], default="*.json")
@@ -591,6 +608,7 @@ class Launcher():
                         title="Error", message="File extension is not \".json\"!")
                     logger.error("File extension is incorrect")
 
+        @staticmethod
         def CSVtoJSONLauncher():
             csv = easygui.fileopenbox(title="Open...", filetypes=[
                                       ["*.csv", "CSV files"]], default="*.csv")
@@ -613,6 +631,7 @@ class Launcher():
                 title="Error", message="Call error! Please call the children of this class.")
             logger.error("Invocation error")
 
+        @staticmethod
         def charPictureLauncher():
             path = easygui.fileopenbox(title="Open...", filetypes=[
                                        ["*.jpg", "*.jpeg", "JPG files"], ["*.bmp", "BMP files"], ["*.gif", "GIF files"]], default="*.png")
@@ -626,6 +645,7 @@ class Launcher():
                         title="Error", message="The file extension is incorrect!")
                     logger.error("File extension is incorrect")
 
+        @staticmethod
         def bingPictureLauncher():
             fname = fdg.asksaveasfilename(title="Save as...", filetypes=[
                                           ["JPG Files", "*.jpg"]], defaultextension="*.jpg")
@@ -660,6 +680,7 @@ class Launcher():
                 title="Error", message="Call error! Please call the children of this class.")
             logger.error("Invocation error")
 
+        @staticmethod
         def webSpeedTsetLauncher():
             def run():
                 subprocess.Popen("python src/webspeedtest/main.py")
@@ -667,47 +688,60 @@ class Launcher():
             thread = threading.Thread(target=run)
             thread.start()
 
+        @staticmethod
         def clockLauncher():
             # python "src\clock\main.py"
             subprocess.Popen("python src/clock/main.py")
 
+        @staticmethod
         def calculatorLauncher():
             subprocess.Popen("python src/calculator/main.py")
 
+        @staticmethod
         def md5CheckerLauncher():
             msgbox.showinfo(title="Python Utilities",
                             message="MD5 Checker in \"src\\cmdtools\\md5.py\". Follow the prompts to use, please.")
 
+        @staticmethod
         def passwordCreatorLauncher():
             # python "src\passwordCreator\main.py"
             subprocess.Popen("python src/passwordCreator/main.py")
 
+        @staticmethod
         def licenceCreatorLauncher():
             subprocess.Popen("python src/licenceCreator/main.py")
 
+        @staticmethod
         def qrcodeGeneratorLauncher():
             subprocess.Popen("python src/qrcode/main.py 0")
 
+        @staticmethod
         def qrcodeParserLauncher():
             subprocess.Popen("python src/qrcode/main.py 1")
 
+        @staticmethod
         def weatherLauncher():
             subprocess.Popen("python src/weather/main.py")
 
+        @staticmethod
         def speech2textLauncher():
             subprocess.Popen("python src/speech2text/main.py")
 
+        @staticmethod
         def pictureFormatConverterLauncher():
             subprocess.Popen("python src/photo_format_converter/main.py")
 
+        @staticmethod
         def sendMailFromJSONLauncher():
             subprocess.Popen("python src/send_mail_from_json/main.py")
 
+        @staticmethod
         def AMKLauncher():
             subprocess.Popen("python src/auto_mouse_and_keyboard/main.py")
 
 
 class System():
+    @staticmethod
     def about():
         msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.8.0 BETA en-US
 Author: @wangzixin1940
@@ -719,10 +753,12 @@ GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main
 VERSION 2.8 (BETA) RELEASE
 """)
 
+    @staticmethod
     def languageSettings():
         subprocess.Popen("python ../../main.py")
         root.destroy()
 
+    @staticmethod
     def quitApp():
         root.destroy()
 
@@ -745,6 +781,7 @@ VERSION 2.8 (BETA) RELEASE
         with open("./data/theme.json", "w") as f:
             json.dump(theme, f)
 
+    @staticmethod
     def importSettings():
         path = easygui.fileopenbox(title="Open...", filetypes=[
                                    ["*.json", "JSON files"]], default="*.json")
@@ -806,30 +843,30 @@ def main():
         root, text="Utilities 🛠", font=("Airal", 18, "normal"))
     utilitiesLabel.pack()  # Utilities tab
     translateButton = ttk.Button(
-        root, text="Translator", command=Launcher.DevToolsLauncher.translatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+        text="Translator", command=Launcher.DevToolsLauncher.translatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     translateButton.pack()  # Translator button
-    weatherButton = ttk.Button(root, text="Weather forecast",
+    weatherButton = ttk.Button(text="Weather forecast",
                                command=Launcher.ExternalLauncher.weatherLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     weatherButton.pack()  # Weather forecast button
     speech2textButton = ttk.Button(
-        root, text="Speech to text", command=Launcher.ExternalLauncher.speech2textLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+        text="Speech to text", command=Launcher.ExternalLauncher.speech2textLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     speech2textButton.pack()  # Speech to text button
     # ===================================== #
     DevToolsLabel = ttk.Label(
         root, text="DevTools </>", font=("Airal", 18, "normal"))
     DevToolsLabel.pack()  # DevTools tab
-    connectButton = ttk.Button(root, text="Detect website status code",
+    connectButton = ttk.Button(text="Detect website status code",
                                command=Launcher.DevToolsLauncher.webConnectTestLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     connectButton.pack()  # Check website status code button
     speedTestButton = ttk.Button(
-        root, text="Web Speed Test", command=Launcher.ExternalLauncher.webSpeedTsetLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+        text="Web Speed Test", command=Launcher.ExternalLauncher.webSpeedTsetLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     speedTestButton.pack()  # SpeedTest button
     # ===================================== #
     externalsLabel = ttk.Label(
         root, text="Other Tools 🧰", font=("Airal", 18, "normal"))
     externalsLabel.pack()  # Other tools tab
     passwordCreatorButton = ttk.Button(
-        root, text="Password Creator", command=Launcher.ExternalLauncher.passwordCreatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+        text="Password Creator", command=Launcher.ExternalLauncher.passwordCreatorLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     passwordCreatorButton.pack()  # Password creator button
     # ===================================== #
     if not (settings["no-menu"]):
@@ -841,65 +878,59 @@ def main():
         menu.add_cascade(label="Other", menu=otherMenu)
         if not (settings["no-settings-menu"]):
             menu.add_cascade(label="Settings", menu=settingsMenu)
-        menu.add_command(label="About", command=System.about)
-        fileMenu.add_command(label="Import settings...",
-                             command=System.importSettings)
-        fileMenu.add_command(label="Exit", command=System.quitApp)
+        menu.add_command(command=System.about)
+        fileMenu.add_command(command=System.importSettings)
+        fileMenu.add_command(command=System.quitApp)
         otherMenu.add_command(
-            label="Calculator", command=Launcher.ExternalLauncher.calculatorLauncher)
+            command=Launcher.ExternalLauncher.calculatorLauncher)
         otherMenu.add_command(
-            label="Check md5", command=Launcher.ExternalLauncher.md5CheckerLauncher)
+            command=Launcher.ExternalLauncher.md5CheckerLauncher)
         otherMenu.add_command(
-            label="Licence Creator", command=Launcher.ExternalLauncher.licenceCreatorLauncher)
-        otherMenu.add_command(label="Send mail from JSON",
-                              command=Launcher.ExternalLauncher.sendMailFromJSONLauncher)
+            command=Launcher.ExternalLauncher.licenceCreatorLauncher)
+        otherMenu.add_command(command=Launcher.ExternalLauncher.sendMailFromJSONLauncher)
         ipToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="IP tools", menu=ipToolsMenu)
-        ipToolsMenu.add_command(label="IP address lookup",
-                                command=Launcher.DevToolsLauncher.getIPLauncher)
+        ipToolsMenu.add_command(command=Launcher.DevToolsLauncher.getIPLauncher)
         ipToolsMenu.add_command(
-            label="Reverse IP lookup", command=Launcher.DevToolsLauncher.resolveDomainLauncher)
+            command=Launcher.DevToolsLauncher.resolveDomainLauncher)
         fileToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="File tools", menu=fileToolsMenu)
         fileToolsMenu.add_command(
-            label="JSON to XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
+            command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(
-            label="XML to JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+            command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
         fileToolsMenu.add_command(
-            label="JSON to CSV", command=Launcher.DevToolsLauncher.JSONtoCSVLauncher)
+            command=Launcher.DevToolsLauncher.JSONtoCSVLauncher)
         fileToolsMenu.add_command(
-            label="CSV to JSON", command=Launcher.DevToolsLauncher.CSVtoJSONLauncher)
+            command=Launcher.DevToolsLauncher.CSVtoJSONLauncher)
         fileToolsMenu.add_command(
             label="File diff", command=DevTools.FileDiffTools)
         qrcodeToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="QR Code tools", menu=qrcodeToolsMenu)
         qrcodeToolsMenu.add_command(
-            label="Generate QR Code", command=Launcher.ExternalLauncher.qrcodeGeneratorLauncher)
+            command=Launcher.ExternalLauncher.qrcodeGeneratorLauncher)
         qrcodeToolsMenu.add_command(
-            label="Decode QR Code", command=Launcher.ExternalLauncher.qrcodeParserLauncher)
+            command=Launcher.ExternalLauncher.qrcodeParserLauncher)
         otherMenu.add_separator()
-        otherMenu.add_command(label="Character picture",
-                              command=Launcher.DrawingToolsLauncher.charPictureLauncher)
+        otherMenu.add_command(command=Launcher.DrawingToolsLauncher.charPictureLauncher)
         otherMenu.add_command(
-            label="Bing Picture", command=Launcher.DrawingToolsLauncher.bingPictureLauncher)
-        otherMenu.add_command(label="Photo Format Converter",
-                              command=Launcher.ExternalLauncher.pictureFormatConverterLauncher)
-        otherMenu.add_command(label="Script manipulation of mouse and keyboard",
-                              command=Launcher.ExternalLauncher.AMKLauncher)
+            command=Launcher.DrawingToolsLauncher.bingPictureLauncher)
+        otherMenu.add_command(command=Launcher.ExternalLauncher.pictureFormatConverterLauncher)
+        otherMenu.add_command(command=Launcher.ExternalLauncher.AMKLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(
-            label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
+            command=Launcher.ExternalLauncher.clockLauncher)
         if not (settings["no-settings-menu"]):
             themesMenu = ttk.Menu(settingsMenu)
             settingsMenu.add_cascade(label="Themes...", menu=themesMenu)
             for i in style.theme_names():
                 themesMenu.add_radiobutton(
-                    label=i, command=lambda i=i: System.switchTheme(i))
+                    label=i, command=lambda name=i: System.switchTheme(name))
             themesMenu.add_separator()
             themesMenu.add_command(
                 label="pride", command=lambda: System.switchTheme("pride"))
             settingsMenu.add_command(
-                label="切换到简体中文...", command=System.languageSettings)
+                command=System.languageSettings)
         root.config(menu=menu)
     # Tools tab
     # ===================================== #

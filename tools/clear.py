@@ -2,7 +2,6 @@ import os
 import shutil
 import pathlib
 import ttkbootstrap as ttk
-from ttkbootstrap.constants import *
 from tkinter import messagebox as msgbox
 
 os.chdir(os.path.dirname(__file__))
@@ -38,11 +37,11 @@ def clear_profiles():
         with open("../data/theme.json", "w", encoding="utf-8") as f:
             f.write("{\"theme\": \"cosmo\"}")
             print("Rewrited theme.json")
-        os.remove("../data/translator.appid.json");
+        os.remove("../data/translator.appid.json")
         print("Deleted translator.appid.json")
-        clear_logs();
+        clear_logs()
         print("Deleted all log files")
-        clear_caches();
+        clear_caches()
         print("Deleted all cache files")
         msgbox.showinfo("提示", "配置文件已重置。")
 

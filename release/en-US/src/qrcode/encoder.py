@@ -1,7 +1,5 @@
 import qrcode
 from qrcode.image.styledpil import StyledPilImage
-from qrcode.image.styles.moduledrawers import *
-from qrcode.image.styles.colormasks import *
 
 import json
 import logging

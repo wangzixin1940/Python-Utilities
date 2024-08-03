@@ -10,6 +10,7 @@ from tkinter import messagebox as msgbox
 
 class App(ttk.Window):
     def __init__(self, mode: int):
+        super().__init__()
         if mode == 0:
             self.generator()
         else:

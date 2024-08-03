@@ -43,9 +43,9 @@ def passwordCreator(
         includeUppercase: bool = True):
     """
     length: Password length
-    includeSymbols: Whether or not to include symbols
-    includeNumbers: Whether or not to include numbers
-    includeUppercase: Whether or not to include capital letters
+    includeSymbols: Whether to include symbols
+    includeNumbers: Whether to include numbers
+    includeUppercase: Whether to include capital letters
     return: Returns the password string
     """
     # Password character set
@@ -81,16 +81,17 @@ def passwordCreator(
 
 class App(ttk.Window):
 
-    def strengthCheck(self, password: str):
+    @staticmethod
+    def strengthCheck(password: str):
         if (len(password) < 8):
             return 1
-        else :
+        else:
             if (not re.search("[A-Z]", password)):
                 return 2
-            else :
+            else:
                 if (not re.search("[^a-zA-Z0-9]", password)):
                     return 3
-                else :
+                else:
                     return 4
 
     def copyToClipboard(self):
@@ -120,7 +121,7 @@ class App(ttk.Window):
         }
         self.strengthTips["text"] = "Password Strength: " + strength[self.strengthCheck(str(self.password.get("1.0", "end")))]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         super().__init__()
         self.title("Password Creator")
         self.style_set = ttk.Style(theme="cosmo")

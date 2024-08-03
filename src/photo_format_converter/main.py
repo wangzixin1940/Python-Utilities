@@ -1,7 +1,7 @@
 from tkinter import messagebox as msgbox
 from tkinter import filedialog as fdg
 import ttkbootstrap as ttk
-import PIL
+from PIL import Image
 import os
 os.chdir(os.path.dirname(__file__))
 # 更换工作目录
@@ -41,7 +41,7 @@ class App(ttk.Window):
         if self.image_path.get() == "请选择图片":
             msgbox.showwarning("警告", "请先选择图片！")
             return
-        image = PIL.Image.open(self.image_path.get())
+        image = Image.open(self.image_path.get())
         output = fdg.asksaveasfilename(
             defaultextension=".jpg", filetypes=[
                 ("JPEG", "*.jpg"), ("PNG", "*.png"), ("BMP", "*.bmp"), ("GIF", "*.gif")])

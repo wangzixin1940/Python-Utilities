@@ -8,22 +8,26 @@ from pynput import keyboard
 from time import sleep as delay
 from random import randint as rand
 
+
 class Controllers:
-    def __init(self, *args, **kwargs):
+    def __init(self):
         self.mouse = mouse.Controller()
         self.keybrd = keyboard.Controller()
 
 
 class Functions:
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         self.mouse = pynput.mouse
         self.keybrd = pynput.keyboard
 
-    def delay(self, *args, **kwargs):
+    @staticmethod
+    def delay(*args, **kwargs):
         return delay(*args, **kwargs)
 
-    def rand(self, *args, **kwargs):
+    @staticmethod
+    def rand(*args, **kwargs):
         return rand(*args, **kwargs)
+
 
 Controllers = Controllers()
 Functions = Functions()

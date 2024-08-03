@@ -82,41 +82,48 @@ class DevTools():
             result = str(requests.get(url).status_code)
         except requests.exceptions.MissingSchema as err:
             logger.critical("Missing schema error")
-            return f"协议不存在，您是否忘记在网站开头加上“http://”？\n{repr(err)}"
+            return f"协议不存在，您是否忘记在网站开头加上“https://”？\n{repr(err)}"
         # 返回HTTP状态码
-        with open("./data/connect.test.codes.json", "r") as statusCodes:
-            statusCodes = statusCodes.read()
-            statusCodes = json.loads(statusCodes)
+        with open("./data/connect.test.codes.json", "r") as status_codes:
+            status_codes = status_codes.read()
+            status_codes = json.loads(status_codes)
         # 常见的HTTP状态码列表
         try:
-            return str(result) + "：" + statusCodes[result]
+            return str(result) + "：" + status_codes[result]
         except KeyError:
             logger.error(f"Status code: {result} not found")
             return f"网站返回了一个未知的HTTP状态码：{result}"
         # 如果HTTP状态码已知，则返回结果；否则提示用户返回未知状态码
 
-    def translator(text: str, appid: str, secretKey: str, originalLanguage: str, targetLanguage: str):
+    def translator(text: str, appid: str, secret_key: str, original_language: str, target_language: str):
         """
         text: 需要翻译的文本
         appid: 百度翻译API的appid
-        secretKey: 百度翻译API的密钥
-        originalLanguage: 原文语言
-        targetLanguage: 译文语言
+        secret_key: 百度翻译API的密钥
+        original_language: 原文语言
+        target_language: 译文语言
         return：翻译结果
         """
+        class fake_http_client_http_connection:
+            def __init__(self, *args, **kwargs):
+                pass
+
+            def close(self, *args, **kwargs):
+                pass
+        trans_result = None
         salt = random.randint(32768, 65536)
         sign = hashlib.md5((str(appid) + text + str(salt) +
-                           secretKey).encode()).hexdigest()
-        targetURL = "http://api.fanyi.baidu.com/api/trans/vip/translate" + "?appid=" + str(
+                           secret_key).encode()).hexdigest()
+        target_url = "https://api.fanyi.baidu.com/api/trans/vip/translate" + "?appid=" + str(
             appid) + "&q=" + urllib.parse.quote(
-            text) + "&from=" + originalLanguage + "&to=" + targetLanguage + "&salt=" + str(salt) + "&sign=" + sign
-        httpClient = None
+            text) + "&from=" + original_language + "&to=" + target_language + "&salt=" + str(salt) + "&sign=" + sign
+        http_client = fake_http_client_http_connection()
         # 建立会话，返回结果
         try:
-            httpClient = http.client.HTTPConnection("api.fanyi.baidu.com")
-            httpClient.request("GET", targetURL)
+            http_client = http.client.HTTPConnection("api.fanyi.baidu.com")
+            http_client.request("GET", target_url)
             # response是HTTPResponse对象
-            response = httpClient.getresponse()
+            response = http_client.getresponse()
             result_all = response.read().decode("utf-8")
             result = json.loads(result_all)
             trans_result = result["trans_result"][0]["dst"]
@@ -126,9 +133,10 @@ class DevTools():
                 message=f"服务器发生错误，无法进行翻译，请到此日的log中查看详细报错信息（在“/logs/{datetime.date.today()}.log”）。",
                 title="翻译器")
         finally:
-            if httpClient:
-                httpClient.close()
-                return trans_result
+            if http_client:
+                http_client.close()
+                if trans_result:
+                    return trans_result
         return None
 
     def JSONtoXML(json_file_path: str, xml_file_path: str):
@@ -195,8 +203,8 @@ class DevTools():
             with open(csv_file_path, "r", encoding="utf-8") as csv_file:
                 csv_data = csv_file.read().splitlines()
                 json_data = {}
-                for i in range(len(csv_data)):
-                    json_data[f"line-{str(i + 1)}"] = csv_data[i].split(",")
+                for csv_line in range(len(csv_data)):
+                    json_data[f"line-{str(csv_line + 1)}"] = csv_data[csv_line].split(",")
                 with open(json_file_path, "w", encoding="utf-8") as json_file:
                     json_file.write(json.dumps(
                         json_data, ensure_ascii=False, indent=4))
@@ -228,7 +236,7 @@ class DevTools():
                 with open(csv_file_path, "w", encoding="utf-8") as csv_file:
                     csv_file.writelines(csv_data)
                     return 0
-        except FileNotFoundError as err:
+        except FileNotFoundError:
             logger.error("JSON file not found: {}".format(json_file_path))
             msgbox.showerror(message="JSON文件不存在！", title="JSON to CSV")
             return 1
@@ -275,7 +283,8 @@ class DevTools():
                 msgbox.showerror(
                     title="错误", message="保存文件失败！\n退出代码: {}".format(result))
 
-        def readFromFile(self, fpath):
+        @staticmethod
+        def readFromFile(fpath):
             """
             从文件读取文本
             fpath: 文件路径
@@ -284,7 +293,8 @@ class DevTools():
             with open(fpath, "r", encoding="utf-8") as f:
                 return f.read().splitlines()
 
-        def diffTexts(self, text1: str, text2: str, fpath: str):
+        @staticmethod
+        def diffTexts(text1: str, text2: str, fpath: str):
             """
             对比两段文本并且将结果保存到HTML文件中
             text1: 文本1
@@ -322,41 +332,44 @@ class DrawingTools():
                     <html>
                         <head>
                             <style type="text/css">
-                                body {font-family:Monospace; font-size:5px;}
+                                body {
+                                    font-family: Monospace;
+                                    font-size: 5px;
+                                }
                             </style>
                         </head>
                     <body> '''
-            html_tail = "</body></html>"
+            html_tail = "</body> </html>"
 
             # 定义 HTML
-            def wrapper(img):
-                pic_str = func(img)
-                pic_str = "".join(l + " <br/>" for l in pic_str.splitlines())
-                return html_head + pic_str + html_tail
+            def wrapper(image):
+                pic_string = func(image)
+                pic_string = "".join(line + " <br />" for line in pic_string.splitlines())
+                return html_head + pic_string + html_tail
 
             return wrapper
 
         # 绘制字符画
         @to_html
-        def make_char_img(img):
+        def make_char_img(image):
             pix = img.load()
-            pic_str = ""
-            width, height = img.size
+            pic_string = ""
+            width, height = image.size
             for h in range(height):
                 for w in range(width):
-                    pic_str += color[int(pix[int(w), int(h)] * 14 / 255)]
-                pic_str += "\n"
-            return pic_str
+                    pic_string += color[int(pix[int(w), int(h)] * 14 / 255)]
+                pic_string += "\n"
+            return pic_string
 
         def preprocess(img_name):
-            img = Image.open(img_name)
-            w, h = img.size
-            m = max(img.size)
+            image = Image.open(img_name)
+            w, h = image.size
+            m = max(image.size)
             delta = m / 200.0
             w, h = int(w / delta), int(h / delta)
-            img = img.resize((w, h))
-            img = img.convert('L')
-            return img
+            image = image.resize((w, h))
+            image = image.convert('L')
+            return image
 
         def save_to_file(filename, pic_str):
             with open(filename, 'w') as outfile:
@@ -426,6 +439,7 @@ class Launcher():
             msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
             logger.error("Invocation error")
 
+        @staticmethod
         def webConnectTestLauncher():
             try:
                 with open("logs/records.log", "r") as r:
@@ -436,7 +450,7 @@ class Launcher():
             except FileNotFoundError:
                 record = ""
             url = easygui.enterbox(
-                msg="输入URL（带“http://”）", title="Python Utilities", default=record)
+                msg="输入URL（带“https://”）", title="Python Utilities", default=record)
             logger.info(f"User input: {url}")
             if (url != None):
                 record = url
@@ -447,9 +461,10 @@ class Launcher():
                 global DevTools
                 result = DevTools.webConnectTest(url)
                 msgbox.showinfo(title="Python Utilities", message=result)
-                if not ("协议不存在，您是否忘记在网站开头加上“http://”？" in result):
+                if not ("协议不存在，您是否忘记在网站开头加上“https://”？" in result):
                     logger.info(f"Web address connect info: {url} => {result}")
 
+        @staticmethod
         def translatorLauncher():
             try:
                 with open("data/translator.appid.json", "r") as appid:
@@ -463,7 +478,7 @@ class Launcher():
                 result = msgbox.askokcancel(
                     message="百度翻译需要您的AppID和秘钥才能使用。是否输入？\n翻译器承诺绝对不会把您的隐私泄露。",
                     title="翻译器", icon="warning")
-                if result == True:
+                if result:
                     datas = easygui.multpasswordbox(
                         "输入AppID和秘钥。", title="翻译器", fields=["AppID", "秘钥"])
                     if datas != None:
@@ -476,7 +491,7 @@ class Launcher():
                         entered = False
                 else:
                     entered = False
-            if (entered == True):
+            if (entered):
                 with open("./data/translator.languages.json", "r") as languages:
                     languages = languages.read()
                     languages = json.loads(languages)
@@ -499,6 +514,7 @@ class Launcher():
                         msgbox.showerror(message="缺少参数！", title="翻译器")
                         logger.error("Missing arguments")
 
+        @staticmethod
         def JSONtoXMLLauncher():
             json = easygui.fileopenbox(title="打开文件", filetypes=[
                                        ["*.json", "JSON files"]], default="*.json")
@@ -514,6 +530,7 @@ class Launcher():
                     msgbox.showerror(title="错误", message="文件拓展名不是\".json\"！")
                     logger.error("File extension is incorrect")
 
+        @staticmethod
         def XMLtoJSONLauncher():
             xml = easygui.fileopenbox(title="打开文件", filetypes=[
                                       ["*.xml", "XML files"]], default="*.xml")
@@ -529,7 +546,9 @@ class Launcher():
                     msgbox.showerror(title="错误", message="文件拓展名不是\".xml\"！")
                     logger.error("File extension is incorrect")
 
+        @staticmethod
         def getIPLauncher():
+            global DevTools
             ip = easygui.enterbox(
                 "输入域名\n或者输入“@default”使用本地域名", title="IP地址获取器")
             if (ip != None):
@@ -545,6 +564,7 @@ class Launcher():
                     msgbox.showinfo(message=f"IP地址：{result}", title="IP地址获取器")
                     logger.info(f"Result: {result}")
 
+        @staticmethod
         def resolveDomainLauncher():
             domain = easygui.enterbox("输入IP地址", title="域名解析器")
             if (domain != None):
@@ -554,6 +574,7 @@ class Launcher():
                 msgbox.showinfo(message=f"解析结果：{result}", title="域名解析器")
                 logger.info(f"Result: {result}")
 
+        @staticmethod
         def JSONtoCSVLauncher():
             json = easygui.fileopenbox(title="打开文件", filetypes=[
                                        ["*.json", "JSON files"]], default="*.json")
@@ -569,6 +590,7 @@ class Launcher():
                     msgbox.showerror(title="错误", message="文件拓展名不是\".json\"！")
                     logger.error("File extension is incorrect")
 
+        @staticmethod
         def CSVtoJSONLauncher():
             csv = easygui.fileopenbox(title="打开文件", filetypes=[
                                       ["*.csv", "CSV files"]], default="*.csv")
@@ -589,6 +611,7 @@ class Launcher():
             msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
             logger.error("Invocation error")
 
+        @staticmethod
         def charPictureLauncher():
             path = easygui.fileopenbox(title="打开文件",
                                        filetypes=[["*.jpg", "*.jpeg", "JPG files"], ["*.bmp", "BMP files"],
@@ -604,6 +627,7 @@ class Launcher():
                     msgbox.showerror(title="错误", message="文件拓展名错误！")
                     logger.error("File extension is incorrect")
 
+        @staticmethod
         def bingPictureLauncher():
             fname = fdg.asksaveasfilename(title="保存文件", filetypes=[["JPG Files", "*.jpg"]],
                                           defaultextension="*.jpg")
@@ -634,6 +658,7 @@ class Launcher():
             msgbox.showerror(title="错误", message="调用错误！请调用此类的子项。")
             logger.error("Invocation error")
 
+        @staticmethod
         def webSpeedTsetLauncher():
             def run():
                 subprocess.Popen("python /src/webspeedtest/main.py")
@@ -643,47 +668,60 @@ class Launcher():
             thread = threading.Thread(target=run)
             thread.start()
 
+        @staticmethod
         def clockLauncher():
             # python src/clock/main.py
             subprocess.Popen("python src/clock/main.py")
 
+        @staticmethod
         def calculatorLauncher():
             subprocess.Popen("python src/calculator/main.py")
 
+        @staticmethod
         def hashCheckerLauncher():
             msgbox.showinfo(title="Python Utilities",
                             message="HASH校验器在src/tools/hash.py，请根据提示使用")
 
+        @staticmethod
         def passwordCreatorLauncher():
             # python "src\passwordCreator\main.py"
             subprocess.Popen("python src/passwordCreator/main.py")
 
+        @staticmethod
         def licenceCreatorLauncher():
             subprocess.Popen("python src/licenceCreator/main.py")
 
+        @staticmethod
         def qrcodeGeneratorLauncher():
             subprocess.Popen("python src/qrcode/main.py 0")
 
+        @staticmethod
         def qrcodeParserLauncher():
             subprocess.Popen("python src/qrcode/main.py 1")
 
+        @staticmethod
         def weatherLauncher():
             subprocess.Popen("python src/weather/main.py")
 
+        @staticmethod
         def speech2textLauncher():
             subprocess.Popen("python src/speech2text/main.py")
 
+        @staticmethod
         def pictureFormatConverterLauncher():
             subprocess.Popen("python src/photo_format_converter/main.py")
 
+        @staticmethod
         def sendMailFromJSONLauncher():
             subprocess.Popen("python src/send_mail_from_json/main.py")
 
+        @staticmethod
         def AMKLauncher():
             subprocess.Popen("python src/auto_mouse_and_keyboard/main.py")
 
 
 class System():
+    @staticmethod
     def about():
         msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.8.0 BETA zh-cn
 作者：@wangzixin1940
@@ -695,10 +733,12 @@ GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main
 VERSION 2.8 (BETA) RELEASE
 """)
 
+    @staticmethod
     def languageSettings():
         subprocess.Popen("python release/en-US/main.py")
         root.destroy()
 
+    @staticmethod
     def quitApp():
         root.destroy()
 
@@ -721,6 +761,7 @@ VERSION 2.8 (BETA) RELEASE
         with open("./data/theme.json", "w") as f:
             json.dump(theme, f)
 
+    @staticmethod
     def importSettings():
         path = easygui.fileopenbox(title="打开文件", filetypes=[
                                    ["*.json", "JSON files"]], default="*.json")
@@ -783,7 +824,7 @@ def main():
     utilitiesLabel = ttk.Label(
         root, text="实用工具 🛠", font=("等线 Light", 18, "normal"))
     utilitiesLabel.pack()  # 实用工具标签
-    translateButton = ttk.Button(root, text="翻译器", command=Launcher.DevToolsLauncher.translatorLauncher,
+    translateButton = ttk.Button(text="翻译器", command=Launcher.DevToolsLauncher.translatorLauncher,
                                  bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     translateButton.pack()  # 翻译器按钮
     weatherButton = ttk.Button(root, text="天气预报", command=Launcher.ExternalLauncher.weatherLauncher,
@@ -796,7 +837,7 @@ def main():
     DevToolsLabel = ttk.Label(root, text="开发者工具 </>",
                               font=("等线 Light", 18, "normal"))
     DevToolsLabel.pack()  # 开发者工具标签
-    connectButton = ttk.Button(root, text="检测网站状态码", command=Launcher.DevToolsLauncher.webConnectTestLauncher,
+    connectButton = ttk.Button(text="检测网站状态码", command=Launcher.DevToolsLauncher.webConnectTestLauncher,
                                bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     connectButton.pack()  # 检测网络连接
     speedTestButton = ttk.Button(root, text="测网速", command=Launcher.ExternalLauncher.webSpeedTsetLauncher,
@@ -834,15 +875,15 @@ def main():
         ipToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="IP工具", menu=ipToolsMenu)
         ipToolsMenu.add_command(
-            label="IP地址查询", command=Launcher.DevToolsLauncher.getIPLauncher)
+            command=Launcher.DevToolsLauncher.getIPLauncher)
         ipToolsMenu.add_command(
-            label="解析IP地址", command=Launcher.DevToolsLauncher.resolveDomainLauncher)
+            command=Launcher.DevToolsLauncher.resolveDomainLauncher)
         fileToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="文件工具", menu=fileToolsMenu)
         fileToolsMenu.add_command(
-            label="JSON转XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
+            command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(
-            label="XML转JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+            command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
         fileToolsMenu.add_command(
             label="JSON转CSV", command=Launcher.DevToolsLauncher.JSONtoCSVLauncher)
         fileToolsMenu.add_command(
@@ -871,7 +912,8 @@ def main():
             settingsMenu.add_cascade(label="颜色主题", menu=themesMenu)
             for i in style.theme_names():
                 themesMenu.add_radiobutton(
-                    label=i, command=lambda i=i: System.switchTheme(i))
+                    label=i, command=lambda name=i: System.switchTheme(name)
+                )
             themesMenu.add_separator()
             themesMenu.add_command(
                 label="pride", command=lambda: System.switchTheme("pride"))
