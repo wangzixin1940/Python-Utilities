@@ -42,11 +42,13 @@ def passwordCreator(
         includeNumbers: bool = True,
         includeUppercase: bool = True):
     """
-    length: 密码长度
-    includeSymbols: 是否包含符号
-    includeNumbers: 是否包含数字
-    includeUppercase: 是否包含大写字母
-    return: 返回密码字符串
+    生成密码
+    参数：
+        length: 密码长度
+        includeSymbols: 是否包含符号
+        includeNumbers: 是否包含数字
+        includeUppercase: 是否包含大写字母
+    返回值：返回密码字符串
     """
     # 密码字符集
     chars = {

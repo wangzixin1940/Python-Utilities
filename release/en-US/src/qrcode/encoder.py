@@ -51,8 +51,9 @@ class Encoder():
             *args):
         """
         Generate a QR code with the specified data and save it to the specified file.
-        data: QR code data
-        filename: Save file name
+        Args:
+            data: QR code data
+            filename: Save file name
         """
         qr = qrcode.QRCode(
             version=1,

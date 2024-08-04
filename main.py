@@ -76,33 +76,38 @@ class DevTools():
     def webConnectTest(url: str):
         """
         测试网站是否可以访问
-        url: 网站URL
+        参数：
+            url: 网站URL
+        返回值：状态码或者连接结果
         """
         try:
             result = str(requests.get(url).status_code)
-        except requests.exceptions.MissingSchema as err:
+        except requests.exceptions.MissingSchema:
             logger.critical("Missing schema error")
-            return f"协议不存在，您是否忘记在网站开头加上“https://”？\n{repr(err)}"
+            return 1
         # 返回HTTP状态码
         with open("./data/connect.test.codes.json", "r") as status_codes:
             status_codes = status_codes.read()
             status_codes = json.loads(status_codes)
         # 常见的HTTP状态码列表
         try:
-            return str(result) + "：" + status_codes[result]
+            return str(result) + " : " + status_codes[result]
         except KeyError:
             logger.error(f"Status code: {result} not found")
-            return f"网站返回了一个未知的HTTP状态码：{result}"
+            return 2
         # 如果HTTP状态码已知，则返回结果；否则提示用户返回未知状态码
 
     def translator(text: str, appid: str, secret_key: str, original_language: str, target_language: str):
         """
-        text: 需要翻译的文本
-        appid: 百度翻译API的appid
-        secret_key: 百度翻译API的密钥
-        original_language: 原文语言
-        target_language: 译文语言
-        return：翻译结果
+        使用Baidu Translate翻译文本
+        参数：
+            text: 需要翻译的文本
+            appid: 百度翻译API的appid
+            secret_key: 百度翻译API的密钥
+            original_language: 原文语言
+            target_language: 译文语言
+        返回值：
+            翻译结果或者空值None(错误)
         """
         class fake_http_client_http_connection:
             def __init__(self, *args, **kwargs):
@@ -141,9 +146,11 @@ class DevTools():
 
     def JSONtoXML(json_file_path: str, xml_file_path: str):
         """
-        json_file_path: JSON文件路径
-        xml_file_path: 保存的XML文件路径
-        return :
+        将JSON文件转换为XML文件
+        参数：
+            json_file_path: JSON文件路径
+            xml_file_path: 保存的XML文件路径
+        返回值：
             0 => 成功
             1 => JSON文件不存在
             2 => JSON文件读取失败
@@ -166,9 +173,11 @@ class DevTools():
 
     def XMLtoJSON(xml_file_path: str, json_file_path: str):
         """
-        xml_file_path: XML文件路径
-        json_file_path: 保存的JSON文件路径
-        return :
+        将XML文件转换为JSON文件
+        参数：
+            xml_file_path: XML文件路径
+            json_file_path: 保存的JSON文件路径
+        返回值：
             0 => 成功
             1 => XML文件不存在
             2 => XML文件读取失败
@@ -192,9 +201,11 @@ class DevTools():
 
     def CSVtoJSON(csv_file_path: str, json_file_path: str):
         """
-        csv_file_path: CSV文件路径
-        json_file_path: 保存的JSON文件路径
-        return :
+        将CSV文件转换为JSON文件
+        参数：
+            csv_file_path: CSV文件路径
+            json_file_path: 保存的JSON文件路径
+        返回值：
             0 => 成功
             1 => CSV文件不存在
             2 => CSV文件读取失败
@@ -220,9 +231,11 @@ class DevTools():
 
     def JSONtoCSV(json_file_path: str, csv_file_path: str):
         """
-        json_file_path: JSON文件路径
-        csv_file_path: CSV文件路径
-        return :
+        将JSON文件转换为CSV文件
+        参数：
+            json_file_path: JSON文件路径
+            csv_file_path: CSV文件路径
+        返回值：
             0 => 成功
             1 => JSON文件不存在
             2 => JSON文件读取失败
@@ -247,9 +260,10 @@ class DevTools():
 
     def getIP(domain=socket.gethostname()):
         """
-        domain: 域名
-        return :
-            IP地址
+        获取IP地址
+        参数：
+            domain: 域名，默认为主机名
+        返回：IP地址或错误信息
         """
         try:
             return socket.gethostbyname(domain)
@@ -258,9 +272,10 @@ class DevTools():
 
     def resolveDomain(ip):
         """
-        ip: IP地址
-        return :
-            域名
+        解析IP地址
+        参数：
+            ip: IP地址
+        返回值：域名或错误信息
         """
         try:
             domain = socket.gethostbyaddr(ip)
@@ -287,8 +302,9 @@ class DevTools():
         def readFromFile(fpath):
             """
             从文件读取文本
-            fpath: 文件路径
-            return: 文本内容
+            参数：
+                fpath: 文件路径
+            返回值：文本内容
             """
             with open(fpath, "r", encoding="utf-8") as f:
                 return f.read().splitlines()
@@ -297,10 +313,11 @@ class DevTools():
         def diffTexts(text1: str, text2: str, fpath: str):
             """
             对比两段文本并且将结果保存到HTML文件中
-            text1: 文本1
-            text2: 文本2
-            fpath: 保存的HTML文件路径
-            return: 错误码
+            参数：
+                text1: 文本1
+                text2: 文本2
+                fpath: 保存的HTML文件路径
+            返回： 状态码
                 0: 成功
                 1: 参数有问题
                 2: 文件读取失败
@@ -323,7 +340,10 @@ class DrawingTools():
 
     def charPicture(filename):
         """
-        filename: 图片文件名
+        将图片转换为字符画
+        参数：
+            filename: 图片文件名
+        不返回任何内容
         """
         color = "MNHQ$OC?7>!:-;."  # 字符
 
@@ -385,15 +405,16 @@ class DrawingTools():
     def bingPicture(fname: str, idx: str = "0", mkt: str = "zh-cn"):
         """
         获取Bing每日一图
-        fname: 保存的文件名称
-        idx: 时间：
-            0: 今天
-            -1: 明天（预准备的）
-            1: 昨天
-            2: 前天
-            3~7 类推
-        mkt: 地区，使用微软地区码，例如：zh-cn: 中国大陆、en-us: 美国
-        return: 退出码
+        参数：
+            fname: 保存的文件名称
+            idx: 时间：
+                0: 今天
+                -1: 明天（预准备的）
+                1: 昨天
+                2: 前天
+                3~7 类推
+            mkt: 地区，使用微软地区码，例如：zh-cn: 中国大陆、en-us: 美国
+        返回值：退出码
         """
         try:
             NUMBER = 1
@@ -460,9 +481,14 @@ class Launcher():
             if (url != None):
                 global DevTools
                 result = DevTools.webConnectTest(url)
+                error_list = {1: "缺少HTTP前缀", 2: "服务器错误"}
                 msgbox.showinfo(title="Python Utilities", message=result)
-                if not ("协议不存在，您是否忘记在网站开头加上“https://”？" in result):
+                if not (1 == result or 2 == result):
                     logger.info(f"Web address connect info: {url} => {result}")
+                    msgbox.showinfo(title="Python Utilties", message=result)
+                else:
+                    msgbox.showinfo(title="Python Utilties",
+                                    message=error_list[result-1])
 
         @staticmethod
         def translatorLauncher():
@@ -725,11 +751,9 @@ class System():
     def about():
         msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.9.0 zh-cn
 作者：@wangzixin1940
-编辑器：JetBrains Pycharm 和 Microsoft Visual Studio Code
 当前运行的Python文件：main.py
-发行日期：2024-7-3
 自述文件：README.md (en-US and zh-CN)
-GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
+GNU GPLv3 License：https://github.com/wangzixin1940/Python-Utilities/blob/main/LICENCE
 VERSION 2.9 RELEASE
 """)
 

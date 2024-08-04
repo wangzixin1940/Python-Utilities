@@ -43,8 +43,9 @@ class Decoder():
     def decodeQRcode(self, image: str):
         """
         QR Code Decoder
-        image: QR Code image path
-        return: QR Code content
+        Args:
+            image: QR Code image path
+        Returns: QR Code content
         """
         result = pyzbar.decode(
             Image.open(image), symbols=[

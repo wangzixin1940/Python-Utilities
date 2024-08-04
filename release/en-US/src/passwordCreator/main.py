@@ -42,11 +42,13 @@ def passwordCreator(
         includeNumbers: bool = True,
         includeUppercase: bool = True):
     """
-    length: Password length
-    includeSymbols: Whether to include symbols
-    includeNumbers: Whether to include numbers
-    includeUppercase: Whether to include capital letters
-    return: Returns the password string
+    Creates a password with the given parameters
+    Args:
+        length: Password length
+        includeSymbols: Whether to include symbols
+        includeNumbers: Whether to include numbers
+        includeUppercase: Whether to include capital letters
+    Returns: Returns the password string
     """
     # Password character set
     chars = {

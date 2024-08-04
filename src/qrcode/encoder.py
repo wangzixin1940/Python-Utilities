@@ -50,8 +50,10 @@ class Encoder():
             *args):
         """
         生成二维码
-        data: 二维码数据
-        filename: 保存二维码的文件名
+        参数：
+            data: 二维码数据
+            filename: 保存二维码的文件名
+        不返回任何内容
         """
         qr = qrcode.main.QRCode(
             version=1,
