@@ -91,7 +91,7 @@ class DevTools():
             statusCodes = json.loads(statusCodes)
         # A list of common http status codes
         try:
-            return str(result) + "：" + statusCodes[result]
+            return str(result) + " : " + statusCodes[result]
         except KeyError:
             logger.error(f"Status code: {result} not found")
             return 2
@@ -457,7 +457,7 @@ class Launcher():
             except FileNotFoundError:
                 record = ""
             url = easygui.enterbox(
-                msg="Input URL (bring \"https://\" on)", title="Windows Utilties", default=record)
+                msg="Input URL (bring \"https://\" on)", title="Python Utilities", default=record)
             logger.info(f"User input: {url}")
             if (url != None):
                 record = url
@@ -470,9 +470,9 @@ class Launcher():
                 error_list = {1: "Missing protocol", 2: "Server error"}
                 if not (1 == result or 2 == result):
                     logger.info(f"Web address connect info: {url} => {result}")
-                    msgbox.showinfo(title="Windows Utilties", message=result)
+                    msgbox.showinfo(title="Python Utilties", message=result)
                 else:
-                    msgbox.showinfo(title="Windows Utilties",
+                    msgbox.showinfo(title="Python Utilties",
                                     message=error_list[result-1])
 
         @staticmethod
@@ -745,11 +745,9 @@ class System():
     def about():
         msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.9.0 en-US
 Author: @wangzixin1940
-Editor: Microsoft Visual Studio Code
-Current File: main.py
-Release Date: 2024-7-3
-README File：README.md (en-US and zh-CN)
-GNU GPLv3 License：https://github.com/wangzixin1940/Windows-Utilities/blob/main/LICENCE
+Current File: release/en-US/main.py
+README File：README.md
+GNU GPLv3 License：https://github.com/wangzixin1940/Python-Utilities/blob/main/LICENCE
 VERSION 2.9 RELEASE
 """)
 

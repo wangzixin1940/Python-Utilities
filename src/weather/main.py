@@ -55,6 +55,7 @@ class App(ttk.Window):
     def search_id(self) -> int:
         """
         查找城市ID
+        返回值：城市ID
         """
         country = self.entry.get()
         city = self.entry2.get()
@@ -68,6 +69,7 @@ class App(ttk.Window):
     def search_weather(self):
         """
         查询天气并且显示
+        返回：空值（错误）
         """
         id = self.search_id()
         if id == -1:

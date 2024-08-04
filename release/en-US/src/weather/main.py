@@ -60,6 +60,8 @@ class App(ttk.Window):
     def search_id(self) -> int:
         """
         Find the city ID
+        Returns:
+            City ID
         """
         country = self.entry.get()
         city = self.entry2.get()
@@ -73,6 +75,8 @@ class App(ttk.Window):
     def search_weather(self):
         """
         Search for weather
+        Returns:
+            None: An error occurred
         """
         id = self.search_id()
         if id == -1:
