@@ -739,11 +739,15 @@ class Launcher():
         def AMKLauncher():
             subprocess.Popen("python src/auto_mouse_and_keyboard/main.py")
 
+        @staticmethod
+        def countDownLauncher():
+            subprocess.Popen("python src/count_down/main.py")
+
 
 class System():
     @staticmethod
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.9.0 en-US
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.9.3 en-US
 Author: @wangzixin1940
 Current File: release/en-US/main.py
 README File：README.md
@@ -876,48 +880,55 @@ def main():
         menu.add_cascade(label="Other", menu=otherMenu)
         if not (settings["no-settings-menu"]):
             menu.add_cascade(label="Settings", menu=settingsMenu)
-        menu.add_command(command=System.about)
-        fileMenu.add_command(command=System.importSettings)
-        fileMenu.add_command(command=System.quitApp)
+        menu.add_command(label="About", command=System.about)
+        fileMenu.add_command(label="Import settings...", command=System.importSettings)
+        fileMenu.add_command(label="Exit", command=System.quitApp)
         otherMenu.add_command(
-            command=Launcher.ExternalLauncher.calculatorLauncher)
+            label="Calculator", command=Launcher.ExternalLauncher.calculatorLauncher)
         otherMenu.add_command(
-            command=Launcher.ExternalLauncher.md5CheckerLauncher)
+            label="Hash Checker", command=Launcher.ExternalLauncher.md5CheckerLauncher)
         otherMenu.add_command(
-            command=Launcher.ExternalLauncher.licenceCreatorLauncher)
-        otherMenu.add_command(command=Launcher.ExternalLauncher.sendMailFromJSONLauncher)
+            label="Licence Creator", command=Launcher.ExternalLauncher.licenceCreatorLauncher)
+        otherMenu.add_command(
+            label="Send mail from JSON", command=Launcher.ExternalLauncher.sendMailFromJSONLauncher)
         ipToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="IP tools", menu=ipToolsMenu)
-        ipToolsMenu.add_command(command=Launcher.DevToolsLauncher.getIPLauncher)
         ipToolsMenu.add_command(
-            command=Launcher.DevToolsLauncher.resolveDomainLauncher)
+            label="Get IP", command=Launcher.DevToolsLauncher.getIPLauncher)
+        ipToolsMenu.add_command(
+            label="Resolve doamin", command=Launcher.DevToolsLauncher.resolveDomainLauncher)
         fileToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="File tools", menu=fileToolsMenu)
         fileToolsMenu.add_command(
-            command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
+            label="JSON to XML", command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(
-            command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+            label="XML to JSON", command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
         fileToolsMenu.add_command(
-            command=Launcher.DevToolsLauncher.JSONtoCSVLauncher)
+            label="JSON to CSV", command=Launcher.DevToolsLauncher.JSONtoCSVLauncher)
         fileToolsMenu.add_command(
-            command=Launcher.DevToolsLauncher.CSVtoJSONLauncher)
+            label="CSV to JSON", command=Launcher.DevToolsLauncher.CSVtoJSONLauncher)
         fileToolsMenu.add_command(
             label="File diff", command=DevTools.FileDiffTools)
         qrcodeToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label="QR Code tools", menu=qrcodeToolsMenu)
         qrcodeToolsMenu.add_command(
-            command=Launcher.ExternalLauncher.qrcodeGeneratorLauncher)
+            label="QRCode Generator", command=Launcher.ExternalLauncher.qrcodeGeneratorLauncher)
         qrcodeToolsMenu.add_command(
-            command=Launcher.ExternalLauncher.qrcodeParserLauncher)
-        otherMenu.add_separator()
-        otherMenu.add_command(command=Launcher.DrawingToolsLauncher.charPictureLauncher)
-        otherMenu.add_command(
-            command=Launcher.DrawingToolsLauncher.bingPictureLauncher)
-        otherMenu.add_command(command=Launcher.ExternalLauncher.pictureFormatConverterLauncher)
-        otherMenu.add_command(command=Launcher.ExternalLauncher.AMKLauncher)
+            label="QRCode Parser", command=Launcher.ExternalLauncher.qrcodeParserLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(
-            command=Launcher.ExternalLauncher.clockLauncher)
+            label="ASCII Art", command=Launcher.DrawingToolsLauncher.charPictureLauncher)
+        otherMenu.add_command(
+            label="Bing's daily picture", command=Launcher.DrawingToolsLauncher.bingPictureLauncher)
+        otherMenu.add_command(
+            label="Picture format convertor", command=Launcher.ExternalLauncher.pictureFormatConverterLauncher)
+        otherMenu.add_command(
+            label="Auto mouse and keyboard", command=Launcher.ExternalLauncher.AMKLauncher)
+        otherMenu.add_separator()
+        otherMenu.add_command(
+            label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
+        otherMenu.add_command(
+            label="Count down timer", command=Launcher.ExternalLauncher.countDownLauncher)
         if not (settings["no-settings-menu"]):
             themesMenu = ttk.Menu(settingsMenu)
             settingsMenu.add_cascade(label="Themes...", menu=themesMenu)
@@ -928,7 +939,7 @@ def main():
             themesMenu.add_command(
                 label="pride", command=lambda: System.switchTheme("pride"))
             settingsMenu.add_command(
-                command=System.languageSettings)
+                label="切换到简体中文...", command=System.languageSettings)
         root.config(menu=menu)
     # Tools tab
     # ===================================== #
