@@ -50,7 +50,7 @@ def convert(audio_path: wave.Wave_read, model_name: str):
     result = json.loads(rec.FinalResult())
     if "text" in result:
         str_ret += result["text"]
-    msgbox.showinfo("提示", "转换完成！\n结果：{}".format(str_ret))
+    msgbox.showinfo("Infomation", "The conversion is complete!\nResult: {}".format(str_ret))
 
 
 """
