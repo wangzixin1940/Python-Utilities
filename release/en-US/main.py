@@ -78,7 +78,10 @@ class DevTools():
     def webConnectTest(url: str):
         """
         Test if the website is accessible
-        url: website URL
+        Args:
+            url: website URL
+        Returns:
+            Exit code
         """
         try:
             result = str(requests.get(url).status_code)
@@ -99,12 +102,14 @@ class DevTools():
 
     def translator(text: str, appid: str, secret_key: str, original_language: str, target_language: str):
         """
-        text: Texts that need to be translated
-        appid: Baidu Translate API's appid (Get it from https://api.fanyi.baidu.com/api/trans/product/index)
-        secretKey: Baidu Translate API's secretKey (Get it from https://api.fanyi.baidu.com/api/trans/product/index)
-        originalLanguage: Original language
-        targetLanguage: Target language
-        return：Translated text
+        Translate text using Baidu Translate API
+        Args:
+            text: Texts that need to be translated
+            appid: Baidu Translate API's appid (Get it from https://api.fanyi.baidu.com/api/trans/product/index)
+            secret_key: Baidu Translate API's secret key (Get it from https://api.fanyi.baidu.com/api/trans/product/index)
+            original_language: Original language
+            target_language: Target language
+        Returns: Translated text
         """
         class fake_http_client_http_connection:
             def __init__(self, *args, **kwargs):
@@ -141,9 +146,11 @@ class DevTools():
 
     def JSONtoXML(json_file_path: str, xml_file_path: str):
         """
-        json_file_path: JSON file path
-        xml_file_path: XML file path
-        return :
+        Convert JSON file to XML file
+        Args:
+            json_file_path: JSON file path
+            xml_file_path: XML file path
+        Returns :
             0 => Success
             1 => JSON file not found
             2 => JSON file read failure
@@ -168,9 +175,11 @@ class DevTools():
 
     def XMLtoJSON(xml_file_path: str, json_file_path: str):
         """
-        xml_file_path: XML file path
-        json_file_path: JSON file path
-        return :
+        Convert XML file to JSON file.
+        Args:
+            xml_file_path: XML file path
+            json_file_path: JSON file path
+        Returns :
             0 => Success
             1 => XML file not found
             2 => XML file read failure
@@ -196,9 +205,11 @@ class DevTools():
 
     def CSVtoJSON(csv_file_path: str, json_file_path: str):
         """
-        csv_file_path: CSV file path
-        json_file_path: JSON file path
-        return :
+        Convert CSV file to JSON file
+        Args:
+            csv_file_path: CSV file path
+            json_file_path: JSON file path
+        Returns :
             0 => Success
             1 => CSV file not found
             2 => CSV file read failure
@@ -226,9 +237,11 @@ class DevTools():
 
     def JSONtoCSV(json_file_path: str, csv_file_path: str):
         """
-        json_file_path: JSON file path
-        csv_file_path: CSV path
-        return :
+        Convert JSON file to CSV file.
+        Args:
+            json_file_path: JSON file path
+            csv_file_path: CSV path
+        Returns :
             0 => Success
             1 => JSON file not found
             2 => JSON file read failure
@@ -254,8 +267,10 @@ class DevTools():
 
     def getIP(domain=socket.gethostname()):
         """
-        domain: Domain name
-        return :
+        Get IP address from domain name
+        Args:
+            domain: Domain name
+        Returns :
             IP address
         """
         try:
@@ -265,8 +280,10 @@ class DevTools():
 
     def resolveDomain(ip):
         """
-        ip: IP address
-        return :
+        Get domain name from IP address
+        Args:
+            ip: IP address
+        Returns :
             Domain name
         """
         try:
@@ -295,8 +312,10 @@ class DevTools():
         def readFromFile(fpath):
             """
             Read text from a file
-            fpath: File path
-            return: File content
+            Args:
+                fpath: File path
+            Returns:
+                File content
             """
             with open(fpath, "r", encoding="utf-8") as f:
                 return f.read().splitlines()
@@ -305,10 +324,11 @@ class DevTools():
         def diffTexts(text1: str, text2: str, fpath: str):
             """
             Compare two pieces of text and save the result to an HTML file.
-            text1: Text 1
-            text2: Text 2
-            fpath: The path to the saved html file
-            return: Exit code
+            Args:
+                text1: Text 1
+                text2: Text 2
+                fpath: The path to the saved html file
+            Returns: Exit code
                 0: Success
                 1: Params error
                 2: File read failure
@@ -332,7 +352,9 @@ class DrawingTools():
 
     def charPicture(filename):
         """
-        filename: Picture file path
+        Create a character picture from a picture file.
+        Args:
+            filename: Picture file path
         """
         color = "MNHQ$OC?7>!:-;."  # Characters
 
@@ -390,15 +412,17 @@ class DrawingTools():
     def bingPicture(fname: str, idx: str = "0", mkt: str = "zh-cn"):
         """
         Get Bing's daily graph
-        fname: The name of the saved file
-        idx: Time:
-            0: today
-            -1: tommorow
-            1: yesterday
-            2: the day before yesterday
-            3~7 analogy
-        mkt: Region. Use the Microsoft region code. e.g. zh-cn: Chinese mainland, en-us: America, etc.
-        return: Exit code
+        Args:
+            fname: The name of the saved file
+            idx: Time:
+                0: today
+                -1: tommorow
+                1: yesterday
+                2: the day before yesterday
+                3~7 analogy
+            mkt: Region. Use the Microsoft region code. e.g. zh-cn: Chinese mainland, en-us: America, etc.
+        Returns:
+            Exit code
         """
         try:
             NUMBER = 1
