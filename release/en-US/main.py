@@ -953,6 +953,8 @@ def main():
             label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(
             label="Count down timer", command=Launcher.ExternalLauncher.countDownLauncher)
+        otherMenu.add_command(
+            label="Chinese Pinyin Dictionary (Only available in Chinese version)", state="disabled")
         if not (settings["no-settings-menu"]):
             themesMenu = ttk.Menu(settingsMenu)
             settingsMenu.add_cascade(label="Themes...", menu=themesMenu)

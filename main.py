@@ -749,11 +749,15 @@ class Launcher():
         def countDownLauncher():
             subprocess.Popen("python src/count_down/main.py")
 
+        @staticmethod
+        def pinyinLauncher():
+            subprocess.Popen("python src/Chinese_Pinyin_Dictionary/main.py")
+
 
 class System():
     @staticmethod
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.9.3 zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.9.5 zh-cn
 作者：@wangzixin1940
 当前运行的Python文件：main.py
 自述文件：README.md (en-US and zh-CN)
@@ -937,6 +941,8 @@ def main():
             label="时钟", command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(
             label="倒计时器", command=Launcher.ExternalLauncher.countDownLauncher)
+        otherMenu.add_command(
+            label="拼音字典", command=Launcher.ExternalLauncher.pinyinLauncher)
         if not (settings["no-settings-menu"]):
             themesMenu = ttk.Menu(settingsMenu)
             settingsMenu.add_cascade(label="颜色主题", menu=themesMenu)
