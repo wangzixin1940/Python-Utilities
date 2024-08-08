@@ -753,11 +753,15 @@ class Launcher():
         def pinyinLauncher():
             subprocess.Popen("python src/Chinese_Pinyin_Dictionary/main.py")
 
+        @staticmethod
+        def captchaLauncher():
+            subprocess.Popen("python src/Captcha_Generator/main.py")
+
 
 class System():
     @staticmethod
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.9.5 zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.10.0 zh-cn
 作者：@wangzixin1940
 当前运行的Python文件：main.py
 自述文件：README.md (en-US and zh-CN)
@@ -936,6 +940,8 @@ def main():
             label="照片格式转换", command=Launcher.ExternalLauncher.pictureFormatConverterLauncher)
         otherMenu.add_command(
             label="脚本操作鼠标和键盘", command=Launcher.ExternalLauncher.AMKLauncher)
+        otherMenu.add_command(
+            label="生成验证码(未完成)", command=Launcher.ExternalLauncher.captchaLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(
             label="时钟", command=Launcher.ExternalLauncher.clockLauncher)

@@ -767,11 +767,15 @@ class Launcher():
         def countDownLauncher():
             subprocess.Popen("python src/count_down/main.py")
 
+        @staticmethod
+        def captchaLauncher():
+            subprocess.Popen("python src/Captcha_Generator/main.py")
+
 
 class System():
     @staticmethod
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.9.3 en-US
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.10.0 en-US
 Author: @wangzixin1940
 Current File: release/en-US/main.py
 README File：README.md
@@ -948,6 +952,8 @@ def main():
             label="Picture format convertor", command=Launcher.ExternalLauncher.pictureFormatConverterLauncher)
         otherMenu.add_command(
             label="Auto mouse and keyboard", command=Launcher.ExternalLauncher.AMKLauncher)
+        otherMenu.add_command(
+            label="Generate a verification code (incomplete)", command=Launcher.ExternalLauncher.captchaLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(
             label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
