@@ -109,16 +109,18 @@ class DevTools():
         返回值：
             翻译结果或者空值None(错误)
         """
+
         class fake_http_client_http_connection:
             def __init__(self, *args, **kwargs):
                 pass
 
             def close(self, *args, **kwargs):
                 pass
+
         trans_result = None
         salt = random.randint(32768, 65536)
         sign = hashlib.md5((str(appid) + text + str(salt) +
-                           secret_key).encode()).hexdigest()
+                            secret_key).encode()).hexdigest()
         target_url = "https://api.fanyi.baidu.com/api/trans/vip/translate" + "?appid=" + str(
             appid) + "&q=" + urllib.parse.quote(
             text) + "&from=" + original_language + "&to=" + target_language + "&salt=" + str(salt) + "&sign=" + sign
@@ -426,7 +428,7 @@ class DrawingTools():
                 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
             }
             requestURL = "https://cn.bing.com/HPImageArchive.aspx?" + \
-                f"format={FORMAT}&idx={IDX}&n={NUMBER}&mkt={MKT}"
+                         f"format={FORMAT}&idx={IDX}&n={NUMBER}&mkt={MKT}"
             response = requests.get(requestURL, headers=USER_AGENT)
             if (response.status_code == 200):
                 try:
@@ -488,7 +490,7 @@ class Launcher():
                     msgbox.showinfo(title="Python Utilties", message=result)
                 else:
                     msgbox.showinfo(title="Python Utilties",
-                                    message=error_list[result-1])
+                                    message=error_list[result - 1])
 
         @staticmethod
         def translatorLauncher():
@@ -543,9 +545,9 @@ class Launcher():
         @staticmethod
         def JSONtoXMLLauncher():
             json = easygui.fileopenbox(title="打开文件", filetypes=[
-                                       ["*.json", "JSON files"]], default="*.json")
+                ["*.json", "JSON files"]], default="*.json")
             xml = easygui.filesavebox(title="保存文件", filetypes=[
-                                      ["*.xml", "XML files"]], default="*.xml")
+                ["*.xml", "XML files"]], default="*.xml")
             if (json != None):
                 if (os.path.splitext(json)[-1] == ".json"):
                     global DevTools
@@ -559,9 +561,9 @@ class Launcher():
         @staticmethod
         def XMLtoJSONLauncher():
             xml = easygui.fileopenbox(title="打开文件", filetypes=[
-                                      ["*.xml", "XML files"]], default="*.xml")
+                ["*.xml", "XML files"]], default="*.xml")
             json = easygui.filesavebox(title="保存文件", filetypes=[
-                                       ["*.json", "JSON files"]], default="*.json")
+                ["*.json", "JSON files"]], default="*.json")
             if (xml != None):
                 if (os.path.splitext(xml)[-1] == ".xml"):
                     global DevTools
@@ -603,9 +605,9 @@ class Launcher():
         @staticmethod
         def JSONtoCSVLauncher():
             json = easygui.fileopenbox(title="打开文件", filetypes=[
-                                       ["*.json", "JSON files"]], default="*.json")
+                ["*.json", "JSON files"]], default="*.json")
             csv = easygui.filesavebox(title="保存文件", filetypes=[
-                                      ["*.csv", "CSV files"]], default="*.csv")
+                ["*.csv", "CSV files"]], default="*.csv")
             if (json != None):
                 if (os.path.splitext(json)[-1] == ".json"):
                     global DevTools
@@ -619,9 +621,9 @@ class Launcher():
         @staticmethod
         def CSVtoJSONLauncher():
             csv = easygui.fileopenbox(title="打开文件", filetypes=[
-                                      ["*.csv", "CSV files"]], default="*.csv")
+                ["*.csv", "CSV files"]], default="*.csv")
             json = easygui.filesavebox(title="保存文件", filetypes=[
-                                       ["*.json", "JSON files"]], default="*.json")
+                ["*.json", "JSON files"]], default="*.json")
             if (csv != None):
                 if (os.path.splitext(csv)[-1] == ".csv"):
                     global DevTools
@@ -757,16 +759,20 @@ class Launcher():
         def captchaLauncher():
             subprocess.Popen("python src/Captcha_Generator/main.py")
 
+        @staticmethod
+        def easyToDoLauncher():
+            subprocess.Popen("python src/EasyTodo/main.py")
+
 
 class System():
     @staticmethod
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.10.0 zh-cn
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.11.0 zh-cn
 作者：@wangzixin1940
 当前运行的Python文件：main.py
 自述文件：README.md (en-US and zh-CN)
 GNU GPLv3 License：https://github.com/wangzixin1940/Python-Utilities/blob/main/LICENCE
-VERSION 2.9 RELEASE
+VERSION 2.11 RELEASE
 """)
 
     @staticmethod
@@ -800,7 +806,7 @@ VERSION 2.9 RELEASE
     @staticmethod
     def importSettings():
         path = easygui.fileopenbox(title="打开文件", filetypes=[
-                                   ["*.json", "JSON files"]], default="*.json")
+            ["*.json", "JSON files"]], default="*.json")
         global settings
         if (path != None):
             if (msgbox.askokcancel(title="Python Utilities",
@@ -869,6 +875,9 @@ def main():
     speech2textButton = ttk.Button(root, text="语音转文字", command=Launcher.ExternalLauncher.speech2textLauncher,
                                    bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     speech2textButton.pack()  # 语音转文字按钮
+    easyToDoButton = ttk.Button(root, text="Easy To Do", command=Launcher.ExternalLauncher.easyToDoLauncher,
+                                bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    easyToDoButton.pack()  # Easy To Do按钮
     # ===================================== #
     DevToolsLabel = ttk.Label(root, text="开发者工具 </>",
                               font=("等线 Light", 18, "normal"))
