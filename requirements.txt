@@ -21,3 +21,4 @@ soundfile~=0.12.1
 nltk~=3.8.1
 future~=1.0.0
 pypinyin~=0.51.0
+captcha~=0.6.0

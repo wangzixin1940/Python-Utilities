@@ -767,16 +767,24 @@ class Launcher():
         def countDownLauncher():
             subprocess.Popen("python src/count_down/main.py")
 
+        @staticmethod
+        def captchaLauncher():
+            subprocess.Popen("python src/Captcha_Generator/main.py")
+
+        @staticmethod
+        def easyToDoLauncher():
+            subprocess.Popen("python src/EasyTodo/main.py")
+
 
 class System():
     @staticmethod
     def about():
-        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.9.3 en-US
+        msgbox.showinfo(title="Python Utilities", message="""Python Utilities v2.11.0 en-US
 Author: @wangzixin1940
 Current File: release/en-US/main.py
 README File：README.md
 GNU GPLv3 License：https://github.com/wangzixin1940/Python-Utilities/blob/main/LICENCE
-VERSION 2.9 RELEASE
+VERSION 2.11 RELEASE
 """)
 
     @staticmethod
@@ -877,6 +885,9 @@ def main():
     speech2textButton = ttk.Button(
         text="Speech to text", command=Launcher.ExternalLauncher.speech2textLauncher, bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     speech2textButton.pack()  # Speech to text button
+    easyToDoButton = ttk.Button(root, text="Easy To Do", command=Launcher.ExternalLauncher.easyToDoLauncher,
+                                bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    easyToDoButton.pack()  # Easy To Do Button
     # ===================================== #
     DevToolsLabel = ttk.Label(
         root, text="DevTools </>", font=("Airal", 18, "normal"))
@@ -948,6 +959,8 @@ def main():
             label="Picture format convertor", command=Launcher.ExternalLauncher.pictureFormatConverterLauncher)
         otherMenu.add_command(
             label="Auto mouse and keyboard", command=Launcher.ExternalLauncher.AMKLauncher)
+        otherMenu.add_command(
+            label="Generate a verification code (incomplete)", command=Launcher.ExternalLauncher.captchaLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(
             label="Clock", command=Launcher.ExternalLauncher.clockLauncher)
