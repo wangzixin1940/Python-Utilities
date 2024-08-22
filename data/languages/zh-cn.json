@@ -157,8 +157,7 @@
             },
             "settings": {
                 "title": "设置",
-                "themes": "颜色主题",
-                "choose_language": "选择语言配置文件"
+                "themes": "颜色主题"
             },
             "about": "关于"
         }

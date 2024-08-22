@@ -797,8 +797,20 @@ class System():
 
     @staticmethod
     def languageSettings():
-        subprocess.Popen("python release/en-US/main.py")
-        root.destroy()
+        filepath = fdg.askopenfilename(title="Select Language File", filetypes=[("JSON Files", "*.json")], defaultextension="*.json")
+        if (filepath):
+            if (msgbox.askokcancel(title="Windows Utilitles",
+                                   message=f"You choosed the file \"{filepath}\".\n" +
+                                           "Are you sure you want to use this file?" +
+                                           "Make sure this profile is complete and don't delete it in the future" +
+                                           "(unless you change it).")):
+                settings["language"] = filepath
+                with open("data/settings.json", "w", encoding="utf-8") as file:
+                    json.dump(settings, file, indent=4, ensure_ascii=False)
+                    if (easygui.buttonbox(title="Windows Utilitles", msg="You'll have to restart the program to apply the changes.",
+                                          choices=["Restart Now", "Restart later"], default_choice="Restart Now", cancel_choice="Restart later") == "Restart Now"):
+                        root.destroy()
+                        os.system("python main.py")
 
     @staticmethod
     def quitApp():
@@ -928,7 +940,7 @@ def main():
         menu.add_cascade(label=menu_src["other"]["title"], menu=otherMenu)
         if not (settings["no-settings-menu"]):
             menu.add_cascade(label=menu_src["settings"]["title"], menu=settingsMenu)
-        menu.add_command(label=menu_src["file"]["about"], command=System.about)
+        menu.add_command(label=menu_src["about"], command=System.about)
         fileMenu.add_command(label=menu_src["file"]["import_settings"], command=System.importSettings)
         fileMenu.add_command(label=menu_src["file"]["exit"], command=System.quitApp)
         otherMenu.add_command(
@@ -944,7 +956,7 @@ def main():
         ipToolsMenu.add_command(
             label=menu_src["other"]["ip_tools"]["get_ip"], command=Launcher.DevToolsLauncher.getIPLauncher)
         ipToolsMenu.add_command(
-            label=menu_src["other"]["reslove_doamin"], command=Launcher.DevToolsLauncher.resolveDomainLauncher)
+            label=menu_src["other"]["ip_tools"]["resolve_doamin"], command=Launcher.DevToolsLauncher.resolveDomainLauncher)
         fileToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label=menu_src["other"]["file_tools"]["title"], menu=fileToolsMenu)
         fileToolsMenu.add_command(
@@ -991,7 +1003,7 @@ def main():
             themesMenu.add_command(
                 label="pride", command=lambda: System.switchTheme("pride"))
             settingsMenu.add_command(
-                label=menu_src["settings"]["choose_language"], command=System.languageSettings)
+                label="Choose language profile", command=System.languageSettings)
         root.config(menu=menu)
     # Toolbar
     # ===================================== #

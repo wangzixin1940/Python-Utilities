@@ -48,5 +48,9 @@ Rewrited README.MD
 庆祝Windows Utilities v2发布！
 Celebrate the release of Windows Utilities v2!
 
+**2024/8/22**
+庆祝Windows Utilities v3发布！
+Celebrate the release of Windows Utilities v3!
+
 *希望给一个Star~*
 *Give me a star, please~*
