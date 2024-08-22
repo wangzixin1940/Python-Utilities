@@ -1,13 +1,20 @@
 import datetime
 import logging
 from tkinter import messagebox as msgbox
-import json
 import vosk
 import soundfile
 import wave
 import os
 os.chdir(os.path.dirname(__file__))
-# 更换工作目录
+# Change working directory to the directory of this file
+
+import json
+
+with open("../../data/languages/zh-cn.json", "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["speech2text"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 
 logging.basicConfig(
@@ -25,7 +32,7 @@ vosk.SetLogLevel(0)
 def convert(audio_path: wave.Wave_read, model_name: str):
     data, samplerate = soundfile.read(audio_path)
     soundfile.write(audio_path, data, samplerate)
-    # 转为32位RIFF并且重新写入  |  Convert to 32-bit RIFF and rewrite
+    # Convert to 32-bit RIFF and rewrite
     audio = wave.open(audio_path, "rb")
     if (audio.getnchannels() != 1) or (audio.getsampwidth()
                                        != 2) or (audio.getcomptype() != "NONE"):
@@ -50,7 +57,7 @@ def convert(audio_path: wave.Wave_read, model_name: str):
     result = json.loads(rec.FinalResult())
     if "text" in result:
         str_ret += result["text"]
-    msgbox.showinfo("提示", "转换完成！\n结果：{}".format(str_ret))
+    msgbox.showinfo(ui_src["info"], ui["complete"].format(res=str_ret))
 
 
 """

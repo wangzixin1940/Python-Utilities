@@ -10,11 +10,24 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 os.chdir(os.path.dirname(__file__))
 # 更换工作目录
 
+import json
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["ocr"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
+
 
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
-        self.title("文字识别器")
+        self.title(ui["title"])
         self.geometry("400x600")
         self.resizable(True, True)
         self.iconbitmap("assets/favicon.ico")
@@ -22,20 +35,16 @@ class App(ttk.Window):
         self.styleset = ttk.Style()
         self.styleset.configure(
             "TButton",
-            font=(
-                "等线 Light",
-                18,
-                "normal"),
-            width=20,
-            height=3)
+            font=("Helvetica", 18, "normal"),
+            width=20, height=3)
         # 创建控件
         self.maintitle = ttk.Label(
-            self, text="文字识别器", font=(
-                "等线 Light", 20, "normal"))
+            self, text=ui["title"], font=(
+                "Helvetica", 20, "normal"))
         self.maintitle.pack(pady=10)
         self.image_choose_button = ttk.Button(
             self,
-            text="选择图片",
+            text=ui["choose_image"],
             command=self.choose_image,
             width=10,
             bootstyle="primary-outline")
@@ -43,15 +52,15 @@ class App(ttk.Window):
         # 创建识别按钮
         self.recognize_button = ttk.Button(
             self,
-            text="识别",
+            text=ui["recognize"],
             command=self.recognize,
             width=10,
             bootstyle="success-outline")
         self.recognize_button.pack(pady=10, side="top", anchor="center")
         # 创建结果标签
         self.result_label = ttk.Label(
-            self, text="识别结果:", font=(
-                "等线 Light", 16, "normal"))
+            self, text=ui["result"], font=(
+                "Helvetica", 16, "normal"))
         self.result_label.pack(pady=10)
         # 创建结果文本框
         self.result_textbox = ttk.ScrolledText(self)
@@ -62,9 +71,9 @@ class App(ttk.Window):
 
     def choose_image(self):
         self.image = fd.askopenfilename(
-            filetypes=[("图片文件", ("*.jpg", "*.png", "*.bmp"))])
+            filetypes=[file_types["images"]["jpg"], file_types["images"]["png"], file_types["images"]["bmp"]])
         self.image_choose_button.configure(
-            text="已选择", bootstyle="success-outline")
+            text=ui["choosed"], bootstyle="success-outline")
 
     def recognize(self):
         result = ocr(self.image)

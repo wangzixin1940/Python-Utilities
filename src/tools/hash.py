@@ -1,9 +1,23 @@
 import hashlib
-import os
 import sys
 import time
 
+import os
+import json
+
 os.chdir(os.path.dirname(__file__))
+# 更换工作目录
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["tools"]["hash"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 
 def get_file_md5(fname):
@@ -53,144 +67,84 @@ def get_file_sha224(fname):
 def main():
     argvs = sys.argv
     if len(argvs) > 5 or len(argvs) < 2:
-        print("""使用:
-python / py md5.py [filename] [--check [-md5][-sha256][-sha1][-sha224][value]]
-
-filename : 文件名，比如"1.py"、"HelloWorld.java"等等
-
---check : 检查文件MD5、SHA256、SHA1值，比如"--check -md5 1234567890abcdef"
-    value : 原文件MD5值，比如"1234567890abcdef"(一般来源于提供文件的网站或者人)
-    -md5 : 校验文件MD5值
-    -sha256 : 校验文件SHA256值
-    -sha1 : 校验文件SHA1值
-    注意：-md5、-sha256、-sha1、-sha224不可以同时使用。
-
-错误：参数过多或者过少。
-
-""")
+        for line in ui["usage"]:
+            print(line)
+        print(ui["errors"]["param_count_err"])
         return 1
     filename = argvs[1].strip()
     if not os.path.isfile(filename):
-        print("错误！文件不存在，请检查文件名和路径！")
+        print(ui["file_not_found"])
         return 2
     if "--check" in argvs and len(argvs) == 5:
         if "-md5" == argvs[3]:
             value = argvs[4]
             if get_file_md5(filename) == value:
-                print("文件MD5值正确！")
-                print("文件MD5值：", get_file_md5(filename))
+                print(ui["prompts"]["md5"]["correct"])
+                print(ui["prompts"]["information"]["md5"], get_file_md5(filename))
             else:
-                print("文件MD5值错误！")
-                print("文件MD5值：", get_file_md5(filename))
+                print(ui["prompts"]["md5"]["incorrect"])
+                print(ui["prompts"]["information"]["md5"], get_file_md5(filename))
             return 0
         elif "-sha256" == argvs[3]:
             value = argvs[4]
             if get_file_sha256(filename) == value:
-                print("文件SHA256值正确！")
-                print("文件SHA256值：", get_file_sha256(filename))
+                print(ui["prompts"]["sha256"]["correct"])
+                print(ui["prompts"]["information"]["sha256"], get_file_sha256(filename))
             else:
-                print("文件SHA256值错误！")
-                print("文件SHA256值：", get_file_sha256(filename))
+                print(ui["prompts"]["sha256"]["incorrect"])
+                print(ui["prompts"]["information"]["sha256"], get_file_sha256(filename))
             return 0
         elif "-sha1" == argvs[3]:
             value = argvs[4]
             if get_file_sha1(filename) == value:
-                print("文件SHA1值正确！")
-                print("文件SHA1值：", get_file_sha1(filename))
+                print(ui["prompts"]["sha1"]["correct"])
+                print(ui["prompts"]["information"]["sha1"], get_file_sha1(filename))
             else:
-                print("文件SHA1值错误！")
-                print("文件SHA1值：", get_file_sha1(filename))
+                print(ui["prompts"]["sha1"]["incorrect"])
+                print(ui["prompts"]["information"]["sha1"], get_file_sha1(filename))
             return 0
         elif "-sha224" == argvs[3]:
             value = argvs[4]
             if get_file_sha224(filename) == value:
-                print("文件SHA224值正确！")
-                print("文件SHA224值：", get_file_sha224(filename))
+                print(ui["prompts"]["sha224"]["correct"])
+                print(ui["prompts"]["information"]["sha224"], get_file_sha224(filename))
             else:
-                print("文件SHA224值错误！")
-                print("文件SHA224值：", get_file_sha224(filename))
+                print(ui["prompts"]["sha224"]["incorrect"])
+                print(ui["prompts"]["information"]["sha224"], get_file_sha224(filename))
             return 0
         else:
-            print("""使用:
-python / py md5.py [filename] [--check [-md5][-sha256][-sha1][-sha224][value]]
-
-filename : 文件名，比如"1.py"、"HelloWorld.java"等等
-
---check : 检查文件MD5、SHA256、SHA1值，比如"--check -md5 1234567890abcdef"
-    value : 原文件MD5值，比如"1234567890abcdef"(一般来源于提供文件的网站或者人)
-    -md5 : 校验文件MD5值
-    -sha256 : 校验文件SHA256值
-    -sha1 : 校验文件SHA1值
-    注意：-md5、-sha256、-sha1、-sha224不可以同时使用。
-
-错误：无效参数。
-
-""")
+            for line in ui["usage"]:
+                print(line)
+            print("param_err")
     elif "--check" in argvs and len(argvs) in [3, 4]:
-        print("""使用:
-python / py md5.py [filename] [--check [-md5][-sha256][-sha1][-sha224][value]]
-
-filename : 文件名，比如"1.py"、"HelloWorld.java"等等
-
---check : 检查文件MD5、SHA256、SHA1值，比如"--check -md5 1234567890abcdef"
-    value : 原文件MD5值，比如"1234567890abcdef"(一般来源于提供文件的网站或者人)
-    -md5 : 校验文件MD5值
-    -sha256 : 校验文件SHA256值
-    -sha1 : 校验文件SHA1值
-    注意：-md5、-sha256、-sha1、-sha224不可以同时使用。
-
-错误：缺少必须参数。
-
-""")
+        for line in ui["usage"]:
+            print(line)
+        print(ui["errors"]["required_param_missing_err"])
         return 3
     elif len(argvs) > 5:
-        print("""使用:
-python / py md5.py [filename] [--check [-md5][-sha256][-sha1][-sha224][value]]
-
-filename : 文件名，比如"1.py"、"HelloWorld.java"等等
-
---check : 检查文件MD5、SHA256、SHA1值，比如"--check -md5 1234567890abcdef"
-    value : 原文件MD5值，比如"1234567890abcdef"(一般来源于提供文件的网站或者人)
-    -md5 : 校验文件MD5值
-    -sha256 : 校验文件SHA256值
-    -sha1 : 校验文件SHA1值
-    注意：-md5、-sha256、-sha1、-sha224不可以同时使用。
-
-错误：参数过多。
-
-""")
+        for line in ui["usage"]:
+            print(line)
+        print(ui["errors"]["param_count_too_many"])
         return 5
     elif len(argvs) == 2:
-        print("文件名：", filename)
-        print("文件大小：", os.path.getsize(filename), "字节")
-        print("文件类型：", os.path.splitext(filename)[1])
+        print(ui["prompts"]["information"]["file_name"], filename)
+        print(ui["prompts"]["information"]["file_size"], os.path.getsize(filename), "字节")
+        print(ui["prompts"]["information"]["file_type"], os.path.splitext(filename)[1])
         print(
-            "文件最后修改时间：",
+            ui["prompts"]["information"]["the_last_time_the_file_was_modified"],
             time.strftime(
                 "%Y-%m-%d %H:%M:%S",
                 time.localtime(
                     os.path.getmtime(filename))))
-        print("文件MD5值：", get_file_md5(filename))
-        print("文件SHA256值：", get_file_sha256(filename))
-        print("文件SHA1值：", get_file_sha1(filename))
-        print("文件SHA224值：", get_file_sha224(filename))
+        print(ui["prompts"]["information"]["md5"], get_file_md5(filename))
+        print(ui["prompts"]["information"]["sha256"], get_file_sha256(filename))
+        print(ui["prompts"]["information"]["sha1"], get_file_sha1(filename))
+        print(ui["prompts"]["information"]["sha224"], get_file_sha224(filename))
         return 0
     else:
-        print("""使用:
-python / py md5.py [filename] [--check [-md5][-sha256][-sha1][-sha224][value]]
-
-filename : 文件名，比如"1.py"、"HelloWorld.java"等等
-
---check : 检查文件MD5、SHA256、SHA1值，比如"--check -md5 1234567890abcdef"
-    value : 原文件MD5值，比如"1234567890abcdef"(一般来源于提供文件的网站或者人)
-    -md5 : 校验文件MD5值
-    -sha256 : 校验文件SHA256值
-    -sha1 : 校验文件SHA1值
-    注意：-md5、-sha256、-sha1、-sha224不可以同时使用。
-
-错误：未知错误或者无效参数
-
-""")
+        for line in ui["usage"]:
+            print(line)
+        print(ui["errors"]["unknown_err"])
         return 4
 
 

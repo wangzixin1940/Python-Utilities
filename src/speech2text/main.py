@@ -3,6 +3,23 @@ from tkinter import filedialog as fdg
 from tkinter import messagebox as msgbox
 import convert
 
+import os
+import json
+
+os.chdir(os.path.dirname(__file__))
+# Change working directory to this file's directory
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["speech2text"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
+
 MODELS = [
     "vosk-model-small-en-us-0.15",
     "vosk-model-en-us-0.22",
@@ -77,32 +94,27 @@ MODELS = [
     "vosk-recasepunc-ru-0.22",
     "vosk-recasepunc-de-0.21",
 ]
-# 查看更多，请前往 https://alphacephei.com/vosk/models
 # Visit https://alphacephei.com/vosk/models for more
 
 
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
-        # 创建窗口
-        self.title("语音转文字")
+        # Create window
+        self.title(ui["title"])
         self.geometry("400x300")
         self.resizable(False, False)
         self.styleset = ttk.Style("cosmo")
         self.iconbitmap("assets/favicon.ico")
         self.styleset.configure(
             "TButton",
-            font=(
-                "等线 Light",
-                16,
-                "normal"),
-            width=15,
-            height=3)
-        # 创建控件
+            font=("Helvetica", 16, "normal"),
+            width=15, height=3)
+        # Create widgets
         self.maintitle = ttk.Label(
-            self, text="语音转文字", font=(
-                "等线 Light", 20, "bold"))
-        self.file = ttk.StringVar(self, value="请选择音频文件")
+            self, text=ui["title"], font=(
+                "Helvetica", 20, "bold"))
+        self.file = ttk.StringVar(self, value=ui["choose_audio"])
         self.filechoose = ttk.Button(
             self,
             textvariable=self.file,
@@ -110,26 +122,26 @@ class App(ttk.Window):
             command=self.choose_file)
         self.modelchoose = ttk.Combobox(
             self, values=MODELS, width=15, font=(
-                "等线 Light", 16, "normal"))
+                "Helvetica", 16, "normal"))
         self.convert = ttk.Button(
             self,
-            text="转换",
+            text=ui["convert"],
             bootstyle="success-outline",
             command=self.convert_file)
-        # 布局控件
+        # Pack widgets
         self.maintitle.pack(pady=10)
         self.filechoose.pack(pady=10)
         self.modelchoose.pack(pady=10)
         self.convert.pack(pady=10)
 
     def choose_file(self):
-        self.file.set(fdg.askopenfilename(filetypes=[("波形音频文件", "*.wav")]))
+        self.file.set(fdg.askopenfilename(filetypes=[file_types["wav"]]))
 
     def convert_file(self):
-        if self.file.get() != "请选择音频文件":
+        if self.file.get() != ui["choose_audio"]:
             convert.convert(self.file.get(), self.modelchoose.get())
         else:
-            msgbox.showerror("错误", "请先选择音频文件！")
+            msgbox.showerror(ui_src["error"], ui["error_info"])
 
 
 if __name__ == "__main__":

@@ -10,6 +10,18 @@ sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 os.chdir(os.path.dirname(__file__))
 # 更换工作目录
 
+import json
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["licence_creator"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 with open("models/apache-v2.txt", "r", encoding="utf-8") as apache:
     apache_licence = apache.read()
@@ -28,7 +40,7 @@ with open("models/isc.txt", "r", encoding="utf-8") as isc:
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
-        self.title("Licence Creator")
+        self.title(ui["title"])
         self.geometry("600x600")
         self.resizable(False, False)
         style = self.style
@@ -36,12 +48,12 @@ class App(ttk.Window):
         self.iconbitmap("assets/icon.ico")
         # 创建界面
         self.mainlabel = ttk.Label(
-            self, text="Licence Creator", font=(
+            self, text=ui["title"], font=(
                 "Arial", 18))
         self.mainlabel.grid(row=0, column=0, pady=10, padx=10, rowspan=2)
         # 创建主标题
         self.licence_label = ttk.Label(
-            self, text="Licence类型: ", font=(
+            self, text=ui["type_choose"], font=(
                 "Arial", 15))
         self.licence_label.grid(row=2, column=0, pady=10, padx=10)
         # 创建下拉菜单
@@ -61,30 +73,30 @@ class App(ttk.Window):
         self.licence_menu.grid(row=2, column=1, pady=10, padx=10)
         # 创建子标题
         self.params_label = ttk.Label(
-            self, text="参数: ", font=(
+            self, text=ui["params"]["label"], font=(
                 "Arial", 15, "bold"))
         self.params_label.grid(row=3, column=0, pady=10, padx=10)
         # 创建参数输入框
-        self.name_label = ttk.Label(self, text="姓名: ", font=("Arial", 12))
+        self.name_label = ttk.Label(self, text=ui["params"]["name"], font=("Arial", 12))
         self.name_label.grid(row=4, column=0, pady=10, padx=10)
         self.name_entry = ttk.Entry(self)
         self.name_entry.grid(row=4, column=1, pady=10, padx=10)
-        self.year_label = ttk.Label(self, text="年份: ", font=("Arial", 12))
+        self.year_label = ttk.Label(self, text=ui["params"]["year"], font=("Arial", 12))
         self.year_label.grid(row=5, column=0, pady=10, padx=10)
         self.year_entry = ttk.Spinbox(self, width=18)
         self.year_entry.grid(row=5, column=1, pady=10, padx=10)
-        self.usage_label = ttk.Label(self, text="用途: ", font=("Arial", 12))
+        self.usage_label = ttk.Label(self, text=ui["params"]["usage"], font=("Arial", 12))
         self.usage_label.grid(row=6, column=0, pady=10, padx=10)
         self.usage_entry = ttk.Entry(self)
         self.usage_entry.grid(row=6, column=1, pady=10, padx=10)
         self.project_name_label = ttk.Label(
-            self, text="项目名称: ", font=("Arial", 12))
+            self, text=ui["params"]["proj_name"], font=("Arial", 12))
         self.project_name_label.grid(row=7, column=0, pady=10, padx=10)
         self.project_name_entry = ttk.Entry(self)
         self.project_name_entry.grid(row=7, column=1, pady=10, padx=10)
         # 创建按钮
         self.create_button = ttk.Button(
-            self, text="创建", command=self.create_licence)
+            self, text=ui["create"], command=self.create_licence)
         self.create_button.grid(
             row=8,
             column=0,
@@ -106,11 +118,11 @@ class App(ttk.Window):
         # 保存Licence
         path = asksaveasfile(
             defaultextension="LICENCE.txt", filetypes=[
-                ("Text Files", "*.txt"), ("No Extension", "*.*")])
+                file_types["txt"], file_types["no"]])
         if path:
             path.write(licence_creator.licence)
             path.close()
-            msgbox.showinfo("成功", "成功保存！")
+            msgbox.showinfo(ui["complete"], ui["save_complete"])
 
 
 class LicenceCreator():

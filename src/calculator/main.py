@@ -1,4 +1,23 @@
+import os
+import json
+os.chdir(os.path.dirname(__file__))
+# Change the current working directory to the directory of the script
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["calculator"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
+
+
 import math
+import sys
+
 import ttkbootstrap as ttk
 from tkinter import messagebox as msgbox
 from tkinter import Frame as tk_Frame
@@ -18,7 +37,7 @@ class Calculator(ttk.Window):
         self.signs = ["%", "1/x", "x^y", "2√x", "/", "*", "-", "+", "±"]
         self.functions = ["CE", "C", "±", "=", "⏏"]
         self.data = []
-        self.title("计算器(Python实现)")
+        self.title(ui["title"])
         self.geometry("450x500")
         self.resizable(False, False)
         self.previous_type = None
@@ -31,7 +50,7 @@ class Calculator(ttk.Window):
         self.result_value = ttk.StringVar(value="".join(self.data))
         self.result_show = ttk.Label(
             self.result, textvariable=self.result_value, font=(
-                "微软雅黑", 20), anchor="e")
+                "Airal", 20), anchor="e")
         self.result_show.grid(column=0, row=0, columnspan=4, padx=5, pady=5)
         self.button_frame = ttk.Frame(self, width=400, height=500)
         self.button_frame.grid(column=0, row=1, columnspan=4, padx=5, pady=5)
@@ -56,12 +75,12 @@ class Calculator(ttk.Window):
                     self.data = []
                     self.result_value.set("".join(self.data))
                 case "⏏":
-                    if (msgbox.askyesno("退出", "确定退出吗？")):
+                    if (msgbox.askyesno(ui["quit"]["title"], ui["quit"]["warn"])):
                         self.destroy()
                 case "±":
                     if self.data[-1] in self.signs:
                         msgbox.showerror(
-                            "错误", "不能改变符号的正负性！\n或者先输入数字后改变符号的正负性。")
+                            ui_src["error"], ui["positivity_err"])
                     else:
                         self.data[-1] = str(-float(self.data[-1]))
                         self.result_value.set("".join(self.data))
@@ -70,13 +89,13 @@ class Calculator(ttk.Window):
                         self.data = [str(eval("".join(self.data)))]
                         self.result_value.set("".join(self.data))
                     except ZeroDivisionError:
-                        msgbox.showerror("错误", "除数不能为0！")
+                        msgbox.showerror(ui_src["error"], ui["divide_by_zero_err"])
                         self.data = []
                     except ValueError:
-                        msgbox.showerror("错误", "表达式溢出！(比10**4301-1还大)")
+                        msgbox.showerror(ui_src["error"], ui["overflow_err"].format(max=str(sys.get_int_max_str_digits()) + "**10 - 1"))
                         self.data = []
                     except Exception as err:
-                        msgbox.showerror("错误", "表达式错误！\n{}".format(repr(err)))
+                        msgbox.showerror(ui_src["error"], ui["expression_err"].format(repr(err)))
             self.previous_type = "function"
         elif (text in self.signs):  # 符号
             match text:

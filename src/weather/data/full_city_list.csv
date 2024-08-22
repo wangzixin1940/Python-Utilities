@@ -1068,40 +1068,40 @@ Cameroon,Limbe,3522
 Cameroon,Maroua,3018
 Cameroon,Ngaoundere,1514
 Cameroon,Yaounde,257
-Canada,Banff, Alberta,623
-Canada,Calgary, Alberta,622
-Canada,Charlottetown, Prince Edward Island,639
-Canada,Cranbrook, British Columbia,618
-Canada,Edmonton, Alberta,621
-Canada,Fredericton, New Brunswick,636
-Canada,Goose Bay, Newfoundland,640
-Canada,Grande Prairie, Alberta,625
-Canada,Halifax, Nova Scotia,637
-Canada,Inuvik, Northwest Territories,643
-Canada,Iqaluit, Nunavut,613
-Canada,Kamloops, British Columbia,617
-Canada,Lethbridge, Alberta,627
-Canada,Medicine Hat, Alberta,626
-Canada,Montreal, Quebec,634
-Canada,Ottawa, Ontario,265
-Canada,Prince George, British Columbia,619
-Canada,Prince Rupert, British Columbia,616
-Canada,Quebec, Quebec,635
-Canada,Red Deer, Alberta,624
-Canada,Regina, Saskatchewan,629
-Canada,Saint John NB, New Brunswick,641
-Canada,Saskatoon, Saskatchewan,628
-Canada,St Johns, Newfoundland,642
-Canada,Sudbury, Ontario,632
-Canada,Sydney, Nova Scotia,638
-Canada,Thunder Bay, Ontario,631
-Canada,Toronto, Ontario,264
-Canada,Vancouver, British Columbia,266
-Canada,Victoria, British Columbia,620
-Canada,Whitehorse, Yukon Territories,614
-Canada,Windsor, Ontario,633
-Canada,Winnipeg, Manitoba,630
-Canada,Yellowknife, Northwest Territories,615
+Canada,Banff,Alberta,623
+Canada,Calgary,Alberta,622
+Canada,Charlottetown,Prince Edward Island,639
+Canada,Cranbrook,British Columbia,618
+Canada,Edmonton,Alberta,621
+Canada,Fredericton,New Brunswick,636
+Canada,Goose Bay,Newfoundland,640
+Canada,Grande Prairie,Alberta,625
+Canada,Halifax,Nova Scotia,637
+Canada,Inuvik,Northwest Territories,643
+Canada,Iqaluit,Nunavut,613
+Canada,Kamloops,British Columbia,617
+Canada,Lethbridge,Alberta,627
+Canada,Medicine Hat,Alberta,626
+Canada,Montreal,Quebec,634
+Canada,Ottawa,Ontario,265
+Canada,Prince George,British Columbia,619
+Canada,Prince Rupert,British Columbia,616
+Canada,Quebec,Quebec,635
+Canada,Red Deer,Alberta,624
+Canada,Regina,Saskatchewan,629
+Canada,Saint John NB,New Brunswick,641
+Canada,Saskatoon,Saskatchewan,628
+Canada,St Johns,Newfoundland,642
+Canada,Sudbury,Ontario,632
+Canada,Sydney,Nova Scotia,638
+Canada,Thunder Bay,Ontario,631
+Canada,Toronto,Ontario,264
+Canada,Vancouver,British Columbia,266
+Canada,Victoria,British Columbia,620
+Canada,Whitehorse,Yukon Territories,614
+Canada,Windsor,Ontario,633
+Canada,Winnipeg,Manitoba,630
+Canada,Yellowknife,Northwest Territories,615
 Chad,Abeche,1169
 Chad,Bol,1170
 Chad,Faya-Largeau,1173
@@ -1236,7 +1236,7 @@ Colombia,Puerto Inirida,1326
 Colombia,Quibdo,883
 Colombia,Riohacha,884
 Colombia,Rionegro,1647
-Colombia,San Andres, Island,885
+Colombia,San Andres,Island,885
 Colombia,San Jose Del Guaviare,1648
 Colombia,Santa Marta,886
 Colombia,Sincelejo,1324
@@ -1354,7 +1354,7 @@ France,Bordeaux,1050
 France,Brest,1051
 France,Clermont Ferrand,1052
 France,Le Lamentin,307
-France,Le Raizet, Guadeloupe,306
+France,Le Raizet,Guadeloupe,306
 France,Lille,1053
 France,Lyon,1054
 France,Marseille,1055
@@ -1462,7 +1462,7 @@ Guyana,New Amsterdam,1496
 Guyana,Timehri,1497
 Haiti,Port-au-Prince,1500
 Honduras,Tegucigalpa,283
-Hong Kong, China,Hong Kong,1
+Hong Kong,China,Hong Kong,1
 Hungary,Bekescsaba,3010
 Hungary,Budapest,60
 Hungary,Debrecen,63
@@ -2257,7 +2257,7 @@ Lithuania,Panevezys,1549
 Lithuania,Siauliai,1548
 Lithuania,Vilnius,204
 Luxembourg,Luxembourg,192
-Macao, China,Macao,156
+Macao,China,Macao,156
 Madagascar,Ambohitsilaozana,2995
 Madagascar,Antalaha,2996
 Madagascar,Antananarivo,7
@@ -2308,7 +2308,7 @@ Mali,Mopti,133
 Mali,Segou,132
 Mali,Sikasso,131
 Mali,Tombouctou,134
-Malta,Luqa, Malta,42
+Malta,Luqa,Malta,42
 Mauritius,Plaisance,247
 Mauritius,Port Louis,1219
 Mauritius,Vacoas,1220
@@ -2606,7 +2606,7 @@ Peru,Pucallpa,1375
 Peru,Tacna,702
 Peru,Trujillo,701
 Philippines,Baguio,1088
-Philippines,Boracay Island, Malay,1488
+Philippines,Boracay Island,Malay,1488
 Philippines,Cabanatuan,1095
 Philippines,Cagayan de Oro City,1092
 Philippines,Calapan,1097
@@ -3133,255 +3133,255 @@ United Kingdom of Great Britain and Northern Ireland,Swansea,1910
 United Kingdom of Great Britain and Northern Ireland,Truro,1911
 United Kingdom of Great Britain and Northern Ireland,Ullapool,1912
 United Kingdom of Great Britain and Northern Ireland,Wick,1913
-United States of America,Abilene, Texas,703
-United States of America,Agana, Guam,1954
-United States of America,Akron, Ohio,711
-United States of America,Albany, New York,712
-United States of America,Albuquerque, New Mexico,713
-United States of America,Allentown, Pennsylvania,714
-United States of America,Amarillo, Texas,715
-United States of America,Anchorage, Alaska,716
-United States of America,Ann Arbor, Michigan,1955
-United States of America,Annapolis, Maryland,1956
-United States of America,Asheville, North Carolina,717
-United States of America,Athens, Georgia,1957
-United States of America,Atlanta, Georgia,268
-United States of America,Atlantic City, New Jersey,718
-United States of America,Augusta, Georgia,1958
-United States of America,Augusta, Maine,1959
-United States of America,Aurora, Illinois,1960
-United States of America,Austin, Texas,719
-United States of America,Baltimore, Maryland,720
-United States of America,Bangor, Maine,1961
-United States of America,Baton Rouge, Louisiana,721
-United States of America,Billings, Montana,722
-United States of America,Birmingham, Alabama,723
-United States of America,Bismarck, North Dakota,724
-United States of America,Boise, Idaho,725
-United States of America,Boston, Massachusetts,273
-United States of America,Bowling Green, Kentucky,1962
-United States of America,Bozeman, Montana,1963
-United States of America,Bridgeport, Connecticut,726
-United States of America,Brookings, South Dakota,1964
-United States of America,Brownsville, Texas,727
-United States of America,Buffalo, New York,728
-United States of America,Burlington, Vermont,729
-United States of America,Butte, Montana,1965
-United States of America,Caribou, Maine,730
-United States of America,Carmel, Indiana,1966
-United States of America,Carson City, Nevada,1967
-United States of America,Casper, Wyoming,731
-United States of America,Cedar Rapids, Iowa,1968
-United States of America,Chandler, Arizona,1969
-United States of America,Charleston, South Carolina,732
-United States of America,Charleston, West Virginia,733
-United States of America,Charlotte, North Carolina,734
-United States of America,Chattanooga, Tennessee,735
-United States of America,Cheyenne, Wyoming,736
-United States of America,Chicago, Illinois,274
-United States of America,Cincinnati, Ohio,737
-United States of America,Clarksville, Tennessee,1970
-United States of America,Cleveland, Mississippi,1971
-United States of America,Cleveland, Ohio,738
-United States of America,Colchester, Vermont,1972
-United States of America,Colorado Springs, Colorado,739
-United States of America,Columbia, Missouri,1973
-United States of America,Columbia, South Carolina,740
-United States of America,Columbus, Georgia,741
-United States of America,Columbus, Ohio,742
-United States of America,Concord, New Hampshire,743
-United States of America,Corpus Christi, Texas,744
-United States of America,Dallas Ft Worth, Texas,745
-United States of America,Davenport, Iowa,1974
-United States of America,Dayton, Ohio,746
-United States of America,Daytona Beach, Florida,747
-United States of America,Denver, Colorado,271
-United States of America,Des Moines, Iowa,748
-United States of America,Detroit, Michigan,275
-United States of America,Dover, Delaware,1975
-United States of America,Duluth, Minnesota,749
-United States of America,El Paso, Texas,750
-United States of America,Elkins, West Virginia,751
-United States of America,Erie, Pennsylvania,752
-United States of America,Eugene, Oregon,753
-United States of America,Evansville, Indiana,754
-United States of America,Fairbanks, Alaska,755
-United States of America,Fargo, North Dakota,756
-United States of America,Fayetteville, Arkansas,1976
-United States of America,Flagstaff, Arizona,757
-United States of America,Flint, Michigan,758
-United States of America,Fort Collins, Colorado,1977
-United States of America,Fort Smith, Arkansas,759
-United States of America,Fort Wayne, Indiana,760
-United States of America,Frankfort, Kentucky,1978
-United States of America,Fresno, California,761
-United States of America,Gillette, Wyoming,1979
-United States of America,Goodland, Kansas,762
-United States of America,Grand Forks, North Dakota,1980
-United States of America,Grand Island, Nebraska,1981
-United States of America,Grand Junction, Colorado,763
-United States of America,Grand Rapids, Michigan,764
-United States of America,Great Falls, Montana,765
-United States of America,Green Bay, Wisconsin,766
-United States of America,Greensboro, North Carolina,767
-United States of America,Greenville, South Carolina,1982
-United States of America,Gulfport, Mississippi,1983
-United States of America,Harrisburg, Pennsylvania,768
-United States of America,Hattiesburg, Mississippi,1984
-United States of America,Helena, Montana,769
-United States of America,Hilo, Hawaii,1985
-United States of America,Honolulu, Hawaii,849
-United States of America,Houston, Texas,770
-United States of America,Huntington, West Virginia,1986
-United States of America,Huntsville, Alabama,771
-United States of America,Idaho Falls, Idaho,1987
-United States of America,Indianapolis, Indiana,772
-United States of America,Jackson, Mississippi,773
-United States of America,Jacksonville, Florida,774
-United States of America,Jefferson City, Missouri,1988
-United States of America,Joliet, Illinois,1989
-United States of America,Jonesboro, Arkansas,1990
-United States of America,Juneau, Alaska,775
-United States of America,Kailua, Hawaii,1991
-United States of America,Kansas City, Kansas,1992
-United States of America,Kansas City, Missouri,776
-United States of America,Kapolei, Hawaii,1993
-United States of America,Kearney, Nebraska,1994
-United States of America,Keene, New Hampshire,1995
-United States of America,Kenosha, Wisconsin,1996
-United States of America,Ketchikan, Alaska,1997
-United States of America,Key West, Florida,777
-United States of America,Knoxville, Tennessee,778
-United States of America,Lafayette, Louisiana,1998
-United States of America,Lahaina, Hawaii,1999
-United States of America,Lake Charles, Louisiana,779
-United States of America,Lansing, Michigan,780
-United States of America,Las Cruces, New Mexico,2000
-United States of America,Las Vegas, Nevada,781
-United States of America,Lawton, Oklahoma,2001
-United States of America,Lexington, Kentucky,782
-United States of America,Lincoln, Nebraska,783
-United States of America,Little Rock, Arkansas,784
-United States of America,Los Angeles, California,269
-United States of America,Louisville, Kentucky,785
-United States of America,Lowell, Massachusetts,2002
-United States of America,Lubbock, Texas,786
-United States of America,Macon, Georgia,787
-United States of America,Madison, Wisconsin,788
-United States of America,Manchester, New Hampshire,2003
-United States of America,McComb, Mississippi,2004
-United States of America,Medford, Oregon,789
-United States of America,Memphis, Tennessee,790
-United States of America,Miami, Florida,267
-United States of America,Middletown, Connecticut,2005
-United States of America,Milwaukee, Wisconsin,791
-United States of America,Minneapolis, Minnesota,276
-United States of America,Minot, North Dakota,2006
-United States of America,Missoula, Montana,2007
-United States of America,Mobile, Alabama,792
-United States of America,Montgomery, Alabama,793
-United States of America,Montpelier, Vermont,2008
-United States of America,Myrtle Beach, South Carolina,2009
-United States of America,Nampa, Idaho,2010
-United States of America,Napa, California,2011
-United States of America,Naples, Florida,2012
-United States of America,Nashua, New Hampshire,2013
-United States of America,Nashville, Tennessee,794
-United States of America,New Haven, Connecticut,2014
-United States of America,New Orleans, Louisiana,795
-United States of America,New York City, New York,278
-United States of America,Newark, Delaware,2015
-United States of America,Newark, New Jersey,796
-United States of America,Newport News, Virginia,2016
-United States of America,Norfolk, Virginia,797
-United States of America,Norman, Oklahoma,2017
-United States of America,North Platte, Nebraska,798
-United States of America,Oklahoma City, Oklahoma,799
-United States of America,Olathe, Kansas,2018
-United States of America,Olympia, Washington,2019
-United States of America,Omaha, Nebraska,800
-United States of America,Orlando, Florida,801
-United States of America,Owensboro, Kentucky,2020
-United States of America,Paducah, Kentucky,802
-United States of America,Palm Springs, California,2021
-United States of America,Parkersburg, West Virginia,2022
-United States of America,Pendleton, Oregon,803
-United States of America,Peoria, Illinois,804
-United States of America,Philadelphia, Pennsylvania,805
-United States of America,Phoenix, Arizona,806
-United States of America,Pierre, South Dakota,2023
-United States of America,Pittsburgh, Pennsylvania,807
-United States of America,Pocatello, Idaho,808
-United States of America,Portland, Maine,809
-United States of America,Portland, Oregon,810
-United States of America,Providence, Rhode Island,811
-United States of America,Provo, Utah,2024
-United States of America,Pueblo, Colorado,812
-United States of America,Racine, Wisconsin,2025
-United States of America,Raleigh & Durham, North Carolina,813
-United States of America,Rapid City, South Dakota,814
-United States of America,Reading, Pennsylvania,2026
-United States of America,Reno, Nevada,815
-United States of America,Richmond, Virginia,816
-United States of America,Rio Rancho, New Mexico,2027
-United States of America,Roanoke, Virginia,817
-United States of America,Rochester, Minnesota,2028
-United States of America,Rochester, New Hampshire,2029
-United States of America,Rochester, New York,818
-United States of America,Rock Hill, South Carolina,2030
-United States of America,Rock Springs, Wyoming,2031
-United States of America,Rockford, Illinois,819
-United States of America,Roswell, New Mexico,2032
-United States of America,Rutland, Vermont,2033
-United States of America,Sacramento, California,820
-United States of America,Saint Paul, Minnesota,2034
-United States of America,Salem, Oregon,822
-United States of America,Salt Lake City, Utah,823
-United States of America,San Angelo, Texas,824
-United States of America,San Antonio, Texas,825
-United States of America,San Diego, California,826
-United States of America,San Francisco, California,272
-United States of America,San Jose, California,852
-United States of America,San Juan, Puerto Rico,850
-United States of America,Santa Fe, New Mexico,2035
-United States of America,Sault Ste. Marie, Michigan,827
-United States of America,Savannah, Georgia,828
-United States of America,Seattle, Washington,277
-United States of America,Sedona, Arizona,2036
-United States of America,Shreveport, Louisiana,829
-United States of America,Sioux City, Iowa,830
-United States of America,Sioux Falls, South Dakota,831
-United States of America,Sitka, Alaska,2037
-United States of America,South Bend, Indiana,832
-United States of America,Spokane, Washington,833
-United States of America,Springfield, Illinois,834
-United States of America,Springfield, Missouri,835
-United States of America,St. Louis, Missouri,821
-United States of America,St. Petersburg, Florida,2038
-United States of America,Stamford, Connecticut,2039
-United States of America,Syracuse, New York,836
-United States of America,Tacoma, Washington,2040
-United States of America,Tallahassee, Florida,837
-United States of America,Tampa, Florida,853
-United States of America,Toledo, Ohio,838
-United States of America,Topeka, Kansas,839
-United States of America,Trenton, New Jersey,2041
-United States of America,Tucson, Arizona,840
-United States of America,Tulsa, Oklahoma,841
-United States of America,Tuscaloosa, Alabama,2042
-United States of America,Waco, Texas,842
+United States of America,Abilene,Texas,703
+United States of America,Agana,Guam,1954
+United States of America,Akron,Ohio,711
+United States of America,Albany,New York,712
+United States of America,Albuquerque,New Mexico,713
+United States of America,Allentown,Pennsylvania,714
+United States of America,Amarillo,Texas,715
+United States of America,Anchorage,Alaska,716
+United States of America,Ann Arbor,Michigan,1955
+United States of America,Annapolis,Maryland,1956
+United States of America,Asheville,North Carolina,717
+United States of America,Athens,Georgia,1957
+United States of America,Atlanta,Georgia,268
+United States of America,Atlantic City,New Jersey,718
+United States of America,Augusta,Georgia,1958
+United States of America,Augusta,Maine,1959
+United States of America,Aurora,Illinois,1960
+United States of America,Austin,Texas,719
+United States of America,Baltimore,Maryland,720
+United States of America,Bangor,Maine,1961
+United States of America,Baton Rouge,Louisiana,721
+United States of America,Billings,Montana,722
+United States of America,Birmingham,Alabama,723
+United States of America,Bismarck,North Dakota,724
+United States of America,Boise,Idaho,725
+United States of America,Boston,Massachusetts,273
+United States of America,Bowling Green,Kentucky,1962
+United States of America,Bozeman,Montana,1963
+United States of America,Bridgeport,Connecticut,726
+United States of America,Brookings,South Dakota,1964
+United States of America,Brownsville,Texas,727
+United States of America,Buffalo,New York,728
+United States of America,Burlington,Vermont,729
+United States of America,Butte,Montana,1965
+United States of America,Caribou,Maine,730
+United States of America,Carmel,Indiana,1966
+United States of America,Carson City,Nevada,1967
+United States of America,Casper,Wyoming,731
+United States of America,Cedar Rapids,Iowa,1968
+United States of America,Chandler,Arizona,1969
+United States of America,Charleston,South Carolina,732
+United States of America,Charleston,West Virginia,733
+United States of America,Charlotte,North Carolina,734
+United States of America,Chattanooga,Tennessee,735
+United States of America,Cheyenne,Wyoming,736
+United States of America,Chicago,Illinois,274
+United States of America,Cincinnati,Ohio,737
+United States of America,Clarksville,Tennessee,1970
+United States of America,Cleveland,Mississippi,1971
+United States of America,Cleveland,Ohio,738
+United States of America,Colchester,Vermont,1972
+United States of America,Colorado Springs,Colorado,739
+United States of America,Columbia,Missouri,1973
+United States of America,Columbia,South Carolina,740
+United States of America,Columbus,Georgia,741
+United States of America,Columbus,Ohio,742
+United States of America,Concord,New Hampshire,743
+United States of America,Corpus Christi,Texas,744
+United States of America,Dallas Ft Worth,Texas,745
+United States of America,Davenport,Iowa,1974
+United States of America,Dayton,Ohio,746
+United States of America,Daytona Beach,Florida,747
+United States of America,Denver,Colorado,271
+United States of America,Des Moines,Iowa,748
+United States of America,Detroit,Michigan,275
+United States of America,Dover,Delaware,1975
+United States of America,Duluth,Minnesota,749
+United States of America,El Paso,Texas,750
+United States of America,Elkins,West Virginia,751
+United States of America,Erie,Pennsylvania,752
+United States of America,Eugene,Oregon,753
+United States of America,Evansville,Indiana,754
+United States of America,Fairbanks,Alaska,755
+United States of America,Fargo,North Dakota,756
+United States of America,Fayetteville,Arkansas,1976
+United States of America,Flagstaff,Arizona,757
+United States of America,Flint,Michigan,758
+United States of America,Fort Collins,Colorado,1977
+United States of America,Fort Smith,Arkansas,759
+United States of America,Fort Wayne,Indiana,760
+United States of America,Frankfort,Kentucky,1978
+United States of America,Fresno,California,761
+United States of America,Gillette,Wyoming,1979
+United States of America,Goodland,Kansas,762
+United States of America,Grand Forks,North Dakota,1980
+United States of America,Grand Island,Nebraska,1981
+United States of America,Grand Junction,Colorado,763
+United States of America,Grand Rapids,Michigan,764
+United States of America,Great Falls,Montana,765
+United States of America,Green Bay,Wisconsin,766
+United States of America,Greensboro,North Carolina,767
+United States of America,Greenville,South Carolina,1982
+United States of America,Gulfport,Mississippi,1983
+United States of America,Harrisburg,Pennsylvania,768
+United States of America,Hattiesburg,Mississippi,1984
+United States of America,Helena,Montana,769
+United States of America,Hilo,Hawaii,1985
+United States of America,Honolulu,Hawaii,849
+United States of America,Houston,Texas,770
+United States of America,Huntington,West Virginia,1986
+United States of America,Huntsville,Alabama,771
+United States of America,Idaho Falls,Idaho,1987
+United States of America,Indianapolis,Indiana,772
+United States of America,Jackson,Mississippi,773
+United States of America,Jacksonville,Florida,774
+United States of America,Jefferson City,Missouri,1988
+United States of America,Joliet,Illinois,1989
+United States of America,Jonesboro,Arkansas,1990
+United States of America,Juneau,Alaska,775
+United States of America,Kailua,Hawaii,1991
+United States of America,Kansas City,Kansas,1992
+United States of America,Kansas City,Missouri,776
+United States of America,Kapolei,Hawaii,1993
+United States of America,Kearney,Nebraska,1994
+United States of America,Keene,New Hampshire,1995
+United States of America,Kenosha,Wisconsin,1996
+United States of America,Ketchikan,Alaska,1997
+United States of America,Key West,Florida,777
+United States of America,Knoxville,Tennessee,778
+United States of America,Lafayette,Louisiana,1998
+United States of America,Lahaina,Hawaii,1999
+United States of America,Lake Charles,Louisiana,779
+United States of America,Lansing,Michigan,780
+United States of America,Las Cruces,New Mexico,2000
+United States of America,Las Vegas,Nevada,781
+United States of America,Lawton,Oklahoma,2001
+United States of America,Lexington,Kentucky,782
+United States of America,Lincoln,Nebraska,783
+United States of America,Little Rock,Arkansas,784
+United States of America,Los Angeles,California,269
+United States of America,Louisville,Kentucky,785
+United States of America,Lowell,Massachusetts,2002
+United States of America,Lubbock,Texas,786
+United States of America,Macon,Georgia,787
+United States of America,Madison,Wisconsin,788
+United States of America,Manchester,New Hampshire,2003
+United States of America,McComb,Mississippi,2004
+United States of America,Medford,Oregon,789
+United States of America,Memphis,Tennessee,790
+United States of America,Miami,Florida,267
+United States of America,Middletown,Connecticut,2005
+United States of America,Milwaukee,Wisconsin,791
+United States of America,Minneapolis,Minnesota,276
+United States of America,Minot,North Dakota,2006
+United States of America,Missoula,Montana,2007
+United States of America,Mobile,Alabama,792
+United States of America,Montgomery,Alabama,793
+United States of America,Montpelier,Vermont,2008
+United States of America,Myrtle Beach,South Carolina,2009
+United States of America,Nampa,Idaho,2010
+United States of America,Napa,California,2011
+United States of America,Naples,Florida,2012
+United States of America,Nashua,New Hampshire,2013
+United States of America,Nashville,Tennessee,794
+United States of America,New Haven,Connecticut,2014
+United States of America,New Orleans,Louisiana,795
+United States of America,New York City,New York,278
+United States of America,Newark,Delaware,2015
+United States of America,Newark,New Jersey,796
+United States of America,Newport News,Virginia,2016
+United States of America,Norfolk,Virginia,797
+United States of America,Norman,Oklahoma,2017
+United States of America,North Platte,Nebraska,798
+United States of America,Oklahoma City,Oklahoma,799
+United States of America,Olathe,Kansas,2018
+United States of America,Olympia,Washington,2019
+United States of America,Omaha,Nebraska,800
+United States of America,Orlando,Florida,801
+United States of America,Owensboro,Kentucky,2020
+United States of America,Paducah,Kentucky,802
+United States of America,Palm Springs,California,2021
+United States of America,Parkersburg,West Virginia,2022
+United States of America,Pendleton,Oregon,803
+United States of America,Peoria,Illinois,804
+United States of America,Philadelphia,Pennsylvania,805
+United States of America,Phoenix,Arizona,806
+United States of America,Pierre,South Dakota,2023
+United States of America,Pittsburgh,Pennsylvania,807
+United States of America,Pocatello,Idaho,808
+United States of America,Portland,Maine,809
+United States of America,Portland,Oregon,810
+United States of America,Providence,Rhode Island,811
+United States of America,Provo,Utah,2024
+United States of America,Pueblo,Colorado,812
+United States of America,Racine,Wisconsin,2025
+United States of America,Raleigh & Durham,North Carolina,813
+United States of America,Rapid City,South Dakota,814
+United States of America,Reading,Pennsylvania,2026
+United States of America,Reno,Nevada,815
+United States of America,Richmond,Virginia,816
+United States of America,Rio Rancho,New Mexico,2027
+United States of America,Roanoke,Virginia,817
+United States of America,Rochester,Minnesota,2028
+United States of America,Rochester,New Hampshire,2029
+United States of America,Rochester,New York,818
+United States of America,Rock Hill,South Carolina,2030
+United States of America,Rock Springs,Wyoming,2031
+United States of America,Rockford,Illinois,819
+United States of America,Roswell,New Mexico,2032
+United States of America,Rutland,Vermont,2033
+United States of America,Sacramento,California,820
+United States of America,Saint Paul,Minnesota,2034
+United States of America,Salem,Oregon,822
+United States of America,Salt Lake City,Utah,823
+United States of America,San Angelo,Texas,824
+United States of America,San Antonio,Texas,825
+United States of America,San Diego,California,826
+United States of America,San Francisco,California,272
+United States of America,San Jose,California,852
+United States of America,San Juan,Puerto Rico,850
+United States of America,Santa Fe,New Mexico,2035
+United States of America,Sault Ste. Marie,Michigan,827
+United States of America,Savannah,Georgia,828
+United States of America,Seattle,Washington,277
+United States of America,Sedona,Arizona,2036
+United States of America,Shreveport,Louisiana,829
+United States of America,Sioux City,Iowa,830
+United States of America,Sioux Falls,South Dakota,831
+United States of America,Sitka,Alaska,2037
+United States of America,South Bend,Indiana,832
+United States of America,Spokane,Washington,833
+United States of America,Springfield,Illinois,834
+United States of America,Springfield,Missouri,835
+United States of America,St. Louis,Missouri,821
+United States of America,St. Petersburg,Florida,2038
+United States of America,Stamford,Connecticut,2039
+United States of America,Syracuse,New York,836
+United States of America,Tacoma,Washington,2040
+United States of America,Tallahassee,Florida,837
+United States of America,Tampa,Florida,853
+United States of America,Toledo,Ohio,838
+United States of America,Topeka,Kansas,839
+United States of America,Trenton,New Jersey,2041
+United States of America,Tucson,Arizona,840
+United States of America,Tulsa,Oklahoma,841
+United States of America,Tuscaloosa,Alabama,2042
+United States of America,Waco,Texas,842
 United States of America,Washington DC,270
-United States of America,Waterloo, Iowa,2043
-United States of America,Watertown, South Dakota,2044
-United States of America,West Palm Beach, Florida,843
-United States of America,Wichita Falls, Texas,844
-United States of America,Wichita, Kansas,851
-United States of America,Wilkes Barre, Pennsylvania,845
-United States of America,Winston-Salem, North Carolina,2045
-United States of America,Worcester, Massachusetts,2046
-United States of America,Yakima, Washington,846
-United States of America,Youngstown, Ohio,847
-United States of America,Yuma, Arizona,848
+United States of America,Waterloo,Iowa,2043
+United States of America,Watertown,South Dakota,2044
+United States of America,West Palm Beach,Florida,843
+United States of America,Wichita Falls,Texas,844
+United States of America,Wichita,Kansas,851
+United States of America,Wilkes Barre,Pennsylvania,845
+United States of America,Winston-Salem,North Carolina,2045
+United States of America,Worcester,Massachusetts,2046
+United States of America,Yakima,Washington,846
+United States of America,Youngstown,Ohio,847
+United States of America,Yuma,Arizona,848
 Uruguay,Montevideo,293
 Uruguay,Punta Del Este,326
 Uzbekistan,Nukus,118
@@ -3394,30 +3394,30 @@ Vanuatu,Luganville,674
 Vanuatu,Port Vila,673
 Vanuatu,Saratamata,1471
 Vanuatu,Sola,1472
-Venezuela, Bolivarian Republic of,Barcelona,2053
-Venezuela, Bolivarian Republic of,Barquisimeto,2054
-Venezuela, Bolivarian Republic of,Calabozo,2055
-Venezuela, Bolivarian Republic of,Caracas,288
-Venezuela, Bolivarian Republic of,Cd. Bolivar,1202
-Venezuela, Bolivarian Republic of,Coro,1196
-Venezuela, Bolivarian Republic of,Guanare,2056
-Venezuela, Bolivarian Republic of,Guiria,2057
-Venezuela, Bolivarian Republic of,La Canada,2058
-Venezuela, Bolivarian Republic of,La Orchila,2059
-Venezuela, Bolivarian Republic of,Maiquetia,1199
-Venezuela, Bolivarian Republic of,Maracaibo,1197
-Venezuela, Bolivarian Republic of,Maracay,1198
-Venezuela, Bolivarian Republic of,Margarita,1200
-Venezuela, Bolivarian Republic of,Maturin,2060
-Venezuela, Bolivarian Republic of,Mene Grande,2061
-Venezuela, Bolivarian Republic of,Merida,1201
-Venezuela, Bolivarian Republic of,Puerto Ayacucho,2062
-Venezuela, Bolivarian Republic of,San Antonio Del Tachira,2063
-Venezuela, Bolivarian Republic of,San Fernando,1203
-Venezuela, Bolivarian Republic of,Santa Elena De Uairen,2064
-Venezuela, Bolivarian Republic of,Temblador,2065
-Venezuela, Bolivarian Republic of,Tumeremo,2066
-Venezuela, Bolivarian Republic of,Valle De La Pascua,2067
+Venezuela,Bolivarian Republic of,Barcelona,2053
+Venezuela,Bolivarian Republic of,Barquisimeto,2054
+Venezuela,Bolivarian Republic of,Calabozo,2055
+Venezuela,Bolivarian Republic of,Caracas,288
+Venezuela,Bolivarian Republic of,Cd. Bolivar,1202
+Venezuela,Bolivarian Republic of,Coro,1196
+Venezuela,Bolivarian Republic of,Guanare,2056
+Venezuela,Bolivarian Republic of,Guiria,2057
+Venezuela,Bolivarian Republic of,La Canada,2058
+Venezuela,Bolivarian Republic of,La Orchila,2059
+Venezuela,Bolivarian Republic of,Maiquetia,1199
+Venezuela,Bolivarian Republic of,Maracaibo,1197
+Venezuela,Bolivarian Republic of,Maracay,1198
+Venezuela,Bolivarian Republic of,Margarita,1200
+Venezuela,Bolivarian Republic of,Maturin,2060
+Venezuela,Bolivarian Republic of,Mene Grande,2061
+Venezuela,Bolivarian Republic of,Merida,1201
+Venezuela,Bolivarian Republic of,Puerto Ayacucho,2062
+Venezuela,Bolivarian Republic of,San Antonio Del Tachira,2063
+Venezuela,Bolivarian Republic of,San Fernando,1203
+Venezuela,Bolivarian Republic of,Santa Elena De Uairen,2064
+Venezuela,Bolivarian Republic of,Temblador,2065
+Venezuela,Bolivarian Republic of,Tumeremo,2066
+Venezuela,Bolivarian Republic of,Valle De La Pascua,2067
 Viet Nam,Buon Me Thuot,3029
 Viet Nam,Ca Mau,3030
 Viet Nam,Da Nang,656

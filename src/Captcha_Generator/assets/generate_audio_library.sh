@@ -16,10 +16,10 @@ done
 # If you are using Windows, you can run it using Cygwin Terminal, a Unix-Based virtual machine, Microsoft WSL shell (Windows 10+) , or a Unix-Based physical machine.
 # If the prompt does not find the command, run the following command (choose one):
 ###
-# sudo apt install espeak ffmpeg           # Apt
+# sudo apt install espeak ffmpeg           # Advanced Package Tool (or APT)
 # brew install espeak ffmpeg               # Homebrew
-# pacman -S espeak ffmpeg                  # Arch Linux
-# yum install espeak ffmpeg                # CentOS
+# pacman -S espeak ffmpeg                  # Arch Linux Pacman Package Manager
+# yum install espeak ffmpeg                # CentOS Yum
 ###
 
 

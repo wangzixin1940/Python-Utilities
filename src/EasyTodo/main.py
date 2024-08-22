@@ -10,7 +10,18 @@ import warnings
 import os
 
 os.chdir(os.path.dirname(__file__))
-# 更换工作目录
+# Change the working directory to the current file's directory
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["easy_todo"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 with open("data/todo_list.json", "r", encoding="utf-8") as f:
     todo = json.loads(f.read())  # type: dict["todos": list[str]]
@@ -23,11 +34,11 @@ class Todo_Operation:
 
     class Todo_Exception(Exception):
         """
-        待办系统里发生的异常
+        An exception occurred in the to-do system
         Args:
-            text: str: 异常信息:
-                格式为: <Exception>(<Error_Message>)，
-                例如：KeyError("3")，ValueError("invalid literal for int() with base 10: 'q'")
+            text: str: Exception information
+        Examples:
+            KeyError("3")，ValueError("invalid literal for int() with base 10: 'q'")
         """
         def __init__(self, text: str):
             super().__init__()
@@ -84,6 +95,7 @@ class Todo_Operation:
         Args:
             new: str: New content
             number: int: sequence number
+
         Raises:
             Todo_Exception: Any errors that may occur
         """
@@ -99,12 +111,12 @@ class Todo_Operation:
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
-        self.title("Easy To Do")
+        self.title(ui["title"])
         self.geometry("1230x850")
         self.resizable(True, True)
         self.iconbitmap("assets/favicon.ico")
         self.style_set = ttk.Style("cosmo")
-        self.style_set.configure("TButton", font=("微软雅黑", 10, "normal"))
+        self.style_set.configure("TButton", font=("Airal", 10, "normal"))
         self.TodoOperation = Todo_Operation()
         # Method definition
         self.todo_list_frame = ttk.Frame(self)
@@ -117,19 +129,19 @@ class App(ttk.Window):
         self.todo_list_view = Listbox(self.todo_list_frame, height=28, width=30)
         self.todo_list_view.grid(columnspan=2, rowspan=3)
         # To-do list view
-        self.add_todo = ttk.Button(self.todo_list_frame, text="+ Add to-do", command=self.add_todo, width=15, bootstyle="success-outline")
+        self.add_todo = ttk.Button(self.todo_list_frame, text=ui["add"], command=self.add_todo, width=15, bootstyle="success-outline")
         self.add_todo.grid(columnspan=2, row=5)
         # Add a to-do button
-        self.todo_view_frame = ttk.LabelFrame(self, text="To-do Content")
+        self.todo_view_frame = ttk.LabelFrame(self, text=ui["content"])
         self.todo_view_frame.grid(column=1, row=0, sticky="nsew")
         # A frame used to hold to-do content
         self.todo_view = ttk.ScrolledText(self.todo_view_frame, height=35, width=75, state="disabled")
         self.todo_view.grid(columnspan=2, row=0)
         # To-do content view
-        self.remove_button = ttk.Button(self.todo_view_frame, text="- Mark as done and delete", width=15, bootstyle="danger-outline", command=self.remove_todo)
+        self.remove_button = ttk.Button(self.todo_view_frame, text=ui["delete"], width=15, bootstyle="danger-outline", command=self.remove_todo)
         self.remove_button.grid(column=0, row=1)
         # Delete the To-Do button
-        self.change_button = ttk.Button(self.todo_view_frame, text="✏️ Modify To-Do", width=15, bootstyle="primary-outline", command=self.change_todo)
+        self.change_button = ttk.Button(self.todo_view_frame, text=ui["modify"], width=15, bootstyle="primary-outline", command=self.change_todo)
         self.change_button.grid(column=1, row=1)
         # Modify the To-Do button
         self.bind("<<ListboxSelect>>", self.selection_changed)
@@ -149,22 +161,22 @@ class App(ttk.Window):
             self.TodoOperation.add(input_text.get("1.0", "end").strip())
             self.initialize()
             input_tk.destroy()
-        input_tk = ttk.Window(title="Add to-do", themename="cosmo")
+        input_tk = ttk.Window(title=ui["inputs"]["add_msg"], themename="cosmo")
         input_tk.geometry("500x500")
         input_tk.resizable(False, False)
         input_tk.iconbitmap("assets/add.ico")
         input_tk.wm_attributes("-toolwindow", True)
         input_tk.wm_attributes("-topmost", True)
         # Create an input form
-        main_title = ttk.Label(input_tk, text="Add the to-do you want to add below", font=("Airal", 12))
+        main_title = ttk.Label(input_tk, text=ui["inputs"]["add_msg"], font=("Airal", 12))
         main_title.configure(background="#FFFFFF")
         main_title.grid(row=0, columnspan=2)
         # Title
         input_text = ttk.ScrolledText(input_tk, state="normal", width=40, height=20)
         input_text.grid(rowspan=2, columnspan=2)
         # Entry
-        add_button = ttk.Button(input_tk, text="Confirm", width=10, bootstyle="success-outline", command=add)
-        remove_button = ttk.Button(input_tk, text="Cancel", width=10, bootstyle="danger_outline", command=input_tk.destroy)
+        add_button = ttk.Button(input_tk, text=ui["inputs"]["confirm"], width=10, bootstyle="success-outline", command=add)
+        remove_button = ttk.Button(input_tk, text=ui["inputs"]["cancel"], width=10, bootstyle="danger_outline", command=input_tk.destroy)
         add_button.grid(row=3, column=0)
         remove_button.grid(row=3, column=1)
         input_tk.mainloop()
@@ -179,22 +191,22 @@ class App(ttk.Window):
             self.TodoOperation.modify(input_text.get("1.0", "end-1c"), self.listbox_selection_get())
             self.initialize()
             input_tk.destroy()
-        input_tk = ttk.Window(title="Change to-do", themename="cosmo")
+        input_tk = ttk.Window(title=ui["inputs"]["modify_msg"], themename="cosmo")
         input_tk.geometry("500x500")
         input_tk.resizable(False, False)
         input_tk.iconbitmap("assets/modify.ico")
         input_tk.wm_attributes("-toolwindow", True)
         input_tk.wm_attributes("-topmost", True)
         # Create an input form
-        main_title = ttk.Label(input_tk, text="Change it below", font=("Airal", 12))
+        main_title = ttk.Label(input_tk, text=ui["inputs"]["modify_msg"], font=("Airal", 12))
         main_title.configure(background="#FFFFFF")
         main_title.grid(row=0, columnspan=2)
-        # 标题
+        # Title
         input_text = ttk.ScrolledText(input_tk, state="normal", width=40, height=20)
         input_text.grid(rowspan=2, columnspan=2)
-        # 输入框
-        modify_button = ttk.Button(input_tk, text="Confirm", width=10, bootstyle="success-outline", command=change)
-        cancel_button = ttk.Button(input_tk, text="Cancel", width=10, bootstyle="danger_outline", command=input_tk.destroy)
+        # Entry
+        modify_button = ttk.Button(input_tk, text=ui["inputs"]["confirm"], width=10, bootstyle="success-outline", command=change)
+        cancel_button = ttk.Button(input_tk, text=ui["inputs"]["cancel"], width=10, bootstyle="danger_outline", command=input_tk.destroy)
         modify_button.grid(row=3, column=0)
         cancel_button.grid(row=3, column=1)
         input_tk.mainloop()

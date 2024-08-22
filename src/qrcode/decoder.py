@@ -10,15 +10,15 @@ import sys
 import os
 
 os.chdir(os.path.dirname(__file__))
-# 更换工作目录
+# Replace the working directory
 
 with open("../../data/settings.json", "r") as settings:
     settings = settings.read()
     settings = json.loads(settings)
-    # 读取设置文件
+    # Read the settings file
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=settings["encoding"])
-# 更换编码
+# Change the encoding of the console output
 
 
 class Decoder():
@@ -37,21 +37,22 @@ class Decoder():
                 datefmt="%Y-%m-%d %H:%M:%S",
             )
         self.logger = logging.getLogger("QRCODE-DECODER")
-        # 配置日志信息
+        # Configure the logger
         self.logger.info("The configuration is done.")
 
     def decodeQRcode(self, image: str):
         """
-        二维码解码
-        参数：
-            image: 二维码图片路径
-        返回值：二维码内容
+        QR code decoding
+        Args:
+            image: QR code image path
+        Returns:
+            QR code content
         """
         result = pyzbar.decode(
             Image.open(image), symbols=[
-                pyzbar.ZBarSymbol.QRCODE])  # 解析二维码
+                pyzbar.ZBarSymbol.QRCODE])  # Parsing QR codes
         """                          ↑↑↑
-        以上代码来自：https://blog.csdn.net/smallfox233/article/details/119408399
+        The above code comes from: https://blog.csdn.net/smallfox233/article/details/119408399
         """
         self.logger.info(f"Decode was sucessful.")
         return result[0].data.decode("utf-8")

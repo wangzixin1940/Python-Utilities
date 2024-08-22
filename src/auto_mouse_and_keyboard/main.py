@@ -1,3 +1,20 @@
+import os
+import json
+os.chdir(os.path.dirname(__file__))
+# Change the current working directory to the directory of the script
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["amk"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
+
+
 import ttkbootstrap as ttk
 import tkinter.filedialog as fdg
 import tkinter.messagebox as msgbox
@@ -57,7 +74,7 @@ class App(ttk.Window):
         self.main_title = ttk.Label(
             self, text="Auto Mouse and Keyboard", font=(
                 "Arial", 20))
-        self.file = ttk.StringVar(value="打开文件")
+        self.file = ttk.StringVar(value=ui["open"])
         self.input_file = ttk.Button(
             self,
             textvariable=self.file,
@@ -66,7 +83,7 @@ class App(ttk.Window):
             bootstyle="primary-outline")
         self.do_work_btn = ttk.Button(
             self,
-            text="启动",
+            text=ui["launch"],
             command=self.do_work,
             width=15,
             bootstyle="success-outline")
@@ -78,11 +95,11 @@ class App(ttk.Window):
     def open_file(self):
         self.file.set(
             fdg.askopenfilename(
-                title="打开文件", filetypes=[
-                    ("AMK Script", "*.amk"), ("Python Script", "*.py")]))
+                title=ui["open"], filetypes=[
+                    file_types["amk"], file_types["py"]]))
 
     def do_work(self):
-        if self.file.get() != "打开文件":
+        if self.file.get() != ui["open"]:
             with open(self.file.get(), "r", encoding="utf-8") as f:
                 data = f.read()
                 if (data.startswith("#-- ENABLE --#")):
@@ -90,14 +107,14 @@ class App(ttk.Window):
                         exec(data)
                     except Exception as e:
                         msgbox.showerror(
-                            "错误", f"执行脚本时发生错误：\n{
+                            ui_src["error"], f"{ui["err"]}\n{
                                 repr(e)}：\n{
                                 traceback.print_exc()}")
                 else:
                     msgbox.showerror(
-                        "错误", "脚本被禁用！\n请在脚本开头添加：\n#-- ENABLE --#\n或将#-- DISABLE --#替换成#-- ENABLE --#")
+                        ui_src["error"], ui["not_enable"])
         else:
-            msgbox.showerror("错误", "请先选择文件！")
+            msgbox.showerror(ui_src["error"], ui["file_not_found"])
 
 
 if __name__ == "__main__":

@@ -10,15 +10,15 @@ import sys
 import os
 
 os.chdir(os.path.dirname(__file__))
-# 更换工作目录
+# Change the working directory to the current file's directory
 
 with open("../../data/settings.json", "r") as settings:
     settings = settings.read()
     settings = json.loads(settings)
-    # 读取设置文件
+    # Read the settings file
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=settings["encoding"])
-# 更换编码
+# Change the encoding of the standard output to the encoding specified in the settings file
 
 
 class Encoder():
@@ -37,7 +37,7 @@ class Encoder():
                 datefmt="%Y-%m-%d %H:%M:%S",
             )
         self.logger = logging.getLogger("QRCODE-DECODER")
-        # 配置日志信息
+        # Configure log information
         self.logger.info("The configuration is done.")
 
     def generateQRcode(
@@ -49,11 +49,13 @@ class Encoder():
             embeded_image_path: str | None = None,
             *args):
         """
-        生成二维码
-        参数：
-            data: 二维码数据
-            filename: 保存二维码的文件名
-        不返回任何内容
+        Generate a QR code
+        Args:
+            data: QR code data
+            filename: Save the file name of the QR code
+            module_drawer: Drawer
+            color_mask: Color mask
+            embeded_image_path: Embeded image path
         """
         qr = qrcode.main.QRCode(
             version=1,
