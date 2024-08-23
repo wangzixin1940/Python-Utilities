@@ -1,0 +1,500 @@
+{
+    "warning": "Warning",
+    "error": "Error",
+    "info": "Suggest",
+    "invocation_error": "Invocation Error!",
+    "translator": {
+        "svr_err": "An error occurred on the server and the translation cannot be performed, please check the error message in the log of this day."
+    },
+    "file_converters": {
+        "file_not_found": "Source file not found!",
+        "any_errors": "An error occurred during the conversion process!"
+    },
+    "file_diff": {
+        "choose_file_1": "Select File 1",
+        "choose_file_2": "Select File 2",
+        "save_as": "Save as...",
+        "success": "Save file successfully!",
+        "not_success": "Failed to save file! Error code {}"
+    },
+    "ascii_art": {
+        "success_title": "The output was successful!",
+        "success_msg": "The file has been exported to the same level directory as the image!"
+    },
+    "launchers": {
+        "dev": {
+            "web_connect": {
+                "input_url": "Enter the URL (prefixed)",
+                "error_list": {
+                    "1": "Missing prefix!",
+                    "2": "Server Error!"
+                }
+            },
+            "translator": {
+                "information_required": "Baidu Translate requires your AppID and secret key to use. Do you want to enter it? \nTranslator promises to never compromise your privacy.",
+                "title": "Translator",
+                "information_inputs": {
+                    "message": "Enter the AppID and Secret Key.",
+                    "fields": ["AppID", "Secret Key"]
+                },
+                "inputs": {
+                    "text": "Enter text",
+                    "language_choose_msg": "What language do you want to output?"
+                },
+                "complete_information": {
+                    "complete": "Translation complete!",
+                    "original": "Original:",
+                    "result": "Post-translation:",
+                    "language": "Translation Language:"
+                },
+                "error_information_msg": "Parameters are missing!"
+            },
+            "file_converters": {
+                "choose_file": {
+                    "open_title": "Open...",
+                    "save_title": "Save as..."
+                },
+                "extension_err": "File extension error!"
+            },
+            "socket_tools": {
+                "get_ip": {
+                    "title": "IP address getter",
+                    "input_msg": "Enter a domain name\n or enter \"@default\" to use the local domain name",
+                    "ip": "IP address:"
+                },
+                "resolve_doamin": {
+                    "title": "Domain name resolver",
+                    "input": "Please enter an IP address.",
+                    "doamin": "Parsed Result:"
+                }
+            }
+        },
+        "art": {
+            "ascii_art": {
+                "open": "Open...",
+                "extension_err": "File extension error!"
+            },
+            "bing_picture": {
+                "title": "Bing's Daily Graph",
+                "save_as": "Save as...",
+                "inputs": {
+                    "msg": "Please enter your information",
+                    "fields": ["Index", "Region code"]
+                },
+                "success": "The image has been saved to the specified path.",
+                "index_err": "The index must be a number!",
+                "extension_err": "File extension error!"
+            }
+        },
+        "external": {
+            "web_speed_test_warn": "The waiting time of this program is extremely long, about 2 minutes, and the speed test operation will be performed in the background. \nYou can still use this program normally while waiting.",
+            "hash_checker_warn": "The hash checker is in src/tools/hash.py, please use it according to the prompts (based on the console)"
+        }
+    },
+    "system": {
+        "about": "Python Utilities v3.0.0 en-us\nAuthor: @wangzixin1940\nCurrent Python file: main.py\nREADME file: README.md (en-US and zh-CN)\nGNU GPLv3 License：https://github.com/wangzixin1940/Python-Utilities/blob/main/LICENCE\nVERSION 2.11 RELEASE",
+        "import_settings": {
+            "open": "Open...",
+            "warning": "Do you want to import settings? \nThe existing configuration file will be overwritten. \nCorrupted configuration files may cause the program to run incorrectly.",
+            "complete": "The settings have been imported."
+        }
+    },
+    "ui": {
+        "utilities": {
+            "title": "Utilities",
+            "translator": "Translator",
+            "weather_report": "Weather Report",
+            "speech2text": "Speech to Text",
+            "to-do": "Easy To Do"
+        },
+        "dev": {
+            "title": "Developer Tools",
+            "connect_info": "Web connection test",
+            "speedtest": "Test your Internet speed"
+        },
+        "others": {
+            "title": "Others",
+            "pwd_creator": "Password generator"
+        },
+        "menus": {
+            "file": {
+                "title": "File",
+                "import_settings": "Import settings...",
+                "exit": "Exit"
+            },
+            "other": {
+                "title": "Others",
+                "calculator": "Calculator",
+                "hash_checker": "Hash checker",
+                "licence_creator": "Licence Creator",
+                "smfj": "Send mail from JSON",
+                "ip_tools": {
+                    "title": "IP tools",
+                    "get_ip": "Get IP",
+                    "resolve_doamin": "Resolve domain"
+                },
+                "file_tools": {
+                    "title": "File tools",
+                    "json_to_xml": "JSON to XML",
+                    "xml_to_json": "XML to JSON",
+                    "json_to_csv": "JSON to CSV",
+                    "csv_to_json": "CSV to JSON",
+                    "diff": "File diff"
+                },
+                "qrcode_tools": {
+                    "title": "QRcode tools",
+                    "generate": "Generator",
+                    "parse": "Parser"
+                },
+                "ascii_art": "Ascii art",
+                "bing_picture": "Bing's daily graph",
+                "picture_convertor": "Photo format conversion",
+                "amk": "Auto mouse and keyboard",
+                "captcha": "Captcha generator (Beta)",
+                "clock": "Clock",
+                "count_down": "Count down",
+                "pinyin_dictionary": "Hanyu Pinyin Dictionary"
+            },
+            "settings": {
+                "title": "Settings",
+                "themes": "Color themes"
+            },
+            "about": "About"
+        }
+    },
+    "externals": {
+        "amk": {
+            "open": "Open...",
+            "launch": "Launch",
+            "err": "An error occurred while executing the script: ",
+            "not_enable": "Script is disabled! \nPlease add at the beginning of the script:\n#-- ENABLE --#\nOr replace #-- DISABLE --# with #-- ENABLE -- #",
+			"file_not_found": "Please select the file first!"
+        },
+        "calculator": {
+            "title": "Calculator (Python implementation)",
+            "quit": {
+                "title": "Exit",
+                "warn": "OK to Exit?"
+            },
+            "positivity_err": "You can't change the positive and negative nature of the symbol! \nOr enter the number first and then change the positive and negative of the symbol.",
+            "divide_by_zero_err": "The divisor cannot be 0!",
+            "overflow_err": "Expression overflow! (Larger than {max})",
+            "expression_err": "Expression error!"
+        },
+        "captcha": {
+            "title": "Captcha generator",
+			"option": "Options",
+            "picture": "Image captcha",
+            "audio": "Audio captcha",
+            "generate": "Generate",
+            "inputs": {
+                "choose_fonts": "Select the font file",
+                "save_as": "Save the captcha image"
+            },
+            "complete": "Captcha image has been generated!",
+            "future_warn": "This feature has a bug and cannot be used, please wait for the fix."
+        },
+        "chinese_pinyin_dictionary": {
+            "title": "Hanyu Pinyin Dictionary",
+            "input": "Please enter one\nor multiple\nChinese characters:",
+            "query": "Query",
+            "pinyin": "Pinyin: ",
+            "zhuyin": "Zhuyin: ",
+            "unknown": "Unknown"
+        },
+        "clock": {
+            "title": "Clock by Python Turtle Demo(tdemo_clock.py)",
+            "days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "month": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        },
+        "count_down": {
+            "title": "Count Down Timer",
+            "do_work": "Set up and run",
+            "input_msg": "How many seconds do you want to count down? \nEvery beep represents the passage of a second. \nPress OK to work, press Cancel to terminate the action."
+        },
+        "easy_todo": {
+            "title": "Easy To Do",
+            "add": "Add to-do",
+            "content": "To-do",
+            "delete": "Mark as done and delete the to-do",
+            "modify": "Change to-do",
+            "inputs": {
+                "add_msg": "Write what you want to write below",
+                "modify_msg": "Change it below",
+                "confirm": "Confirm",
+                "cancel": "Cancel"
+            }
+        },
+        "licence_creator": {
+            "title": "Licence Creator",
+            "type_choose": "Licence type: ",
+            "params": {
+                "label": "Params: ",
+                "name": "Name: ",
+                "year": "Year: ",
+                "usage": "Usage: ",
+                "proj_name": "The name of the project: "
+            },
+            "create": "Create",
+			"complete": "Complete",
+			"save_complete": "Successfully saved!"
+        },
+        "ocr": {
+            "title": "Character Recognizer",
+            "choose_image": "Select an image",
+            "recognize": "Recognition",
+            "result": "Identification Result: ",
+            "choosed": "Choosed"
+        },
+        "pwd_creator": {
+            "title": "Password Creator",
+            "strength": {
+                "1": "Weak",
+                "2": "Medium",
+                "3": "Strong",
+                "4": "Very Strong"
+            },
+            "password_strength": "Password Strength: ",
+            "inclubes": {
+                "symbols": "Inclube symbols",
+                "numbers": "Include numbers",
+                "uppers": "Include Uppercases",
+                "lowers": "Include Lowercases"
+            },
+            "create": "Create",
+            "unknown": "Unknown",
+            "copy": "Copy",
+			"copied": "Copied!",
+			"complete_info": "Password copied successfully!"
+        },
+        "photo_format_converter": {
+            "title": "Photo Format Converter",
+            "choose_photo": "Please select an image",
+            "convert": "Convert",
+            "no_picture_selected_err": "Please choose a picture first!",
+            "complete": "Conversion successful!"
+        },
+        "qrcode": {
+            "generator": {
+                "title": "QRcode Generator",
+                "inputs": {
+                    "text": "Text: ",
+                    "settings": "Settings:",
+                    "drawer": "Drawer: ",
+                    "image": "Image (Optional): ",
+                    "save": "Save Image"
+                },
+                "generate": "Generate"
+            },
+            "decoder": {
+                "title": "QRcode Decoder",
+                "image": "Image path: ",
+                "decode": "Decode"
+            },
+            "err": "Please select a model first! (1 or 2)"
+        },
+        "send_mail_from_json": {
+            "title": "Send Mail From JSON",
+            "choose_file": "Choose File",
+            "send": "Send",
+            "success": "Success",
+            "success_info": "Success to send!",
+            "error_info": "Choose file first!"
+        },
+        "speech2text": {
+            "title": "Speech to Text",
+            "choose_audio": "Please select an audio file",
+            "convert": "Convert",
+            "error_info": "Please select the audio file first!",
+            "complete": "The conversion is complete! \nResult: {res}"
+        },
+        "system_info": {
+            "choices": [
+                "",
+                "System Information Viewer V 1.0",
+                "========================================================",
+                "System Class",
+                "1. System Architecture\t2. Machine Type\t3. System Version\t4. Processor (CPU) Name\t5. System Release Version\t6. The name of the system",
+                "7. Name of the computer on the network\t8. Windows version (e.g. Professional, Home Basic) (Windows Only)",
+                "9. Mac System Information (macOS Only)\t0. Linux System Information (Linux Only)",
+                "关于Python",
+                "a. Python compilation code and compilation date\tb. Python Compiler Version\tc. Python Implementer ID\td. Python version",
+                "e. Version interface for Jython (Jython Only)",
+                "Program command",
+                "ab. About\tx. Exit",
+                ""
+            ],
+            "about_text": [
+                "",
+                "About the System Information Viewer",
+                "========================================================",
+                "The System Information Viewer is a tool for viewing system information.",
+                "The System Information Viewer is written in Python and uses the platform module of Python to obtain system information.",
+                ""
+            ],
+            "system_class": {
+                "architecture": "System Architecture:",
+                "machine": "Machine type: ",
+                "platform": "System version: ",
+                "cpu": "Processor (CPU) name: ",
+                "release": "System release version: ",
+                "name": "System Name: ",
+                "machine_name": "Name of the computer on the network: ",
+                "windows_edition": "Windows version: ",
+                "mac_version": "Mac System Information: ",
+                "freedesktop_os_release": "Linux system version: "
+            },
+            "python_class": {
+                "build": "Python compilation code and compilation date:",
+                "compiler": "Python compiler version: ",
+                "implementation": "Python implementation version: ",
+                "python_version": "Python version: ",
+                "jpython_ver": "JPython version interface: "
+            },
+            "error_option": "Invalid option, please re-enter.",
+            "input_option": "Enter option >>>",
+            "interrupt": "The user canceled the action.",
+            "error_occurred": "Error occurred: {err}"
+        },
+        "tools": {
+            "hash": {
+                "usage": [
+                    "Usage:",
+                    "python / py md5.py [filename] [--check [-md5][-sha256][-sha1][-sha224][value]]",
+                    "",
+                    "filename : File name. For example: \"1.py\", \"HelloWorld.java\".",
+                    "",
+                    "--check : Check the MD5, SHA256, SHA1 values of the file, for example: \"--check -md5 1234567890abcdef\"",
+                    "    value : The MD5 value of the original file, e.g. \"1234567890abcdef\" (usually from the website or person that provided the file)",
+                    "    -md5 : Verify the MD5 value of the file",
+                    "    -sha256 : Verify the SHA256 value of the file",
+                    "    -sha1 : Verify the SHA1 value of the file",
+                    "    Note: -md5, -sha256, -sha1, and -sha224 cannot be used at the same time."
+                ],
+                "errors": {
+                    "param_count_err": "\nError: Too many or too few parameters.\n",
+                    "file_not_found": "\nError: The file does not exist, please check the file name and path!\n",
+                    "param_err": "\nError: Invalid parameter.\n",
+                    "required_param_missing_err": "\nError: Required parameters are missing.\n",
+                    "param_count_too_many": "\nError: Too many parameters.\n",
+                    "unknown_error": "\nError: An unknown error or invalid parameter\n"
+                },
+                "prompts": {
+                    "md5": {
+                        "correct": "File MD5 values are correct! \nFile MD5 values: ",
+                        "incorrect": "File MD5 value error! \nFile MD5 values:"
+                    },
+                    "sha256": {
+                        "correct": "File SHA256 values are correct! \nFile SHA256 values: ",
+                        "incorrect": "File SHA256 value error! \nFile SHA256 values: "
+                    },
+                    "sha1": {
+                        "correct": "The file SHA1 value is correct! \nFile SHA1 values: ",
+                        "incorrect": "File SHA1 value is wrong! \nFile SHA1 values: "
+                    },
+                    "sha224": {
+                        "correct": "File SHA224 values are correct! \nFile SHA224 values: ",
+                        "incorrect": "File SHA224 value error! \nFile SHA224 values: "
+                    },
+                    "information": {
+                        "file_name": "File name: ",
+                        "file_size": "File size: ",
+                        "file_type": "File type: ",
+                        "the_last_time_the_file_was_modified": "File last modified:",
+                        "md5": "File MD5 values:",
+                        "sha256": "File SHA256 values:",
+                        "sha1": "File SHA1 values:",
+                        "sha224": "File SHA224 values:"
+                    }
+                }
+            }
+        },
+        "weather": {
+            "title": "Weather queries",
+            "country": "Please enter the name of the country: ",
+            "city": "Please enter the name of the city: ",
+            "search": "Query",
+            "infos": {
+                "complete": "Query successful!",
+                "weather": "Weather in {city}: ",
+                "forecast_for_tomorrow": "Tomorrow's Prediction: {tomorrow}",
+                "forecast_for_day_after_tomorrow": "Day after tomorrow's Prediction: {dat}",
+                "forecast_for_day4": "{day4} prediction: {day4f}",
+                "forecast_for_day5": "{day5} Prediction: {day5f}",
+                "forecast_for_day6": "{day6} prediction: {day6f}",
+                "forecast_for_day7": "{day7} prediction: {day7f}",
+                "not_included_err": "This city is not included, please check the input. \nOr look at the data/full_city_list.csv file to find your city ID (third or fourth column).",
+                "error_network": "The network connection is incorrect, please check the network connection.",
+                "unknown_error": "Unknown error, please try again later.",
+                "error_data_not_found": "The city list file was not found, please check the file path.",
+                "error_data": "An error occurred while reading the city list file."
+            }
+        },
+        "speedtest": {
+            "title": "Internet speed test applet",
+            "about": "Internet Speed Test Program (Standalone)\nBuilt on SpeedTest.net SpeedTest Library\nVersion 1.1\n",
+            "info": "Upload: {up} MBits/s; Download: {down} MBits/s"
+        }
+    },
+    "tools": {
+        "clear": {
+            "gui": {
+                "infos": {
+                    "log": "All log files have been deleted.",
+                    "pycache": "All cache files have been deleted.",
+                    "pycache_not_found": "Cache file not found.",
+                    "user_data_warn": "Are you sure you want to erase the profile?",
+                    "user_data": "The profile has been reset."
+                },
+                "title": "Clear",
+                "buttons": {
+                    "log": "Delete the log file generated during the runtime",
+                    "pycache": "Delete the cache file",
+                    "user_data": "Erase Profile (Advanced)"
+                }
+            },
+            "cli": {
+                "infos": {
+                    "log": "All log files have been deleted.",
+                    "pycache": "All cache files have been deleted.",
+                    "pycache_not_found": "Cache file not found.",
+                    "user_data_warn": "Do you clear all profiles? Enter 0000 to confirm the action. Note that this operation is irreversible!",
+                    "user_data": "The profile has been reset.",
+                    "user_data_cancel": "This action was not done (/p)."
+                },
+                "usage": [
+                    "Usage:",
+                    "python / py clear.py [/l] [/c] [/p] [/?]",
+                    "/l : Clear all logs",
+                    "/c : Clear all caches",
+                    "/p : Clear all profiles",
+                    "------------------------------------",
+                    "/l /c /p : Clear all",
+                    "/? : Displays help information",
+                    "------------------------------------"
+                ],
+                "errors": {
+                    "params_not_found": "Error: Parameter not given",
+                    "error_param": "Error: The parameter is incorrect"
+                }
+            }
+        }
+    },
+    "filetypes": {
+        "all": ["All files", "*.*"],
+        "no": ["No Extension", "*"],
+        "txt": ["Plain Text", "*.txt"],
+        "html": ["HTML Document", "*.html"],
+        "json": ["JSON File", "*.json"],
+        "xml": ["XML File", "*.xml"],
+        "amk": ["Auto Mouse and Keyboard Script", "*.amk"],
+        "py": ["Python Script", "*.py"],
+        "images": {
+            "jpg": ["JPEG Image", "*.jpg"],
+            "png": ["PNG Image", "*.png"],
+            "bmp": ["BMP Image", "*.bmp"],
+            "gif": ["GIF Image", "*.gif"]
+        },
+        "wav": ["Wave Audio", "*.wav"]
+    }
+}
