@@ -60,7 +60,7 @@ sysinfo = {
     "system": platform.system(),
     "version": platform.version(),
     "python": {
-        "version": platform.pythonVersion().split("."),
+        "version": platform.python_version().split("."),
         "implementation": platform.python_implementation(),
     }
 }
