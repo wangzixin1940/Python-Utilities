@@ -60,7 +60,7 @@ sysinfo = {
     "system": platform.system(),
     "version": platform.version(),
     "python": {
-        "version": platform.python_version().split("."),
+        "version": platform.pythonVersion().split("."),
         "implementation": platform.python_implementation(),
     }
 }
@@ -74,7 +74,7 @@ for i in range(len(sysinfo["python"]["version"])):
 
 class DevTools():
     def __init__(self):
-        msgbox.showerror(title=ui["error"], message=ui["invocation_error"])
+        msgbox.showerror(title=ui["error"], message=ui["invocationError"])
         logger.error("Invocation error")
 
     def webConnectTest(url: str):
@@ -114,6 +114,7 @@ class DevTools():
         Returns
             Translation result or null value Zero (error)
         """
+
         class fake_http_client_http_connection:
             def __init__(self, *args, **kwargs):
                 pass
@@ -141,7 +142,7 @@ class DevTools():
         except Exception as err:
             logger.critical(repr(err))
             msgbox.showerror(
-                message=ui["translator"]["svr_err"],
+                message=ui["translator"]["serverError"],
                 title=ui["launcher"]["translator"]["title"])
         finally:
             if http_client:
@@ -170,11 +171,11 @@ class DevTools():
                     return 0
         except FileNotFoundError:
             logger.error("JSON file not found: {}".format(json_file_path))
-            msgbox.showerror(message=ui["file_converters"]["file_not_found"], title="JSON to XML")
+            msgbox.showerror(message=ui["fileConverters"]["fileNotFound"], title="JSON to XML")
             return 1
         except Exception as err:
             logger.error(repr(err))
-            msgbox.showerror(message=ui["file_converters"]["any_errors"], title="JSON to XML")
+            msgbox.showerror(message=ui["fileConverters"]["otherErrors"], title="JSON to XML")
             return 2
 
     def XMLtoJSON(xml_file_path: str, json_file_path: str):
@@ -198,11 +199,11 @@ class DevTools():
                     return 0
         except FileNotFoundError:
             logger.error("JSON file not found: {}".format(json_file_path))
-            msgbox.showerror(message=ui["file_converters"]["file_not_found"], title="JSON to XML")
+            msgbox.showerror(message=ui["fileConverters"]["fileNotFound"], title="JSON to XML")
             return 1
         except Exception as err:
             logger.error(repr(err))
-            msgbox.showerror(message=ui["file_converters"]["any_errors"], title="JSON to XML")
+            msgbox.showerror(message=ui["fileConverters"]["otherErrors"], title="JSON to XML")
             return 2
 
     def CSVtoJSON(csv_file_path: str, json_file_path: str):
@@ -228,11 +229,11 @@ class DevTools():
                     return 0
         except FileNotFoundError:
             logger.error("JSON file not found: {}".format(json_file_path))
-            msgbox.showerror(message=ui["file_converters"]["file_not_found"], title="JSON to XML")
+            msgbox.showerror(message=ui["fileConverters"]["fileNotFound"], title="JSON to XML")
             return 1
         except Exception as err:
             logger.error(repr(err))
-            msgbox.showerror(message=ui["file_converters"]["any_errors"], title="JSON to XML")
+            msgbox.showerror(message=ui["fileConverters"]["otherErrors"], title="JSON to XML")
             return 2
 
     def JSONtoCSV(json_file_path: str, csv_file_path: str):
@@ -257,11 +258,11 @@ class DevTools():
                     return 0
         except FileNotFoundError:
             logger.error("JSON file not found: {}".format(json_file_path))
-            msgbox.showerror(message=ui["file_converters"]["file_not_found"], title="JSON to XML")
+            msgbox.showerror(message=ui["fileConverters"]["fileNotFound"], title="JSON to XML")
             return 1
         except Exception as err:
             logger.error(repr(err))
-            msgbox.showerror(message=ui["file_converters"]["any_errors"], title="JSON to XML")
+            msgbox.showerror(message=ui["fileConverters"]["otherErrors"], title="JSON to XML")
             return 2
 
     def getIP(domain=socket.gethostname()):
@@ -294,19 +295,19 @@ class DevTools():
     class FileDiffTools():
         def __init__(self):
             text1 = self.readFromFile(
-                fdg.askopenfilename(title=ui["file_diff"]["choose_file_1"],
+                fdg.askopenfilename(title=ui["fileDiff"]["chooseFileOne"],
                                     filetypes=(file_types["txt"], file_types["all"])))
             text2 = self.readFromFile(
-                fdg.askopenfilename(title=ui["file_diff"]["choose_file_1"],
+                fdg.askopenfilename(title=ui["fileDiff"]["chooseFileOne"],
                                     filetypes=((file_types["txt"]), file_types["all"])))
-            result = self.diffTexts(text1, text2, fdg.asksaveasfilename(title=ui["file_diff"]["save_as"], filetypes=(
+            result = self.diffTexts(text1, text2, fdg.asksaveasfilename(title=ui["fileDiff"]["saveAs"], filetypes=(
                 file_types["html"], file_types["all"])))
             logger.info("Save file successfully!")
             if result == 0:
-                msgbox.showinfo(title=ui["file_diff"]["success"], message="保存文件成功！")
+                msgbox.showinfo(title=ui["fileDiff"]["success"], message="保存文件成功！")
             else:
                 msgbox.showerror(
-                    title=ui["error"], message=ui["file_diff"]["not_success"].format(result))
+                    title=ui["error"], message=ui["fileDiff"]["error"].format(result))
 
         @staticmethod
         def readFromFile(fpath):
@@ -346,7 +347,7 @@ class DevTools():
 
 class DrawingTools():
     def __init__(self):
-        msgbox.showerror(title=ui["error"], message=ui["invocation_error"])
+        msgbox.showerror(title=ui["error"], message=ui["invocationError"])
         logger.error("Invocation error")
 
     def charPicture(filename):
@@ -410,7 +411,7 @@ class DrawingTools():
         pic_str = make_char_img(img)
         save_to_file(f"{filename}-char.html", pic_str)
         logger.info(f"Output file:{filename}-char.html")
-        msgbox.showinfo(title=ui["ascii_art"]["success_title"], message=ui["ascii_art"]["success_msg"])
+        msgbox.showinfo(title=ui["asciiArt"]["successTitle"], message=ui["asciiArt"]["successMessage"])
 
     def bingPicture(fname: str, idx: str = "0", mkt: str = "zh-cn"):
         """
@@ -463,12 +464,12 @@ class DrawingTools():
 
 class Launcher():
     def __init__(self):
-        msgbox.showerror(title=ui[ui["error"]], message=ui["invocation_error"])
+        msgbox.showerror(title=ui[ui["error"]], message=ui["invocationError"])
         logger.error("Invocation error")
 
     class DevToolsLauncher():
         def __init__(self):
-            msgbox.showerror(title=ui["error"], message=ui["invocation_error"])
+            msgbox.showerror(title=ui["error"], message=ui["invocationError"])
             logger.error("Invocation error")
 
         @staticmethod
@@ -513,13 +514,13 @@ class Launcher():
             except (FileNotFoundError, KeyError) as err:
                 logger.error(repr(err))
                 result = msgbox.askokcancel(
-                    message=ui["launchers"]["dev"]["translator"]["information_required"],
+                    message=ui["launchers"]["dev"]["translator"]["informationRequired"],
                     title=ui["launchers"]["dev"]["translator"]["title"], icon="warning")
                 if result:
                     datas = easygui.multpasswordbox(
-                        ui["launchers"]["dev"]["translator"]["information_inputs"]["message"],
+                        ui["launchers"]["dev"]["translator"]["informationInputs"]["message"],
                         title=ui["launchers"]["dev"]["translator"]["title"],
-                        fields=ui["launchers"]["dev"]["translator"]["information_inputs"]["firlds"])
+                        fields=ui["launchers"]["dev"]["translator"]["informationInputs"]["firlds"])
                     if datas != None:
                         id = datas[0]
                         key = datas[1]
@@ -540,7 +541,7 @@ class Launcher():
                 if text:
                     fromLang = "auto"
                     toLang = easygui.choicebox(
-                        ui["launchers"]["dev"]["translator"]["inputs"]["language_choose_msg"],
+                        ui["launchers"]["dev"]["translator"]["inputs"]["languageChooseMessage"],
                         choices=list(languages.keys()),
                         title=ui["launchers"]["dev"]["translator"]["title"])
                     logger.info(
@@ -549,22 +550,22 @@ class Launcher():
                         result = DevTools.translator(
                             text, id, key, fromLang, languages[toLang])
                         msgbox.showinfo(
-                            message=f"{ui["launchers"]["dev"]["translator"]["complete_information"]["complete"]}\n \
-                            {ui["launchers"]["dev"]["translator"]["complete_information"]["original"]}{text}\n \
-                            {ui["launchers"]["dev"]["translator"]["complete_information"]["result"]} {result}\n \
-                            {ui["launchers"]["dev"]["translator"]["complete_information"]["language"]} {toLang}",
+                            message=f"{ui["launchers"]["dev"]["translator"]["completeInformation"]["complete"]}\n \
+                            {ui["launchers"]["dev"]["translator"]["completeInformation"]["original"]}{text}\n \
+                            {ui["launchers"]["dev"]["translator"]["completeInformation"]["result"]} {result}\n \
+                            {ui["launchers"]["dev"]["translator"]["completeInformation"]["language"]} {toLang}",
                             title=ui["launchers"]["dev"]["translator"]["title"])
                         logger.info(f"Result: {result}")
                     else:
-                        msgbox.showerror(message=ui["launchers"]["dev"]["translator"]["error_information_msg"],
+                        msgbox.showerror(message=ui["launchers"]["dev"]["translator"]["errorInformationMessage"],
                                          title=ui["launchers"]["dev"]["translator"]["title"])
                         logger.error("Missing arguments")
 
         @staticmethod
         def JSONtoXMLLauncher():
-            json = easygui.fileopenbox(title=ui["launchers"]["dev"]["file_converters"]["choose_file"]["open_file"],
+            json = easygui.fileopenbox(title=ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["open_file"],
                                        filetypes=[file_types["json"]], default="*.json")
-            xml = easygui.filesavebox(title=ui["launchers"]["dev"]["file_converters"]["choose_file"]["save_file"],
+            xml = easygui.filesavebox(title=ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["save_file"],
                                       filetypes=[file_types["xml"]], default="*.xml")
             if (json != None):
                 if (os.path.splitext(json)[-1] == ".json"):
@@ -574,14 +575,14 @@ class Launcher():
                     logger.info(f"Output finish")
                 else:
                     msgbox.showerror(title=ui["error"],
-                                     message=ui["launchers"]["dev"]["file_converters"]["extension_err"])
+                                     message=ui["launchers"]["dev"]["fileConverters"]["extensionError"])
                     logger.error("File extension is incorrect")
 
         @staticmethod
         def XMLtoJSONLauncher():
-            xml = easygui.fileopenbox(title=ui["launchers"]["dev"]["file_converters"]["choose_file"]["open_file"],
+            xml = easygui.fileopenbox(title=ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["open_file"],
                                       filetypes=[file_types["xml"]], default="*.xml")
-            json = easygui.filesavebox(title=ui["launchers"]["dev"]["file_converters"]["choose_file"]["save_file"],
+            json = easygui.filesavebox(title=ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["save_file"],
                                        filetypes=[file_types["json"]], default="*.json")
             if (xml != None):
                 if (os.path.splitext(xml)[-1] == ".xml"):
@@ -590,46 +591,48 @@ class Launcher():
                     DevTools.XMLtoJSON(xml, json)
                     logger.info(f"Output finish")
                 else:
-                    msgbox.showerror(title=ui["error"], message=ui["launchers"]["dev"]["file_converters"]["extension_err"])
+                    msgbox.showerror(title=ui["error"],
+                                     message=ui["launchers"]["dev"]["fileConverters"]["extensionError"])
                     logger.error("File extension is incorrect")
 
         @staticmethod
         def getIPLauncher():
             global DevTools
             ip = easygui.enterbox(
-                ui["launchers"]["dev"]["socket_tools"]["get_ip"]["input_msg"],
-                title=ui["launchers"]["dev"]["socket_tools"]["get_ip"]["title"])
+                ui["launchers"]["dev"]["socketTools"]["getIP"]["inputMessage"],
+                title=ui["launchers"]["dev"]["socketTools"]["getIP"]["title"])
             if (ip != None):
                 if (ip != "@default"):
                     global DevTools
                     logger.info(f"Input IP:{ip}")
                     result = DevTools.getIP(ip)
-                    msgbox.showinfo(message=f"{ui["launchers"]["dev"]["socket_tools"]["get_ip"]["ip"]} {result}",
-                                    title=ui["launchers"]["dev"]["socket_tools"]["get_ip"]["title"])
+                    msgbox.showinfo(message=f"{ui["launchers"]["dev"]["socketTools"]["getIP"]["ip"]} {result}",
+                                    title=ui["launchers"]["dev"]["socketTools"]["getIP"]["title"])
                     logger.info(f"Result: {result}")
                 else:
                     logger.info(f"Input IP:{ip}")
                     result = DevTools.getIP()
-                    msgbox.showinfo(message=f"{ui["launchers"]["dev"]["socket_tools"]["get_ip"]["ip"]} {result}",
-                                    title=ui["launchers"]["dev"]["socket_tools"]["get_ip"]["title"])
+                    msgbox.showinfo(message=f"{ui["launchers"]["dev"]["socketTools"]["getIP"]["ip"]} {result}",
+                                    title=ui["launchers"]["dev"]["socketTools"]["getIP"]["title"])
                     logger.info(f"Result: {result}")
 
         @staticmethod
         def resolveDomainLauncher():
-            domain = easygui.enterbox(ui["launchers"]["dev"]["socket_tools"]["resolve_doamin"]["input"],
-                                      title=ui["launchers"]["dev"]["socket_tools"]["resolve_doamin"]["doamin"])
+            domain = easygui.enterbox(ui["launchers"]["dev"]["socketTools"]["resolveDoamin"]["input"],
+                                      title=ui["launchers"]["dev"]["socketTools"]["resolveDoamin"]["doamin"])
             if (domain != None):
                 global DevTools
                 logger.info(f"Input Domain: {domain}")
                 result = DevTools.resolveDomain(domain)
-                msgbox.showinfo(message=f"{ui["launchers"]["dev"]["socket_tools"]["resolve_doamin"]["doamin"]} {result}", title=ui["launchers"]["dev"]["socket_tools"]["resolve_doamin"]["title"])
+                msgbox.showinfo(message=f"{ui["launchers"]["dev"]["socketTools"]["resolveDoamin"]["doamin"]} {result}",
+                                title=ui["launchers"]["dev"]["socketTools"]["resolveDoamin"]["title"])
                 logger.info(f"Result: {result}")
 
         @staticmethod
         def JSONtoCSVLauncher():
-            json = easygui.fileopenbox(title=ui["launchers"]["dev"]["file_converters"]["choose_file"]["open_file"],
+            json = easygui.fileopenbox(title=ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["open_file"],
                                        filetypes=[file_types["json"]], default="*.json")
-            csv = easygui.filesavebox(title=ui["launchers"]["dev"]["file_converters"]["choose_file"]["save_file"],
+            csv = easygui.filesavebox(title=ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["save_file"],
                                       filetypes=[file_types["csv"]], default="*.csv")
             if (json != None):
                 if (os.path.splitext(json)[-1] == ".json"):
@@ -638,14 +641,15 @@ class Launcher():
                     DevTools.JSONtoCSV(json, csv)
                     logger.info(f"Output finish")
                 else:
-                    msgbox.showerror(title=ui["error"], message=ui["launchers"]["dev"]["file_converters"]["extension_err"])
+                    msgbox.showerror(title=ui["error"],
+                                     message=ui["launchers"]["dev"]["fileConverters"]["extensionError"])
                     logger.error("File extension is incorrect")
 
         @staticmethod
         def CSVtoJSONLauncher():
-            csv = easygui.fileopenbox(title=ui["launchers"]["dev"]["file_converters"]["choose_file"]["open_file"],
+            csv = easygui.fileopenbox(title=ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["open_file"],
                                       filetypes=[file_types["csv"]], default="*.csv")
-            json = easygui.filesavebox(title=ui["launchers"]["dev"]["file_converters"]["choose_file"]["save_file"],
+            json = easygui.filesavebox(title=ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["save_file"],
                                        filetypes=[file_types["json"]], default="*.json")
             if (csv != None):
                 if (os.path.splitext(csv)[-1] == ".csv"):
@@ -654,17 +658,18 @@ class Launcher():
                     DevTools.CSVtoJSON(csv, json)
                     logger.info(f"Output finish")
                 else:
-                    msgbox.showerror(title=ui["error"], message=ui["launchers"]["dev"]["file_converters"]["extension_err"])
+                    msgbox.showerror(title=ui["error"],
+                                     message=ui["launchers"]["dev"]["fileConverters"]["extensionError"])
                     logger.error("File extension is incorrect")
 
     class DrawingToolsLauncher():
         def __init__(self):
-            msgbox.showerror(title=ui["error"], message=ui["invocation_error"])
+            msgbox.showerror(title=ui["error"], message=ui["invocationError"])
             logger.error("Invocation error")
 
         @staticmethod
         def charPictureLauncher():
-            path = easygui.fileopenbox(title=ui["launchers"]["art"]["ascii_art"]["open"],
+            path = easygui.fileopenbox(title=ui["launchers"]["art"]["asciiArt"]["open"],
                                        filetypes=[file_types["images"]["png"], file_types["images"]["bmp"],
                                                   file_types["images"]["gif"]], default="*.png")
             if (path != None):
@@ -675,20 +680,21 @@ class Launcher():
                     logger.info(f"Input picture:{path}")
                     DrawingTools.charPicture(path)
                 else:
-                    msgbox.showerror(title=ui["error"], message=ui["launchers"]["art"]["ascii_art"]["extension_error"])
+                    msgbox.showerror(title=ui["error"], message=ui["launchers"]["art"]["asciiArt"]["extensionErroror"])
                     logger.error("File extension is incorrect")
 
         @staticmethod
         def bingPictureLauncher():
-            fname = fdg.asksaveasfilename(title=ui["launchers"]["art"]["bing_picture"]["save_as"], filetypes=[file_types["images"]["jpg"]],
+            fname = fdg.asksaveasfilename(title=ui["launchers"]["art"]["bingPicture"]["saveAs"],
+                                          filetypes=[file_types["images"]["jpg"]],
                                           defaultextension="*.jpg")
             if (fname != None):
                 logger.info(f"Input path: {fname}")
                 if (os.path.splitext(fname)[-1] == ".jpg"):
                     params = easygui.multenterbox(
-                        title=ui["launchers"]["art"]["bing_picture"]["title"],
-                        msg=ui["launchers"]["art"]["bing_picture"]["inputs"]["msg"],
-                        fields=ui["launchers"]["art"]["bing_picture"]["inputs"]["fields"])
+                        title=ui["launchers"]["art"]["bingPicture"]["title"],
+                        msg=ui["launchers"]["art"]["bingPicture"]["inputs"]["msg"],
+                        fields=ui["launchers"]["art"]["bingPicture"]["inputs"]["fields"])
                     if (params != None != ["", ""]):
                         if (params[0].isdigit()) or (params[0] == "-1"):
                             params.insert(0, fname)
@@ -698,20 +704,20 @@ class Launcher():
                                 params[0], params[1], params[2])
                             logger.info("Done.")
                             msgbox.showinfo(title=ui["info"],
-                                            message=ui["launchers"]["art"]["bing_picture"]["success"])
+                                            message=ui["launchers"]["art"]["bingPicture"]["success"])
                         else:
                             msgbox.showerror(title=ui["error"],
-                                             message=ui["launchers"]["art"]["bing_picture"]["index_err"])
+                                             message=ui["launchers"]["art"]["bingPicture"]["indexError"])
                             return
                 else:
                     logger.error("File extension is incorrect")
                     msgbox.showerror(title=ui["error"],
-                                     message=ui["launchers"]["art"]["bing_picture"]["extension_err"])
+                                     message=ui["launchers"]["art"]["bingPicture"]["extensionError"])
                     return
 
     class ExternalLauncher():
         def __init__(self):
-            msgbox.showerror(title=ui["error"], message=ui["invocation_error"])
+            msgbox.showerror(title=ui["error"], message=ui["invocationError"])
             logger.error("Invocation error")
 
         @staticmethod
@@ -720,7 +726,7 @@ class Launcher():
                 subprocess.Popen("python /src/webspeedtest/main.py")
 
             msgbox.showwarning(title=ui["warn"],
-                               message=ui["launchers"]["external"]["web_speed_test_warn"])
+                               message=ui["launchers"]["external"]["webSpeedTestWarning"])
             thread = threading.Thread(target=run)
             thread.start()
 
@@ -735,7 +741,7 @@ class Launcher():
         @staticmethod
         def hashCheckerLauncher():
             msgbox.showinfo(title="Python Utilities",
-                            message=ui["launchers"]["external"]["hash_checker_warn"])
+                            message=ui["launchers"]["external"]["hashCheckerWarning"])
 
         @staticmethod
         def passwordCreatorLauncher():
@@ -763,7 +769,7 @@ class Launcher():
 
         @staticmethod
         def pictureFormatConverterLauncher():
-            subprocess.Popen("python src/photo_format_converter/main.py")
+            subprocess.Popen("python src/phot_format_converter/main.py")
 
         @staticmethod
         def sendMailFromJSONLauncher():
@@ -786,7 +792,7 @@ class Launcher():
             subprocess.Popen("python src/Captcha_Generator/main.py")
 
         @staticmethod
-        def easyToDoLauncher():
+        def doWorkLauncher():
             subprocess.Popen("python src/EasyTodo/main.py")
 
 
@@ -797,7 +803,8 @@ class System():
 
     @staticmethod
     def languageSettings():
-        filepath = fdg.askopenfilename(title="Select Language File", filetypes=[("JSON Files", "*.json")], defaultextension="*.json")
+        filepath = fdg.askopenfilename(title="Select Language File", filetypes=[("JSON Files", "*.json")],
+                                       defaultextension="*.json")
         if (filepath):
             if (msgbox.askokcancel(title="Windows Utilitles",
                                    message=f"You choosed the file \"{filepath}\".\n" +
@@ -807,8 +814,10 @@ class System():
                 settings["language"] = filepath
                 with open("data/settings.json", "w", encoding="utf-8") as file:
                     json.dump(settings, file, indent=4, ensure_ascii=False)
-                    if (easygui.buttonbox(title="Windows Utilitles", msg="You'll have to restart the program to apply the changes.",
-                                          choices=["Restart Now", "Restart later"], default_choice="Restart Now", cancel_choice="Restart later") == "Restart Now"):
+                    if (easygui.buttonbox(title="Windows Utilitles",
+                                          msg="You'll have to restart the program to apply the changes.",
+                                          choices=["Restart Now", "Restart later"], default_choice="Restart Now",
+                                          cancel_choice="Restart later") == "Restart Now"):
                         root.destroy()
                         os.system("python main.py")
 
@@ -837,12 +846,12 @@ class System():
 
     @staticmethod
     def importSettings():
-        path = easygui.fileopenbox(title=ui["system"]["import_settings"]["open"], filetypes=[
+        path = easygui.fileopenbox(title=ui["system"]["importSettings"]["open"], filetypes=[
             ["*.json", "JSON files"]], default="*.json")
         global settings
         if (path != None):
             if (msgbox.askokcancel(title="Python Utilities",
-                                   message=ui["system"]["import_settings"]["warning"],
+                                   message=ui["system"]["importSettings"]["warning"],
                                    icon="warning")):
                 with open(path, "r+", encoding="utf-8") as new_settings:
                     new_settings = new_settings.read()
@@ -852,7 +861,7 @@ class System():
                         settings.write(json.dumps(
                             new_settings, ensure_ascii=False, indent=4))
                         msgbox.showinfo(
-                            title="Python Utilities", message=ui["system"]["import_settings"]["complete"])
+                            title="Python Utilities", message=ui["system"]["importSettings"]["complete"])
                         logger.info("Settings imported")
 
 
@@ -900,23 +909,28 @@ def main():
     utilitiesLabel = ttk.Label(
         root, text=main_ui_src["utilities"]["title"], font=("Helvetica", 18, "normal"))
     utilitiesLabel.pack()  # Utilities label
-    translateButton = ttk.Button(text=main_ui_src["utilities"]["translator"], command=Launcher.DevToolsLauncher.translatorLauncher,
+    translateButton = ttk.Button(text=main_ui_src["utilities"]["translator"],
+                                 command=Launcher.DevToolsLauncher.translatorLauncher,
                                  bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     translateButton.pack()  # Translator button
-    weatherButton = ttk.Button(root, text=main_ui_src["utilities"]["weather_report"], command=Launcher.ExternalLauncher.weatherLauncher,
+    weatherButton = ttk.Button(root, text=main_ui_src["utilities"]["weatherReport"],
+                               command=Launcher.ExternalLauncher.weatherLauncher,
                                bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     weatherButton.pack()  # Weather forecast button
-    speech2textButton = ttk.Button(root, text=main_ui_src["utilities"]["speech2text"], command=Launcher.ExternalLauncher.speech2textLauncher,
+    speech2textButton = ttk.Button(root, text=main_ui_src["utilities"]["speech2text"],
+                                   command=Launcher.ExternalLauncher.speech2textLauncher,
                                    bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     speech2textButton.pack()  # Speech-to-text button
-    easyToDoButton = ttk.Button(root, text=main_ui_src["utilities"]["to-do"], command=Launcher.ExternalLauncher.easyToDoLauncher,
-                                bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
-    easyToDoButton.pack()  # Easy To Do button
+    doWorkButton = ttk.Button(root, text=main_ui_src["utilities"]["to-do"],
+                              command=Launcher.ExternalLauncher.doWorkLauncher,
+                              bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
+    doWorkButton.pack()  # Easy To Do button
     # ===================================== #
     DevToolsLabel = ttk.Label(root, text=main_ui_src["dev"]["title"],
                               font=("Helvetica", 18, "normal"))
     DevToolsLabel.pack()  # Developer Tools label
-    connectButton = ttk.Button(text=main_ui_src["dev"]["connect_info"], command=Launcher.DevToolsLauncher.webConnectTestLauncher,
+    connectButton = ttk.Button(text=main_ui_src["dev"]["connectInformation"],
+                               command=Launcher.DevToolsLauncher.webConnectTestLauncher,
                                bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     connectButton.pack()  # Detect network connections
     # speedTestButton = ttk.Button(root, text=main_ui_src["dev"]["speedtest"], command=Launcher.ExternalLauncher.webSpeedTsetLauncher,
@@ -926,7 +940,7 @@ def main():
     externalsLabel = ttk.Label(
         root, text=main_ui_src["others"]["title"], font=("Helvetica", 18, "normal"))
     externalsLabel.pack()  # Other Tools tabs
-    passwordCreatorButton = ttk.Button(root, text=main_ui_src["others"]["pwd_creator"],
+    passwordCreatorButton = ttk.Button(root, text=main_ui_src["others"]["passwordCreator"],
                                        command=Launcher.ExternalLauncher.passwordCreatorLauncher,
                                        bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     passwordCreatorButton.pack()  # Password generator button
@@ -941,46 +955,49 @@ def main():
         if not (settings["no-settings-menu"]):
             menu.add_cascade(label=menu_src["settings"]["title"], menu=settingsMenu)
         menu.add_command(label=menu_src["about"], command=System.about)
-        fileMenu.add_command(label=menu_src["file"]["import_settings"], command=System.importSettings)
+        fileMenu.add_command(label=menu_src["file"]["importSettings"], command=System.importSettings)
         fileMenu.add_command(label=menu_src["file"]["exit"], command=System.quitApp)
         otherMenu.add_command(
             label=menu_src["other"]["calculator"], command=Launcher.ExternalLauncher.calculatorLauncher)
         otherMenu.add_command(
-            label=menu_src["other"]["hash_checker"], command=Launcher.ExternalLauncher.hashCheckerLauncher)
+            label=menu_src["other"]["hashChecker"], command=Launcher.ExternalLauncher.hashCheckerLauncher)
         otherMenu.add_command(
-            label=menu_src["other"]["licence_creator"], command=Launcher.ExternalLauncher.licenceCreatorLauncher)
+            label=menu_src["other"]["licenceCreator"], command=Launcher.ExternalLauncher.licenceCreatorLauncher)
         otherMenu.add_command(
             label=menu_src["other"]["smfj"], command=Launcher.ExternalLauncher.sendMailFromJSONLauncher)
         ipToolsMenu = ttk.Menu(otherMenu)
-        otherMenu.add_cascade(label=menu_src["other"]["ip_tools"]["title"], menu=ipToolsMenu)
+        otherMenu.add_cascade(label=menu_src["other"]["ipTools"]["title"], menu=ipToolsMenu)
         ipToolsMenu.add_command(
-            label=menu_src["other"]["ip_tools"]["get_ip"], command=Launcher.DevToolsLauncher.getIPLauncher)
+            label=menu_src["other"]["ipTools"]["getIP"], command=Launcher.DevToolsLauncher.getIPLauncher)
         ipToolsMenu.add_command(
-            label=menu_src["other"]["ip_tools"]["resolve_doamin"], command=Launcher.DevToolsLauncher.resolveDomainLauncher)
+            label=menu_src["other"]["ipTools"]["resolveDoamin"],
+            command=Launcher.DevToolsLauncher.resolveDomainLauncher)
         fileToolsMenu = ttk.Menu(otherMenu)
-        otherMenu.add_cascade(label=menu_src["other"]["file_tools"]["title"], menu=fileToolsMenu)
+        otherMenu.add_cascade(label=menu_src["other"]["fileTools"]["title"], menu=fileToolsMenu)
         fileToolsMenu.add_command(
-            label=menu_src["other"]["file_tools"]["json_to_xml"], command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
+            label=menu_src["other"]["fileTools"]["jsonToXml"], command=Launcher.DevToolsLauncher.JSONtoXMLLauncher)
         fileToolsMenu.add_command(
-            label=menu_src["other"]["file_tools"]["xml_to_json"], command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
+            label=menu_src["other"]["fileTools"]["xmlToJson"], command=Launcher.DevToolsLauncher.XMLtoJSONLauncher)
         fileToolsMenu.add_command(
-            label=menu_src["other"]["file_tools"]["json_to_csv"], command=Launcher.DevToolsLauncher.JSONtoCSVLauncher)
+            label=menu_src["other"]["fileTools"]["jsonToCsv"], command=Launcher.DevToolsLauncher.JSONtoCSVLauncher)
         fileToolsMenu.add_command(
-            label=menu_src["other"]["file_tools"]["csv_to_json"], command=Launcher.DevToolsLauncher.CSVtoJSONLauncher)
-        fileToolsMenu.add_command(label=menu_src["other"]["file_tools"]["diff"], command=DevTools.FileDiffTools)
+            label=menu_src["other"]["fileTools"]["csvToJson"], command=Launcher.DevToolsLauncher.CSVtoJSONLauncher)
+        fileToolsMenu.add_command(label=menu_src["other"]["fileTools"]["diff"], command=DevTools.FileDiffTools)
         qrcodeToolsMenu = ttk.Menu(otherMenu)
-        otherMenu.add_cascade(label=menu_src["other"]["qrcode_tools"]["title"], menu=qrcodeToolsMenu)
+        otherMenu.add_cascade(label=menu_src["other"]["qrcodeTools"]["title"], menu=qrcodeToolsMenu)
         qrcodeToolsMenu.add_command(
-            label=menu_src["other"]["qrcode_tools"]["generate"], command=Launcher.ExternalLauncher.qrcodeGeneratorLauncher)
+            label=menu_src["other"]["qrcodeTools"]["generate"],
+            command=Launcher.ExternalLauncher.qrcodeGeneratorLauncher)
         qrcodeToolsMenu.add_command(
-            label=menu_src["other"]["qrcode_tools"]["parse"], command=Launcher.ExternalLauncher.qrcodeParserLauncher)
+            label=menu_src["other"]["qrcodeTools"]["parse"], command=Launcher.ExternalLauncher.qrcodeParserLauncher)
         otherMenu.add_separator()
         otherMenu.add_command(
-            label=menu_src["other"]["ascii_art"], command=Launcher.DrawingToolsLauncher.charPictureLauncher)
+            label=menu_src["other"]["asciiArt"], command=Launcher.DrawingToolsLauncher.charPictureLauncher)
         otherMenu.add_command(
-            label=menu_src["other"]["bing_picture"], command=Launcher.DrawingToolsLauncher.bingPictureLauncher)
+            label=menu_src["other"]["bingPicture"], command=Launcher.DrawingToolsLauncher.bingPictureLauncher)
         otherMenu.add_command(
-            label=menu_src["other"]["picture_convertor"], command=Launcher.ExternalLauncher.pictureFormatConverterLauncher)
+            label=menu_src["other"]["pictureConvertor"],
+            command=Launcher.ExternalLauncher.pictureFormatConverterLauncher)
         otherMenu.add_command(
             label=menu_src["other"]["amk"], command=Launcher.ExternalLauncher.AMKLauncher)
         otherMenu.add_command(
@@ -989,9 +1006,9 @@ def main():
         otherMenu.add_command(
             label=menu_src["other"]["clock"], command=Launcher.ExternalLauncher.clockLauncher)
         otherMenu.add_command(
-            label=menu_src["other"]["count_down"], command=Launcher.ExternalLauncher.countDownLauncher)
+            label=menu_src["other"]["countDown"], command=Launcher.ExternalLauncher.countDownLauncher)
         otherMenu.add_command(
-            label=menu_src["other"]["pinyin_dictionary"], command=Launcher.ExternalLauncher.pinyinLauncher)
+            label=menu_src["other"]["pinyinDictionary"], command=Launcher.ExternalLauncher.pinyinLauncher)
         if not (settings["no-settings-menu"]):
             themesMenu = ttk.Menu(settingsMenu)
             settingsMenu.add_cascade(label=menu_src["settings"]["themes"], menu=themesMenu)

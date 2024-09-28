@@ -88,7 +88,7 @@ class App(ttk.Window):
         id = self.search_id()
         if id == -1:
             msgbox.showerror(
-                ui_src["error"], ui["infos"]["not_included_err"])
+                ui_src["error"], ui["infos"]["notIncludedError"])
             return
         try:
             content = requests.get(
@@ -100,10 +100,10 @@ class App(ttk.Window):
 {ui["infos"]["weather"]}
 {ui["infos"]["forecast_for_tomorrow"]}
 {ui["infos"]["forecast_for_day_after_tomorrow"]}
-{ui["infos"]["forecast_for_day4"]}
-{ui["infos"]["forecast_for_day5"]}
-{ui["infos"]["forecast_for_day6"]}
-{ui["infos"]["forecast_for_day7"]}
+{ui["infos"]["forecastForDay4"]}
+{ui["infos"]["forecastForDay5"]}
+{ui["infos"]["forecastForDay6"]}
+{ui["infos"]["forecastForDay7"]}
 """
             text = text.format(
                 city=self.entry2.get(),
@@ -120,11 +120,11 @@ class App(ttk.Window):
             )
             msgbox.showinfo(ui["infos"]["complete"], text)
         except requests.exceptions.ConnectionError as err:
-            msgbox.showerror(ui_src["error"], ui["infos"]["error_network"])
+            msgbox.showerror(ui_src["error"], ui["infos"]["errorNetwork"])
             logger.error(repr(err))
             return
         except Exception as err:
-            msgbox.showerror(ui_src["error"], ui["infos"]["unknown_error"])
+            msgbox.showerror(ui_src["error"], ui["infos"]["unknownError"])
             logger.error(repr(err))
             return
 
@@ -135,9 +135,9 @@ if __name__ == "__main__":
             reader = csv.reader(f)
             city_list = list(reader)
     except FileNotFoundError:
-        msgbox.showerror(ui_src["error"], ui["infos"]["error_data_not_found"])
+        msgbox.showerror(ui_src["error"], ui["infos"]["errorDataNotFound"])
         exit(1)
     except OSError:
-        msgbox.showerror(ui_src["error"], ui["infos"]["error_data"])
+        msgbox.showerror(ui_src["error"], ui["infos"]["errorData"])
         exit(2)
     App()

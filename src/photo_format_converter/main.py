@@ -36,7 +36,7 @@ class App(ttk.Window):
             self, text=ui["title"], font=(
                 "Arial", 20))
         self.main_title.pack(pady=10)
-        self.image_path = ttk.StringVar(value=ui["choose_photo"])
+        self.image_path = ttk.StringVar(value=ui["choosePhoto"])
         self.input_button = ttk.Button(
             self, textvariable=self.image_path, command=self.open_file)
         self.input_button.pack(pady=10)
@@ -52,8 +52,8 @@ class App(ttk.Window):
             self.image_path.set(file_path)
 
     def convert(self):
-        if self.image_path.get() == ui["choose_photo"]:
-            msgbox.showwarning(ui_src["warn"], ui["no_picture_selected_err"])
+        if self.image_path.get() == ui["choosePhoto"]:
+            msgbox.showwarning(ui_src["warn"], ui["noPictureSelectedError"])
             return
         image = Image.open(self.image_path.get())
         output = fdg.asksaveasfilename(

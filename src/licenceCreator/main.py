@@ -20,7 +20,7 @@ with open("../../data/settings.json", "r") as settings:
 with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
     ui_src_file = ui_src_file.read()
     file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
-    ui = json.loads(ui_src_file)["externals"]["licence_creator"]  # type: dict[str: str]
+    ui = json.loads(ui_src_file)["externals"]["licenceCreator"]  # type: dict[str: str]
     ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 with open("models/apache-v2.txt", "r", encoding="utf-8") as apache:
@@ -53,7 +53,7 @@ class App(ttk.Window):
         self.mainlabel.grid(row=0, column=0, pady=10, padx=10, rowspan=2)
         # 创建主标题
         self.licence_label = ttk.Label(
-            self, text=ui["type_choose"], font=(
+            self, text=ui["typeChoose"], font=(
                 "Arial", 15))
         self.licence_label.grid(row=2, column=0, pady=10, padx=10)
         # 创建下拉菜单
@@ -90,7 +90,7 @@ class App(ttk.Window):
         self.usage_entry = ttk.Entry(self)
         self.usage_entry.grid(row=6, column=1, pady=10, padx=10)
         self.project_name_label = ttk.Label(
-            self, text=ui["params"]["proj_name"], font=("Arial", 12))
+            self, text=ui["params"]["projectName"], font=("Arial", 12))
         self.project_name_label.grid(row=7, column=0, pady=10, padx=10)
         self.project_name_entry = ttk.Entry(self)
         self.project_name_entry.grid(row=7, column=1, pady=10, padx=10)
@@ -112,7 +112,7 @@ class App(ttk.Window):
         usage = self.usage_entry.get()
         project_name = self.project_name_entry.get()
         # 创建LicenceCreator对象
-        licence_creator = LicenceCreator(
+        licenceCreator = LicenceCreator(
             self.licence_var.get(), {
                 "name": name, "year": year, "usage": usage, "project_name": project_name})
         # 保存Licence
@@ -120,9 +120,9 @@ class App(ttk.Window):
             defaultextension="LICENCE.txt", filetypes=[
                 file_types["txt"], file_types["no"]])
         if path:
-            path.write(licence_creator.licence)
+            path.write(licenceCreator.licence)
             path.close()
-            msgbox.showinfo(ui["complete"], ui["save_complete"])
+            msgbox.showinfo(ui["complete"], ui["saveComplete"])
 
 
 class LicenceCreator():

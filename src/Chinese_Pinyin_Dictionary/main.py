@@ -11,7 +11,7 @@ with open("../../data/settings.json", "r") as settings:
 with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
     ui_src_file = ui_src_file.read()
     file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
-    ui = json.loads(ui_src_file)["externals"]["chinese_pinyin_dictionary"]  # type: dict[str: str]
+    ui = json.loads(ui_src_file)["externals"]["chinesePinyinDictionary"]  # type: dict[str: str]
     ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 

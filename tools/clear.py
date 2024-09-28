@@ -46,7 +46,7 @@ def clear_caches():
 
 
 def clear_profiles():
-    result = msgbox.askyesno(ui_src["warn"], ui["infos"]["user_data_warn"], icon="warning")
+    result = msgbox.askyesno(ui_src["warn"], ui["infos"]["userDataWarning"], icon="warning")
     if result:
         with open("../data/theme.json", "w", encoding="utf-8") as f:
             f.write("{\"theme\": \"cosmo\"}")
@@ -56,7 +56,7 @@ def clear_profiles():
         print("Deleted all log files")
         clear_caches()
         print("Deleted all cache files")
-        msgbox.showinfo(ui_src["info"], ui["infos"]["user_data"])
+        msgbox.showinfo(ui_src["info"], ui["infos"]["userData"])
 
 
 def main():
@@ -67,7 +67,7 @@ def main():
     title_label = ttk.Label(root, text=ui["title"], font=("Arial", 20, "bold"))
     clear_log = ttk.Button(root, text=ui["buttons"]["log"], command=clear_logs, bootstyle="primary-outline")
     clear_cache = ttk.Button(root, text=ui["buttons"]["pycache"], command=clear_caches, bootstyle="primary-outline")
-    clear_profile = ttk.Button(root, text=ui["buttons"]["user_data"], command=clear_profiles, bootstyle="danger-outline")
+    clear_profile = ttk.Button(root, text=ui["buttons"]["userData"], command=clear_profiles, bootstyle="danger-outline")
     title_label.pack(pady=20)
     clear_log.pack(pady=10)
     clear_cache.pack(pady=10)

@@ -114,12 +114,12 @@ class App(ttk.Window):
         self.maintitle = ttk.Label(
             self, text=ui["title"], font=(
                 "Helvetica", 20, "bold"))
-        self.file = ttk.StringVar(self, value=ui["choose_audio"])
+        self.file = ttk.StringVar(self, value=ui["chooseAudio"])
         self.filechoose = ttk.Button(
             self,
             textvariable=self.file,
             bootstyle="primary-outline",
-            command=self.choose_file)
+            command=self.chooseFile)
         self.modelchoose = ttk.Combobox(
             self, values=MODELS, width=15, font=(
                 "Helvetica", 16, "normal"))
@@ -134,14 +134,14 @@ class App(ttk.Window):
         self.modelchoose.pack(pady=10)
         self.convert.pack(pady=10)
 
-    def choose_file(self):
+    def chooseFile(self):
         self.file.set(fdg.askopenfilename(filetypes=[file_types["wav"]]))
 
     def convert_file(self):
-        if self.file.get() != ui["choose_audio"]:
+        if self.file.get() != ui["chooseAudio"]:
             convert.convert(self.file.get(), self.modelchoose.get())
         else:
-            msgbox.showerror(ui_src["error"], ui["error_info"])
+            msgbox.showerror(ui_src["error"], ui["errorInformation"])
 
 
 if __name__ == "__main__":

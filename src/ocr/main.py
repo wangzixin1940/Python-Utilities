@@ -44,8 +44,8 @@ class App(ttk.Window):
         self.maintitle.pack(pady=10)
         self.image_choose_button = ttk.Button(
             self,
-            text=ui["choose_image"],
-            command=self.choose_image,
+            text=ui["chooseImage"],
+            command=self.chooseImage,
             width=10,
             bootstyle="primary-outline")
         self.image_choose_button.pack(pady=10)
@@ -69,7 +69,7 @@ class App(ttk.Window):
         # 主循环
         self.mainloop()
 
-    def choose_image(self):
+    def chooseImage(self):
         self.image = fd.askopenfilename(
             filetypes=[file_types["images"]["jpg"], file_types["images"]["png"], file_types["images"]["bmp"]])
         self.image_choose_button.configure(

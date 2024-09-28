@@ -80,7 +80,7 @@ class Calculator(ttk.Window):
                 case "±":
                     if self.data[-1] in self.signs:
                         msgbox.showerror(
-                            ui_src["error"], ui["positivity_err"])
+                            ui_src["error"], ui["positivityError"])
                     else:
                         self.data[-1] = str(-float(self.data[-1]))
                         self.result_value.set("".join(self.data))
@@ -89,13 +89,13 @@ class Calculator(ttk.Window):
                         self.data = [str(eval("".join(self.data)))]
                         self.result_value.set("".join(self.data))
                     except ZeroDivisionError:
-                        msgbox.showerror(ui_src["error"], ui["divide_by_zero_err"])
+                        msgbox.showerror(ui_src["error"], ui["divideByZeroError"])
                         self.data = []
                     except ValueError:
-                        msgbox.showerror(ui_src["error"], ui["overflow_err"].format(max=str(sys.get_int_max_str_digits()) + "**10 - 1"))
+                        msgbox.showerror(ui_src["error"], ui["overflowError"].format(max=str(sys.get_int_max_str_digits()) + "**10 - 1"))
                         self.data = []
                     except Exception as err:
-                        msgbox.showerror(ui_src["error"], ui["expression_err"].format(repr(err)))
+                        msgbox.showerror(ui_src["error"], ui["expressionError"].format(repr(err)))
             self.previous_type = "function"
         elif (text in self.signs):  # 符号
             match text:

@@ -20,7 +20,7 @@ with open("../../data/settings.json", "r") as settings:
 with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
     ui_src_file = ui_src_file.read()
     file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
-    ui = json.loads(ui_src_file)["externals"]["easy_todo"]  # type: dict[str: str]
+    ui = json.loads(ui_src_file)["externals"]["easyToDo"]  # type: dict[str: str]
     ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 with open("data/todo_list.json", "r", encoding="utf-8") as f:
@@ -161,14 +161,14 @@ class App(ttk.Window):
             self.TodoOperation.add(input_text.get("1.0", "end").strip())
             self.initialize()
             input_tk.destroy()
-        input_tk = ttk.Window(title=ui["inputs"]["add_msg"], themename="cosmo")
+        input_tk = ttk.Window(title=ui["inputs"]["addMessage"], themename="cosmo")
         input_tk.geometry("500x500")
         input_tk.resizable(False, False)
         input_tk.iconbitmap("assets/add.ico")
         input_tk.wm_attributes("-toolwindow", True)
         input_tk.wm_attributes("-topmost", True)
         # Create an input form
-        main_title = ttk.Label(input_tk, text=ui["inputs"]["add_msg"], font=("Airal", 12))
+        main_title = ttk.Label(input_tk, text=ui["inputs"]["addMessage"], font=("Airal", 12))
         main_title.configure(background="#FFFFFF")
         main_title.grid(row=0, columnspan=2)
         # Title
@@ -191,14 +191,14 @@ class App(ttk.Window):
             self.TodoOperation.modify(input_text.get("1.0", "end-1c"), self.listbox_selection_get())
             self.initialize()
             input_tk.destroy()
-        input_tk = ttk.Window(title=ui["inputs"]["modify_msg"], themename="cosmo")
+        input_tk = ttk.Window(title=ui["inputs"]["modifyMessage"], themename="cosmo")
         input_tk.geometry("500x500")
         input_tk.resizable(False, False)
         input_tk.iconbitmap("assets/modify.ico")
         input_tk.wm_attributes("-toolwindow", True)
         input_tk.wm_attributes("-topmost", True)
         # Create an input form
-        main_title = ttk.Label(input_tk, text=ui["inputs"]["modify_msg"], font=("Airal", 12))
+        main_title = ttk.Label(input_tk, text=ui["inputs"]["modifyMessage"], font=("Airal", 12))
         main_title.configure(background="#FFFFFF")
         main_title.grid(row=0, columnspan=2)
         # Title

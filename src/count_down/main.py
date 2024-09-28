@@ -11,7 +11,7 @@ with open("../../data/settings.json", "r") as settings:
 with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
     ui_src_file = ui_src_file.read()
     file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
-    ui = json.loads(ui_src_file)["externals"]["count_down"]  # type: dict[str: str]
+    ui = json.loads(ui_src_file)["externals"]["countDown"]  # type: dict[str: str]
     ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 
@@ -37,12 +37,12 @@ class App(ttk.Window):
         self.style_set = ttk.Style("cosmo")
         self.style_set.configure("TButton", width=15, font=("Airal", 14, "normal"))
         self.main_title = ttk.Label(self, text=ui["title"], font=("Airal", 18, "bold"))
-        self.do_work = ttk.Button(self, text=ui["do_work"], command=self.do_work)
+        self.doWork = ttk.Button(self, text=ui["doWork"], command=self.doWork)
         self.main_title.pack()
-        self.do_work.pack()
+        self.doWork.pack()
         self.mainloop()
 
-    def count_down(self, count_time: int):
+    def countDown(self, count_time: int):
         """
         Countdown
         Args:
@@ -60,10 +60,10 @@ class App(ttk.Window):
                 time.sleep(0.8)
         self.Beep.done(mode)
 
-    def do_work(self):
-        sec = easygui.enterbox(ui["input_msg"])
+    def doWork(self):
+        sec = easygui.enterbox(ui["inputMessage"])
         if (sec != None != ""):
-            self.count_down(int(sec))
+            self.countDown(int(sec))
 
     class Beep:
         @staticmethod

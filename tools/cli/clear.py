@@ -39,7 +39,7 @@ def clear_caches():
             shutil.rmtree(dir)
         print(ui["infos"]["pycache"])
     else:
-        print(ui["infos"]["pycache_not_found"])
+        print(ui["infos"]["pycacheNotFound"])
 
 
 def clear_profiles():
@@ -48,7 +48,7 @@ def clear_profiles():
     os.remove("../data/translator.appid.json")
     clear_logs()
     clear_caches()
-    print(ui["infos"]["user_data"])
+    print(ui["infos"]["userData"])
 
 
 argvs = sys.argv
@@ -56,7 +56,7 @@ argvs = sys.argv
 if len(argvs) <= 1:
     for line in ui["usage"]:
         print(line)
-    print(ui["errors"]["params_not_found"])
+    print(ui["errors"]["paramsNotFound"])
     exit(1)
 
 if "/l" in argvs:
@@ -66,7 +66,7 @@ if "/c" in argvs:
     clear_caches()
 
 if "/p" in argvs:
-    config = input(ui["infos"]["user_data_warn"])
+    config = input(ui["infos"]["userDataWarning"])
     if config == "0000":
         clear_profiles()
     else:
@@ -79,7 +79,7 @@ if "/?" in argvs:
 if "/l" not in argvs and "/c" not in argvs and "/p" not in argvs:
     for line in ui["usage"]:
         print(line)
-    print(ui["errors"]["error_param"])
+    print(ui["errors"]["errorParam"])
     exit(2)
 
 exit(0)

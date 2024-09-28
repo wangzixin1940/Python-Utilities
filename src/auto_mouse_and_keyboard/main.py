@@ -81,15 +81,15 @@ class App(ttk.Window):
             command=self.open_file,
             width=15,
             bootstyle="primary-outline")
-        self.do_work_btn = ttk.Button(
+        self.doWork_btn = ttk.Button(
             self,
             text=ui["launch"],
-            command=self.do_work,
+            command=self.doWork,
             width=15,
             bootstyle="success-outline")
         self.main_title.pack(pady=20)
         self.input_file.pack(pady=10)
-        self.do_work_btn.pack(pady=10)
+        self.doWork_btn.pack(pady=10)
         self.mainloop()
 
     def open_file(self):
@@ -98,7 +98,7 @@ class App(ttk.Window):
                 title=ui["open"], filetypes=[
                     file_types["amk"], file_types["py"]]))
 
-    def do_work(self):
+    def doWork(self):
         if self.file.get() != ui["open"]:
             with open(self.file.get(), "r", encoding="utf-8") as f:
                 data = f.read()
@@ -112,9 +112,9 @@ class App(ttk.Window):
                                 traceback.print_exc()}")
                 else:
                     msgbox.showerror(
-                        ui_src["error"], ui["not_enable"])
+                        ui_src["error"], ui["notEnable"])
         else:
-            msgbox.showerror(ui_src["error"], ui["file_not_found"])
+            msgbox.showerror(ui_src["error"], ui["fileNotFound"])
 
 
 if __name__ == "__main__":

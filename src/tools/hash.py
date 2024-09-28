@@ -69,11 +69,11 @@ def main():
     if len(argvs) > 5 or len(argvs) < 2:
         for line in ui["usage"]:
             print(line)
-        print(ui["errors"]["param_count_err"])
+        print(ui["errors"]["paramCountError"])
         return 1
     filename = argvs[1].strip()
     if not os.path.isfile(filename):
-        print(ui["file_not_found"])
+        print(ui["fileNotFound"])
         return 2
     if "--check" in argvs and len(argvs) == 5:
         if "-md5" == argvs[3]:
@@ -115,23 +115,23 @@ def main():
         else:
             for line in ui["usage"]:
                 print(line)
-            print("param_err")
+            print("paramError")
     elif "--check" in argvs and len(argvs) in [3, 4]:
         for line in ui["usage"]:
             print(line)
-        print(ui["errors"]["required_param_missing_err"])
+        print(ui["errors"]["requiredParamMissingError"])
         return 3
     elif len(argvs) > 5:
         for line in ui["usage"]:
             print(line)
-        print(ui["errors"]["param_count_too_many"])
+        print(ui["errors"]["paramTooManyError"])
         return 5
     elif len(argvs) == 2:
-        print(ui["prompts"]["information"]["file_name"], filename)
-        print(ui["prompts"]["information"]["file_size"], os.path.getsize(filename), "字节")
-        print(ui["prompts"]["information"]["file_type"], os.path.splitext(filename)[1])
+        print(ui["prompts"]["information"]["fileName"], filename)
+        print(ui["prompts"]["information"]["fileSize"], os.path.getsize(filename), "字节")
+        print(ui["prompts"]["information"]["fileType"], os.path.splitext(filename)[1])
         print(
-            ui["prompts"]["information"]["the_last_time_the_file_was_modified"],
+            ui["prompts"]["information"]["lastModifiedTime"],
             time.strftime(
                 "%Y-%m-%d %H:%M:%S",
                 time.localtime(

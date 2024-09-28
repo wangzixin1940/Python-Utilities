@@ -16,7 +16,7 @@ with open("../../data/settings.json", "r") as settings:
 with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
     ui_src_file = ui_src_file.read()
     file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
-    ui = json.loads(ui_src_file)["externals"]["system_info"]  # type: dict[str: str]
+    ui = json.loads(ui_src_file)["externals"]["systemInformation"]  # type: dict[str: str]
     ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 logging.basicConfig(
@@ -46,42 +46,42 @@ class Functions:
             os.system("clear")
         match choice:
             case "1":
-                print(f"{ui["system_class"]["architecture"]} {platform.architecture()}")
+                print(f"{ui["systemClass"]["architecture"]} {platform.architecture()}")
             case "2":
-                print(f"{ui["system_class"]["machine"]} {platform.machine()}")
+                print(f"{ui["systemClass"]["machine"]} {platform.machine()}")
             case "3":
-                print(f"{ui["system_class"]["platform"]} {platform.platform()}")
+                print(f"{ui["systemClass"]["platform"]} {platform.platform()}")
             case "4":
-                print(f"{ui["system_class"]["cpu"]} {platform.processor()}")
+                print(f"{ui["systemClass"]["cpu"]} {platform.processor()}")
             case "5":
-                print(f"{ui["system_class"]["release"]} {platform.release()}")
+                print(f"{ui["systemClass"]["release"]} {platform.release()}")
             case "6":
-                print(f"{ui["system_class"]["name"]} {platform.system()}")
+                print(f"{ui["systemClass"]["name"]} {platform.system()}")
             case "7":
-                print(f"{ui["system_class"]["machine_name"]} {platform.node()}")
+                print(f"{ui["systemClass"]["machineName"]} {platform.node()}")
             case "8":
-                print(f"{ui["system_class"]["windows_edition"]} {platform.win32_edition()}")
+                print(f"{ui["systemClass"]["windowsEdition"]} {platform.win32_edition()}")
             case "9":
-                print(f"{ui["system_class"]["mac_version"]} {platform.mac_ver()}")
+                print(f"{ui["systemClass"]["macVersion"]} {platform.mac_ver()}")
             case "0":
-                print(f"{ui["system_class"]["freedesktop_os_release"]} {platform.freedesktop_os_release()}")
+                print(f"{ui["systemClass"]["freedesktopOSRelease"]} {platform.freedesktopOSRelease()}")
             case "a":
-                print(f"{ui["python_class"]["build"]} {platform.python_build()}")
+                print(f"{ui["pythonClass"]["build"]} {platform.python_build()}")
             case "b":
-                print(f"{ui["python_class"]["compiler"]} {platform.python_compiler()}")
+                print(f"{ui["pythonClass"]["compiler"]} {platform.python_compiler()}")
             case "c":
-                print(f"{ui["python_class"]["implementation"]} {platform.python_implementation()}")
+                print(f"{ui["pythonClass"]["implementation"]} {platform.python_implementation()}")
             case "d":
-                print(f"{ui["python_class"]["python_version"]} {platform.python_version()}")
+                print(f"{ui["pythonClass"]["pythonVersion"]} {platform.pythonVersion()}")
             case "e":
-                print(f"{ui["python_class"]["jpython_ver"]} {platform.java_ver()}")
+                print(f"{ui["pythonClass"]["jpythonVersion"]} {platform.java_ver()}")
             case "ab":
-                for line in ui["about_text"]:
+                for line in ui["aboutText"]:
                     print(line)
             case "x":
                 return 1
             case _:
-                print(ui["error_option"])
+                print(ui["errorOption"])
         return 0
 
 
@@ -89,7 +89,7 @@ def main():
     functions = Functions()
     while True:
         functions.show_choices()
-        choice = input(ui["input_option"])
+        choice = input(ui["inputOption"])
         try:
             result = functions.match_choice_and_run(choice)
             logger.info(f"User chose option {choice} .")
@@ -100,7 +100,7 @@ def main():
             logger.warning("User cancelled operation.")
             break
         except Exception as e:
-            print(ui["error_occurred"].format(err=repr(e)))
+            print(ui["errorOccurred"].format(err=repr(e)))
             logger.error(f"Error occurred: {repr(e)}")
 
 

@@ -97,15 +97,15 @@ class App(ttk.Window):
 
     def generate_captcha(self):
         if (self.option.get()):
-            font_path = fdg.askopenfilenames(title=ui["inputs"]["choose_fonts"], filetypes=[("字体文件", ("*.ttf", "*.otf"))])
+            font_path = fdg.askopenfilenames(title=ui["inputs"]["chooseFonts"], filetypes=[("字体文件", ("*.ttf", "*.otf"))])
             if font_path:
-                file_path = fdg.asksaveasfilename(title=ui["inputs"]["save_as"], filetypes=[("图片文件", "*.png")])
+                file_path = fdg.asksaveasfilename(title=ui["inputs"]["saveAs"], filetypes=[("图片文件", "*.png")])
                 if file_path:
                     format = file_path.split(".")[-1]
                     Make_Captcha.image_captcha(font_path, file_path, format=format)
                     msgbox.showinfo(ui_src["info"], ui["complete"])
         else:
-            msgbox.showwarning(ui_src["warn"], ui["future_warn"])
+            msgbox.showwarning(ui_src["warn"], ui["futureWarning"])
 #            voices_dir = fdg.askdirectory(title="选择源音频目录")
 #            if voices_dir:
 #                file_path = fdg.asksaveasfilename(title="保存音频验证码", filetypes=[("音频文件", "*.wav")])

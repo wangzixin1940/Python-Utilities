@@ -46,7 +46,7 @@ with open("../../data/settings.json", "r") as settings:
 with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
     ui_src_file = ui_src_file.read()
     file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
-    ui = json.loads(ui_src_file)["externals"]["pwd_creator"]  # type: dict[str: str]
+    ui = json.loads(ui_src_file)["externals"]["passwordCreator"]  # type: dict[str: str]
     ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 
@@ -116,7 +116,7 @@ class App(ttk.Window):
             msgbox.showerror("Error", "No password to copy!")
             return 1
         cb.copy(str(self.password.get("1.0", "end")))
-        msgbox.showinfo(ui["copied"], ui["complete_info"])
+        msgbox.showinfo(ui["copied"], ui["completeInformation"])
         return 0
 
     def changeValue(self):
@@ -131,7 +131,7 @@ class App(ttk.Window):
                 self.includeUppercase.get()))
         self.password.config(state="disabled")
         strength = ui["strength"]
-        self.strengthTips["text"] = ui["password_strength"] + strength[self.strengthCheck(str(self.password.get("1.0", "end")))]
+        self.strengthTips["text"] = ui["passwordStrength"] + strength[self.strengthCheck(str(self.password.get("1.0", "end")))]
 
     def __init__(self):
         super().__init__()
@@ -171,7 +171,7 @@ class App(ttk.Window):
         self.password = ttk.Text(self, width=30, height=5)
         self.password.config(state="disabled")
         self.password.pack(pady=10)
-        self.strengthTips = ttk.Label(self, text=ui["password_strength"]+ui["unknown"])
+        self.strengthTips = ttk.Label(self, text=ui["passwordStrength"]+ui["unknown"])
         self.strengthTips.pack(pady=5)
         self.copybtn = ttk.Button(
             self,
