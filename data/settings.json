@@ -11,5 +11,6 @@
     ],
     "no-menu": false,
     "icon-file-path": "@default",
-    "encoding": "utf-8"
+    "encoding": "utf-8",
+    "language": "data/languages/zh-cn.json"
 }

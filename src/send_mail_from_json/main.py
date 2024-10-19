@@ -3,11 +3,28 @@ import ttkbootstrap as ttk
 from tkinter import filedialog as fdg
 from tkinter import messagebox as msgbox
 
+import os
+import json
+
+os.chdir(os.path.dirname(__file__))
+# 更换工作目录
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["smfj"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
+
 
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
-        self.title("Send Mail From JSON")
+        self.title(ui["title"])
         self.geometry("400x300")
         self.resizable(False, False)
         self.style_set = ttk.Style("cosmo")
@@ -17,35 +34,34 @@ class App(ttk.Window):
 
     def create_widgets(self):
         self.main_title = ttk.Label(
-            self, text="Send Mail From JSON", font=(
+            self, text=ui["title"], font=(
                 "Arial", 20))
         self.main_title.pack(pady=10)
-        self.json_file = ttk.StringVar(value="请选择文件")
-        self.choose_file_button = ttk.Button(
+        self.json_file = ttk.StringVar(value=ui["chooseFile"])
+        self.chooseFile_button = ttk.Button(
             self,
             textvariable=self.json_file,
-            command=self.choose_file,
+            command=self.chooseFile,
             bootstyle="primary-outline")
-        self.choose_file_button.pack(pady=10)
+        self.chooseFile_button.pack(pady=10)
         self.send_button = ttk.Button(
             self,
-            text="发送",
+            text=ui["send"],
             command=self.send_mail,
             bootstyle="success-outline")
         self.send_button.pack(pady=10)
 
-    def choose_file(self):
+    def chooseFile(self):
         self.json_file.set(
             fdg.askopenfilename(
-                filetypes=[
-                    ("JSON Files", "*.json")]))
+                filetypes=[file_types["json"]]))
 
     def send_mail(self):
-        if (self.json_file.get() != "请选择文件"):
+        if (self.json_file.get() != ui["chooseFile"]):
             Send(self.json_file.get())
-            msgbox.showinfo("成功", "邮件发送成功！")
+            msgbox.showinfo(ui["success"], ui["successInformation"])
         else:
-            msgbox.showerror("错误", "请选择文件！")
+            msgbox.showerror(ui_src["error"], ui["errorInformation"])
 
 
 if __name__ == "__main__":

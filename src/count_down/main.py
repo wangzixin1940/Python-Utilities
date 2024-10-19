@@ -1,3 +1,20 @@
+import os
+import json
+os.chdir(os.path.dirname(__file__))
+# Change the current working directory to the directory of the script
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["countDown"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
+
+
 import platform
 import time
 import ttkbootstrap as ttk
@@ -14,22 +31,22 @@ else:
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
-        self.title("Count Down Timer")
+        self.title(ui["title"])
         self.geometry("300x200")
         self.resizable(False, False)
         self.style_set = ttk.Style("cosmo")
         self.style_set.configure("TButton", width=15, font=("Airal", 14, "normal"))
-        self.main_title = ttk.Label(self, text="Count Down Timer", font=("Airal", 18, "bold"))
-        self.do_work = ttk.Button(self, text="设置并运行", command=self.do_work)
+        self.main_title = ttk.Label(self, text=ui["title"], font=("Airal", 18, "bold"))
+        self.doWork = ttk.Button(self, text=ui["doWork"], command=self.doWork)
         self.main_title.pack()
-        self.do_work.pack()
+        self.doWork.pack()
         self.mainloop()
 
-    def count_down(self, count_time: int):
+    def countDown(self, count_time: int):
         """
-        倒计时
+        Countdown
         Args:
-            count_time: int: 等待秒数
+            count_time: int: Wait seconds
         """
         if mode:
             for i in range(1, count_time + 1):
@@ -43,19 +60,19 @@ class App(ttk.Window):
                 time.sleep(0.8)
         self.Beep.done(mode)
 
-    def do_work(self):
-        sec = easygui.enterbox("您要倒计时多少秒？\n每一次蜂鸣都代表过去了一秒。\n按确定工作，按取消终止操作。")
+    def doWork(self):
+        sec = easygui.enterbox(ui["inputMessage"])
         if (sec != None != ""):
-            self.count_down(int(sec))
+            self.countDown(int(sec))
 
     class Beep:
         @staticmethod
         def windows_beep(): winsound.Beep(1440, 200)
-        # 鸣笛，频率1440Hz，持续200ms
+        # Whistle at 1440Hz for 200ms
 
         @staticmethod
         def unix_beep(): os.system("play --no-show-progress --null --channels 1 synth 0.2 sine 1440")
-        # 鸣笛，频率1440Hz，持续200ms
+        # Whistle at 1440Hz for 200ms
 
         @staticmethod
         def done(mode: int):
@@ -67,7 +84,7 @@ class App(ttk.Window):
                     for j in range(3):
                         os.system("play --no-show-progress --null --channels 1 synth 0.05 sine 1440")
                 time.sleep(0.1)
-            # 结束时，蜂鸣器连续响六下
+            # At the end, the buzzer rings six times in a row
 
 
 if __name__ == "__main__":

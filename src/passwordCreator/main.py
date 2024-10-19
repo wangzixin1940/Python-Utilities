@@ -11,10 +11,10 @@ import sys
 import re
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
-# 更换编码
+# Change the encoding of the console output to utf-8
 
 os.chdir(os.path.dirname(__file__))
-# 更换工作目录
+# Change the current working directory to the directory of the script
 
 
 with open("../../data/settings.json", "r", encoding="utf-8") as f:
@@ -36,21 +36,36 @@ else:
 logger = logging.getLogger("PWDCTR")
 
 
+import json
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["passwordCreator"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
+
+
 def passwordCreator(
         length: int,
         includeSymbols: bool = False,
         includeNumbers: bool = True,
         includeUppercase: bool = True):
     """
-    生成密码
-    参数：
-        length: 密码长度
-        includeSymbols: 是否包含符号
-        includeNumbers: 是否包含数字
-        includeUppercase: 是否包含大写字母
-    返回值：返回密码字符串
+    Generate passwords
+    Args:
+        length: Password length
+        includeSymbols: Whether to include symbols
+        includeNumbers: Whether to include numbers
+        includeUppercase: Whether to include capital letters
+    Returns:
+        Password string
     """
-    # 密码字符集
+    # Password character set
     chars = {
         "lowers": "abcdefghijklmnopqrstuvwxyz",
         "uppers": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
@@ -66,11 +81,11 @@ def passwordCreator(
     password = ""
     try:
         for i in range(int(length)):
-            # 随机选择一个字符集
+            # A character set is selected at random
             charset = random.choice(list(chars.keys()))
-            # 随机选择一个字符
+            # Choose a character at random
             char = random.choice(chars[charset])
-            # 添加到密码字符串
+            # Add to the password string
             password += char
         return password
     except KeyError as err:
@@ -101,7 +116,7 @@ class App(ttk.Window):
             msgbox.showerror("Error", "No password to copy!")
             return 1
         cb.copy(str(self.password.get("1.0", "end")))
-        msgbox.showinfo("Copied", "Password copied to clipboard!")
+        msgbox.showinfo(ui["copied"], ui["completeInformation"])
         return 0
 
     def changeValue(self):
@@ -115,23 +130,18 @@ class App(ttk.Window):
                 self.includeNumbers.get(),
                 self.includeUppercase.get()))
         self.password.config(state="disabled")
-        strength = {
-            1: "弱",
-            2: "中等",
-            3: "强",
-            4: "很强"
-        }
-        self.strengthTips["text"] = "密码强度：" + strength[self.strengthCheck(str(self.password.get("1.0", "end")))]
+        strength = ui["strength"]
+        self.strengthTips["text"] = ui["passwordStrength"] + strength[self.strengthCheck(str(self.password.get("1.0", "end")))]
 
     def __init__(self):
         super().__init__()
-        self.title("Password Creator")
+        self.title(ui["title"])
         self.style_set = ttk.Style(theme="cosmo")
         self.geometry("400x550")
         self.resizable(False, False)
         self.iconbitmap("./assets/icon.ico")
-        self.title("Password Creator")
-        self.main_title = ttk.Label(self, text="Password Creator", font=("Arial", 20))
+        self.title(ui["title"])
+        self.main_title = ttk.Label(self, text=ui["title"], font=("Arial", 20))
         self.main_title.pack(pady=10)
         self.length = ttk.Spinbox(self, from_=4, to=32, width=10)
         self.length.set(10)
@@ -140,12 +150,12 @@ class App(ttk.Window):
         self.includeNumbers = ttk.BooleanVar(value=True)
         self.includeUppercase = ttk.BooleanVar(value=True)
         self.includeLowercase = ttk.BooleanVar(value=True)
-        self.symbols = ttk.Checkbutton(self, text="插入符号", variable=self.includeSymbols)
-        self.numbers = ttk.Checkbutton(self, text="插入数字", variable=self.includeNumbers)
-        self.uppercase = ttk.Checkbutton(self, text="插入大写字母", variable=self.includeUppercase)
+        self.symbols = ttk.Checkbutton(self, text=ui["inclubes"]["symbols"], variable=self.includeSymbols)
+        self.numbers = ttk.Checkbutton(self, text=ui["inclubes"]["numbers"], variable=self.includeNumbers)
+        self.uppercase = ttk.Checkbutton(self, text=ui["inclubes"]["uppers"], variable=self.includeUppercase)
         self.lowercase = ttk.Checkbutton(
             self,
-            text="插入小写字母",
+            text=ui["inclubes"]["lowers"],
             variable=self.includeLowercase,
             state="disabled")
         self.symbols.pack(pady=5)
@@ -154,18 +164,18 @@ class App(ttk.Window):
         self.lowercase.pack(pady=5)
         self.generate = ttk.Button(
             self,
-            text="生成",
+            text=ui["create"],
             command=lambda: self.changeValue(),
             bootstyle="success-outline")
         self.generate.pack(pady=10)
         self.password = ttk.Text(self, width=30, height=5)
         self.password.config(state="disabled")
         self.password.pack(pady=10)
-        self.strengthTips = ttk.Label(self, text="密码强度：未知")
+        self.strengthTips = ttk.Label(self, text=ui["passwordStrength"]+ui["unknown"])
         self.strengthTips.pack(pady=5)
         self.copybtn = ttk.Button(
             self,
-            text="复制",
+            text=ui["copy"],
             command=lambda: self.copyToClipboard(),
             bootstyle="outline-primary")
         self.copybtn.pack(pady=5)

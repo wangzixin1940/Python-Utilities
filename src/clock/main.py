@@ -1,3 +1,20 @@
+import os
+import json
+os.chdir(os.path.dirname(__file__))
+# Change the current working directory to the directory of the script
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["clock"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
+
+
 from turtle import *
 from datetime import datetime
 
@@ -75,14 +92,12 @@ def setup():
 
 
 def wochentag(t):
-    wochentag = ["周一", "周二", "周三",
-                 "周四", "周五", "周六", "周日"]
+    wochentag = ui["days"]
     return wochentag[t.weekday()]
 
 
 def datum(z):
-    monat = ["一月", "二月", "三月", "四月", "五月", "六月",
-             "七月", "八月", "九月", "十月", "十一月", "十二月"]
+    monat = ui["month"]
     j = z.year
     m = monat[z.month - 1]
     t = z.day
@@ -115,7 +130,7 @@ def tick():
 
 
 def main():
-    title("Clock by Python Turtle Demo(tdemo_clock.py)")
+    title(ui["title"])
     tracer(False)
     setup()
     tracer(True)

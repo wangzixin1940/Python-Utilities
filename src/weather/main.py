@@ -1,19 +1,31 @@
 """
-特别说明：
-本程序的数据均来自WWIS(World Weather Information Service，https://worldweather.wmo.int/)。
+Special Instructions:
+The data for this program are from WWIS (World Weather Information Service, https://worldweather.wmo.int/).
 """
 
 import datetime
 import logging
-import json
 import requests
 from tkinter import messagebox as msgbox
 import ttkbootstrap as ttk
 import csv
-import os
-os.chdir(os.path.dirname(__file__))
-# 更换工作目录
 
+import os
+import json
+
+os.chdir(os.path.dirname(__file__))
+# Change the working directory to the current file's directory
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["weather"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 logging.basicConfig(
     filename=f"../../logs/{datetime.date.today()}.log",
@@ -22,40 +34,41 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger("WEATHER_APP")
-# 设置logger
+# Configure the logger
 
 
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
-        self.title("天气查询")
+        self.title(ui["title"])
         self.geometry("400x300")
         self.resizable(False, False)
         self.iconbitmap("assets/favicon.ico")
         self.styleset = ttk.Style()
         self.styleset.theme_use("cosmo")
-        self.styleset.configure("TButton", font=("微软雅黑", 12), width=15)
-        # 创建控件
-        self.maintitle = ttk.Label(self, text="天气查询", font=("微软雅黑", 20))
-        self.country = ttk.Label(self, text="请输入国家名称：", font=("微软雅黑", 12))
+        self.styleset.configure("TButton", font=("Airal", 12), width=15)
+        # Create widgets
+        self.maintitle = ttk.Label(self, text=ui["title"], font=("Airal", 20))
+        self.country = ttk.Label(self, text=ui["country"], font=("Airal", 12))
         self.entry = ttk.Entry(self, width=40)
-        self.city = ttk.Label(self, text="请输入城市名称：", font=("微软雅黑", 12))
+        self.city = ttk.Label(self, text=ui["city"], font=("Airal", 12))
         self.entry2 = ttk.Entry(self, width=40)
-        self.search = ttk.Button(self, text="查询", command=self.search_weather)
-        # 布局控件
+        self.search = ttk.Button(self, text=ui["search"], command=self.search_weather)
+        # Pack widgets
         self.maintitle.pack(pady=10)
         self.country.pack(anchor="w")
         self.entry.pack(anchor="w")
         self.city.pack(anchor="w")
         self.entry2.pack(anchor="w")
         self.search.pack(pady=10)
-        # 主循环
+        # Main loop
         self.mainloop()
 
     def search_id(self) -> int:
         """
-        查找城市ID
-        返回值：城市ID
+        Find the city ID
+        Returns:
+            City ID
         """
         country = self.entry.get()
         city = self.entry2.get()
@@ -68,13 +81,14 @@ class App(ttk.Window):
 
     def search_weather(self):
         """
-        查询天气并且显示
-        返回：空值（错误）
+        Check the weather and display it
+        Returns:
+            None (if error occurred)
         """
         id = self.search_id()
         if id == -1:
             msgbox.showerror(
-                "错误", "未收录此城市，请检查输入。\n或者查看data/full_city_list.csv文件查找您的城市ID（第三列）。")
+                ui_src["error"], ui["infos"]["notIncludedError"])
             return
         try:
             content = requests.get(
@@ -82,22 +96,35 @@ class App(ttk.Window):
             json_data = content.content.decode("utf-8")
             data = json.loads(json_data)
             logger.info(data)
-            text = f"""查询成功！
-{self.entry2.get()}的天气：
-明天预测：{data["city"]["forecast"]["forecastDay"][0]["weather"]}
-后天预测：{data["city"]["forecast"]["forecastDay"][1]["weather"]}
-{data["city"]["forecast"]["forecastDay"][2]["forecastDate"]}预测：{data["city"]["forecast"]["forecastDay"][2]["weather"]}
-{data["city"]["forecast"]["forecastDay"][3]["forecastDate"]}预测：{data["city"]["forecast"]["forecastDay"][3]["weather"]}
-{data["city"]["forecast"]["forecastDay"][4]["forecastDate"]}预测：{data["city"]["forecast"]["forecastDay"][4]["weather"]}
-{data["city"]["forecast"]["forecastDay"][5]["forecastDate"]}预测：{data["city"]["forecast"]["forecastDay"][5]["weather"]}
+            text = f"""
+{ui["infos"]["weather"]}
+{ui["infos"]["forecast_for_tomorrow"]}
+{ui["infos"]["forecast_for_day_after_tomorrow"]}
+{ui["infos"]["forecastForDay4"]}
+{ui["infos"]["forecastForDay5"]}
+{ui["infos"]["forecastForDay6"]}
+{ui["infos"]["forecastForDay7"]}
 """
-            msgbox.showinfo("查询成功", text)
+            text = text.format(
+                city=self.entry2.get(),
+                tomorrow=data["city"]["forecast"]["forecastDay"][0]["weather"],
+                dat=data["city"]["forecast"]["forecastDay"][1]["weather"],
+                day4=data["city"]["forecast"]["forecastDay"][2]["forecastDate"],
+                day4f=data["city"]["forecast"]["forecastDay"][2]["weather"],
+                day5=data["city"]["forecast"]["forecastDay"][3]["forecastDate"],
+                day5f=data["city"]["forecast"]["forecastDay"][3]["weather"],
+                day6=data["city"]["forecast"]["forecastDay"][4]["forecastDate"],
+                day6f=data["city"]["forecast"]["forecastDay"][4]["weather"],
+                day7=data["city"]["forecast"]["forecastDay"][5]["forecastDate"],
+                day7f=data["city"]["forecast"]["forecastDay"][5]["weather"]
+            )
+            msgbox.showinfo(ui["infos"]["complete"], text)
         except requests.exceptions.ConnectionError as err:
-            msgbox.showerror("错误", "网络连接错误，请检查网络连接。")
+            msgbox.showerror(ui_src["error"], ui["infos"]["errorNetwork"])
             logger.error(repr(err))
             return
         except Exception as err:
-            msgbox.showerror("错误", "未知错误。")
+            msgbox.showerror(ui_src["error"], ui["infos"]["unknownError"])
             logger.error(repr(err))
             return
 
@@ -108,9 +135,9 @@ if __name__ == "__main__":
             reader = csv.reader(f)
             city_list = list(reader)
     except FileNotFoundError:
-        msgbox.showerror("错误", "未找到城市列表文件，请检查文件路径。")
+        msgbox.showerror(ui_src["error"], ui["infos"]["errorDataNotFound"])
         exit(1)
     except OSError:
-        msgbox.showerror("错误", "读取城市列表文件时发生错误。")
+        msgbox.showerror(ui_src["error"], ui["infos"]["errorData"])
         exit(2)
     App()

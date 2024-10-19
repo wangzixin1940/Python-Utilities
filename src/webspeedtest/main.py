@@ -1,27 +1,34 @@
-import json
 from tkinter import scrolledtext
 import ttkbootstrap as tkinter
 import datetime
 import logging
 import speedtest
-import os
 import io
 import sys
 import warnings
 
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
-# 更换编码
+# Change sys.stdout encoding to utf-8
+
+import os
+import json
 
 os.chdir(os.path.dirname(__file__))
-# 更换工作目录
-
-warnings.warn("This feature has been deprecated because the speedtest library has been discontinued for maintenance.", DeprecationWarning)
+# Change working directory to the directory of the script
 
 with open("../../data/settings.json", "r") as settings:
     settings = settings.read()
     settings = json.loads(settings)
-    # 读取设置文件
+    # Read the settings file
+
+with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+    ui_src_file = ui_src_file.read()
+    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
+    ui = json.loads(ui_src_file)["externals"]["speedtest"]  # type: dict[str: str]
+    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
+
+warnings.warn("This feature has been deprecated because the speedtest library has been discontinued for maintenance.", DeprecationWarning)
 
 if not (settings["no-log-file"]):
     logging.basicConfig(
@@ -57,20 +64,20 @@ def webSpeedTest():
 
 
 root = tkinter.Window()
-root.title("网速测试小程序")
+root.title(ui["title"])
 root.geometry("350x350")
 root.resizable(False, False)
 
 txt = scrolledtext.ScrolledText(root, width=45, height=20)
 txt.grid(column=0, row=0)
 
-txt.pack()  # 文本框的标题
+txt.pack()  # The title of the text box
 
 txt.insert(
     tkinter.INSERT,
-    "网速测试程序（独立版）\n基于SpeedTest.net的SpeedTest库构建\n版本 1.1\n")
+    ui["about"])
 result = webSpeedTest()
-txt.insert(tkinter.INSERT, f"上传：{result[0]} MBits/s; 下载：{result[1]} MBits/s")
+txt.insert(tkinter.INSERT, ui["info"].format(up=result[0], down=result[1]))
 txt.config(state=tkinter.DISABLED)
 
 root.mainloop()

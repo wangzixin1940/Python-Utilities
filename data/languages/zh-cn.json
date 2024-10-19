@@ -1,0 +1,501 @@
+{
+    "name": "简体中文 (中国大陆)",
+    "warning": "警告",
+    "error": "错误",
+    "info": "提示",
+    "invocationError": "调用错误！",
+    "translator": {
+        "serverError": "服务器发生错误，无法进行翻译，请到此日的log中查看详细报错信息"
+    },
+    "fileConverters": {
+        "fileNotFound": "源文件未找到！",
+        "otherErrors": "转换过程中发生错误！"
+    },
+    "fileDiff": {
+        "chooseFileOne": "选择文件1",
+        "chooseFileTwo": "选择文件2",
+        "saveAs": "保存文件",
+        "success": "保存文件成功！",
+        "error": "保存文件失败！错误代码{}"
+    },
+    "asciiArt": {
+        "successTitle": "输出成功",
+        "successMessage": "文件已经输出在和图片同一级目录下！"
+    },
+    "launchers": {
+        "dev": {
+            "webConnectTest": {
+                "input_url": "输入URL (带前缀)",
+                "error_list": {
+                    "1": "缺少前缀！",
+                    "2": "服务器错误！"
+                }
+            },
+            "translator": {
+                "informationRequired": "百度翻译需要您的AppID和秘钥才能使用。是否输入？\n翻译器承诺绝对不会把您的隐私泄露。",
+                "title": "翻译器",
+                "informationInputs": {
+                    "message": "输入AppID和秘钥",
+                    "fields": ["AppID", "秘钥"]
+                },
+                "inputs": {
+                    "text": "输入文本",
+                    "languageChooseMessage": "想输出的语言？"
+                },
+                "completeInformation": {
+                    "complete": "翻译完成！",
+                    "original": "原文：",
+                    "result": "翻译后：",
+                    "language": "翻译语言："
+                },
+                "errorInformationMessage": "缺少参数！"
+            },
+            "fileConverters": {
+                "chooseFile": {
+                    "openTitle": "打开文件",
+                    "saveTitle": "保存文件"
+                },
+                "extensionError": "文件拓展名错误!"
+            },
+            "socketTools": {
+                "getIP": {
+                    "title": "IP地址获取器",
+                    "inputMessage": "输入域名\n或者输入“@default”使用本地域名",
+                    "ip": "IP地址："
+                },
+                "resolveDomain": {
+                    "title": "域名解析器",
+                    "input": "请输入IP地址",
+                    "Domain": "解析结果："
+                }
+            }
+        },
+        "art": {
+            "asciiArt": {
+                "open": "打开文件",
+                "extensionError": "文件拓展名错误!"
+            },
+            "bingPicture": {
+                "title": "必应每日一图",
+                "saveAs": "保存文件",
+                "inputs": {
+                    "msg": "请输入信息",
+                    "fields": ["索引", "地区码"]
+                },
+                "success": "图片已保存至指定路径。",
+                "indexError": "索引必须为数字！",
+                "extensionError": "文件拓展名错误!"
+            }
+        },
+        "external": {
+            "webSpeedTestWarning": "本程序等待时间极长，大约2分钟，将在后台进行测速操作。\n等待期间仍可以正常使用此程序。",
+            "hashCheckerWarning": "HASH校验器在src/tools/hash.py，请根据提示使用(基于控制台)"
+        }
+    },
+    "system": {
+        "about": "Python Utilities v3.0.5 zh-cn\n作者：@wangzixin1940\n当前运行的Python文件：main.py\n自述文件：README.md (en-US and zh-CN)\nGNU GPLv3 License：https://github.com/wangzixin1940/Python-Utilities/blob/main/LICENCE\nVERSION 2.11 RELEASE",
+        "importSettings": {
+            "open": "打开文件",
+            "warning": "是否导入设置？\n现有的配置文件将会被覆盖。\n损坏的配置文件可能会导致程序运行错误。",
+            "complete": "设置已导入。"
+        }
+    },
+    "ui": {
+        "utilities": {
+            "title": "实用工具",
+            "translator": "翻译器",
+            "weatherReport": "天气预报",
+            "speech2text": "语音转文字",
+            "to-do": "Easy To Do"
+        },
+        "dev": {
+            "title": "开发者工具",
+            "connectInformation": "检测网站连接状态码",
+            "speedtest": "测网速"
+        },
+        "others": {
+            "title": "其他工具",
+            "passwordCreator": "密码生成器"
+        },
+        "menus": {
+            "file": {
+                "title": "文件",
+                "importSettings": "导入设置",
+                "exit": "退出"
+            },
+            "other": {
+                "title": "其他",
+                "calculator": "计算器",
+                "hashChecker": "校验哈希",
+                "licenceCreator": "许可证创造器",
+                "smfj": "用JSON批量发送文件",
+                "ipTools": {
+                    "title": "IP工具",
+                    "getIP": "获取IP",
+                    "resolveDomain": "获取域名"
+                },
+                "fileTools": {
+                    "title": "文件工具",
+                    "jsonToXml": "JSON转XML",
+                    "xmlToJson": "XML转JSON",
+                    "jsonToCsv": "JSON转CSV",
+                    "csvToJson": "CSV转JSON",
+                    "diff": "文件对比"
+                },
+                "qrcodeTools": {
+                    "title": "二维码工具",
+                    "generate": "生成二维码",
+                    "parse": "解析二维码"
+                },
+                "asciiArt": "字符画",
+                "bingPicture": "必应每日一图",
+                "pictureConvertor": "照片格式转换",
+                "amk": "脚本操作鼠标和键盘",
+                "captcha": "验证码生成器(Beta)",
+                "clock": "时钟",
+                "countDown": "倒计时器",
+                "pinyinDictionary": "汉语拼音字典"
+            },
+            "settings": {
+                "title": "设置",
+                "themes": "颜色主题"
+            },
+            "about": "关于"
+        }
+    },
+    "externals": {
+        "amk": {
+            "open": "打开文件",
+            "launch": "启动",
+            "err": "执行脚本时发生错误：",
+            "notEnable": "脚本被禁用！\n请在脚本开头添加：\n#-- ENABLE --#\n或将#-- DISABLE --#替换成#-- ENABLE --#",
+			"fileNotFound": "请先选择文件！"
+        },
+        "calculator": {
+            "title": "计算器(Python实现)",
+            "quit": {
+                "title": "退出",
+                "warn": "确定退出吗？"
+            },
+            "positivityError": "不能改变符号的正负性！\n或者先输入数字后改变符号的正负性。",
+            "divideByZeroError": "除数不能为0！",
+            "overflowError": "表达式溢出！(比{max}还大)",
+            "expressionError": "表达式错误！"
+        },
+        "captcha": {
+            "title": "验证码生成器",
+			"option": "选项",
+            "picture": "图片验证码",
+            "audio": "音频验证码",
+            "generate": "生成",
+            "inputs": {
+                "chooseFonts": "选择字体文件",
+                "saveAs": "保存验证码图片"
+            },
+            "complete": "验证码图片已生成！",
+            "futureWarning": "此功能有bug，不能使用，请等待修复。"
+        },
+        "chinesePinyinDictionary": {
+            "title": "汉语拼音字典",
+            "input": "请输入一个\n或多个汉字：",
+            "query": "查询",
+            "pinyin": "拼音：",
+            "zhuyin": "注音：",
+            "unknown": "未知"
+        },
+        "clock": {
+            "title": "Clock by Python Turtle Demo(tdemo_clock.py)",
+            "days": ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+            "month": ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+        },
+        "countDown": {
+            "title": "Count Down Timer",
+            "doWork": "设置并运行",
+            "inputMessage": "您要倒计时多少秒？\n每一次蜂鸣都代表过去了一秒。\n按确定工作，按取消终止操作。"
+        },
+        "easyToDo": {
+            "title": "Easy To Do",
+            "add": "添加待办",
+            "content": "待办内容",
+            "delete": "标记为完成并删除待办",
+            "modify": "更改待办",
+            "inputs": {
+                "addMessage": "在下面写入你想写入的内容",
+                "modifyMessage": "在下面更改",
+                "confirm": "确认",
+                "cancel": "取消"
+            }
+        },
+        "licenceCreator": {
+            "title": "Licence Creator",
+            "typeChoose": "Licence类型: ",
+            "params": {
+                "label": "参数: ",
+                "name": "姓名: ",
+                "year": "年份: ",
+                "usage": "用途: ",
+                "projectName": "项目名称: "
+            },
+            "create": "创建",
+			"complete": "成功",
+			"saveComplete": "成功保存！"
+        },
+        "ocr": {
+            "title": "文字识别器",
+            "chooseImage": "选择图片",
+            "recognize": "识别",
+            "result": "识别结果: ",
+            "choosed": "已选择"
+        },
+        "passwordCreator": {
+            "title": "Password Creator",
+            "strength": {
+                "1": "弱",
+                "2": "中等",
+                "3": "强",
+                "4": "很强"
+            },
+            "passwordStrength": "密码强度: ",
+            "inclubes": {
+                "symbols": "插入符号",
+                "numbers": "插入数字",
+                "uppers": "插入大写字母",
+                "lowers": "插入小写字母"
+            },
+            "create": "生成",
+            "unknown": "未知",
+            "copy": "复制",
+			"copied": "已复制",
+			"completeInformation": "密码复制成功！"
+        },
+        "photoFormatConverter": {
+            "title": "Photo Format Converter",
+            "choosePhoto": "请选择图片",
+            "convert": "转换",
+            "noPictureSelectedError": "请先选择图片！",
+            "complete": "转换成功！"
+        },
+        "qrcode": {
+            "generator": {
+                "title": "二维码生成器",
+                "inputs": {
+                    "text": "请输入文本: ",
+                    "settings": "设置",
+                    "drawer": "绘制样式: ",
+                    "image": "设置图片路径(可选)",
+                    "save": "保存图片"
+                },
+                "generate": "生成"
+            },
+            "decoder": {
+                "title": "二维码解码器",
+                "image": "请输入图片路径",
+                "decode": "解码"
+            },
+            "err": "请输入模式 (1 或者 2)"
+        },
+        "smfj": {
+            "title": "Send Mail From JSON",
+            "chooseFile": "请选择文件",
+            "send": "发送",
+            "success": "成功",
+            "successInformation": "邮件发送成功！",
+            "errorInformation": "请选择文件！"
+        },
+        "speech2text": {
+            "title": "语音转文字",
+            "chooseAudio": "请选择音频文件",
+            "convert": "转换",
+            "errorInformation": "请先选择音频文件",
+            "complete": "转换完成！\n结果: {res}"
+        },
+        "systemInformation": {
+            "choices": [
+                "",
+                "系统信息查看器 V 1.0",
+                "========================================================",
+                "系统类",
+                "1. 系统架构\t2. 机器类型\t3. 系统版本\t4. 处理器(CPU)名称\t5. 系统发布版本\t6. 系统名称",
+                "7. 网络上计算机的名称\t8. Windows版本(比如Professional、Home Basic) (Windows 专用)",
+                "9. Mac系统信息 (macOS 专用)\t0. Linux 系统信息 (Linux 专用)",
+                "关于Python",
+                "a. Python编译代码和编译日期\tb. Python编译器版本\tc. Python实现器标识\td. Python版本",
+                "e. Jython 的版本接口 (Jython专用)",
+                "软件",
+                "ab. 关于\tx. 退出",
+                ""
+            ],
+            "aboutText": [
+                "",
+                "关于系统信息查看器",
+                "========================================================",
+                "系统信息查看器是一个用于查看系统信息的工具。",
+                "系统信息查看器由Python编写，使用Python的platform模块获取系统信息。",
+                ""
+            ],
+            "systemClass": {
+                "architecture": "系统架构: ",
+                "machine": "机器类型: ",
+                "platform": "系统版本: ",
+                "cpu": "处理器(CPU)名称: ",
+                "release": "系统发布版本: ",
+                "name": "系统名称: ",
+                "machineName": "网络上计算机的名称: ",
+                "windowsEdition": "Windows 版本: ",
+                "macVersion": "Mac 系统信息: ",
+                "freedesktopOSRelease": "Linux 系统版本: "
+            },
+            "pythonClass": {
+                "build": "Python 编译代码和编译日期: ",
+                "compiler": "Python 编译器版本: ",
+                "implementation": "Python 实现版本: ",
+                "pythonVersion": "Python 版本: ",
+                "jpythonVersion": "JPython 版本接口: "
+            },
+            "errorOption": "无效的选项，请重新输入。",
+            "inputOption": "输入选项 >>>",
+            "interrupt": "用户已取消操作。",
+            "errorOccurred": "发生错误: {err}"
+        },
+        "tools": {
+            "hash": {
+                "usage": [
+                    "使用:",
+                    "python / py md5.py [filename] [--check [-md5][-sha256][-sha1][-sha224][value]]",
+                    "",
+                    "filename : 文件名，比如\"1.py\"、\"HelloWorld.java\"等等",
+                    "",
+                    "--check : 检查文件MD5、SHA256、SHA1值，比如\"--check -md5 1234567890abcdef\"",
+                    "    value : 原文件MD5值，比如\"1234567890abcdef\"(一般来源于提供文件的网站或者人)",
+                    "    -md5 : 校验文件MD5值",
+                    "    -sha256 : 校验文件SHA256值",
+                    "    -sha1 : 校验文件SHA1值",
+                    "    注意：-md5、-sha256、-sha1、-sha224不可以同时使用。"
+                ],
+                "errors": {
+                    "paramCountError": "\n错误：参数过多或者过少。\n",
+                    "fileNotFound": "\n错误！文件不存在，请检查文件名和路径！\n",
+                    "paramError": "\n错误：无效参数。\n",
+                    "requiredParamMissingError": "\n错误：缺少必须参数。\n",
+                    "paramTooManyError": "\n错误：参数过多。\n",
+                    "unknownError": "\n错误：未知错误或者无效参数\n"
+                },
+                "prompts": {
+                    "md5": {
+                        "correct": "文件MD5值正确！\n文件MD5值：",
+                        "incorrect": "文件MD5值错误！\n文件MD5值："
+                    },
+                    "sha256": {
+                        "correct": "文件SHA256值正确！\n文件SHA256值：",
+                        "incorrect": "文件SHA256值错误！\n文件SHA256值："
+                    },
+                    "sha1": {
+                        "correct": "文件SHA1值正确！\n文件SHA1值：",
+                        "incorrect": "文件SHA1值错误！\n文件SHA1值："
+                    },
+                    "sha224": {
+                        "correct": "文件SHA224值正确！\n文件SHA224值：",
+                        "incorrect": "文件SHA224值错误！\n文件SHA224值："
+                    },
+                    "information": {
+                        "fileName": "文件名：",
+                        "fileSize": "文件大小：",
+                        "fileType": "文件类型：",
+                        "lastModifiedTime": "文件最后修改时间：",
+                        "md5": "文件MD5值：",
+                        "sha256": "文件SHA256值：",
+                        "sha1": "文件SHA1值：",
+                        "sha224": "文件SHA224值："
+                    }
+                }
+            }
+        },
+        "weather": {
+            "title": "天气查询",
+            "country": "请输入国家名称：",
+            "city": "请输入城市名称：",
+            "search": "查询",
+            "infos": {
+                "complete": "查询成功！",
+                "weather": "{city}的天气：",
+                "forecast_for_tomorrow": "明天预测：{tomorrow}",
+                "forecast_for_day_after_tomorrow": "后天预测：{dat}",
+                "forecastForDay4": "{day4}预测：{day4f}",
+                "forecastForDay5": "{day5}预测：{day5f}",
+                "forecastForDay6": "{day6}预测：{day6f}",
+                "forecastForDay7": "{day7}预测：{day7f}",
+                "notIncludedError": "未收录此城市，请检查输入。\n或者查看data/full_city_list.csv文件查找您的城市ID（第三列或第四列）。",
+                "errorNetwork": "网络连接错误，请检查网络连接。",
+                "unknownError": "未知错误，请稍后再试。",
+                "errorDataNotFound": "未找到城市列表文件，请检查文件路径。",
+                "errorData": "读取城市列表文件时发生错误。"
+            }
+        },
+        "speedtest": {
+            "title": "网速测试小程序",
+            "about": "网速测试程序（独立版）\n基于SpeedTest.net的SpeedTest库构建\n版本 1.1\n",
+            "info": "上传：{up} MBits/s; 下载：{down} MBits/s"
+        }
+    },
+    "tools": {
+        "clear": {
+            "gui": {
+                "infos": {
+                    "log": "所有log文件已删除。",
+                    "pycache": "所有缓存文件已删除。",
+                    "pycacheNotFound": "未找到缓存文件。",
+                    "userDataWarning": "你确定要擦除配置文件吗？",
+                    "userData": "配置文件已重置。"
+                },
+                "title": "Clear",
+                "buttons": {
+                    "log": "删除运行时产生的log文件",
+                    "pycache": "删除缓存文件",
+                    "userData": "擦除配置文件（高级）"
+                }
+            },
+            "cli": {
+                "infos": {
+                    "log": "所有log文件已删除。",
+                    "pycache": "所有缓存文件已删除。",
+                    "pycacheNotFound": "未找到缓存文件。",
+                    "userDataWarning": "是否清除所有配置文件？输入0000确认操作。注意，此操作不可逆！",
+                    "userData": "配置文件已重置。",
+                    "user_data_cancel": "未执行此操作(/p)。"
+                },
+                "usage": [
+                    "用法：",
+                    "python / py clear.py [/l] [/c] [/p] [/?]",
+                    "/l : 清除所有日志",
+                    "/c : 清除所有缓存",
+                    "/p : 清除所有配置文件",
+                    "------------------------------------",
+                    "/l /c /p : 清除所有",
+                    "/? : 显示帮助信息",
+                    "------------------------------------"
+                ],
+                "errors": {
+                    "paramsNotFound": "错误：未给出参数",
+                    "errorParam": "错误：参数不正确"
+                }
+            }
+        }
+    },
+    "filetypes": {
+        "all": ["所有文件", "*.*"],
+        "no": ["无拓展", "*"],
+        "txt": ["纯文本", "*.txt"],
+        "html": ["HTML文档", "*.html"],
+        "json": ["JSON文件", "*.json"],
+        "xml": ["XML文件", "*.xml"],
+        "amk": ["Auto Mouse and Keyboard 脚本", "*.amk"],
+        "py": ["Python 脚本", "*.py"],
+        "images": {
+            "jpg": ["JPEG 图像", "*.jpg"],
+            "png": ["PNG 图像", "*.png"],
+            "bmp": ["BMP 图像", "*.bmp"],
+            "gif": ["GIF 图像", "*.gif"]
+        },
+        "wav": ["波形音频", "*.wav"]
+    }
+}
