@@ -3,6 +3,10 @@
 
 ![Logo](images/logo.png)
 
+> [!WARNING]
+> This branch has permanently stopped maintenance!
+> 
+
 ## Functions and Features / 功能和特性
 
 - **OCR tool / 文字识别**
