@@ -72,7 +72,7 @@ for i in range(len(sysinfo["python"]["version"])):
             0]
 
 
-class DevTools():
+class DevTools:
     def __init__(self):
         msgbox.showerror(title=ui["error"], message=ui["invocationError"])
         logger.error("Invocation error")
@@ -100,7 +100,8 @@ class DevTools():
         except KeyError:
             logger.error(f"Status code: {result} not found")
             return 2
-        # If the HTTP status code is known, the result is returned. Otherwise, the user is prompted to return an unknown status code
+        # If the HTTP status code is known, the result is returned.
+        # Otherwise, the user is prompted to return an unknown status code
 
     def translator(text: str, appid: str, secret_key: str, original_language: str, target_language: str):
         """
@@ -292,7 +293,7 @@ class DevTools():
         except socket.error as err:
             return repr(err)
 
-    class FileDiffTools():
+    class FileDiffTools:
         def __init__(self):
             text1 = self.readFromFile(
                 fdg.askopenfilename(title=ui["fileDiff"]["chooseFileOne"],
@@ -345,7 +346,7 @@ class DevTools():
                 return 2
 
 
-class DrawingTools():
+class DrawingTools:
     def __init__(self):
         msgbox.showerror(title=ui["error"], message=ui["invocationError"])
         logger.error("Invocation error")
@@ -413,11 +414,11 @@ class DrawingTools():
         logger.info(f"Output file:{filename}-char.html")
         msgbox.showinfo(title=ui["asciiArt"]["successTitle"], message=ui["asciiArt"]["successMessage"])
 
-    def bingPicture(fname: str, idx: str = "0", mkt: str = "zh-cn"):
+    def bingPicture(filename: str, idx: str = "0", mkt: str = "zh-cn"):
         """
         Get Bing's Daily Graph
         Args:
-            fname: The name of the saved file
+            filename: The name of the saved file
             idx: Time index
                 0: Today
                 -1: Tomorrow (pre-prepared)
@@ -435,17 +436,18 @@ class DrawingTools():
             FORMAT = "js"
             USER_AGENT = {
                 'Content-Type': 'application/json; charset=utf-8',
-                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                              'Chrome/86.0.4240.198 Safari/537.36',
             }
             requestURL = "https://cn.bing.com/HPImageArchive.aspx?" + \
                          f"format={FORMAT}&idx={IDX}&n={NUMBER}&mkt={MKT}"
             response = requests.get(requestURL, headers=USER_AGENT)
-            if (response.status_code == 200):
+            if response.status_code == 200:
                 try:
                     if NUMBER == 1:
                         data = response.json()
                         data = "https://cn.bing.com" + data["images"][0]["url"]
-                        with open(fname, 'wb') as f:
+                        with open(filename, 'wb') as f:
                             f.write(requests.get(data).content)
                             return 0
                     else:
@@ -462,12 +464,12 @@ class DrawingTools():
             return -1
 
 
-class Launcher():
+class Launcher:
     def __init__(self):
         msgbox.showerror(title=ui[ui["error"]], message=ui["invocationError"])
         logger.error("Invocation error")
 
-    class DevToolsLauncher():
+    class DevToolsLauncher:
         def __init__(self):
             msgbox.showerror(title=ui["error"], message=ui["invocationError"])
             logger.error("Invocation error")
@@ -485,21 +487,20 @@ class Launcher():
             url = easygui.enterbox(
                 msg=ui["launchers"]["dev"]["input_url"], title="Python Utilities", default=record)
             logger.info(f"User input: {url}")
-            if (url != None):
+            if url is not None:
                 record = url
                 if not (settings["no-log-file"]):
                     with open("logs/records.log", "a") as record_log:
                         record_log.write(f"\n{record}")
-            if (url != None):
                 global DevTools
                 result = DevTools.webConnectTest(url)
                 error_list = ui["launchers"]["dev"]["error_list"]
                 msgbox.showinfo(title="Python Utilities", message=error_list[str(result)])
                 if not (1 == result or 2 == result):
                     logger.info(f"Web address connect info: {url} => {result}")
-                    msgbox.showinfo(title="Python Utilties", message=result)
+                    msgbox.showinfo(title="Python Utilities", message=result)
                 else:
-                    msgbox.showinfo(title="Python Utilties",
+                    msgbox.showinfo(title="Python Utilities",
                                     message=error_list[result - 1])
 
         @staticmethod
@@ -517,13 +518,13 @@ class Launcher():
                     message=ui["launchers"]["dev"]["translator"]["informationRequired"],
                     title=ui["launchers"]["dev"]["translator"]["title"], icon="warning")
                 if result:
-                    datas = easygui.multpasswordbox(
+                    data = easygui.multpasswordbox(
                         ui["launchers"]["dev"]["translator"]["informationInputs"]["message"],
                         title=ui["launchers"]["dev"]["translator"]["title"],
-                        fields=ui["launchers"]["dev"]["translator"]["informationInputs"]["firlds"])
-                    if datas != None:
-                        id = datas[0]
-                        key = datas[1]
+                        fields=ui["launchers"]["dev"]["translator"]["informationInputs"]["fields"])
+                    if data != None:
+                        id = data[0]
+                        key = data[1]
                         entered = True
                         with open("data/translator.appid.json", "w") as appid:
                             appid.write(json.dumps({"id": id, "key": key}))
@@ -618,14 +619,14 @@ class Launcher():
 
         @staticmethod
         def resolveDomainLauncher():
-            domain = easygui.enterbox(ui["launchers"]["dev"]["socketTools"]["resolveDoamin"]["input"],
-                                      title=ui["launchers"]["dev"]["socketTools"]["resolveDoamin"]["doamin"])
+            domain = easygui.enterbox(ui["launchers"]["dev"]["socketTools"]["resolveDomain"]["input"],
+                                      title=ui["launchers"]["dev"]["socketTools"]["resolveDomain"]["Domain"])
             if (domain != None):
                 global DevTools
                 logger.info(f"Input Domain: {domain}")
                 result = DevTools.resolveDomain(domain)
-                msgbox.showinfo(message=f"{ui["launchers"]["dev"]["socketTools"]["resolveDoamin"]["doamin"]} {result}",
-                                title=ui["launchers"]["dev"]["socketTools"]["resolveDoamin"]["title"])
+                msgbox.showinfo(message=f"{ui["launchers"]["dev"]["socketTools"]["resolveDomain"]["Domain"]} {result}",
+                                title=ui["launchers"]["dev"]["socketTools"]["resolveDomain"]["title"])
                 logger.info(f"Result: {result}")
 
         @staticmethod
@@ -680,24 +681,24 @@ class Launcher():
                     logger.info(f"Input picture:{path}")
                     DrawingTools.charPicture(path)
                 else:
-                    msgbox.showerror(title=ui["error"], message=ui["launchers"]["art"]["asciiArt"]["extensionErroror"])
+                    msgbox.showerror(title=ui["error"], message=ui["launchers"]["art"]["asciiArt"]["extensionError"])
                     logger.error("File extension is incorrect")
 
         @staticmethod
         def bingPictureLauncher():
-            fname = fdg.asksaveasfilename(title=ui["launchers"]["art"]["bingPicture"]["saveAs"],
-                                          filetypes=[file_types["images"]["jpg"]],
-                                          defaultextension="*.jpg")
-            if (fname != None):
-                logger.info(f"Input path: {fname}")
-                if (os.path.splitext(fname)[-1] == ".jpg"):
+            filename = fdg.asksaveasfilename(title=ui["launchers"]["art"]["bingPicture"]["saveAs"],
+                                             filetypes=[file_types["images"]["jpg"]],
+                                             defaultextension="*.jpg")
+            if (filename != None):
+                logger.info(f"Input path: {filename}")
+                if (os.path.splitext(filename)[-1] == ".jpg"):
                     params = easygui.multenterbox(
                         title=ui["launchers"]["art"]["bingPicture"]["title"],
                         msg=ui["launchers"]["art"]["bingPicture"]["inputs"]["msg"],
                         fields=ui["launchers"]["art"]["bingPicture"]["inputs"]["fields"])
                     if (params != None != ["", ""]):
                         if (params[0].isdigit()) or (params[0] == "-1"):
-                            params.insert(0, fname)
+                            params.insert(0, filename)
                             logger.info(f"Input params:{params}")
                             global DrawingTools
                             DrawingTools.bingPicture(
@@ -721,7 +722,7 @@ class Launcher():
             logger.error("Invocation error")
 
         @staticmethod
-        def webSpeedTsetLauncher():
+        def webSpeedTestLauncher():
             def run():
                 subprocess.Popen("python /src/webspeedtest/main.py")
 
@@ -769,7 +770,7 @@ class Launcher():
 
         @staticmethod
         def pictureFormatConverterLauncher():
-            subprocess.Popen("python src/phot_format_converter/main.py")
+            subprocess.Popen("python src/photo_format_converter/main.py")
 
         @staticmethod
         def sendMailFromJSONLauncher():
@@ -806,15 +807,15 @@ class System():
         filepath = fdg.askopenfilename(title="Select Language File", filetypes=[("JSON Files", "*.json")],
                                        defaultextension="*.json")
         if (filepath):
-            if (msgbox.askokcancel(title="Windows Utilitles",
-                                   message=f"You choosed the file \"{filepath}\".\n" +
+            if (msgbox.askokcancel(title="Windows Utilities",
+                                   message=f"You chose the file \"{filepath}\".\n" +
                                            "Are you sure you want to use this file?" +
                                            "Make sure this profile is complete and don't delete it in the future" +
                                            "(unless you change it).")):
                 settings["language"] = filepath
                 with open("data/settings.json", "w", encoding="utf-8") as file:
                     json.dump(settings, file, indent=4, ensure_ascii=False)
-                    if (easygui.buttonbox(title="Windows Utilitles",
+                    if (easygui.buttonbox(title="Windows Utilities",
                                           msg="You'll have to restart the program to apply the changes.",
                                           choices=["Restart Now", "Restart later"], default_choice="Restart Now",
                                           cancel_choice="Restart later") == "Restart Now"):
@@ -865,15 +866,15 @@ class System():
                         logger.info("Settings imported")
 
 
-def main():
+def main(*args):
     global root
     global style
     global theme
     root = ttk.Window()
+    root.wm_attributes(*args)
     with open("./data/theme.json", "r", encoding="utf-8") as theme:
         theme = theme.read()
         theme = json.loads(theme)
-    logger.info("Starting APP")
     root.title("Python Utilities")
     root.geometry("{}x{}".format(
         settings["geometry"][0], settings["geometry"][1]))
@@ -933,7 +934,8 @@ def main():
                                command=Launcher.DevToolsLauncher.webConnectTestLauncher,
                                bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     connectButton.pack()  # Detect network connections
-    # speedTestButton = ttk.Button(root, text=main_ui_src["dev"]["speedtest"], command=Launcher.ExternalLauncher.webSpeedTsetLauncher,
+    # speedTestButton = ttk.Button(root, text=main_ui_src["dev"]["speedtest"],
+    #                               command=Launcher.ExternalLauncher.webSpeedTestLauncher,
     #                              bootstyle=(ttk.PRIMARY, ttk.OUTLINE))
     # speedTestButton.pack()  # Speed test button (deprecated)
     # ===================================== #
@@ -970,7 +972,7 @@ def main():
         ipToolsMenu.add_command(
             label=menu_src["other"]["ipTools"]["getIP"], command=Launcher.DevToolsLauncher.getIPLauncher)
         ipToolsMenu.add_command(
-            label=menu_src["other"]["ipTools"]["resolveDoamin"],
+            label=menu_src["other"]["ipTools"]["resolveDomain"],
             command=Launcher.DevToolsLauncher.resolveDomainLauncher)
         fileToolsMenu = ttk.Menu(otherMenu)
         otherMenu.add_cascade(label=menu_src["other"]["fileTools"]["title"], menu=fileToolsMenu)
@@ -1027,7 +1029,7 @@ def main():
     root.mainloop()
 
 
-if __name__ == '__main__':
+def launcher(*args):
     logger.info("Platform: {system} {version}".format(
         system=sysinfo["system"], version=sysinfo["version"]))
     logger.info("Python: {version} {implementation}".format(version=sysinfo["python"]["version"],
@@ -1035,13 +1037,18 @@ if __name__ == '__main__':
     # Outputs system information
     if sysinfo["python"]["version"][0] >= 3:
         if sysinfo["python"]["version"][1] >= 8:
-            main()
-            exit(0)
+            logger.info("Successfully attempted to start the main function.")
+            main(*args)
+            return 0
         else:
-            logger.warning("Python Version too old: {}".format(
+            logger.warning("Python version too old: {}".format(
                 sysinfo["python"]["version"]))
     else:
-        logger.warning("Python Version too old: {}".format(
+        logger.warning("Python version too old: {}".format(
             sysinfo["python"]["version"]))
-    main()
-    exit(1)
+    logger.critical("Python version TOO OLD !!! Program CANNOT LAUNCH!!!")
+    return 1
+
+
+if __name__ == '__main__':
+    exit(launcher(sys.argv))

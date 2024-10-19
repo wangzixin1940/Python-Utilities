@@ -63,10 +63,10 @@
                     "inputMessage": "输入域名\n或者输入“@default”使用本地域名",
                     "ip": "IP地址："
                 },
-                "resolveDoamin": {
+                "resolveDomain": {
                     "title": "域名解析器",
                     "input": "请输入IP地址",
-                    "doamin": "解析结果："
+                    "Domain": "解析结果："
                 }
             }
         },
@@ -132,7 +132,7 @@
                 "ipTools": {
                     "title": "IP工具",
                     "getIP": "获取IP",
-                    "resolveDoamin": "获取域名"
+                    "resolveDomain": "获取域名"
                 },
                 "fileTools": {
                     "title": "文件工具",

@@ -63,10 +63,10 @@
                     "inputMessage": "Enter a domain name\n or enter \"@default\" to use the local domain name",
                     "ip": "IP address:"
                 },
-                "resolveDoamin": {
+                "resolveDomain": {
                     "title": "Domain name resolver",
                     "input": "Please enter an IP address.",
-                    "doamin": "Parsed Result:"
+                    "Domain": "Parsed Result:"
                 }
             }
         },
@@ -132,7 +132,7 @@
                 "ipTools": {
                     "title": "IP tools",
                     "getIP": "Get IP",
-                    "resolveDoamin": "Resolve domain"
+                    "resolveDomain": "Resolve domain"
                 },
                 "fileTools": {
                     "title": "File tools",
