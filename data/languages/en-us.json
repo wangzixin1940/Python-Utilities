@@ -93,7 +93,7 @@
         }
     },
     "system": {
-        "about": "Python Utilities v3.0.0 en-us\nAuthor: @wangzixin1940\nCurrent Python file: main.py\nREADME file: README.md (en-US and zh-CN)\nGNU GPLv3 License：https://github.com/wangzixin1940/Python-Utilities/blob/main/LICENCE\nVERSION 2.11 RELEASE",
+        "about": "Python Utilities v3.0.5 en-us\nAuthor: @wangzixin1940\nCurrent Python file: main.py\nREADME file: README.md (en-US and zh-CN)\nGNU GPLv3 License：https://github.com/wangzixin1940/Python-Utilities/blob/main/LICENCE\nVERSION 2.11 RELEASE",
         "importSettings": {
             "open": "Open...",
             "warning": "Do you want to import settings? \nThe existing configuration file will be overwritten. \nCorrupted configuration files may cause the program to run incorrectly.",

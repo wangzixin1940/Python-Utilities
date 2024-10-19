@@ -93,7 +93,7 @@
         }
     },
     "system": {
-        "about": "Python Utilities v3.0.0 zh-cn\n作者：@wangzixin1940\n当前运行的Python文件：main.py\n自述文件：README.md (en-US and zh-CN)\nGNU GPLv3 License：https://github.com/wangzixin1940/Python-Utilities/blob/main/LICENCE\nVERSION 2.11 RELEASE",
+        "about": "Python Utilities v3.0.5 zh-cn\n作者：@wangzixin1940\n当前运行的Python文件：main.py\n自述文件：README.md (en-US and zh-CN)\nGNU GPLv3 License：https://github.com/wangzixin1940/Python-Utilities/blob/main/LICENCE\nVERSION 2.11 RELEASE",
         "importSettings": {
             "open": "打开文件",
             "warning": "是否导入设置？\n现有的配置文件将会被覆盖。\n损坏的配置文件可能会导致程序运行错误。",

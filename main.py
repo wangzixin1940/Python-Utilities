@@ -871,7 +871,10 @@ def main(*args):
     global style
     global theme
     root = ttk.Window()
-    root.wm_attributes(*args)
+    try:
+        root.wm_attributes(*args)
+    except:
+        pass
     with open("./data/theme.json", "r", encoding="utf-8") as theme:
         theme = theme.read()
         theme = json.loads(theme)
