@@ -873,8 +873,8 @@ def main(*args):
     root = ttk.Window()
     try:
         root.wm_attributes(*args)
-    except:
-        pass
+    except Exception as e:
+        logger.error(repr(e))
     with open("./data/theme.json", "r", encoding="utf-8") as theme:
         theme = theme.read()
         theme = json.loads(theme)
