@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>309</width>
-    <height>403</height>
+    <height>495</height>
    </rect>
   </property>
   <property name="font">
@@ -70,23 +70,23 @@
      <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTop|Qt::AlignmentFlag::AlignTrailing</set>
     </property>
    </widget>
-   <widget class="TabWidget" name="tabs">
+   <widget class="QTabWidget" name="tabs">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>50</y>
       <width>311</width>
-      <height>341</height>
+      <height>421</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="common_use">
      <attribute name="title">
       <string>常用工具</string>
      </attribute>
-     <widget class="PushButton" name="translator">
+     <widget class="QPushButton" name="translator">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -99,7 +99,7 @@
        <string>翻译器</string>
       </property>
      </widget>
-     <widget class="PushButton" name="weather_report">
+     <widget class="QPushButton" name="weather_report">
       <property name="geometry">
        <rect>
         <x>170</x>
@@ -112,7 +112,7 @@
        <string>天气预报</string>
       </property>
      </widget>
-     <widget class="PushButton" name="speech_to_text">
+     <widget class="QPushButton" name="speech_to_text">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -125,7 +125,7 @@
        <string>语音转文字</string>
       </property>
      </widget>
-     <widget class="PushButton" name="easy_to_do">
+     <widget class="QPushButton" name="easy_to_do">
       <property name="geometry">
        <rect>
         <x>170</x>
@@ -138,7 +138,7 @@
        <string>Easy To Do</string>
       </property>
      </widget>
-     <widget class="PushButton" name="password_creator">
+     <widget class="QPushButton" name="password_creator">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -156,90 +156,90 @@
      <attribute name="title">
       <string>其他工具</string>
      </attribute>
-     <widget class="PushButton" name="calculator">
+     <widget class="QPushButton" name="calculator">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>111</width>
-        <height>24</height>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
        <string>计算器</string>
       </property>
      </widget>
-     <widget class="PushButton" name="hash_checker">
+     <widget class="QPushButton" name="hash_checker">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>40</y>
-        <width>111</width>
-        <height>24</height>
+        <y>50</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
        <string>校验哈希</string>
       </property>
      </widget>
-     <widget class="PushButton" name="licence_creator">
+     <widget class="QPushButton" name="licence_creator">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>70</y>
-        <width>111</width>
-        <height>24</height>
+        <y>90</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
        <string>许可证创造器</string>
       </property>
      </widget>
-     <widget class="PushButton" name="send_mail_from_json">
+     <widget class="QPushButton" name="send_mail_from_json">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>100</y>
-        <width>111</width>
-        <height>24</height>
+        <y>130</y>
+        <width>121</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
        <string>批量发送邮件</string>
       </property>
      </widget>
-     <widget class="GroupBox" name="ip_group">
+     <widget class="QGroupBox" name="ip_group">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
-        <width>111</width>
-        <height>81</height>
+        <y>170</y>
+        <width>121</width>
+        <height>131</height>
        </rect>
       </property>
       <property name="title">
        <string>IP 工具</string>
       </property>
-      <widget class="PushButton" name="get_ip">
+      <widget class="QPushButton" name="get_ip">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>20</y>
-         <width>91</width>
-         <height>24</height>
+         <y>50</y>
+         <width>101</width>
+         <height>31</height>
         </rect>
        </property>
        <property name="text">
         <string>获取IP</string>
        </property>
       </widget>
-      <widget class="PushButton" name="get_doamin">
+      <widget class="QPushButton" name="get_doamin">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>50</y>
-         <width>91</width>
-         <height>24</height>
+         <y>90</y>
+         <width>101</width>
+         <height>31</height>
         </rect>
        </property>
        <property name="text">
@@ -247,38 +247,38 @@
        </property>
       </widget>
      </widget>
-     <widget class="GroupBox" name="qrcode_group">
+     <widget class="QGroupBox" name="qrcode_group">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>220</y>
-        <width>111</width>
-        <height>81</height>
+        <x>150</x>
+        <y>250</y>
+        <width>141</width>
+        <height>131</height>
        </rect>
       </property>
       <property name="title">
        <string>二维码工具</string>
       </property>
-      <widget class="PushButton" name="create_qr">
+      <widget class="QPushButton" name="create_qr">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>20</y>
-         <width>91</width>
-         <height>24</height>
+         <y>50</y>
+         <width>121</width>
+         <height>31</height>
         </rect>
        </property>
        <property name="text">
         <string>生成二维码</string>
        </property>
       </widget>
-      <widget class="PushButton" name="reslove_qr">
+      <widget class="QPushButton" name="reslove_qr">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>50</y>
-         <width>91</width>
-         <height>24</height>
+         <y>90</y>
+         <width>121</width>
+         <height>31</height>
         </rect>
        </property>
        <property name="text">
@@ -286,64 +286,64 @@
        </property>
       </widget>
      </widget>
-     <widget class="GroupBox" name="file_group">
+     <widget class="QGroupBox" name="file_group">
       <property name="geometry">
        <rect>
         <x>150</x>
         <y>10</y>
-        <width>131</width>
-        <height>161</height>
+        <width>141</width>
+        <height>221</height>
        </rect>
       </property>
       <property name="title">
        <string>文件工具</string>
       </property>
-      <widget class="PushButton" name="json_to_csv">
+      <widget class="QPushButton" name="json_to_csv">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>20</y>
-         <width>111</width>
-         <height>24</height>
+         <y>50</y>
+         <width>121</width>
+         <height>31</height>
         </rect>
        </property>
        <property name="text">
         <string>JSON 转 CSV</string>
        </property>
       </widget>
-      <widget class="PushButton" name="csv_to_json">
+      <widget class="QPushButton" name="csv_to_json">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>50</y>
-         <width>111</width>
-         <height>24</height>
+         <y>90</y>
+         <width>121</width>
+         <height>31</height>
         </rect>
        </property>
        <property name="text">
         <string>CSV 转 JSON</string>
        </property>
       </widget>
-      <widget class="PushButton" name="json_to_xml">
+      <widget class="QPushButton" name="json_to_xml">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>90</y>
-         <width>111</width>
-         <height>24</height>
+         <y>140</y>
+         <width>121</width>
+         <height>31</height>
         </rect>
        </property>
        <property name="text">
         <string>JSON 转 XML</string>
        </property>
       </widget>
-      <widget class="PushButton" name="xml_to_json">
+      <widget class="QPushButton" name="xml_to_json">
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>120</y>
-         <width>111</width>
-         <height>24</height>
+         <y>180</y>
+         <width>121</width>
+         <height>31</height>
         </rect>
        </property>
        <property name="text">
@@ -408,25 +408,6 @@
    </property>
   </action>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>TabWidget</class>
-   <extends>QTabWidget</extends>
-   <header>qfluentwidgets</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>PushButton</class>
-   <extends>QPushButton</extends>
-   <header>qfluentwidgets</header>
-  </customwidget>
-  <customwidget>
-   <class>GroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>qfluentwidgets</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
