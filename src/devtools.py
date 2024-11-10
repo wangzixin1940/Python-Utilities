@@ -1,5 +1,3 @@
-import os
-
 with open("data/settings.json", "r") as settings:
     settings = settings.read()
     settings = json.loads(settings)
@@ -11,11 +9,7 @@ import sys
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=settings["encoding"])
 # Change the encoding of the standard output
 
-
-os.chdir(os.path.dirname(__file__))
-# Change the working directory to the directory of the script
-
-with open("../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
+with open(settings["language"], "r", encoding="utf-8") as ui_src_file:
     ui_src_file = ui_src_file.read()
     file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
     ui = json.loads(ui_src_file)  # type: dict[str: dict]
