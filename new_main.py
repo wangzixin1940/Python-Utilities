@@ -1,8 +1,7 @@
 from PySide6 import QtWidgets
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QStyleFactory
 from PySide6.QtGui import QIcon
-from data.ui import zhCN
-import qt_material as Stylesheet
+import zhCN
 import sys
 
 
@@ -15,7 +14,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
 def main():
     app = QApplication(sys.argv)
-    Stylesheet.apply_stylesheet(app, "dark_medical.xml")
+    app.setStyle(QStyleFactory.create("Fusion"))
     window = MainWindow()
     window.setWindowIcon(QIcon("./images/pride.ico"))
     window.resize(320, 500)
