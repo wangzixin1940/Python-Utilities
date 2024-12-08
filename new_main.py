@@ -1,7 +1,8 @@
 from PySide6 import QtWidgets
 from PySide6.QtWidgets import QApplication, QStyleFactory
 from PySide6.QtGui import QIcon
-import zhCN
+from PySide6.QtCore import QTranslator
+from data.ui import ui
 import sys
 import platform
 
@@ -83,7 +84,7 @@ def check_python():
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        self.ui = zhCN.Ui_MainWindow()
+        self.ui = ui.Ui_MainWindow()
         self.ui.setupUi(self)
 
 def main():
@@ -91,6 +92,9 @@ def main():
         sys.exit(-1)
     app = QApplication(sys.argv)
     app.setStyle(QStyleFactory.create("Fusion"))
+    translator = QTranslator()
+    if (translator.load(settings["qt_language"], directory="./data/ui/i18n")):
+        app.installTranslator(translator)
     window = MainWindow()
     window.setWindowIcon(QIcon("./images/pride.ico"))
     window.resize(320, 500)

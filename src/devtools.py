@@ -31,7 +31,7 @@ from PySide6.QtWidgets import QMessageBox, QFileDialog, QApplication
 app = QApplication([])
 
 logging.basicConfig(
-        filename=f"../logs/{datetime.date.today()}.log",
+        filename=f"./logs/{datetime.date.today()}.log",
         level=logging.INFO,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
@@ -257,7 +257,7 @@ class FileDiffTools:
     def __init__(self):
         text1 = QFileDialog.getOpenFileName(None, ui["fileDiff"]["chooseFileOne"], "", "File(*.txt *.*)")[0]
         text2 = QFileDialog.getOpenFileName(None, ui["fileDiff"]["chooseFileTwo"], "", "File(*.txt *.*)")[0]
-        result = self.diffTexts(text1, text2, QFileDialog.getSaveFileName(None, ui["fileDiff"]["saveAs"], "", "File(*.html *.*)"))
+        result = self.diffTexts(text1, text2, QFileDialog.getSaveFileName(None, ui["fileDiff"]["saveAs"], "", "File(*.html *.*)")[0])
         logger.info("Save file successfully!")
         if result == 0:
             QMessageBox.information(None, ui["fileDiff"]["saveAs"], ui["fileDiff"]["success"], QMessageBox.StandardButton.Abort)

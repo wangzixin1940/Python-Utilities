@@ -20,12 +20,12 @@ with open(settings["language"], "r", encoding="utf-8") as ui_src_file:
     ui = json.loads(ui_src_file)  # type: dict[str: dict]
 
 logging.basicConfig(
-        filename=f"../logs/{datetime.date.today()}.log",
+        filename=f"./logs/{datetime.date.today()}.log",
         level=logging.INFO,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
 )
-logger = logging.getLogger("DEVTOOLS")
+logger = logging.getLogger("ARTTOOLS")
 
 
 from PIL import Image

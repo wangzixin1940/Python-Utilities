@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'zhCN.ui'
+## Form generated from reading UI file 'ui.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.0
 ##
