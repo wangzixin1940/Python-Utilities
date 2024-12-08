@@ -1,13 +1,8 @@
+import json
 with open("data/settings.json", "r") as settings:
     settings = settings.read()
     settings = json.loads(settings)
     # Read the settings file
-
-import io
-import sys
-
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=settings["encoding"])
-# Change the encoding of the standard output
 
 with open(settings["language"], "r", encoding="utf-8") as ui_src_file:
     ui_src_file = ui_src_file.read()
@@ -16,7 +11,6 @@ with open(settings["language"], "r", encoding="utf-8") as ui_src_file:
 
 
 import requests
-import json
 import logging
 import datetime
 import random

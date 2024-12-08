@@ -24,6 +24,8 @@ from PySide6.QtWidgets import QMessageBox, QFileDialog, QApplication, QStyleFact
 from PySide6.QtCore import QTranslator
 import subprocess
 
+import src.devtools as DevTools
+
 logging.basicConfig(
         filename=f"./logs/{datetime.date.today()}.log",
         level=logging.INFO,
@@ -32,7 +34,9 @@ logging.basicConfig(
 )
 logger = logging.getLogger("DEVTOOLS")
 
-app = QApplication([])
+app = QApplication.instance()
+if app is None:
+    app = QApplication([])
 app.setStyle(QStyleFactory.create("Fusion"))
 translator = QTranslator()
 if (translator.load(settings["qt_language"], directory="./data/ui/i18n")):
@@ -46,7 +50,7 @@ class DevToolsLauncher():
 
     @staticmethod
     def webConnectTestLauncher():
-        url = QInputDialog.getText(None, ui["launchers"]["dev"]["webConnectTest"]["input_url"], ui["launchers"]["dev"]["webConnectTest"]["input_url"], QLineEdit.Normal)
+        url = QInputDialog.getText(None, ui["launchers"]["dev"]["webConnectTest"]["input_url"], ui["launchers"]["dev"]["webConnectTest"]["input_url"], QLineEdit.Normal)[0]
         logger.info(f"User input: {url}")
         if url is not None:
             global DevTools
@@ -70,8 +74,8 @@ class DevToolsLauncher():
             entered = True
         except (FileNotFoundError, KeyError) as err:
             logger.error(repr(err))
-            QMessageBox.question(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["informationRequired"])
-            if result:
+            result = QMessageBox.question(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["informationRequired"])
+            if result == QMessageBox.StandardButton.Yes:
                 data = QInputDialog.getMultiLineText(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["informationInputs"]["message"], "\n".join(ui["launchers"]["dev"]["translator"]["informationInputs"]["fields"])).spilt("\n")
                 if data != None:
                     id = data[0]
@@ -88,7 +92,7 @@ class DevToolsLauncher():
                 languages = languages.read()
                 languages = json.loads(languages)
             global DevTools
-            text = QInputDialog.getText(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["inputs"]["text"], QLineEdit.Normal)
+            text = QInputDialog.getText(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["inputs"]["text"], QLineEdit.Normal)[0]
             if text:
                 fromLang = "auto"
                 toLang = QInputDialog.getItem(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["inputs"]["languageChooseMessage"], list(languages.keys()), 0, True)
@@ -109,8 +113,8 @@ class DevToolsLauncher():
 
     @staticmethod
     def JSONtoXMLLauncher():
-        json = QFileDialog.getOpenFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["open_file"], "", "JSON File(*.json)")[0]
-        xml = QFileDialog.getSaveFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["save_file"], "", "XML File(*.xml)")[0]
+        json = QFileDialog.getOpenFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["openTitle"], "", "JSON File(*.json)")[0]
+        xml = QFileDialog.getSaveFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["saveTitle"], "", "XML File(*.xml)")[0]
         if (json != None):
             if (os.path.splitext(json)[-1] == ".json"):
                 global DevTools
@@ -123,8 +127,8 @@ class DevToolsLauncher():
 
     @staticmethod
     def XMLtoJSONLauncher():
-        xml = QFileDialog.getOpenFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["open_file"], "", "XML Files(*.xml)")[0]
-        json = QFileDialog.getSaveFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["save_file"], "", "JSON File(*.json)")[0]
+        xml = QFileDialog.getOpenFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["openTitle"], "", "XML Files(*.xml)")[0]
+        json = QFileDialog.getSaveFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["saveTitle"], "", "JSON File(*.json)")[0]
         if (xml != None):
             if (os.path.splitext(xml)[-1] == ".xml"):
                 global DevTools
@@ -138,10 +142,9 @@ class DevToolsLauncher():
     @staticmethod
     def getIPLauncher():
         global DevTools
-        ip = QInputDialog.getText(None, ui["launchers"]["dev"]["socketTools"]["getIP"]["title"], ui["launchers"]["dev"]["socketTools"]["getIP"]["inputMessage"], QLineEdit.Normal)
+        ip = QInputDialog.getText(None, ui["launchers"]["dev"]["socketTools"]["getIP"]["title"], ui["launchers"]["dev"]["socketTools"]["getIP"]["inputMessage"], QLineEdit.Normal)[0]
         if (ip != None):
             if (ip != "@default"):
-                global DevTools
                 logger.info(f"Input IP:{ip}")
                 result = DevTools.getIP(ip)
                 QMessageBox.information(None, ui["launchers"]["dev"]["socketTools"]["getIP"]["title"], f"{ui["launchers"]["dev"]["socketTools"]["getIP"]["ip"]} {result}")
@@ -154,7 +157,7 @@ class DevToolsLauncher():
 
     @staticmethod
     def resolveDomainLauncher():
-        domain = QInputDialog.getText(None, ui["launchers"]["dev"]["socketTools"]["resolveDomain"]["Domain"], ui["launchers"]["dev"]["socketTools"]["resolveDomain"]["input"], QLineEdit.Normal)
+        domain = QInputDialog.getText(None, ui["launchers"]["dev"]["socketTools"]["resolveDomain"]["Domain"], ui["launchers"]["dev"]["socketTools"]["resolveDomain"]["input"], QLineEdit.Normal)[0]
         if (domain != None):
             global DevTools
             logger.info(f"Input Domain: {domain}")
@@ -164,8 +167,8 @@ class DevToolsLauncher():
 
     @staticmethod
     def JSONtoCSVLauncher():
-        json = QFileDialog.getOpenFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["open_file"], "", "JSON File(*.json)")[0]
-        csv = QFileDialog.getSaveFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["save_file"], "", "CSV File(*.csv)")[0]
+        json = QFileDialog.getOpenFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["openTitle"], "", "JSON File(*.json)")[0]
+        csv = QFileDialog.getSaveFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["saveTitle"], "", "CSV File(*.csv)")[0]
         if (json != None):
             if (os.path.splitext(json)[-1] == ".json"):
                 global DevTools
@@ -178,8 +181,8 @@ class DevToolsLauncher():
 
     @staticmethod
     def CSVtoJSONLauncher():
-        csv = QFileDialog.getOpenFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["open_file"], "", "CSV File(*.csv)")[0]
-        json = QFileDialog.getSaveFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["save_file"], "", "JSON File(*.json)")[0]
+        csv = QFileDialog.getOpenFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["openTitle"], "", "CSV File(*.csv)")[0]
+        json = QFileDialog.getSaveFileName(None, ui["launchers"]["dev"]["fileConverters"]["chooseFile"]["saveTitle"], "", "JSON File(*.json)")[0]
         
         if (csv != None):
             if (os.path.splitext(csv)[-1] == ".csv"):
