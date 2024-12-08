@@ -22,3 +22,4 @@ nltk
 future
 pypinyin
 captcha
+PySide6
