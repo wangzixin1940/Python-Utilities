@@ -22,6 +22,7 @@ import threading
 import os
 from PySide6.QtWidgets import QMessageBox, QFileDialog, QApplication, QStyleFactory, QInputDialog, QLineEdit
 from PySide6.QtCore import QTranslator
+from PySide6.QtGui import QIcon
 import subprocess
 
 import src.devtools as DevTools
@@ -38,6 +39,7 @@ app = QApplication.instance()
 if app is None:
     app = QApplication([])
 app.setStyle(QStyleFactory.create("Fusion"))
+app.setWindowIcon(QIcon("./images/pride.ico"))
 translator = QTranslator()
 if (translator.load(settings["qt_language"], directory="./data/ui/i18n")):
     app.installTranslator(translator)
@@ -76,7 +78,7 @@ class DevToolsLauncher():
             logger.error(repr(err))
             result = QMessageBox.question(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["informationRequired"])
             if result == QMessageBox.StandardButton.Yes:
-                data = QInputDialog.getMultiLineText(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["informationInputs"]["message"], "\n".join(ui["launchers"]["dev"]["translator"]["informationInputs"]["fields"])).spilt("\n")
+                data = QInputDialog.getMultiLineText(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["informationInputs"]["message"], "\n".join(ui["launchers"]["dev"]["translator"]["informationInputs"]["fields"]))[0].split("\n")
                 if data != None:
                     id = data[0]
                     key = data[1]
@@ -88,24 +90,24 @@ class DevToolsLauncher():
             else:
                 entered = False
         if (entered):
-            with open("./data/translator.languages.json", "r") as languages:
+            with open("./data/translator.languages.json", "r", encoding="utf-8") as languages:
                 languages = languages.read()
-                languages = json.loads(languages)
+                languages = json.loads(languages) # type: dict
             global DevTools
             text = QInputDialog.getText(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["inputs"]["text"], QLineEdit.Normal)[0]
             if text:
                 fromLang = "auto"
                 toLang = QInputDialog.getItem(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["inputs"]["languageChooseMessage"], list(languages.keys()), 0, True)
                 logger.info(
-                    f"User input:[{text}, {fromLang}, {languages[toLang]}]")
-                if (text != None) and (fromLang != None) and (toLang != None):
+                    f"User input:[{text}, {fromLang}, {languages[toLang[0]]}]")
+                if (text != None) and (fromLang != None) and (toLang[0] != None):
                     result = DevTools.translator(
-                        text, id, key, fromLang, languages[toLang])
+                        text, id, key, fromLang, languages[toLang[0]])
                     QMessageBox.information(None, ui["launchers"]["dev"]["translator"]["title"],
                                             f"{ui["launchers"]["dev"]["translator"]["completeInformation"]["complete"]}\n \
-                                            {ui["launchers"]["dev"]["translator"]["completeInformation"]["original"]}{text}\n \
-                                            {ui["launchers"]["dev"]["translator"]["completeInformation"]["result"]} {result}\n \
-                                            {ui["launchers"]["dev"]["translator"]["completeInformation"]["language"]} {toLang}")
+{ui["launchers"]["dev"]["translator"]["completeInformation"]["original"]}{text}\n \
+{ui["launchers"]["dev"]["translator"]["completeInformation"]["result"]} {result}\n \
+{ui["launchers"]["dev"]["translator"]["completeInformation"]["language"]} {toLang[0]}")
                     logger.info(f"Result: {result}")
                 else:
                     QMessageBox.critical(None, ui["launchers"]["dev"]["translator"]["title"], ui["launchers"]["dev"]["translator"]["errorInformationMessage"])

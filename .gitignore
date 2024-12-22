@@ -165,4 +165,5 @@ cython_debug/
 logs/
 .vscode/
 /TODO.MD
+./data/translator.appid.json
 
