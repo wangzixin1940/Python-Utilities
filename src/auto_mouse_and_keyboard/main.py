@@ -1,3 +1,13 @@
+import os
+import json
+os.chdir(os.path.dirname(__file__))
+# Change the current working directory to the directory of the script
+
+with open("../../data/settings.json", "r") as settings:
+    settings = settings.read()
+    settings = json.loads(settings)
+    # Read the settings file
+
 import traceback
 import pynput
 from pynput import mouse
@@ -46,8 +56,9 @@ keyboard = keyboard.Controller()
 
 
 from PySide6 import QtWidgets
-from PySide6.QtWidgets import QApplication, QFileDialog, QMessageBox, QDialogButtonBox
+from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox, QFileDialog
 from PySide6.QtGui import QIcon
+from PySide6.QtCore import QTranslator
 import sys
 
 
@@ -80,7 +91,15 @@ class App(QtWidgets.QDialog, Ui_Dialog):
         return 0
 
 if __name__ == "__main__":
-    app = QApplication(sys.argv)
+    app = QApplication.instance()
+    if app is None:
+        app = QApplication(sys.argv)
+    app.setStyle(QStyleFactory.create("Fusion"))
+    translator = QTranslator()
+    if (translator.load(settings["qt_language"], directory="./data/ui/i18n")):
+        app.installTranslator(translator)
     window = App()
+    window.setWindowIcon(QIcon("./images/pride.ico"))
+    window.setFixedSize(window.size())
     window.show()
     sys.exit(app.exec())

@@ -18,109 +18,118 @@ with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file
 import math
 import sys
 
-import ttkbootstrap as ttk
-from tkinter import messagebox as msgbox
-from tkinter import Frame as tk_Frame
+from PySide6 import QtWidgets
+from PySide6.QtWidgets import QApplication, QMessageBox, QStyleFactory
+from PySide6.QtGui import QIcon
+from PySide6.QtCore import QTranslator
+from ui.calc import Ui_MainWindow
+
+import traceback
 
 
-class Calculator(ttk.Window):
+class App(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        self.Buttons = [
-            ["%", "CE", "C", "⏏"],
-            ["1/x", "x^y", "2√x", "/"],
-            ["7", "8", "9", "*"],
-            ["4", "5", "6", "-"],
-            ["1", "2", "3", "+"],
-            ["±", "0", ".", "="]
-        ]
-        self.signs = ["%", "1/x", "x^y", "2√x", "/", "*", "-", "+", "±"]
-        self.functions = ["CE", "C", "±", "=", "⏏"]
+        self.setupUi(self)
+        self.setWindowIcon(QIcon("./images/pride.ico"))
+        # Define the signs
+        self.signs_group = ["%", "^", "2√", "/", "*", "-", "+"]
+        self.functions_group = ["CE", "C", "±", "="]
+        # Define the datas
         self.data = []
-        self.title(ui["title"])
-        self.geometry("450x500")
-        self.resizable(False, False)
-        self.previous_type = None
-        self.create_widgets()
+        self.previous_type = "number"
+        # Connect the buttons to the function
+        self.button_0.clicked.connect(lambda: self.button_click("0"))
+        self.button_00.clicked.connect(lambda: self.button_click("00"))
+        self.button_1.clicked.connect(lambda: self.button_click("1"))
+        self.button_2.clicked.connect(lambda: self.button_click("2"))
+        self.button_3.clicked.connect(lambda: self.button_click("3"))
+        self.button_4.clicked.connect(lambda: self.button_click("4"))
+        self.button_5.clicked.connect(lambda: self.button_click("5"))
+        self.button_6.clicked.connect(lambda: self.button_click("6"))
+        self.button_7.clicked.connect(lambda: self.button_click("7"))
+        self.button_8.clicked.connect(lambda: self.button_click("8"))
+        self.button_9.clicked.connect(lambda: self.button_click("9"))
+        self.button_dot.clicked.connect(lambda: self.button_click("."))
+        self.button_add.clicked.connect(lambda: self.button_click("+"))
+        self.button_sub.clicked.connect(lambda: self.button_click("-"))
+        self.button_mul.clicked.connect(lambda: self.button_click("*"))
+        self.button_div.clicked.connect(lambda: self.button_click("/"))
+        self.button_equ.clicked.connect(lambda: self.button_click("="))
+        self.button_ce.clicked.connect(lambda: self.button_click("CE"))
+        self.button_c.clicked.connect(lambda: self.button_click("C"))
+        self.button_per.clicked.connect(lambda: self.button_click("%"))
+        self.button_pn.clicked.connect(lambda: self.button_click("±"))
+        self.button_clo.clicked.connect(lambda: self.button_click("^"))
+        self.button_root.clicked.connect(lambda: self.button_click("2√"))
 
-    def create_widgets(self):
-        self.result = tk_Frame(self, width=450, height=100)
-        self.result.configure(bg="#F3F3F3")
-        self.result.grid(column=0, row=0, columnspan=4, padx=5, pady=5)
-        self.result_value = ttk.StringVar(value="".join(self.data))
-        self.result_show = ttk.Label(
-            self.result, textvariable=self.result_value, font=(
-                "Airal", 20), anchor="e")
-        self.result_show.grid(column=0, row=0, columnspan=4, padx=5, pady=5)
-        self.button_frame = ttk.Frame(self, width=400, height=500)
-        self.button_frame.grid(column=0, row=1, columnspan=4, padx=5, pady=5)
-        # 创建按钮
-        for i, row in enumerate(self.Buttons):
-            for j, button_text in enumerate(row):
-                button = ttk.Button(
-                    self.button_frame,
-                    text=button_text,
-                    width=7,
-                    command=lambda text=button_text: self.button_click(text),
-                    bootstyle="primary-outline")
-                button.grid(row=i, column=j, padx=5, pady=5)
-
-    def button_click(self, text):
-        if (text in self.functions):  # 功能
+    def button_click(self, text: str):
+        if (text in self.functions_group):  # 功能
             match text:
                 case "CE":
                     self.data.remove(self.data[-1])
-                    self.result_value.set("".join(self.data))
+                    self.result.display(self.data[-1])
                 case "C":
                     self.data = []
-                    self.result_value.set("".join(self.data))
-                case "⏏":
-                    if (msgbox.askyesno(ui["quit"]["title"], ui["quit"]["warn"])):
-                        self.destroy()
+                    self.result.display(0)
                 case "±":
-                    if self.data[-1] in self.signs:
-                        msgbox.showerror(
-                            ui_src["error"], ui["positivityError"])
+                    if self.data[-1] in self.signs_group:
+                        QMessageBox.critical(self, ui_src["error"], ui["positivityError"])
+                        self.result.display(0)
                     else:
                         self.data[-1] = str(-float(self.data[-1]))
-                        self.result_value.set("".join(self.data))
+                        self.result.display(self.data[-1])
                 case "=":
                     try:
                         self.data = [str(eval("".join(self.data)))]
-                        self.result_value.set("".join(self.data))
+                        self.result.display(self.data[-1])
                     except ZeroDivisionError:
-                        msgbox.showerror(ui_src["error"], ui["divideByZeroError"])
+                        QMessageBox.critical(self, ui_src["error"], ui["divideByZeroError"])
                         self.data = []
+                        self.result.display(0)
                     except ValueError:
-                        msgbox.showerror(ui_src["error"], ui["overflowError"].format(max=str(sys.get_int_max_str_digits()) + "**10 - 1"))
+                        QMessageBox.critical(self, ui_src["error"], ui["overflowError"].format(max=str(sys.get_int_max_str_digits()) + "**10 - 1"))
                         self.data = []
+                        self.result.display(0)
                     except Exception as err:
-                        msgbox.showerror(ui_src["error"], ui["expressionError"].format(repr(err)))
+                        QMessageBox.critical(self, ui_src["error"], traceback.format_exc())
+                        self.data = []
+                        self.result.display(0)
             self.previous_type = "function"
-        elif (text in self.signs):  # 符号
+        elif (text in self.signs_group):  # 符号
             match text:
-                case "1/x":
-                    self.data[-1] = "1/" + str(self.data[-1])
-                    self.result_value.set("".join(self.data))
                 case "%":
                     self.data[-1] = str(float(self.data[-1]) / 100)
-                    self.result_value.set("".join(self.data))
-                case "x^y":
+                    self.result.display(self.data[-1])
+                case "^":
                     self.data.append("**")
-                case "2√x":
-                    self.data[-1] = str(float(math.sqrt(float(self.data[-1]))))
+                case "2√":
+                    self.data[-1] = str(math.sqrt(float(self.data[-1])))
+                    self.result.display(self.data[-1])
                 case _:
                     self.data.append(text)
             self.previous_type = "sign"
         else:  # 数字
             if (self.previous_type == "number"):
-                self.data[-1] = self.data[-1] + text
+                if not self.data == []:
+                    self.data[-1] = self.data[-1] + text
+                else:
+                    self.data.append(text)
             else:
                 self.data.append(text)
-            self.result_value.set("".join(self.data))
+            self.result.display(self.data[-1])
             self.previous_type = "number"
 
-
 if __name__ == "__main__":
-    app = Calculator()
-    app.mainloop()
+    app = QApplication.instance()
+    if app is None:
+        app = QApplication(sys.argv)
+    app.setStyle(QStyleFactory.create("Fusion"))
+    translator = QTranslator()
+    if (translator.load(settings["qt_language"], directory="./data/ui/i18n")):
+        app.installTranslator(translator)
+    window = App()
+    window.setWindowIcon(QIcon("./images/pride.ico"))
+    window.setFixedSize(window.size())
+    window.show()
+    sys.exit(app.exec())
