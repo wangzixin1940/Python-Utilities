@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ui.ui'
+## Form generated from reading UI file 'main.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.0
 ##
@@ -95,7 +95,7 @@ class Ui_MainWindow(object):
         self.send_mail_from_json.setGeometry(QRect(10, 130, 121, 31))
         self.ip_group = QGroupBox(self.other_tools)
         self.ip_group.setObjectName(u"ip_group")
-        self.ip_group.setGeometry(QRect(10, 170, 121, 131))
+        self.ip_group.setGeometry(QRect(10, 240, 121, 131))
         self.get_ip = QPushButton(self.ip_group)
         self.get_ip.setObjectName(u"get_ip")
         self.get_ip.setGeometry(QRect(10, 50, 101, 31))
@@ -126,6 +126,9 @@ class Ui_MainWindow(object):
         self.xml_to_json = QPushButton(self.file_group)
         self.xml_to_json.setObjectName(u"xml_to_json")
         self.xml_to_json.setGeometry(QRect(10, 180, 121, 31))
+        self.amk_app = QPushButton(self.other_tools)
+        self.amk_app.setObjectName(u"amk_app")
+        self.amk_app.setGeometry(QRect(10, 170, 121, 31))
         self.tabs.addTab(self.other_tools, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -185,6 +188,7 @@ class Ui_MainWindow(object):
         self.csv_to_json.setText(QCoreApplication.translate("MainWindow", u"CSV \u8f6c JSON", None))
         self.json_to_xml.setText(QCoreApplication.translate("MainWindow", u"JSON \u8f6c XML", None))
         self.xml_to_json.setText(QCoreApplication.translate("MainWindow", u"XML \u8f6c JSON", None))
+        self.amk_app.setText(QCoreApplication.translate("MainWindow", u"AMK App", None))
         self.tabs.setTabText(self.tabs.indexOf(self.other_tools), QCoreApplication.translate("MainWindow", u"\u5176\u4ed6\u5de5\u5177", None))
         self.file_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6", None))
         self.settings_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u8bbe\u7f6e", None))

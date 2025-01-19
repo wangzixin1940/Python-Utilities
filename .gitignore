@@ -166,4 +166,5 @@ logs/
 .vscode/
 /TODO.MD
 ./data/translator.appid.json
+tempCodeRunnerFile.py
 

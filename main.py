@@ -2,7 +2,7 @@ from PySide6 import QtWidgets
 from PySide6.QtWidgets import QApplication, QStyleFactory
 from PySide6.QtGui import QIcon
 from PySide6.QtCore import QTranslator
-from data.ui import ui
+from data.ui import main_ui
 from data.ui import about
 import sys
 import platform
@@ -86,7 +86,7 @@ def check_python():
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
-        self.ui = ui.Ui_MainWindow()
+        self.ui = main_ui.Ui_MainWindow()
         self.ui.setupUi(self)
 
         # Connect buttons to functions
@@ -111,6 +111,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.json_to_xml.clicked.connect(launchers.DevToolsLauncher.JSONtoXMLLauncher)
         self.ui.xml_to_json.clicked.connect(launchers.DevToolsLauncher.XMLtoJSONLauncher)
         self.ui.csv_to_json.clicked.connect(launchers.DevToolsLauncher.CSVtoJSONLauncher)
+        self.ui.amk_app.clicked.connect(launchers.ExternalLauncher.AMKLauncher)
     
     def choose_language_profile(self):
         language_profile = QtWidgets.QFileDialog.getOpenFileName(self, "Choose Language Profile (JSON)", "", "JSON Files (*.json)")[0]

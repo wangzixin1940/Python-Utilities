@@ -1,23 +1,3 @@
-import os
-import json
-os.chdir(os.path.dirname(__file__))
-# Change the current working directory to the directory of the script
-
-with open("../../data/settings.json", "r") as settings:
-    settings = settings.read()
-    settings = json.loads(settings)
-    # Read the settings file
-
-with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
-    ui_src_file = ui_src_file.read()
-    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
-    ui = json.loads(ui_src_file)["externals"]["amk"]  # type: dict[str: str]
-    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
-
-
-import ttkbootstrap as ttk
-import tkinter.filedialog as fdg
-import tkinter.messagebox as msgbox
 import traceback
 import pynput
 from pynput import mouse
@@ -27,7 +7,7 @@ from random import randint as rand
 
 
 class Controllers:
-    def __init(self):
+    def __init__(self):
         self.mouse = mouse.Controller()
         self.keybrd = keyboard.Controller()
 
@@ -65,57 +45,42 @@ mouse = mouse.Controller()
 keyboard = keyboard.Controller()
 
 
-class App(ttk.Window):
+from PySide6 import QtWidgets
+from PySide6.QtWidgets import QApplication, QFileDialog, QMessageBox, QDialogButtonBox
+from PySide6.QtGui import QIcon
+import sys
+
+
+from ui.amk import Ui_Dialog
+
+class App(QtWidgets.QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
-        self.title("Auto Mouse and Keyboard")
-        self.geometry("400x300")
-        self.resizable(False, False)
-        self.main_title = ttk.Label(
-            self, text="Auto Mouse and Keyboard", font=(
-                "Arial", 20))
-        self.file = ttk.StringVar(value=ui["open"])
-        self.input_file = ttk.Button(
-            self,
-            textvariable=self.file,
-            command=self.open_file,
-            width=15,
-            bootstyle="primary-outline")
-        self.doWork_btn = ttk.Button(
-            self,
-            text=ui["launch"],
-            command=self.doWork,
-            width=15,
-            bootstyle="success-outline")
-        self.main_title.pack(pady=20)
-        self.input_file.pack(pady=10)
-        self.doWork_btn.pack(pady=10)
-        self.mainloop()
+        self.setupUi(self)
+        self.setWindowIcon(QIcon("./data/icon.ico"))
+        self.setFixedSize(self.size())
+        # Connect the buttons to their respective functions
+        self.choose_file.clicked.connect(self.choose_file_work)
+        self.run_script.clicked.connect(self.run_script_work)
+        self.buttonBox.rejected.connect(self.close)
+        self.buttonBox.helpRequested.connect(lambda: QMessageBox.information(self, "Help", "This app can automatically manage your mouse and keyboard actions with just a simple macro."))
 
-    def open_file(self):
-        self.file.set(
-            fdg.askopenfilename(
-                title=ui["open"], filetypes=[
-                    file_types["amk"], file_types["py"]]))
-
-    def doWork(self):
-        if self.file.get() != ui["open"]:
-            with open(self.file.get(), "r", encoding="utf-8") as f:
-                data = f.read()
-                if (data.startswith("#-- ENABLE --#")):
-                    try:
-                        exec(data)
-                    except Exception as e:
-                        msgbox.showerror(
-                            ui_src["error"], f"{ui["err"]}\n{
-                                repr(e)}：\n{
-                                traceback.print_exc()}")
-                else:
-                    msgbox.showerror(
-                        ui_src["error"], ui["notEnable"])
-        else:
-            msgbox.showerror(ui_src["error"], ui["fileNotFound"])
-
+    def choose_file_work(self):
+        self.file = QFileDialog.getOpenFileName(self, "Open File", "", "AMK Script(*.amk);Python Script(*.py);All Files(*)")[0]
+        if self.file:
+            self.choose_file.setText(self.file)
+        return 0
+    
+    def run_script_work(self):
+        if self.file:
+            try:
+                exec(open(self.file).read())
+            except Exception as e:
+                QMessageBox.critical(self, "Error", traceback.format_exc())
+        return 0
 
 if __name__ == "__main__":
-    App()
+    app = QApplication(sys.argv)
+    window = App()
+    window.show()
+    sys.exit(app.exec())
