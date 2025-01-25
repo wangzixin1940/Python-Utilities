@@ -245,7 +245,7 @@
             "chooseImage": "选择图片",
             "recognize": "识别",
             "result": "识别结果: ",
-            "choosed": "已选择"
+            "chose": "已选择"
         },
         "passwordCreator": {
             "title": "Password Creator",
@@ -256,7 +256,7 @@
                 "4": "很强"
             },
             "passwordStrength": "密码强度: ",
-            "inclubes": {
+            "includes": {
                 "symbols": "插入符号",
                 "numbers": "插入数字",
                 "uppers": "插入大写字母",

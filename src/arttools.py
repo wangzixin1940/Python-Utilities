@@ -1,7 +1,10 @@
 import json
-import logging, datetime
+import logging
+import datetime
 import requests
 
+from PIL import Image
+from PySide6.QtWidgets import QMessageBox, QApplication
 
 with open("data/settings.json", "r") as settings:
     settings = settings.read()
@@ -20,16 +23,12 @@ with open(settings["language"], "r", encoding="utf-8") as ui_src_file:
     ui = json.loads(ui_src_file)  # type: dict[str: dict]
 
 logging.basicConfig(
-        filename=f"./logs/{datetime.date.today()}.log",
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
+    filename=f"./logs/{datetime.date.today()}.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger("ARTTOOLS")
-
-
-from PIL import Image
-from PySide6.QtWidgets import QMessageBox, QApplication
 
 app = QApplication([])
 
@@ -41,6 +40,7 @@ def charPicture(filename):
         filename: The file name of the image
     """
     color = "MNHQ$OC?7>!:-;."  # characters
+
     def to_html(func):
         html_head = '''
                 <html>
@@ -54,11 +54,13 @@ def charPicture(filename):
                     </head>
                 <body> '''
         html_tail = "</body> </html>"
+
         # HTML definition
         def wrapper(image):
             pic_string = func(image)
             pic_string = "".join(line + " <br />" for line in pic_string.splitlines())
             return html_head + pic_string + html_tail
+
         return wrapper
 
     # Draw ascii art
@@ -72,6 +74,7 @@ def charPicture(filename):
                 pic_string += color[int(pix[int(w), int(h)] * 14 / 255)]
             pic_string += "\n"
         return pic_string
+
     def preprocess(img_name):
         image = Image.open(img_name)
         w, h = image.size
@@ -81,15 +84,18 @@ def charPicture(filename):
         image = image.resize((w, h))
         image = image.convert('L')
         return image
+
     def save_to_file(filename, pic_str):
         with open(filename, 'w') as outfile:
             logger.debug("File was successfully saved")
             outfile.write(pic_str)
+
     img = preprocess(filename)
     pic_str = make_char_img(img)
     save_to_file(f"{filename}-char.html", pic_str)
     logger.info(f"Output file:{filename}-char.html")
     QMessageBox.information(None, ui["asciiArt"]["successTitle"], ui["asciiArt"]["successMessage"])
+
 
 def bingPicture(filename: str, idx: str = "0", mkt: str = "zh-cn"):
     """

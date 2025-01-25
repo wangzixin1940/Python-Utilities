@@ -54,5 +54,5 @@ class Decoder():
         """                          ↑↑↑
         The above code comes from: https://blog.csdn.net/smallfox233/article/details/119408399
         """
-        self.logger.info(f"Decode was sucessful.")
+        self.logger.info(f"Decode was successful.")
         return result[0].data.decode("utf-8")

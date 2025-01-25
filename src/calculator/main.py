@@ -31,7 +31,6 @@ class App(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.setWindowIcon(QIcon("./images/pride.ico"))
         # Define the signs
         self.signs_group = ["%", "^", "2√", "/", "*", "-", "+"]
         self.functions_group = ["CE", "C", "±", "="]
@@ -126,10 +125,10 @@ if __name__ == "__main__":
         app = QApplication(sys.argv)
     app.setStyle(QStyleFactory.create("Fusion"))
     translator = QTranslator()
-    if (translator.load(settings["qt_language"], directory="./data/ui/i18n")):
+    if (translator.load(settings["qt_language"], directory="../../data/ui/i18n")):
         app.installTranslator(translator)
     window = App()
-    window.setWindowIcon(QIcon("./images/pride.ico"))
+    window.setWindowIcon(QIcon("./image/favicon.ico"))
     window.setFixedSize(window.size())
     window.show()
     sys.exit(app.exec())

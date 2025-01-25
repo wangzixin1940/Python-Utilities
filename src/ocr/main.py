@@ -73,7 +73,7 @@ class App(ttk.Window):
         self.image = fd.askopenfilename(
             filetypes=[file_types["images"]["jpg"], file_types["images"]["png"], file_types["images"]["bmp"]])
         self.image_choose_button.configure(
-            text=ui["choosed"], bootstyle="success-outline")
+            text=ui["chose"], bootstyle="success-outline")
 
     def recognize(self):
         result = ocr(self.image)

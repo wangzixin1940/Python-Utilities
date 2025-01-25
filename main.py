@@ -112,6 +112,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.xml_to_json.clicked.connect(launchers.DevToolsLauncher.XMLtoJSONLauncher)
         self.ui.csv_to_json.clicked.connect(launchers.DevToolsLauncher.CSVtoJSONLauncher)
         self.ui.amk_app.clicked.connect(launchers.ExternalLauncher.AMKLauncher)
+        self.ui.captcha_generator.clicked.connect(launchers.ExternalLauncher.captchaLauncher)
     
     def choose_language_profile(self):
         language_profile = QtWidgets.QFileDialog.getOpenFileName(self, "Choose Language Profile (JSON)", "", "JSON Files (*.json)")[0]
@@ -127,8 +128,8 @@ class MainWindow(QtWidgets.QMainWindow):
     def import_settings(self):
         settings = QtWidgets.QFileDialog.getOpenFileName(self, "Choose Settings File (JSON)", "", "JSON Files (*.json)")[0]
         if settings != "":
-            respose = QtWidgets.QMessageBox.question(self, "Warning", "Are you sure you want to import the settings file?\nThis will overwrite the current settings file!", QtWidgets.QMessageBox.StandardButton.Yes, QtWidgets.QMessageBox.StandardButton.No)
-            if respose == QtWidgets.QMessageBox.StandardButton.Yes:
+            response = QtWidgets.QMessageBox.question(self, "Warning", "Are you sure you want to import the settings file?\nThis will overwrite the current settings file!", QtWidgets.QMessageBox.StandardButton.Yes, QtWidgets.QMessageBox.StandardButton.No)
+            if response == QtWidgets.QMessageBox.StandardButton.Yes:
                 os.remove("./data/settings.json")
                 shutil.copy(settings, "./data/settings.json")
                 QtWidgets.QMessageBox.information(self, "Success", "Successfully replaced the settings file!\nRestart the program to apply the changes.", QtWidgets.QMessageBox.StandardButton.Ok)

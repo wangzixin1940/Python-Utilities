@@ -245,7 +245,7 @@
             "chooseImage": "Select an image",
             "recognize": "Recognition",
             "result": "Identification Result: ",
-            "choosed": "Choosed"
+            "chose": "Chose"
         },
         "passwordCreator": {
             "title": "Password Creator",
@@ -256,8 +256,8 @@
                 "4": "Very Strong"
             },
             "passwordStrength": "Password Strength: ",
-            "inclubes": {
-                "symbols": "Inclube symbols",
+            "includes": {
+                "symbols": "Include symbols",
                 "numbers": "Include numbers",
                 "uppers": "Include Uppercases",
                 "lowers": "Include Lowercases"

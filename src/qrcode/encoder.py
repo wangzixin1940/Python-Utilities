@@ -46,7 +46,7 @@ class Encoder():
             filename: str,
             module_drawer=None,
             color_mask=None,
-            embeded_image_path: str | None = None,
+            embedded_image_path: str | None = None,
             *args):
         """
         Generate a QR code
@@ -55,7 +55,7 @@ class Encoder():
             filename: Save the file name of the QR code
             module_drawer: Drawer
             color_mask: Color mask
-            embeded_image_path: Embeded image path
+            embedded_image_path: Embedded image path
         """
         qr = qrcode.main.QRCode(
             version=1,
@@ -63,25 +63,25 @@ class Encoder():
         )
         qr.add_data(data)
         qr.make(data)
-        if embeded_image_path and module_drawer and color_mask:
+        if embedded_image_path and module_drawer and color_mask:
             img = qr.make_image(
                 *args,
                 image_factory=StyledPilImage,
                 module_drawer=module_drawer,
                 color_mask=color_mask,
-                embeded_image=embeded_image_path)
-        elif embeded_image_path and module_drawer:
+                embeded_image=embedded_image_path)
+        elif embedded_image_path and module_drawer:
             img = qr.make_image(
                 *args,
                 image_factory=StyledPilImage,
                 module_drawer=module_drawer,
-                embeded_image=embeded_image_path)
-        elif embeded_image_path and color_mask:
+                embeded_image=embedded_image_path)
+        elif embedded_image_path and color_mask:
             img = qr.make_image(
                 *args,
                 image_factory=StyledPilImage,
                 color_mask=color_mask,
-                embeded_image=embeded_image_path)
+                embeded_image=embedded_image_path)
         elif module_drawer and color_mask:
             img = qr.make_image(
                 *args,
@@ -98,11 +98,11 @@ class Encoder():
                 *args,
                 image_factory=StyledPilImage,
                 color_mask=color_mask)
-        elif embeded_image_path:
+        elif embedded_image_path:
             img = qr.make_image(
                 *args,
                 image_factory=StyledPilImage,
-                embeded_image=embeded_image_path)
+                embeded_image=embedded_image_path)
         else:
             img = qr.make_image(*args, image_factory=StyledPilImage, )
         self.logger.info("Generating done.")

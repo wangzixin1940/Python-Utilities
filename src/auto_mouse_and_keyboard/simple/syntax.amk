@@ -12,8 +12,8 @@ print("Simple file") # Print something to the console.
 Controllers.mouse.position = (300, 300) # Move the mouse to (300, 300)
 
 Functions.delay(1) # Delay 1 second, do nothing
-Controllers.keybrd.press(keyboard._Key.space) # Press the space key (Don't let go)
+Controllers.keyboard.press(keyboard._Key.space) # Press the space key (Don't let go)
 Functions.delay(0.2) # Delay 0.2 seconds, do nothing
-Controllers.keybrd.release(keyboard._Key.space) # Release the space key
+Controllers.keyboard.release(keyboard._Key.space) # Release the space key
 
 # End of the script.

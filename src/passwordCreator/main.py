@@ -9,6 +9,7 @@ import os
 import io
 import sys
 import re
+import json
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
 # Change the encoding of the console output to utf-8
@@ -34,9 +35,6 @@ else:
         datefmt="%Y-%m-%d %H:%M:%S",
     )
 logger = logging.getLogger("PWDCTR")
-
-
-import json
 
 with open("../../data/settings.json", "r") as settings:
     settings = settings.read()
@@ -131,7 +129,8 @@ class App(ttk.Window):
                 self.includeUppercase.get()))
         self.password.config(state="disabled")
         strength = ui["strength"]
-        self.strengthTips["text"] = ui["passwordStrength"] + strength[self.strengthCheck(str(self.password.get("1.0", "end")))]
+        self.strengthTips["text"] = (ui["passwordStrength"]
+                                     + strength[self.strengthCheck(str(self.password.get("1.0", "end")))])
 
     def __init__(self):
         super().__init__()
@@ -150,12 +149,12 @@ class App(ttk.Window):
         self.includeNumbers = ttk.BooleanVar(value=True)
         self.includeUppercase = ttk.BooleanVar(value=True)
         self.includeLowercase = ttk.BooleanVar(value=True)
-        self.symbols = ttk.Checkbutton(self, text=ui["inclubes"]["symbols"], variable=self.includeSymbols)
-        self.numbers = ttk.Checkbutton(self, text=ui["inclubes"]["numbers"], variable=self.includeNumbers)
-        self.uppercase = ttk.Checkbutton(self, text=ui["inclubes"]["uppers"], variable=self.includeUppercase)
+        self.symbols = ttk.Checkbutton(self, text=ui["includes"]["symbols"], variable=self.includeSymbols)
+        self.numbers = ttk.Checkbutton(self, text=ui["includes"]["numbers"], variable=self.includeNumbers)
+        self.uppercase = ttk.Checkbutton(self, text=ui["includes"]["uppers"], variable=self.includeUppercase)
         self.lowercase = ttk.Checkbutton(
             self,
-            text=ui["inclubes"]["lowers"],
+            text=ui["includes"]["lowers"],
             variable=self.includeLowercase,
             state="disabled")
         self.symbols.pack(pady=5)
