@@ -1,16 +1,20 @@
-from tkinter import messagebox as msgbox
-from tkinter.filedialog import asksaveasfile
-import ttkbootstrap as ttk
+from PySide6 import QtWidgets
+from PySide6.QtWidgets import QApplication, QMessageBox, QStyleFactory, QFileDialog
+from PySide6.QtGui import QIcon
+from PySide6.QtCore import QTranslator
 import os
 import io
 import sys
+import json
+
+from ui.lc import Ui_MainWindow
+
+
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 # 更换编码
 
 os.chdir(os.path.dirname(__file__))
 # 更换工作目录
-
-import json
 
 with open("../../data/settings.json", "r") as settings:
     settings = settings.read()
@@ -34,9 +38,9 @@ with open("models/gpl-v3.txt", "r", encoding="utf-8") as gpl:
 
 with open("models/isc.txt", "r", encoding="utf-8") as isc:
     isc_licence = isc.read()
-# 导入LICENCE模版
+# Import the licence templates
 
-
+"""
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
@@ -45,7 +49,7 @@ class App(ttk.Window):
         self.resizable(False, False)
         style = self.style
         style.theme_use("cosmo")
-        self.iconbitmap("assets/icon.ico")
+        self.iconbitmap("./images/favicon.ico")
         # 创建界面
         self.mainlabel = ttk.Label(
             self, text=ui["title"], font=(
@@ -124,6 +128,10 @@ class App(ttk.Window):
             path.close()
             msgbox.showinfo(ui["complete"], ui["saveComplete"])
 
+if __name__ == "__main__":
+    App().mainloop()
+"""
+
 
 class LicenceCreator():
     def __init__(self, licence: str, params: dict):
@@ -176,5 +184,64 @@ class LicenceCreator():
             super().__init__(self.message)
 
 
+class App(QtWidgets.QMainWindow, Ui_MainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        # Define the variables
+        self.name = ""
+        self.year = 0
+        self.project_intro = ""
+        self.project_name = ""
+        self.type = -1
+        self.licence_text = ""
+        # Connect the button to the function
+        self.generateButton.clicked.connect(self.generate_licence)
+        # Change the maximum value of the Spinbox
+        self.yearEdit.setMaximum(9999)
+        self.yearEdit_2.setMaximum(9999)
+        self.yearEdit_3.setMaximum(9999)
+        self.yearEdit_4.setMaximum(9999)
+
+    def generate_licence(self):
+        self.tab = self.types.currentIndex()
+        match self.tab:
+            case 0:  # Apache 2.0
+                self.name = self.nameEdit.text()
+                self.year = self.yearEdit.text()
+                self.licence_text = LicenceCreator("apache", {"name": self.name, "year": self.year}).licence
+            case 1:  # MIT
+                self.name = self.nameEdit_2.text()
+                self.year = self.yearEdit_2.text()
+                self.licence_text = LicenceCreator("mit", {"name": self.name, "year": self.year}).licence
+            case 2:  # GPL v3
+                self.name = self.nameEdit_3.text()
+                self.year = self.yearEdit_3.text()
+                self.project_intro = self.projectIntroEdit.text()
+                self.project_name = self.projectNameEdit.text()
+                self.licence_text = LicenceCreator("gpl", {"name": self.name, "year": self.year, "usage": self.project_intro, "project_name": self.project_name}).licence
+            case 3:  # ISC
+                self.name = self.nameEdit_4.text()
+                self.year = self.yearEdit_4.text()
+                self.licence_text = LicenceCreator("isc", {"name": self.name, "year": self.year}).licence
+            case _:  # Error
+                QMessageBox.critical(self, "Error", "An unknown error occurred.")
+        self.path = QFileDialog.getSaveFileName(self, "Save the licence", "", "Text files (*.txt);;All files (*)")
+        with open(self.path[0], "w", encoding="utf-8") as file:
+            file.write(self.licence_text)
+        QMessageBox.information(self, "Complete", "The licence has been saved successfully.")
+
+
 if __name__ == "__main__":
-    App().mainloop()
+    app = QApplication.instance()
+    if app is None:
+        app = QApplication(sys.argv)
+    app.setStyle(QStyleFactory.create("Fusion"))
+    translator = QTranslator()
+    if (translator.load(settings["qt_language"], directory="../../data/ui/i18n")):
+        app.installTranslator(translator)
+    window = App()
+    window.setWindowIcon(QIcon("./images/favicon.ico"))
+    window.setFixedSize(window.size())
+    window.show()
+    sys.exit(app.exec())

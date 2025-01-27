@@ -172,8 +172,7 @@ def main():
         app.installTranslator(translator)
     window = MainWindow()
     window.setWindowIcon(QIcon("./images/pride.ico"))
-    window.resize(320, 500)
-    window.setFixedSize(320, 500)
+    window.setFixedSize(window.size())
     window.show()
     sys.exit(app.exec())
 

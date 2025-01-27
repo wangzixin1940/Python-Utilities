@@ -1,3 +1,5 @@
+# TODO: 把它改为QT架构
+
 import json
 import tkinter as tk
 
