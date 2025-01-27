@@ -24,7 +24,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(309, 495)
+        MainWindow.resize(309, 553)
         font = QFont()
         font.setFamilies([u"Arial"])
         MainWindow.setFont(font)
@@ -60,7 +60,7 @@ class Ui_MainWindow(object):
         self.news.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop|Qt.AlignmentFlag.AlignTrailing)
         self.tabs = QTabWidget(self.centralwidget)
         self.tabs.setObjectName(u"tabs")
-        self.tabs.setGeometry(QRect(0, 50, 311, 421))
+        self.tabs.setGeometry(QRect(0, 50, 311, 481))
         self.common_use = QWidget()
         self.common_use.setObjectName(u"common_use")
         self.translator = QPushButton(self.common_use)
@@ -95,7 +95,7 @@ class Ui_MainWindow(object):
         self.send_mail_from_json.setGeometry(QRect(10, 130, 121, 31))
         self.ip_group = QGroupBox(self.other_tools)
         self.ip_group.setObjectName(u"ip_group")
-        self.ip_group.setGeometry(QRect(10, 250, 121, 131))
+        self.ip_group.setGeometry(QRect(10, 300, 121, 131))
         self.get_ip = QPushButton(self.ip_group)
         self.get_ip.setObjectName(u"get_ip")
         self.get_ip.setGeometry(QRect(10, 50, 101, 31))
@@ -132,6 +132,9 @@ class Ui_MainWindow(object):
         self.captcha_generator = QPushButton(self.other_tools)
         self.captcha_generator.setObjectName(u"captcha_generator")
         self.captcha_generator.setGeometry(QRect(10, 210, 121, 31))
+        self.chinese_pinyin_dict = QPushButton(self.other_tools)
+        self.chinese_pinyin_dict.setObjectName(u"chinese_pinyin_dict")
+        self.chinese_pinyin_dict.setGeometry(QRect(10, 250, 121, 31))
         self.tabs.addTab(self.other_tools, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
@@ -156,7 +159,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.tabs.setCurrentIndex(1)
+        self.tabs.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -193,6 +196,7 @@ class Ui_MainWindow(object):
         self.xml_to_json.setText(QCoreApplication.translate("MainWindow", u"XML \u8f6c JSON", None))
         self.amk_app.setText(QCoreApplication.translate("MainWindow", u"AMK App", None))
         self.captcha_generator.setText(QCoreApplication.translate("MainWindow", u"\u9a8c\u8bc1\u7801\u751f\u6210\u5668", None))
+        self.chinese_pinyin_dict.setText(QCoreApplication.translate("MainWindow", u"\u6c49\u8bed\u62fc\u97f3\u8bcd\u5178", None))
         self.tabs.setTabText(self.tabs.indexOf(self.other_tools), QCoreApplication.translate("MainWindow", u"\u5176\u4ed6\u5de5\u5177", None))
         self.file_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6", None))
         self.settings_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u8bbe\u7f6e", None))

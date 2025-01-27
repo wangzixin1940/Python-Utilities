@@ -1,3 +1,11 @@
+import pypinyin
+from PySide6 import QtWidgets
+from PySide6.QtWidgets import QApplication, QMessageBox, QStyleFactory, QFileDialog
+from PySide6.QtGui import QIcon
+from PySide6.QtCore import QTranslator
+from ui.cpd import Ui_MainWindow
+import sys
+
 import os
 import json
 os.chdir(os.path.dirname(__file__))
@@ -7,17 +15,6 @@ with open("../../data/settings.json", "r") as settings:
     settings = settings.read()
     settings = json.loads(settings)
     # Read the settings file
-
-with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
-    ui_src_file = ui_src_file.read()
-    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
-    ui = json.loads(ui_src_file)["externals"]["chinesePinyinDictionary"]  # type: dict[str: str]
-    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
-
-
-import pypinyin
-import ttkbootstrap as ttk
-
 
 def query(word):
     """
@@ -30,7 +27,7 @@ def query(word):
     return (pypinyin.pinyin(word, style=pypinyin.TONE, v_to_u=True), pypinyin.pinyin(word, style=pypinyin.BOPOMOFO, v_to_u=True))
     # Output pinyin and zhuyin, with tones, replace v with ü (ㄩ)
 
-
+"""
 class App(ttk.Window):
     def __init__(self):
         super().__init__()
@@ -67,6 +64,41 @@ class App(ttk.Window):
             result_zhuyin += i[0] + " "
         self.zhuyin.set(ui["zhuyin"] + result_zhuyin)
 
-
 if __name__ == '__main__':
     App()
+"""
+
+
+class App(QtWidgets.QMainWindow, Ui_MainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setupUi(self)
+        # Define the variables
+        self.pinyin = ""
+        self.zhuyin = ""
+        self.text = ""
+        # Connect the button to the function
+        self.queryButton.clicked.connect(self.processing)
+
+    def processing(self):
+        self.text = self.inputs.text()
+        result = query(self.text)
+        self.pinyin = result[0][0][0] + " " + result[0][1][0]
+        self.zhuyin = result[1][0][0] + " " + result[1][1][0]
+        self.resultPinyin.setText(self.pinyin)
+        self.resultZhuyin.setText(self.zhuyin)
+
+
+if __name__ == "__main__":
+    app = QApplication.instance()
+    if app is None:
+        app = QApplication(sys.argv)
+    app.setStyle(QStyleFactory.create("Fusion"))
+    translator = QTranslator()
+    if (translator.load(settings["qt_language"], directory="../../data/ui/i18n")):
+        app.installTranslator(translator)
+    window = App()
+    window.setWindowIcon(QIcon("./image/favicon.ico"))
+    window.setFixedSize(window.size())
+    window.show()
+    sys.exit(app.exec())

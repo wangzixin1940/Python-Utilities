@@ -4,11 +4,13 @@ from PySide6.QtGui import QIcon
 from PySide6.QtCore import QTranslator
 from data.ui import main_ui
 from data.ui import about
-import sys
 import platform
 
 import os
 import json
+
+import src.launchers as launchers
+import shutil
 
 with open("data/settings.json", "r") as settings:
     settings = settings.read()
@@ -17,7 +19,8 @@ with open("data/settings.json", "r") as settings:
 
 import io
 import sys
-import logging, datetime
+import logging
+import datetime
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=settings["encoding"])
 # Change the encoding of the standard output
@@ -46,8 +49,6 @@ else:
 logger = logging.getLogger("ROOT")
 # Configure the logger
 
-import src.launchers as launchers
-import shutil
 
 def check_python():
     global sysinfo
@@ -83,6 +84,7 @@ def check_python():
     logger.critical("Python version TOO OLD !!! Program CANNOT LAUNCH!!!")
     return 1
 
+
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
@@ -115,9 +117,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.captcha_generator.clicked.connect(launchers.ExternalLauncher.captchaLauncher)
     
     def choose_language_profile(self):
-        language_profile = QtWidgets.QFileDialog.getOpenFileName(self, "Choose Language Profile (JSON)", "", "JSON Files (*.json)")[0]
+        language_profile = QtWidgets.QFileDialog.getOpenFileName(self, "Choose Language Profile (JSON)", "",
+                                                                 "JSON Files (*.json)")[0]
         if language_profile != "":
-            qt_language_profile = QtWidgets.QFileDialog.getOpenFileName(self, "Choose Language Profile (QM)", "", "Qt Released Language Files (*.qm)")
+            qt_language_profile = QtWidgets.QFileDialog.getOpenFileName(self, "Choose Language Profile (QM)", "",
+                                                                        "Qt Released Language Files (*.qm)")
             if qt_language_profile != "":
                 with open("./data/settings.json", "r+", encoding="utf-8") as settings:
                     settings_data = json.loads(settings)
@@ -126,26 +130,35 @@ class MainWindow(QtWidgets.QMainWindow):
                     json.dump(settings_data, settings, indent=4, ensure_ascii=False)
     
     def import_settings(self):
-        settings = QtWidgets.QFileDialog.getOpenFileName(self, "Choose Settings File (JSON)", "", "JSON Files (*.json)")[0]
+        settings = QtWidgets.QFileDialog.getOpenFileName(self, "Choose Settings File (JSON)", "",
+                                                         "JSON Files (*.json)")[0]
         if settings != "":
-            response = QtWidgets.QMessageBox.question(self, "Warning", "Are you sure you want to import the settings file?\nThis will overwrite the current settings file!", QtWidgets.QMessageBox.StandardButton.Yes, QtWidgets.QMessageBox.StandardButton.No)
+            response = QtWidgets.QMessageBox.question(self, "Warning",
+                                                      "Are you sure you want to import the settings file?\n \
+                                                      This will overwrite the current settings file!",
+                                                      QtWidgets.QMessageBox.StandardButton.Yes,
+                                                      QtWidgets.QMessageBox.StandardButton.No)
             if response == QtWidgets.QMessageBox.StandardButton.Yes:
                 os.remove("./data/settings.json")
                 shutil.copy(settings, "./data/settings.json")
-                QtWidgets.QMessageBox.information(self, "Success", "Successfully replaced the settings file!\nRestart the program to apply the changes.", QtWidgets.QMessageBox.StandardButton.Ok)
+                QtWidgets.QMessageBox.information(self, "Success",
+                                                  "Successfully replaced the settings file!\n \
+                                                  Restart the program to apply the changes.",
+                                                  QtWidgets.QMessageBox.StandardButton.Ok)
     
-    def about_window(self):
+    @ staticmethod
+    def about_window():
         about_window = AboutWindow()
         about_window.show()
         return about_window.exec()
             
-
 
 class AboutWindow(QtWidgets.QDialog):
     def __init__(self):
         super(AboutWindow, self).__init__()
         self.ui = about.Ui_Dialog()
         self.ui.setupUi(self)
+
 
 def main():
     if check_python() != 0:
@@ -163,6 +176,7 @@ def main():
     window.setFixedSize(320, 500)
     window.show()
     sys.exit(app.exec())
+
 
 if __name__ == "__main__":
     main()
