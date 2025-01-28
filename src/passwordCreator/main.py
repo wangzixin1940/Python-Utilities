@@ -138,7 +138,7 @@ class App(ttk.Window):
         self.style_set = ttk.Style(theme="cosmo")
         self.geometry("400x550")
         self.resizable(False, False)
-        self.iconbitmap("./assets/favicon.ico")
+        # self.iconbitmap("./assets/favicon.ico")
         self.title(ui["title"])
         self.main_title = ttk.Label(self, text=ui["title"], font=("Arial", 20))
         self.main_title.pack(pady=10)

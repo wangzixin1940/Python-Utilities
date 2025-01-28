@@ -8,15 +8,6 @@ import os
 os.chdir(os.path.dirname(__file__))
 # Change the current directory to the directory of the script
 
-
-class ModuleDownloadFailedWarning(Warning):
-    def __init__(self, message):
-        super().__init__(message)
-
-    def __str__(self):
-        return {self.args[0]}
-
-
 logging.basicConfig(
     filename=f"../../../logs/{datetime.date.today()}.log",
     level=logging.INFO,
@@ -34,10 +25,6 @@ for package in packages:
 for response in range(len(responses)):
     if not (responses[response]):
         logger.warning("Error download package: {}".format(packages[response]))
-        warnings.warn(
-            "Error download package: {}".format(
-                packages[response]),
-            ModuleDownloadFailedWarning)
 # Download NLTK data
 
 

@@ -1,7 +1,7 @@
 ttkbootstrap
 easygui
 pillow
-speedtest
+speedtest-cli
 pyperclip
 xmltodict
 dicttoxml
