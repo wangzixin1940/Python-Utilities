@@ -247,18 +247,18 @@ class ExternalLauncher():
     @staticmethod
     def webSpeedTestLauncher():
         def run():
-            subprocess.Popen("python /src/webspeedtest/main.py")
+            subprocess.Popen("python ./src/webspeedtest/main.py")
         QMessageBox.warning(None, ui["warn"], ui["launchers"]["external"]["webSpeedTestWarning"])
         thread = threading.Thread(target=run)
         thread.start()
 
     @staticmethod
     def clockLauncher():
-        subprocess.Popen("python src/clock/main.py")
+        subprocess.Popen("python ./src/clock/main.py")
 
     @staticmethod
     def calculatorLauncher():
-        subprocess.Popen("python src/calculator/main.py")
+        subprocess.Popen("python ./src/calculator/main.py")
 
     @staticmethod
     def hashCheckerLauncher():
@@ -266,53 +266,57 @@ class ExternalLauncher():
 
     @staticmethod
     def passwordCreatorLauncher():
-        subprocess.Popen("python src/passwordCreator/main.py")
+        subprocess.Popen("python ./src/passwordCreator/main.py")
 
     @staticmethod
     def licenceCreatorLauncher():
-        subprocess.Popen("python src/licenceCreator/main.py")
+        subprocess.Popen("python ./src/licenceCreator/main.py")
 
     @staticmethod
     def qrcodeGeneratorLauncher():
-        subprocess.Popen("python src/qrcode/main.py 0")
+        subprocess.Popen("python ./src/qrcode/main.py 0")
 
     @staticmethod
     def qrcodeParserLauncher():
-        subprocess.Popen("python src/qrcode/main.py 1")
+        subprocess.Popen("python ./src/qrcode/main.py 1")
 
     @staticmethod
     def weatherLauncher():
-        subprocess.Popen("python src/weather/main.py")
+        subprocess.Popen("python ./src/weather/main.py")
 
     @staticmethod
     def speech2textLauncher():
-        subprocess.Popen("python src/speech2text/main.py")
+        subprocess.Popen("python ./src/speech2text/main.py")
 
     @staticmethod
     def pictureFormatConverterLauncher():
-        subprocess.Popen("python src/photo_format_converter/main.py")
+        subprocess.Popen("python ./src/photo_format_converter/main.py")
 
     @staticmethod
     def sendMailFromJSONLauncher():
-        subprocess.Popen("python src/send_mail_from_json/main.py")
+        subprocess.Popen("python ./src/send_mail_from_json/main.py")
 
     @staticmethod
     def AMKLauncher():
-        subprocess.Popen("python src/auto_mouse_and_keyboard/main.py")
+        subprocess.Popen("python ./src/auto_mouse_and_keyboard/main.py")
 
     @staticmethod
     def countDownLauncher():
-        subprocess.Popen("python src/count_down/main.py")
+        subprocess.Popen("python ./src/count_down/main.py")
 
     @staticmethod
     def pinyinLauncher():
-        subprocess.Popen("python src/Chinese_Pinyin_Dictionary/main.py")
+        subprocess.Popen("python ./src/Chinese_Pinyin_Dictionary/main.py")
 
     @staticmethod
     def captchaLauncher():
-        subprocess.Popen("python src/Captcha_Generator/main.py")
+        subprocess.Popen("python ./src/Captcha_Generator/main.py")
 
     @staticmethod
     def toDoLauncher():
-        subprocess.Popen("python src/EasyTodo/main.py")
+        subprocess.Popen("python ./src/EasyTodo/main.py")
+
+    @staticmethod
+    def OCRLauncher():
+        subprocess.Popen("python ./src/ocr/main.py")
 

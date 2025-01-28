@@ -1,87 +1,76 @@
-from tkinter import filedialog as fd
-from ocr import read_text_from_image as ocr
-import ttkbootstrap as ttk
 import os
 import io
 import sys
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
-# 更换编码
+
+from PySide6 import QtWidgets
+from PySide6.QtWidgets import QApplication, QStyleFactory, QFileDialog
+from PySide6.QtGui import QIcon
+from PySide6.QtCore import QTranslator
+import easyocr
+
+from ui.ocr import Ui_MainWindow as MainWindow
+
+import json
 
 os.chdir(os.path.dirname(__file__))
 # 更换工作目录
 
-import json
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+# 更换编码
 
-with open("../../data/settings.json", "r") as settings:
+with open("./data/settings.json", "r") as settings:
     settings = settings.read()
     settings = json.loads(settings)
     # Read the settings file
 
-with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file:
-    ui_src_file = ui_src_file.read()
-    file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
-    ui = json.loads(ui_src_file)["externals"]["ocr"]  # type: dict[str: str]
-    ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
+
+def recognition(reader: easyocr.Reader, image_path):
+    """
+    Use the EasyOCR library to extract text from images.
+    Args:
+        reader: EasyOCR reader
+        image_path: Image file path
+    Returns:
+        Results
+    """
+    return reader.readtext((image_path), detail=0)
 
 
-class App(ttk.Window):
+class App(QtWidgets.QMainWindow, MainWindow):
     def __init__(self):
         super().__init__()
-        self.title(ui["title"])
-        self.geometry("400x600")
-        self.resizable(True, True)
-        self.iconbitmap("assets/favicon.ico")
-        self.resizable(False, False)
-        self.styleset = ttk.Style()
-        self.styleset.configure(
-            "TButton",
-            font=("Helvetica", 18, "normal"),
-            width=20, height=3)
-        # 创建控件
-        self.maintitle = ttk.Label(
-            self, text=ui["title"], font=(
-                "Helvetica", 20, "normal"))
-        self.maintitle.pack(pady=10)
-        self.image_choose_button = ttk.Button(
-            self,
-            text=ui["chooseImage"],
-            command=self.chooseImage,
-            width=10,
-            bootstyle="primary-outline")
-        self.image_choose_button.pack(pady=10)
-        # 创建识别按钮
-        self.recognize_button = ttk.Button(
-            self,
-            text=ui["recognize"],
-            command=self.recognize,
-            width=10,
-            bootstyle="success-outline")
-        self.recognize_button.pack(pady=10, side="top", anchor="center")
-        # 创建结果标签
-        self.result_label = ttk.Label(
-            self, text=ui["result"], font=(
-                "Helvetica", 16, "normal"))
-        self.result_label.pack(pady=10)
-        # 创建结果文本框
-        self.result_textbox = ttk.ScrolledText(self)
-        self.result_textbox.configure(state="disabled")
-        self.result_textbox.pack(pady=10)
-        # 主循环
-        self.mainloop()
+        self.setupUi(self)
+        # Define the variables
+        self.filePath = ""
+        self.result = []
+        self.reader = None
+        # Connect the buttons to the functions
+        self.choosePictureButton.clicked.connect(self.choose_picture)
+        self.identifyButton.clicked.connect(self.identify)
 
-    def chooseImage(self):
-        self.image = fd.askopenfilename(
-            filetypes=[file_types["images"]["jpg"], file_types["images"]["png"], file_types["images"]["bmp"]])
-        self.image_choose_button.configure(
-            text=ui["chose"], bootstyle="success-outline")
+    def choose_picture(self):
+        self.filePath = QFileDialog.getOpenFileName(self, "Choose a photo", "", "Image(*.jpg *.png)")[0]
+        if self.filePath:
+            self.choosePictureButton.setText(self.filePath)
 
-    def recognize(self):
-        result = ocr(self.image)
-        self.result_textbox.configure(state="normal")
-        self.result_textbox.delete("1.0", ttk.END)
-        self.result_textbox.insert(ttk.END, result)
-        self.result_textbox.configure(state="disabled")
+    def identify(self):
+        if not self.reader:
+            self.reader = easyocr.Reader(['en', 'ch_sim'], gpu=True)
+            # Use English and Chinese Simplified Chinese models
+        self.result = recognition(self.reader, self.filePath)
+        self.resultDisplay.setPlainText("\n".join(self.result))
 
 
 if __name__ == "__main__":
-    app = App()
+    app = QApplication.instance()
+    if app is None:
+        app = QApplication(sys.argv)
+    app.setStyle(QStyleFactory.create("Fusion"))
+    translator = QTranslator()
+    if (translator.load(settings["qt_language"], directory="../../data/ui/i18n")):
+        app.installTranslator(translator)
+    window = App()
+    window.setWindowIcon(QIcon("./images/favicon.ico"))
+    window.setFixedSize(window.size())
+    window.show()
+    sys.exit(app.exec())

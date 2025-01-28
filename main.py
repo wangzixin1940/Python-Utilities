@@ -115,6 +115,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.csv_to_json.clicked.connect(launchers.DevToolsLauncher.CSVtoJSONLauncher)
         self.ui.amk_app.clicked.connect(launchers.ExternalLauncher.AMKLauncher)
         self.ui.captcha_generator.clicked.connect(launchers.ExternalLauncher.captchaLauncher)
+        self.ui.ocr_app.clicked.connect(launchers.ExternalLauncher.OCRLauncher)
     
     def choose_language_profile(self):
         language_profile = QtWidgets.QFileDialog.getOpenFileName(self, "Choose Language Profile (JSON)", "",
