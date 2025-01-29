@@ -1,15 +1,15 @@
-import json
-import pyperclip as cb
-from tkinter import messagebox as msgbox
-import ttkbootstrap as ttk
-import random
 import datetime
+import io
+import json
 import logging
 import os
-import io
-import sys
+import random
 import re
-import json
+import sys
+from tkinter import messagebox as msgbox
+
+import pyperclip as cb
+import ttkbootstrap as ttk
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
 # Change the encoding of the console output to utf-8
@@ -34,7 +34,7 @@ else:
         format="%(asctime)s - %(name)s - %(levelname)s - NO-LOG-FILE - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S",
     )
-logger = logging.getLogger("PWDCTR")
+logger = logging.getLogger("PASSWORD_CREATOR")
 
 with open("../../data/settings.json", "r") as settings:
     settings = settings.read()
@@ -172,12 +172,12 @@ class App(ttk.Window):
         self.password.pack(pady=10)
         self.strengthTips = ttk.Label(self, text=ui["passwordStrength"]+ui["unknown"])
         self.strengthTips.pack(pady=5)
-        self.copybtn = ttk.Button(
+        self.copy_button = ttk.Button(
             self,
             text=ui["copy"],
             command=lambda: self.copyToClipboard(),
             bootstyle="outline-primary")
-        self.copybtn.pack(pady=5)
+        self.copy_button.pack(pady=5)
         self.mainloop()
 
 

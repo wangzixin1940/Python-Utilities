@@ -1,24 +1,18 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main.ui'
-##
-## Created by: Qt User Interface Compiler version 6.8.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
+# Form generated from reading UI file 'main.ui'
+#
+# Created by: Qt User Interface Compiler version 6.8.0
+#
+# WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
-    QCursor, QFont, QFontDatabase, QGradient,
-    QIcon, QImage, QKeySequence, QLinearGradient,
-    QPainter, QPalette, QPixmap, QRadialGradient,
-    QTransform)
-from PySide6.QtWidgets import (QApplication, QGroupBox, QLabel, QMainWindow,
-    QMenu, QMenuBar, QPushButton, QSizePolicy,
-    QTabWidget, QWidget)
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect,
+                            QSize, Qt)
+from PySide6.QtGui import (QAction, QFont, QIcon)
+from PySide6.QtWidgets import (QGroupBox, QLabel, QMenu, QMenuBar, QPushButton, QTabWidget, QWidget)
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -57,7 +51,8 @@ class Ui_MainWindow(object):
         font2.setPointSize(12)
         self.news.setFont(font2)
         self.news.setTextFormat(Qt.TextFormat.AutoText)
-        self.news.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop|Qt.AlignmentFlag.AlignTrailing)
+        self.news.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignTop |
+                               Qt.AlignmentFlag.AlignTrailing)
         self.tabs = QTabWidget(self.centralwidget)
         self.tabs.setObjectName(u"tabs")
         self.tabs.setGeometry(QRect(0, 50, 311, 481))
@@ -102,18 +97,18 @@ class Ui_MainWindow(object):
         self.get_ip = QPushButton(self.ip_group)
         self.get_ip.setObjectName(u"get_ip")
         self.get_ip.setGeometry(QRect(10, 50, 101, 31))
-        self.get_doamin = QPushButton(self.ip_group)
-        self.get_doamin.setObjectName(u"get_doamin")
-        self.get_doamin.setGeometry(QRect(10, 90, 101, 31))
+        self.get_domain = QPushButton(self.ip_group)
+        self.get_domain.setObjectName(u"get_domain")
+        self.get_domain.setGeometry(QRect(10, 90, 101, 31))
         self.qrcode_group = QGroupBox(self.other_tools)
         self.qrcode_group.setObjectName(u"qrcode_group")
         self.qrcode_group.setGeometry(QRect(150, 250, 141, 131))
         self.create_qr = QPushButton(self.qrcode_group)
         self.create_qr.setObjectName(u"create_qr")
         self.create_qr.setGeometry(QRect(10, 50, 121, 31))
-        self.reslove_qr = QPushButton(self.qrcode_group)
-        self.reslove_qr.setObjectName(u"reslove_qr")
-        self.reslove_qr.setGeometry(QRect(10, 90, 121, 31))
+        self.resolve_qr = QPushButton(self.qrcode_group)
+        self.resolve_qr.setObjectName(u"resolve_qr")
+        self.resolve_qr.setGeometry(QRect(10, 90, 121, 31))
         self.file_group = QGroupBox(self.other_tools)
         self.file_group.setObjectName(u"file_group")
         self.file_group.setGeometry(QRect(150, 10, 141, 221))
@@ -164,7 +159,6 @@ class Ui_MainWindow(object):
 
         self.tabs.setCurrentIndex(0)
 
-
         QMetaObject.connectSlotsByName(MainWindow)
     # setupUi
 
@@ -172,7 +166,8 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Windows Utilities", None))
         self.import_settings.setText(QCoreApplication.translate("MainWindow", u"\u5bfc\u5165\u8bbe\u7f6e", None))
         self.exit.setText(QCoreApplication.translate("MainWindow", u"\u9000\u51fa", None))
-        self.choose_language_profile.setText(QCoreApplication.translate("MainWindow", u"Choose Language Profile...", None))
+        self.choose_language_profile.setText(QCoreApplication.translate("MainWindow", u"Choose Language Profile...",
+                                                                        None))
         self.about.setText(QCoreApplication.translate("MainWindow", u"\u5173\u4e8e", None))
         self.main_title.setText(QCoreApplication.translate("MainWindow", u"Windows Utilities", None))
         self.news.setText(QCoreApplication.translate("MainWindow", u"\u65b0Qt\u67b6\u6784\u51fa\u573a\uff01", None))
@@ -182,28 +177,35 @@ class Ui_MainWindow(object):
         self.easy_to_do.setText(QCoreApplication.translate("MainWindow", u"Easy To Do", None))
         self.password_creator.setText(QCoreApplication.translate("MainWindow", u"\u5bc6\u7801\u751f\u6210\u5668", None))
         self.ocr_app.setText(QCoreApplication.translate("MainWindow", u"\u6587\u5b57\u8bc6\u522b\u5668", None))
-        self.tabs.setTabText(self.tabs.indexOf(self.common_use), QCoreApplication.translate("MainWindow", u"\u5e38\u7528\u5de5\u5177", None))
+        self.tabs.setTabText(self.tabs.indexOf(self.common_use), QCoreApplication.translate("MainWindow",
+                                                                                            u"\u5e38\u7528\u5de5\u5177",
+                                                                                            None))
         self.calculator.setText(QCoreApplication.translate("MainWindow", u"\u8ba1\u7b97\u5668", None))
         self.hash_checker.setText(QCoreApplication.translate("MainWindow", u"\u6821\u9a8c\u54c8\u5e0c", None))
-        self.licence_creator.setText(QCoreApplication.translate("MainWindow", u"\u8bb8\u53ef\u8bc1\u521b\u9020\u5668", None))
-        self.send_mail_from_json.setText(QCoreApplication.translate("MainWindow", u"\u6279\u91cf\u53d1\u9001\u90ae\u4ef6", None))
+        self.licence_creator.setText(QCoreApplication.translate("MainWindow", u"\u8bb8\u53ef\u8bc1\u521b\u9020\u5668",
+                                                                None))
+        self.send_mail_from_json.setText(QCoreApplication.translate("MainWindow",
+                                                                    u"\u6279\u91cf\u53d1\u9001\u90ae\u4ef6", None))
         self.ip_group.setTitle(QCoreApplication.translate("MainWindow", u"IP \u5de5\u5177", None))
         self.get_ip.setText(QCoreApplication.translate("MainWindow", u"\u83b7\u53d6IP", None))
-        self.get_doamin.setText(QCoreApplication.translate("MainWindow", u"\u83b7\u53d6\u57df\u540d", None))
+        self.get_domain.setText(QCoreApplication.translate("MainWindow", u"\u83b7\u53d6\u57df\u540d", None))
         self.qrcode_group.setTitle(QCoreApplication.translate("MainWindow", u"\u4e8c\u7ef4\u7801\u5de5\u5177", None))
         self.create_qr.setText(QCoreApplication.translate("MainWindow", u"\u751f\u6210\u4e8c\u7ef4\u7801", None))
-        self.reslove_qr.setText(QCoreApplication.translate("MainWindow", u"\u89e3\u6790\u4e8c\u7ef4\u7801", None))
+        self.resolve_qr.setText(QCoreApplication.translate("MainWindow", u"\u89e3\u6790\u4e8c\u7ef4\u7801", None))
         self.file_group.setTitle(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6\u5de5\u5177", None))
         self.json_to_csv.setText(QCoreApplication.translate("MainWindow", u"JSON \u8f6c CSV", None))
         self.csv_to_json.setText(QCoreApplication.translate("MainWindow", u"CSV \u8f6c JSON", None))
         self.json_to_xml.setText(QCoreApplication.translate("MainWindow", u"JSON \u8f6c XML", None))
         self.xml_to_json.setText(QCoreApplication.translate("MainWindow", u"XML \u8f6c JSON", None))
         self.amk_app.setText(QCoreApplication.translate("MainWindow", u"AMK App", None))
-        self.captcha_generator.setText(QCoreApplication.translate("MainWindow", u"\u9a8c\u8bc1\u7801\u751f\u6210\u5668", None))
-        self.chinese_pinyin_dict.setText(QCoreApplication.translate("MainWindow", u"\u6c49\u8bed\u62fc\u97f3\u8bcd\u5178", None))
-        self.tabs.setTabText(self.tabs.indexOf(self.other_tools), QCoreApplication.translate("MainWindow", u"\u5176\u4ed6\u5de5\u5177", None))
+        self.captcha_generator.setText(QCoreApplication.translate("MainWindow", u"\u9a8c\u8bc1\u7801\u751f\u6210\u5668",
+                                                                  None))
+        self.chinese_pinyin_dict.setText(QCoreApplication.translate("MainWindow",
+                                                                    u"\u6c49\u8bed\u62fc\u97f3\u8bcd\u5178", None))
+        self.tabs.setTabText(self.tabs.indexOf(self.other_tools), QCoreApplication.translate("MainWindow",
+                                                                                             u"\u5176\u4ed6\
+                                                                                             \u5de5\u5177", None))
         self.file_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u6587\u4ef6", None))
         self.settings_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u8bbe\u7f6e", None))
         self.help_menu.setTitle(QCoreApplication.translate("MainWindow", u"\u5e2e\u52a9", None))
     # retranslateUi
-

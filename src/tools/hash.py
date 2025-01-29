@@ -20,44 +20,44 @@ with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file
     ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
 
 
-def get_file_md5(fname):
+def get_file_md5(file_name):
     m = hashlib.md5()  # 创建md5对象
-    with open(fname, 'rb') as fobj:
+    with open(file_name, 'rb') as file_object:
         while True:
-            data = fobj.read(4096)
+            data = file_object.read(4096)
             if not data:
                 break
             m.update(data)  # 更新md5对象
     return m.hexdigest()  # 返回md5对象
 
 
-def get_file_sha256(fname):
+def get_file_sha256(file_name):
     m = hashlib.sha256()  # 创建sha256对象
-    with open(fname, 'rb') as fobj:
+    with open(file_name, 'rb') as file_object:
         while True:
-            data = fobj.read(4096)
+            data = file_object.read(4096)
             if not data:
                 break
             m.update(data)  # 更新sha256对象
     return m.hexdigest()  # 返回sha256对象
 
 
-def get_file_sha1(fname):
+def get_file_sha1(file_name):
     m = hashlib.sha1()  # 创建sha1对象
-    with open(fname, 'rb') as fobj:
+    with open(file_name, 'rb') as file_object:
         while True:
-            data = fobj.read(4096)
+            data = file_object.read(4096)
             if not data:
                 break
             m.update(data)  # 更新sha1对象
     return m.hexdigest()  # 返回sha1对象
 
 
-def get_file_sha224(fname):
+def get_file_sha224(file_name):
     m = hashlib.sha224()  # 创建sha224对象
-    with open(fname, 'rb') as fobj:
+    with open(file_name, 'rb') as file_object:
         while True:
-            data = fobj.read(4096)
+            data = file_object.read(4096)
             if not data:
                 break
             m.update(data)  # 更新sha224对象

@@ -3,11 +3,10 @@ from tkinter import filedialog as fdg
 import ttkbootstrap as ttk
 from PIL import Image
 import os
+import json
 
 os.chdir(os.path.dirname(__file__))
 # Change the working directory to the current file's directory
-
-import json
 
 with open("../../data/settings.json", "r") as settings:
     settings = settings.read()
@@ -47,7 +46,8 @@ class App(ttk.Window):
 
     def open_file(self):
         file_path = fdg.askopenfilename(
-            filetypes=[file_types["images"]["jpg"], file_types["images"]["png"], file_types["images"]["bmp"], file_types["images"]["gif"]])
+            filetypes=[file_types["images"]["jpg"], file_types["images"]["png"], file_types["images"]["bmp"],
+                       file_types["images"]["gif"]])
         if file_path:
             self.image_path.set(file_path)
 
@@ -57,7 +57,8 @@ class App(ttk.Window):
             return
         image = Image.open(self.image_path.get())
         output = fdg.asksaveasfilename(
-            defaultextension=".jpg", filetypes=[file_types["images"]["jpg"], file_types["images"]["png"], file_types["images"]["bmp"], file_types["images"]["gif"]])
+            defaultextension=".jpg", filetypes=[file_types["images"]["jpg"], file_types["images"]["png"],
+                                                file_types["images"]["bmp"], file_types["images"]["gif"]])
         if output:
             image.save(output)
             msgbox.showinfo(ui_src["info"], ui["complete"])

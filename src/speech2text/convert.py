@@ -5,10 +5,10 @@ import vosk
 import soundfile
 import wave
 import os
+import json
+
 os.chdir(os.path.dirname(__file__))
 # Change working directory to the directory of this file
-
-import json
 
 with open("../../data/languages/zh-cn.json", "r", encoding="utf-8") as ui_src_file:
     ui_src_file = ui_src_file.read()

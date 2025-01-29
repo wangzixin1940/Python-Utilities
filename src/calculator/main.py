@@ -1,5 +1,17 @@
+import math
+import sys
+
+from PySide6 import QtWidgets
+from PySide6.QtWidgets import QApplication, QMessageBox, QStyleFactory
+from PySide6.QtGui import QIcon
+from PySide6.QtCore import QTranslator
+from ui.calc import Ui_MainWindow
+
+import traceback
+
 import os
 import json
+
 os.chdir(os.path.dirname(__file__))
 # Change the current working directory to the directory of the script
 
@@ -13,18 +25,6 @@ with open("../../" + settings["language"], "r", encoding="utf-8") as ui_src_file
     file_types = json.loads(ui_src_file)["filetypes"]  # type: dict[str: list[str]]
     ui = json.loads(ui_src_file)["externals"]["calculator"]  # type: dict[str: str]
     ui_src = json.loads(ui_src_file)  # type: dict[str: dict]
-
-
-import math
-import sys
-
-from PySide6 import QtWidgets
-from PySide6.QtWidgets import QApplication, QMessageBox, QStyleFactory
-from PySide6.QtGui import QIcon
-from PySide6.QtCore import QTranslator
-from ui.calc import Ui_MainWindow
-
-import traceback
 
 
 class App(QtWidgets.QMainWindow, Ui_MainWindow):
@@ -87,10 +87,12 @@ class App(QtWidgets.QMainWindow, Ui_MainWindow):
                         self.data = []
                         self.result.display(0)
                     except ValueError:
-                        QMessageBox.critical(self, ui_src["error"], ui["overflowError"].format(max=str(sys.get_int_max_str_digits()) + "**10 - 1"))
+                        QMessageBox.critical(self, ui_src["error"],
+                                             ui["overflowError"].format(
+                                                 max=str(sys.get_int_max_str_digits()) + "**10 - 1"))
                         self.data = []
                         self.result.display(0)
-                    except Exception as err:
+                    except:
                         QMessageBox.critical(self, ui_src["error"], traceback.format_exc())
                         self.data = []
                         self.result.display(0)
@@ -118,6 +120,7 @@ class App(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.data.append(text)
             self.result.display(self.data[-1])
             self.previous_type = "number"
+
 
 if __name__ == "__main__":
     app = QApplication.instance()

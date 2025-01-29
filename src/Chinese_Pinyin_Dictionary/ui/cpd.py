@@ -1,22 +1,18 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'cpd.ui'
-##
-## Created by: Qt User Interface Compiler version 6.8.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
+# Form generated from reading UI file 'cpd.ui'
+#
+# Created by: Qt User Interface Compiler version 6.8.0
+#
+# WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGroupBox, QLabel, QLineEdit,
-    QMainWindow, QPushButton, QSizePolicy, QWidget)
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect)
+from PySide6.QtGui import (QFont)
+from PySide6.QtWidgets import (QGroupBox, QLabel, QLineEdit,
+                               QPushButton, QWidget)
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -70,13 +66,16 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
 
         QMetaObject.connectSlotsByName(MainWindow)
+
     # setupUi
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u6c49\u8bed\u62fc\u97f3\u5b57\u5178", None))
+        MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u6c49\u8bed\u62fc\u97f3\u5b57\u5178",
+                                                             None))
         self.title.setText(QCoreApplication.translate("MainWindow", u"\u6c49\u8bed\u62fc\u97f3\u5b57\u5178", None))
         self.inputLabel.setText(QCoreApplication.translate("MainWindow", u"\u8bf7\u8f93\u5165\u4e00\u4e2a\n"
-"\u6216\u591a\u4e2a\u6c49\u5b57\uff1a", None))
+                                                                         "\u6216\u591a\u4e2a\u6c49\u5b57"
+                                                                         "\uff1a", None))
         self.queryButton.setText(QCoreApplication.translate("MainWindow", u"\u67e5\u8be2", None))
         self.results.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c\uff1a", None))
         self.pinyinLabel.setText(QCoreApplication.translate("MainWindow", u"\u62fc\u97f3\uff1a", None))
@@ -84,4 +83,3 @@ class Ui_MainWindow(object):
         self.resultPinyin.setText(QCoreApplication.translate("MainWindow", u"\u672a\u77e5", None))
         self.resultZhuyin.setText(QCoreApplication.translate("MainWindow", u"\u672a\u77e5", None))
     # retranslateUi
-

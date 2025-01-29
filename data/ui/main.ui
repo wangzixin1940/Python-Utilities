@@ -246,7 +246,7 @@
         <string>获取IP</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="get_doamin">
+      <widget class="QPushButton" name="get_domain">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -285,7 +285,7 @@
         <string>生成二维码</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="reslove_qr">
+      <widget class="QPushButton" name="resolve_qr">
        <property name="geometry">
         <rect>
          <x>10</x>

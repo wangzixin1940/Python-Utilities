@@ -131,7 +131,8 @@ class App(ttk.Window):
         self.todo_list_view = Listbox(self.todo_list_frame, height=28, width=30)
         self.todo_list_view.grid(columnspan=2, rowspan=3)
         # To-do list view
-        self.add_todo = ttk.Button(self.todo_list_frame, text=ui["add"], command=self.add_todo, width=15, bootstyle="success-outline")
+        self.add_todo = ttk.Button(self.todo_list_frame, text=ui["add"], command=self.add_todo, width=15,
+                                   bootstyle="success-outline")
         self.add_todo.grid(columnspan=2, row=5)
         # Add a to-do button
         self.todo_view_frame = ttk.LabelFrame(self, text=ui["content"])
@@ -140,10 +141,12 @@ class App(ttk.Window):
         self.todo_view = ttk.ScrolledText(self.todo_view_frame, height=35, width=75, state="disabled")
         self.todo_view.grid(columnspan=2, row=0)
         # To-do content view
-        self.remove_button = ttk.Button(self.todo_view_frame, text=ui["delete"], width=15, bootstyle="danger-outline", command=self.remove_todo)
+        self.remove_button = ttk.Button(self.todo_view_frame, text=ui["delete"], width=15, bootstyle="danger-outline",
+                                        command=self.remove_todo)
         self.remove_button.grid(column=0, row=1)
         # Delete the To-Do button
-        self.change_button = ttk.Button(self.todo_view_frame, text=ui["modify"], width=15, bootstyle="primary-outline", command=self.change_todo)
+        self.change_button = ttk.Button(self.todo_view_frame, text=ui["modify"], width=15, bootstyle="primary-outline",
+                                        command=self.change_todo)
         self.change_button.grid(column=1, row=1)
         # Modify the To-Do button
         self.bind("<<ListboxSelect>>", self.selection_changed)
@@ -177,8 +180,10 @@ class App(ttk.Window):
         input_text = ttk.ScrolledText(input_tk, state="normal", width=40, height=20)
         input_text.grid(rowspan=2, columnspan=2)
         # Entry
-        add_button = ttk.Button(input_tk, text=ui["inputs"]["confirm"], width=10, bootstyle="success-outline", command=add)
-        remove_button = ttk.Button(input_tk, text=ui["inputs"]["cancel"], width=10, bootstyle="danger_outline", command=input_tk.destroy)
+        add_button = ttk.Button(input_tk, text=ui["inputs"]["confirm"], width=10, bootstyle="success-outline",
+                                command=add)
+        remove_button = ttk.Button(input_tk, text=ui["inputs"]["cancel"], width=10, bootstyle="danger_outline",
+                                   command=input_tk.destroy)
         add_button.grid(row=3, column=0)
         remove_button.grid(row=3, column=1)
         input_tk.mainloop()
@@ -207,8 +212,10 @@ class App(ttk.Window):
         input_text = ttk.ScrolledText(input_tk, state="normal", width=40, height=20)
         input_text.grid(rowspan=2, columnspan=2)
         # Entry
-        modify_button = ttk.Button(input_tk, text=ui["inputs"]["confirm"], width=10, bootstyle="success-outline", command=change)
-        cancel_button = ttk.Button(input_tk, text=ui["inputs"]["cancel"], width=10, bootstyle="danger_outline", command=input_tk.destroy)
+        modify_button = ttk.Button(input_tk, text=ui["inputs"]["confirm"], width=10, bootstyle="success-outline",
+                                   command=change)
+        cancel_button = ttk.Button(input_tk, text=ui["inputs"]["cancel"], width=10, bootstyle="danger_outline",
+                                   command=input_tk.destroy)
         modify_button.grid(row=3, column=0)
         cancel_button.grid(row=3, column=1)
         input_tk.mainloop()

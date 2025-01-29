@@ -1,10 +1,11 @@
+import datetime
 import logging
+import os
+
+import nltk
 import ttkbootstrap as ttk
 from textblob import TextBlob
-import warnings
-import nltk
-import datetime
-import os
+
 os.chdir(os.path.dirname(__file__))
 # Change the current directory to the directory of the script
 

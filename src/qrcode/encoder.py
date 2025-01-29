@@ -11,7 +11,9 @@ from PySide6.QtGui import QIcon
 from PySide6.QtCore import QTranslator
 from ui.generator import Ui_MainWindow
 
+# noinspection PyUnresolvedReferences
 from qrcode.image.styles.moduledrawers import *
+# noinspection PyUnresolvedReferences
 from qrcode.image.styles.colormasks import *
 
 import traceback

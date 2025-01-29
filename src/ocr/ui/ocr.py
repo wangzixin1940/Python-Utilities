@@ -1,22 +1,17 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ocr.ui'
-##
-## Created by: Qt User Interface Compiler version 6.8.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
+# Form generated from reading UI file 'ocr.ui'
+#
+# Created by: Qt User Interface Compiler version 6.8.0
+#
+# WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QGroupBox, QLabel, QMainWindow,
-    QPushButton, QSizePolicy, QTextBrowser, QWidget)
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect)
+from PySide6.QtGui import (QFont)
+from PySide6.QtWidgets import (QGroupBox, QLabel, QPushButton, QTextBrowser, QWidget)
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -54,8 +49,9 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"\u6587\u5b57\u8bc6\u522b\u5668", None))
         self.title.setText(QCoreApplication.translate("MainWindow", u"\u6587\u5b57\u8bc6\u522b\u5668", None))
-        self.choosePictureButton.setText(QCoreApplication.translate("MainWindow", u"\u9009\u62e9\u7167\u7247\u6216\u62cd\u7167", None))
+        self.choosePictureButton.setText(QCoreApplication.translate("MainWindow",
+                                                                    u"\u9009\u62e9\u7167\u7247\u6216\u62cd\u7167",
+                                                                    None))
         self.identifyButton.setText(QCoreApplication.translate("MainWindow", u"\u8bc6\u522b", None))
         self.resultDisplayBox.setTitle(QCoreApplication.translate("MainWindow", u"\u7ed3\u679c", None))
     # retranslateUi
-

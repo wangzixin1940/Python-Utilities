@@ -127,7 +127,9 @@ class App(QtWidgets.QMainWindow, Ui_MainWindow):
                 self.year = self.yearEdit_3.text()
                 self.project_intro = self.projectIntroEdit.text()
                 self.project_name = self.projectNameEdit.text()
-                self.licence_text = LicenceCreator("gpl", {"name": self.name, "year": self.year, "usage": self.project_intro, "project_name": self.project_name}).licence
+                self.licence_text = LicenceCreator("gpl", {"name": self.name, "year": self.year,
+                                                           "usage": self.project_intro,
+                                                           "project_name": self.project_name}).licence
             case 3:  # ISC
                 self.name = self.nameEdit_4.text()
                 self.year = self.yearEdit_4.text()
