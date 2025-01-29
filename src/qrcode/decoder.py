@@ -1,58 +1,72 @@
 from PIL import Image
 import pyzbar.pyzbar as pyzbar
-
-import json
-import logging
-import datetime
-
 import io
 import sys
 import os
+import json
+
+from PySide6 import QtWidgets
+from PySide6.QtWidgets import QApplication, QStyleFactory, QFileDialog, QMessageBox
+from PySide6.QtGui import QIcon
+from PySide6.QtCore import QTranslator
+from ui.decoder import Ui_MainWindow
 
 os.chdir(os.path.dirname(__file__))
 # Replace the working directory
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
+# Change the encoding of the console output
 
 with open("../../data/settings.json", "r") as settings:
     settings = settings.read()
     settings = json.loads(settings)
     # Read the settings file
 
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding=settings["encoding"])
-# Change the encoding of the console output
+
+def decodeQRcode(image: str):
+    """
+    QR code decoding
+    Args:
+        image: QR code image path
+    Returns:
+        QR code content
+    """
+    result = pyzbar.decode(Image.open(image), symbols=[pyzbar.ZBarSymbol.QRCODE])  # Parsing QR codes
+    return result[0].data.decode("utf-8")
 
 
-class Decoder():
+class App(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
-        if not (settings["no-log-file"]):
-            logging.basicConfig(
-                filename=f"../../logs/{datetime.date.today()}.log",
-                level=logging.INFO,
-                format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-                datefmt="%Y-%m-%d %H:%M:%S",
-            )
-        else:
-            logging.basicConfig(
-                level=logging.INFO,
-                format="%(asctime)s - %(name)s - %(levelname)s - NO-LOG-FILE - %(message)s",
-                datefmt="%Y-%m-%d %H:%M:%S",
-            )
-        self.logger = logging.getLogger("QRCODE-DECODER")
-        # Configure the logger
-        self.logger.info("The configuration is done.")
+        super().__init__()
+        self.setupUi(self)
+        # Connect the buttons to the functions
+        self.choosePictureButton.clicked.connect(self.choose_picture)
+        self.decodeButton.clicked.connect(self.decode)
+        self.filePath = ""
 
-    def decodeQRcode(self, image: str):
-        """
-        QR code decoding
-        Args:
-            image: QR code image path
-        Returns:
-            QR code content
-        """
-        result = pyzbar.decode(
-            Image.open(image), symbols=[
-                pyzbar.ZBarSymbol.QRCODE])  # Parsing QR codes
-        """                          ↑↑↑
-        The above code comes from: https://blog.csdn.net/smallfox233/article/details/119408399
-        """
-        self.logger.info(f"Decode was successful.")
-        return result[0].data.decode("utf-8")
+    def choose_picture(self):
+        self.filePath = QFileDialog.getOpenFileName(self, "Select a QR code", "", "Image(*.png)")[0]
+        if self.filePath:
+            self.choosePictureButton.setText(self.filePath)
+
+    def decode(self):
+        if self.filePath != "":
+            self.text = decodeQRcode(self.filePath)
+            self.resultDisplay.setText(self.text)
+        else:
+            QMessageBox.critical(self, "Error", "Please select a QR code first.")
+
+
+if __name__ == "__main__":
+    app = QApplication.instance()
+    if app is None:
+        app = QApplication(sys.argv)
+    app.setStyle(QStyleFactory.create("Fusion"))
+    translator = QTranslator()
+    if (translator.load(settings["qt_language"], directory="../../data/ui/i18n")):
+        app.installTranslator(translator)
+    window = App()
+    window.setWindowIcon(QIcon("./image/favicon.ico"))
+    window.setFixedSize(window.size())
+    window.show()
+    sys.exit(app.exec())

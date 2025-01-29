@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>347</width>
+    <height>386</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>二维码生成器</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="title">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>10</y>
+      <width>131</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>STZhongsong</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>二维码生成器</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="inputBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>331</width>
+      <height>171</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>输入文本</string>
+    </property>
+    <widget class="QPlainTextEdit" name="textEdit">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>311</width>
+       <height>141</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="settingsBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>220</y>
+      <width>331</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>设置</string>
+    </property>
+    <widget class="QLabel" name="drawerChooseLabel">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>81</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>选择Drawer：</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="drawerChooseBox">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>20</y>
+       <width>201</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>CircleModuleDrawer</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>GappedSquareModuleDrawer</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>HorizontalBarsDrawer</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>RoundedModuleDrawer</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SquareModuleDrawer</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>VerticalBarsDrawer</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QLabel" name="colorMaskChooseLabel">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>50</y>
+       <width>91</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>选择ColorMask：</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="colorMaskChooseBox">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>50</y>
+       <width>201</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>SolidFillColorMask</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>RadialGradiantColorMask</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>SquareGradiantColorMask</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>HorizontalGradiantColorMask</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>VerticalGradiantColorMask</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QPushButton" name="pictureChooseButton">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>80</y>
+       <width>291</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>选择照片（可选）</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="generateButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>350</y>
+      <width>331</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>生成</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
