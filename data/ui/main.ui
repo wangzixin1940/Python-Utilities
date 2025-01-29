@@ -164,6 +164,19 @@
        <string>文字识别器</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="photo_format_converter">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>190</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>照片转换器</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="other_tools">
      <attribute name="title">

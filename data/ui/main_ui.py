@@ -75,6 +75,9 @@ class Ui_MainWindow(object):
         self.ocr_app = QPushButton(self.common_use)
         self.ocr_app.setObjectName(u"ocr_app")
         self.ocr_app.setGeometry(QRect(210, 130, 171, 41))
+        self.photo_format_converter = QPushButton(self.common_use)
+        self.photo_format_converter.setObjectName(u"photo_format_converter")
+        self.photo_format_converter.setGeometry(QRect(10, 190, 171, 41))
         self.tabs.addTab(self.common_use, "")
         self.other_tools = QWidget()
         self.other_tools.setObjectName(u"other_tools")
@@ -176,6 +179,8 @@ class Ui_MainWindow(object):
         self.easy_to_do.setText(QCoreApplication.translate("MainWindow", u"Easy To Do", None))
         self.password_creator.setText(QCoreApplication.translate("MainWindow", u"\u5bc6\u7801\u751f\u6210\u5668", None))
         self.ocr_app.setText(QCoreApplication.translate("MainWindow", u"\u6587\u5b57\u8bc6\u522b\u5668", None))
+        self.photo_format_converter.setText(QCoreApplication.translate("MainWindow", u"\u7167\u7247\u8f6c\u6362\u5668",
+                                                                       None))
         self.tabs.setTabText(self.tabs.indexOf(self.common_use), QCoreApplication.translate("MainWindow",
                                                                                             u"\u5e38\u7528\u5de5\u5177",
                                                                                             None))

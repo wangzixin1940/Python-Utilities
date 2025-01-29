@@ -149,7 +149,7 @@
                 },
                 "asciiArt": "字符画",
                 "bingPicture": "必应每日一图",
-                "pictureConvertor": "照片格式转换",
+                "pictureConverter": "照片格式转换",
                 "amk": "脚本操作鼠标和键盘",
                 "captcha": "验证码生成器(Beta)",
                 "clock": "时钟",
