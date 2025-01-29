@@ -1,40 +1,22 @@
-import datetime
 import io
 import json
-import logging
 import os
 import random
-import re
 import sys
-from tkinter import messagebox as msgbox
+
+from PySide6 import QtWidgets
+from PySide6.QtWidgets import QApplication, QStyleFactory, QMessageBox
+from PySide6.QtGui import QIcon
+from PySide6.QtCore import QTranslator
+from ui.pc import Ui_MainWindow
 
 import pyperclip as cb
-import ttkbootstrap as ttk
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf8')
 # Change the encoding of the console output to utf-8
 
 os.chdir(os.path.dirname(__file__))
 # Change the current working directory to the directory of the script
-
-
-with open("../../data/settings.json", "r", encoding="utf-8") as f:
-    settings = json.load(f)
-
-if not (settings["no-log-file"]):
-    logging.basicConfig(
-        filename=f"../../logs/{datetime.date.today()}.log",
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
-else:
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - NO-LOG-FILE - %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
-logger = logging.getLogger("PASSWORD_CREATOR")
 
 with open("../../data/settings.json", "r") as settings:
     settings = settings.read()
@@ -68,7 +50,7 @@ def passwordCreator(
         "lowers": "abcdefghijklmnopqrstuvwxyz",
         "uppers": "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
         "numbers": "0123456789",
-        "symbols": r"!\"#$%&'()*+,-./:;<=>?@[]^_{|}~"
+        "symbols": "!#$%&*+-?@^_|~"
     }
     if not includeSymbols:
         del chars["symbols"]
@@ -86,100 +68,46 @@ def passwordCreator(
             # Add to the password string
             password += char
         return password
-    except KeyError as err:
-        logger.error(f"Key Error: {err}")
+    except Exception:
         return 1
-    except Exception as err:
-        logger.error(f"Error: {err}")
-        raise err
 
 
-class App(ttk.Window):
-
-    @staticmethod
-    def strengthCheck(password: str):
-        if (len(password) < 8):
-            return 1
-        else:
-            if (not re.search("[A-Z]", password)):
-                return 2
-            else:
-                if (not re.search("[^a-zA-Z0-9]", password)):
-                    return 3
-                else:
-                    return 4
-
-    def copyToClipboard(self):
-        if self.password.get("1.0", "end") == "":
-            msgbox.showerror("Error", "No password to copy!")
-            return 1
-        cb.copy(str(self.password.get("1.0", "end")))
-        msgbox.showinfo(ui["copied"], ui["completeInformation"])
-        return 0
-
-    def changeValue(self):
-        self.password.config(state="normal")
-        self.password.delete("1.0", "end")
-        self.password.insert(
-            "1.0",
-            passwordCreator(
-                self.length.get(),
-                self.includeSymbols.get(),
-                self.includeNumbers.get(),
-                self.includeUppercase.get()))
-        self.password.config(state="disabled")
-        strength = ui["strength"]
-        self.strengthTips["text"] = (ui["passwordStrength"]
-                                     + strength[self.strengthCheck(str(self.password.get("1.0", "end")))])
-
+class App(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        self.title(ui["title"])
-        self.style_set = ttk.Style(theme="cosmo")
-        self.geometry("400x550")
-        self.resizable(False, False)
-        # self.iconbitmap("./assets/favicon.ico")
-        self.title(ui["title"])
-        self.main_title = ttk.Label(self, text=ui["title"], font=("Arial", 20))
-        self.main_title.pack(pady=10)
-        self.length = ttk.Spinbox(self, from_=4, to=32, width=10)
-        self.length.set(10)
-        self.length.pack(pady=5)
-        self.includeSymbols = ttk.BooleanVar(value=True)
-        self.includeNumbers = ttk.BooleanVar(value=True)
-        self.includeUppercase = ttk.BooleanVar(value=True)
-        self.includeLowercase = ttk.BooleanVar(value=True)
-        self.symbols = ttk.Checkbutton(self, text=ui["includes"]["symbols"], variable=self.includeSymbols)
-        self.numbers = ttk.Checkbutton(self, text=ui["includes"]["numbers"], variable=self.includeNumbers)
-        self.uppercase = ttk.Checkbutton(self, text=ui["includes"]["uppers"], variable=self.includeUppercase)
-        self.lowercase = ttk.Checkbutton(
-            self,
-            text=ui["includes"]["lowers"],
-            variable=self.includeLowercase,
-            state="disabled")
-        self.symbols.pack(pady=5)
-        self.numbers.pack(pady=5)
-        self.uppercase.pack(pady=5)
-        self.lowercase.pack(pady=5)
-        self.generate = ttk.Button(
-            self,
-            text=ui["create"],
-            command=lambda: self.changeValue(),
-            bootstyle="success-outline")
-        self.generate.pack(pady=10)
-        self.password = ttk.Text(self, width=30, height=5)
-        self.password.config(state="disabled")
-        self.password.pack(pady=10)
-        self.strengthTips = ttk.Label(self, text=ui["passwordStrength"]+ui["unknown"])
-        self.strengthTips.pack(pady=5)
-        self.copy_button = ttk.Button(
-            self,
-            text=ui["copy"],
-            command=lambda: self.copyToClipboard(),
-            bootstyle="outline-primary")
-        self.copy_button.pack(pady=5)
-        self.mainloop()
+        self.setupUi(self)
+        # Connect the buttons to the functions
+        self.generateButton.clicked.connect(self.generate)
+        self.copyButton.clicked.connect(self.copy)
+
+    def copy(self):
+        if self.passwordDisplay.text() == "":
+            QMessageBox.critical(self, "Error", "No password to copy!")
+        else:
+            cb.copy(self.passwordDisplay.text())
+            QMessageBox.information(self, ui["copied"], ui["completeInformation"])
+
+    def generate(self):
+        self.length = self.digitsInput.value()
+        self.includeUppersChoice = self.includeUppers.isChecked()
+        self.includeNumbersChoice = self.includeNumbers.isChecked()
+        self.includeSymbolsChoice = self.includeSymbols.isChecked()
+        self.password = passwordCreator(
+            self.length, self.includeSymbolsChoice, self.includeNumbersChoice, self.includeUppersChoice
+        )
+        self.passwordDisplay.setText(self.password)
 
 
 if __name__ == "__main__":
-    App()
+    app = QApplication.instance()
+    if app is None:
+        app = QApplication(sys.argv)
+    app.setStyle(QStyleFactory.create("Fusion"))
+    translator = QTranslator()
+    if (translator.load(settings["qt_language"], directory="../../data/ui/i18n")):
+        app.installTranslator(translator)
+    window = App()
+    window.setWindowIcon(QIcon("./assets/icon.ico"))
+    window.setFixedSize(window.size())
+    window.show()
+    sys.exit(app.exec())

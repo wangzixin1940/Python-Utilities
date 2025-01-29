@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>309</width>
+    <width>401</width>
     <height>553</height>
    </rect>
   </property>
@@ -48,7 +48,7 @@
    <widget class="QLabel" name="news">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>270</x>
       <y>0</y>
       <width>131</width>
       <height>21</height>
@@ -75,7 +75,7 @@
      <rect>
       <x>0</x>
       <y>50</y>
-      <width>311</width>
+      <width>401</width>
       <height>481</height>
      </rect>
     </property>
@@ -91,7 +91,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>131</width>
+        <width>171</width>
         <height>41</height>
        </rect>
       </property>
@@ -102,9 +102,9 @@
      <widget class="QPushButton" name="weather_report">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>210</x>
         <y>10</y>
-        <width>131</width>
+        <width>171</width>
         <height>41</height>
        </rect>
       </property>
@@ -116,8 +116,8 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>60</y>
-        <width>131</width>
+        <y>70</y>
+        <width>171</width>
         <height>41</height>
        </rect>
       </property>
@@ -128,9 +128,9 @@
      <widget class="QPushButton" name="easy_to_do">
       <property name="geometry">
        <rect>
-        <x>170</x>
-        <y>60</y>
-        <width>131</width>
+        <x>210</x>
+        <y>70</y>
+        <width>171</width>
         <height>41</height>
        </rect>
       </property>
@@ -142,8 +142,8 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>110</y>
-        <width>131</width>
+        <y>130</y>
+        <width>171</width>
         <height>41</height>
        </rect>
       </property>
@@ -154,9 +154,9 @@
      <widget class="QPushButton" name="ocr_app">
       <property name="geometry">
        <rect>
-        <x>170</x>
-        <y>110</y>
-        <width>131</width>
+        <x>210</x>
+        <y>130</y>
+        <width>171</width>
         <height>41</height>
        </rect>
       </property>
@@ -174,7 +174,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>121</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -187,7 +187,7 @@
        <rect>
         <x>10</x>
         <y>50</y>
-        <width>121</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -200,7 +200,7 @@
        <rect>
         <x>10</x>
         <y>90</y>
-        <width>121</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -213,7 +213,7 @@
        <rect>
         <x>10</x>
         <y>130</y>
-        <width>121</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -226,7 +226,7 @@
        <rect>
         <x>10</x>
         <y>300</y>
-        <width>121</width>
+        <width>151</width>
         <height>131</height>
        </rect>
       </property>
@@ -238,7 +238,7 @@
         <rect>
          <x>10</x>
          <y>50</y>
-         <width>101</width>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
@@ -251,7 +251,7 @@
         <rect>
          <x>10</x>
          <y>90</y>
-         <width>101</width>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
@@ -263,10 +263,10 @@
      <widget class="QGroupBox" name="qrcode_group">
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>210</x>
         <y>250</y>
-        <width>141</width>
-        <height>131</height>
+        <width>171</width>
+        <height>181</height>
        </rect>
       </property>
       <property name="title">
@@ -277,7 +277,7 @@
         <rect>
          <x>10</x>
          <y>50</y>
-         <width>121</width>
+         <width>151</width>
          <height>31</height>
         </rect>
        </property>
@@ -290,7 +290,7 @@
         <rect>
          <x>10</x>
          <y>90</y>
-         <width>121</width>
+         <width>151</width>
          <height>31</height>
         </rect>
        </property>
@@ -302,9 +302,9 @@
      <widget class="QGroupBox" name="file_group">
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>210</x>
         <y>10</y>
-        <width>141</width>
+        <width>171</width>
         <height>221</height>
        </rect>
       </property>
@@ -316,7 +316,7 @@
         <rect>
          <x>10</x>
          <y>50</y>
-         <width>121</width>
+         <width>151</width>
          <height>31</height>
         </rect>
        </property>
@@ -329,7 +329,7 @@
         <rect>
          <x>10</x>
          <y>90</y>
-         <width>121</width>
+         <width>151</width>
          <height>31</height>
         </rect>
        </property>
@@ -342,7 +342,7 @@
         <rect>
          <x>10</x>
          <y>140</y>
-         <width>121</width>
+         <width>151</width>
          <height>31</height>
         </rect>
        </property>
@@ -355,7 +355,7 @@
         <rect>
          <x>10</x>
          <y>180</y>
-         <width>121</width>
+         <width>151</width>
          <height>31</height>
         </rect>
        </property>
@@ -369,7 +369,7 @@
        <rect>
         <x>10</x>
         <y>170</y>
-        <width>121</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -382,7 +382,7 @@
        <rect>
         <x>10</x>
         <y>210</y>
-        <width>121</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -395,7 +395,7 @@
        <rect>
         <x>10</x>
         <y>250</y>
-        <width>121</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -411,7 +411,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>309</width>
+     <width>401</width>
      <height>20</height>
     </rect>
    </property>
