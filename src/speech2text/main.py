@@ -1,3 +1,4 @@
+# TODO: 改为QT架构
 import ttkbootstrap as ttk
 from tkinter import filedialog as fdg
 from tkinter import messagebox as msgbox
