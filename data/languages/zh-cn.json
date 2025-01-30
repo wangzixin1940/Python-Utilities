@@ -418,8 +418,8 @@
             "infos": {
                 "complete": "查询成功！",
                 "weather": "{city}的天气：",
-                "forecast_for_tomorrow": "明天预测：{tomorrow}",
-                "forecast_for_day_after_tomorrow": "后天预测：{dat}",
+                "forecastForDay2": "明天预测：{tomorrow}",
+                "forecastForDay3": "后天预测：{dat}",
                 "forecastForDay4": "{day4}预测：{day4f}",
                 "forecastForDay5": "{day5}预测：{day5f}",
                 "forecastForDay6": "{day6}预测：{day6f}",

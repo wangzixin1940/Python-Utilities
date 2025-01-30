@@ -418,8 +418,8 @@
             "infos": {
                 "complete": "Query successful!",
                 "weather": "Weather in {city}: ",
-                "forecast_for_tomorrow": "Tomorrow's Prediction: {tomorrow}",
-                "forecast_for_day_after_tomorrow": "Day after tomorrow's Prediction: {dat}",
+                "forecastForDay2": "Tomorrow's Prediction: {tomorrow}",
+                "forecastForDay3": "The day after tomorrow's Prediction: {dat}",
                 "forecastForDay4": "{day4} prediction: {day4f}",
                 "forecastForDay5": "{day5} Prediction: {day5f}",
                 "forecastForDay6": "{day6} prediction: {day6f}",
