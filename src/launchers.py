@@ -53,7 +53,7 @@ if (translator.load(settings["qt_language"], directory="./data/ui/i18n")):
 
 
 class DevTools:
-    def webConnectTest(url: str):
+    def webConnectTest(url: str):  # TODO: 添加功能到主UI
         """
         Test if the website is accessible
         Args:
@@ -141,9 +141,10 @@ class DevTools:
         try:
             with open(json_file_path, "r", encoding="utf-8") as json_file:
                 json_data = json.load(json_file)
-                xml_data = str(dicttoxml.dicttoxml(json_data))
+                xml_data = str(eval(dicttoxml.dicttoxml(json_data)))
                 with open(xml_file_path, "w", encoding="utf-8") as xml_file:
                     xml_file.write(xml_data)
+                    QMessageBox.information(None, "Success", "Converted successfully!")
                     return 0
         except FileNotFoundError:
             logger.error("JSON file not found: {}".format(json_file_path))
@@ -174,6 +175,7 @@ class DevTools:
                     xml_data), ensure_ascii=False)
                 with open(json_file_path, "w", encoding="utf-8") as json_file:
                     json_file.write(json_data)
+                    QMessageBox.information(None, "Success", "Converted successfully!")
                     return 0
         except FileNotFoundError:
             logger.error("JSON file not found: {}".format(json_file_path))
@@ -206,6 +208,7 @@ class DevTools:
                 with open(json_file_path, "w", encoding="utf-8") as json_file:
                     json_file.write(json.dumps(
                         json_data, ensure_ascii=False, indent=4))
+                    QMessageBox.information(None, "Success", "Converted successfully!")
                     return 0
         except FileNotFoundError:
             logger.error("JSON file not found: {}".format(json_file_path))
@@ -237,6 +240,7 @@ class DevTools:
                     csv_data.append(f"{key},{json_data[key]}\n")
                 with open(csv_file_path, "w", encoding="utf-8") as csv_file:
                     csv_file.writelines(csv_data)
+                    QMessageBox.information(None, "Success", "Converted successfully!")
                     return 0
         except FileNotFoundError:
             logger.error("JSON file not found: {}".format(json_file_path))
@@ -276,7 +280,7 @@ class DevTools:
         except socket.error as err:
             return repr(err)
 
-    class FileDiffTools:
+    class FileDiffTools:  # TODO: 添加功能到主UI
         def __init__(self):
             text1 = QFileDialog.getOpenFileName(None, ui["fileDiff"]["chooseFileOne"], "", "File(*.txt *.*)")[0]
             text2 = QFileDialog.getOpenFileName(None, ui["fileDiff"]["chooseFileTwo"], "", "File(*.txt *.*)")[0]
@@ -328,7 +332,7 @@ class DevTools:
 
 
 class ArtTools:
-    def charPicture(filename):
+    def charPicture(filename):  # TODO: 添加功能到主UI
         """
         Convert pictures to ascii art
         Args:
@@ -391,7 +395,7 @@ class ArtTools:
         logger.info(f"Output file:{filename}-char.html")
         QMessageBox.information(None, ui["asciiArt"]["successTitle"], ui["asciiArt"]["successMessage"])
 
-    def bingPicture(filename: str, idx: str = "0", mkt: str = "zh-cn"):
+    def bingPicture(filename: str, idx: str = "0", mkt: str = "zh-cn"):  # TODO: 添加功能到主UI
         """
         Get Bing's Daily Graph
         Args:
@@ -746,3 +750,7 @@ class ExternalLauncher():
     @staticmethod
     def OCRLauncher():
         subprocess.Popen("python ./src/ocr/main.py")
+
+    @staticmethod
+    def chinesePinyinDictionaryLauncher():
+        subprocess.Popen("python ./src/Chinese_Pinyin_Dictionary/main.py")

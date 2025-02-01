@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>401</width>
+    <width>330</width>
     <height>553</height>
    </rect>
   </property>
@@ -26,7 +26,7 @@
    <widget class="QLabel" name="main_title">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>-20</x>
       <y>0</y>
       <width>311</width>
       <height>61</height>
@@ -48,7 +48,7 @@
    <widget class="QLabel" name="news">
     <property name="geometry">
      <rect>
-      <x>270</x>
+      <x>200</x>
       <y>0</y>
       <width>131</width>
       <height>21</height>
@@ -75,7 +75,7 @@
      <rect>
       <x>0</x>
       <y>50</y>
-      <width>401</width>
+      <width>331</width>
       <height>481</height>
      </rect>
     </property>
@@ -91,7 +91,7 @@
        <rect>
         <x>10</x>
         <y>10</y>
-        <width>171</width>
+        <width>141</width>
         <height>41</height>
        </rect>
       </property>
@@ -102,9 +102,9 @@
      <widget class="QPushButton" name="weather_report">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>180</x>
         <y>10</y>
-        <width>171</width>
+        <width>141</width>
         <height>41</height>
        </rect>
       </property>
@@ -117,7 +117,7 @@
        <rect>
         <x>10</x>
         <y>70</y>
-        <width>171</width>
+        <width>141</width>
         <height>41</height>
        </rect>
       </property>
@@ -128,9 +128,9 @@
      <widget class="QPushButton" name="easy_to_do">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>180</x>
         <y>70</y>
-        <width>171</width>
+        <width>141</width>
         <height>41</height>
        </rect>
       </property>
@@ -143,7 +143,7 @@
        <rect>
         <x>10</x>
         <y>130</y>
-        <width>171</width>
+        <width>141</width>
         <height>41</height>
        </rect>
       </property>
@@ -154,9 +154,9 @@
      <widget class="QPushButton" name="ocr_app">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>180</x>
         <y>130</y>
-        <width>171</width>
+        <width>141</width>
         <height>41</height>
        </rect>
       </property>
@@ -169,7 +169,7 @@
        <rect>
         <x>10</x>
         <y>190</y>
-        <width>171</width>
+        <width>141</width>
         <height>41</height>
        </rect>
       </property>
@@ -195,24 +195,11 @@
        <string>计算器</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="hash_checker">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>151</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>校验哈希</string>
-      </property>
-     </widget>
      <widget class="QPushButton" name="licence_creator">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>90</y>
+        <y>50</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -225,7 +212,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>130</y>
+        <y>90</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -238,9 +225,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>300</y>
+        <y>250</y>
         <width>151</width>
-        <height>131</height>
+        <height>101</height>
        </rect>
       </property>
       <property name="title">
@@ -250,7 +237,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>50</y>
+         <y>20</y>
          <width>131</width>
          <height>31</height>
         </rect>
@@ -263,7 +250,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>90</y>
+         <y>60</y>
          <width>131</width>
          <height>31</height>
         </rect>
@@ -276,10 +263,10 @@
      <widget class="QGroupBox" name="qrcode_group">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>250</y>
-        <width>171</width>
-        <height>181</height>
+        <x>170</x>
+        <y>210</y>
+        <width>151</width>
+        <height>101</height>
        </rect>
       </property>
       <property name="title">
@@ -289,8 +276,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>50</y>
-         <width>151</width>
+         <y>20</y>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
@@ -302,8 +289,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>90</y>
-         <width>151</width>
+         <y>60</y>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
@@ -315,10 +302,10 @@
      <widget class="QGroupBox" name="file_group">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>170</x>
         <y>10</y>
-        <width>171</width>
-        <height>221</height>
+        <width>151</width>
+        <height>191</height>
        </rect>
       </property>
       <property name="title">
@@ -328,8 +315,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>50</y>
-         <width>151</width>
+         <y>20</y>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
@@ -341,8 +328,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>90</y>
-         <width>151</width>
+         <y>60</y>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
@@ -354,8 +341,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>140</y>
-         <width>151</width>
+         <y>110</y>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
@@ -367,8 +354,8 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>180</y>
-         <width>151</width>
+         <y>150</y>
+         <width>131</width>
          <height>31</height>
         </rect>
        </property>
@@ -381,7 +368,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>170</y>
+        <y>130</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -394,7 +381,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>210</y>
+        <y>170</y>
         <width>151</width>
         <height>31</height>
        </rect>
@@ -407,13 +394,81 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>250</y>
+        <y>210</y>
         <width>151</width>
         <height>31</height>
        </rect>
       </property>
       <property name="text">
        <string>汉语拼音词典</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="web_connect_test">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>360</y>
+        <width>151</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>网站连接测试</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="file_diff">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>400</y>
+        <width>151</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>文件对比</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="ascii_art">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>360</y>
+        <width>151</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>字符画</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="bings_daily_photo">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>400</y>
+        <width>151</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>必应每日图片</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="COMMINGSOON">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>320</y>
+        <width>151</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>预留位置，敬请期待……</string>
       </property>
      </widget>
     </widget>
@@ -424,7 +479,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>401</width>
+     <width>330</width>
      <height>20</height>
     </rect>
    </property>

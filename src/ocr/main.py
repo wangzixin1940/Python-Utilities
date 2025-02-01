@@ -18,7 +18,7 @@ os.chdir(os.path.dirname(__file__))
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
 # 更换编码
 
-with open("./data/settings.json", "r") as settings:
+with open("../../data/settings.json", "r") as settings:
     settings = settings.read()
     settings = json.loads(settings)
     # Read the settings file

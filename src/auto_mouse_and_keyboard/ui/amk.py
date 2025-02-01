@@ -61,8 +61,8 @@ class Ui_Dialog(object):
         # endif // QT_CONFIG(whatsthis)
         self.title.setText(QCoreApplication.translate("Dialog", u"AMK App", None))
         self.choose_file.setText(QCoreApplication.translate("Dialog",
-                                                            u"\u70b9\u51fb\u8fd9\u4e2a\u6309\u94ae\uff0c\
-                                                            \u9009\u62e9\u60a8\u7684\u5b8f\u6587\u4ef6",
+                                                            u"\u70b9\u51fb\u8fd9\u4e2a\u6309\u94ae\uff0c"
+                                                            u"\u9009\u62e9\u60a8\u7684\u5b8f\u6587\u4ef6",
                                                             None))
         self.run_script.setText(
             QCoreApplication.translate("Dialog", u"\u8fd0\u884c\u60a8\u7684\u5b8f\u6587\u4ef6", None))

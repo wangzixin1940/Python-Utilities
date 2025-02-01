@@ -117,6 +117,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.captcha_generator.clicked.connect(launchers.ExternalLauncher.captchaLauncher)
         self.ui.ocr_app.clicked.connect(launchers.ExternalLauncher.OCRLauncher)
         self.ui.photo_format_converter.clicked.connect(launchers.ExternalLauncher.pictureFormatConverterLauncher)
+        self.ui.chinese_pinyin_dict.clicked.connect(launchers.ExternalLauncher.chinesePinyinDictionaryLauncher)
     
     def choose_language_profile(self):
         language_profile = QtWidgets.QFileDialog.getOpenFileName(self, "Choose Language Profile (JSON)", "",
